@@ -1,0 +1,7 @@
+/x64/
+/.vs
+/WeSp3D/x64
+/WeSp3D/*.dll
+/WeSp3D/*.xpm
+/WeSp3D/Resource/
+/WeSp3D/external/
