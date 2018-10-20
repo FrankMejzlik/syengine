@@ -6,6 +6,7 @@ using namespace WeSp;
 extern void GetGLErrors(const  char* file, unsigned int lineNum);
 
 Shader::Shader():
+  _ul_bIsSkeletonAnimated(0),
   shaderID(0), 
   uniformModel(0), 
   uniformProjection(0), 
@@ -94,7 +95,6 @@ GLuint Shader::GetModelLocation()
 {
   return uniformModel;
 }
-
 
 GLuint Shader::GetViewLocation()
 {
@@ -285,6 +285,9 @@ void Shader::CompileProgram()
   }
 
   // Grab shader uniform variable by it's name (ID)
+
+  _ul_bIsSkeletonAnimated = glGetUniformLocation(shaderID, "bIsSkeletonAnimated");
+
   uniformModel = glGetUniformLocation(shaderID, "model");
   uniformProjection = glGetUniformLocation(shaderID, "projection");
   uniformView = glGetUniformLocation(shaderID, "view");

@@ -28,6 +28,22 @@ class Shader:
 public:
   Shader();
   
+  void SetIsSkeletonAnimated(int newValue)
+  {
+    // Set to skeleton animated model.
+    glUniform1i(_ul_bIsSkeletonAnimated, (GLint)newValue);
+
+    const GLubyte*  stdee;
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR)
+    {
+      // Process/log the error.
+      stdee = gluErrorString(err);
+      printf("ERROR GL: %s", stdee);
+    }
+
+  }
+
   void CreateFromString(const char* vertexCode, const char* fragmentCode);
   void CreateFromFiles(const char* vertexLocation, const char* fragmentLocation);
   void CreateFromFiles(const char* vertexLocation, const char* geometryLocation, const char* fragmentLocation);
@@ -37,6 +53,11 @@ public:
   void Validate();
 
   std::string ReadFile(const char* fileLocation);
+
+  GLuint GetUniformLocation_bIsSkeletonAnimated()
+  {
+    return _ul_bIsSkeletonAnimated;
+  }
 
   GLuint GetProjectionLocation();
   GLuint GetModelLocation();
@@ -71,6 +92,8 @@ public:
 private:
   int pointLightCount;
   int spotLightCount;
+
+  GLuint _ul_bIsSkeletonAnimated;
 
   GLuint shaderID, uniformProjection, uniformModel, uniformView, uniformEyePosition;
   

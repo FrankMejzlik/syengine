@@ -97,13 +97,13 @@ bool Engine::Run()
       glm::vec3(1.0f, 1.0f, 1.0f),          // scale vector
 
       glm::vec3(1.0f, 1.0f, 1.0f),          // Colour vector
-      glm::vec3(0.4f, 1.0f, 0.0f),          // Intensities
+      glm::vec3(0.0f, 0.9f, 0.0f),          // Intensities
       glm::vec3(2048.0f, 2048.0f, 0.0f),    // Shadow dimensions
       glm::vec3(-10.0f, -12.0f, 18.5f)      // Light direction vector
     );
 
     pointLights[0] = PointLight(           
-      glm::vec3(1.0f, 2.0f, 5.0f),        // Position vector
+      glm::vec3(3.0f, 2.0f, 5.0f),        // Position vector
       glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
       glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
 
@@ -116,25 +116,25 @@ bool Engine::Run()
     ++pointLightCount;
 
     pointLights[1] = PointLight(
-      glm::vec3(-5.0f, 2.0f, 5.0f),       // Position vector
+      glm::vec3(-3.0f, 2.0f, 5.0f),       // Position vector
       glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
       glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
 
       glm::vec3(0.0f, 1.0f, 0.0f),        // Colour vector
-      glm::vec3(1.0f, 1.0f, 0.0f),        // Intensities
+      glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
       glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
       glm::vec2(0.01f, 100.0f),           // Plane dimensions
       glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
     );
-    //++pointLightCount;
+    ++pointLightCount;
 
     pointLights[2] = PointLight(
-      glm::vec3(2.5f, 2.0f, -5.0f),       // Position vector
+      glm::vec3(0.0f, 2.0f, -5.0f),       // Position vector
       glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
       glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
 
       glm::vec3(1.0f, 0.0f, 0.0f),        // Colour vector
-      glm::vec3(1.0f, 1.0f, 0.0f),        // Intensities
+      glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
       glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
       glm::vec2(0.01f, 100.0f),           // Plane dimensions
       glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
@@ -164,7 +164,7 @@ bool Engine::Run()
       glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
       glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
 
-      glm::vec3(1.0f, 0.0f, 1.0f),        // Colour vector
+      glm::vec3(0.0f, 1.0f, 0.0f),        // Colour vector
       glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
       glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
       glm::vec2(0.01f, 100.0f),           // Plane dimensions
@@ -228,16 +228,6 @@ bool Engine::Run()
 
     ENGINE_API->ProcessEngineQueue();
 
-    /*std::vector<glm::mat4> Transforms;
-    skinnedMesh.boneTransform(now, Transforms);
-
-    for (unsigned int i = 0; i < Transforms.size(); ++i)
-    {
-      const std::string name = "gBones[" + std::to_string(i) + "]";
-      GLuint boneTransform = glGetUniformLocation(shaderList[0]->GetShaderID(), name.c_str());
-      glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
-    }*/
-
     // Calculate directional light shadow maps
     DirectionalShadowMapPass(&mainLight);
 
@@ -256,9 +246,7 @@ bool Engine::Run()
     // Render actual scene with computed shadow maps
     RenderPass(camera.CalculateViewMatrix(), projection);
 
-    GetGLErrors(__FILE__, __LINE__);
     mainWindow.SwapBuffers();
-
   }
 
   // OpenGL windows closed

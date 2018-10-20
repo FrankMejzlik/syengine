@@ -14,7 +14,7 @@ out vec4 directionalLightSpacePos;
 const int MAX_BONES = 100;
 
 
-uniform bool bIsSkeletonAnimated;
+uniform int bIsSkeletonAnimated;
 uniform mat4 model;                          
 uniform mat4 view;        
 uniform mat4 projection;   
@@ -31,7 +31,7 @@ void main()
 	mat4 boneTransform = mat4(1.0);
 
 	// If this is skeleton animated vertex.
-	if (bIsSkeletonAnimated) {
+	if (bIsSkeletonAnimated != 0) {
 		boneTransform = gBones[BoneIDs[0]] * Weights[0];
 		boneTransform     += gBones[BoneIDs[1]] * Weights[1];
 		boneTransform     += gBones[BoneIDs[2]] * Weights[2];
@@ -45,7 +45,7 @@ void main()
     gl_Position = (projection * view * model) * (boneTransform * vec4(pos, 1.0));
 
 	// Get vertex position in directional light space
-    directionalLightSpacePos = directionalLightTransform * model * vec4(pos, 1.0);
+    directionalLightSpacePos = directionalLightTransform * model * boneTransform * vec4(pos, 1.0);
 	
 	// Set normal vector for this vertex.
 	normal = mat3(transpose(inverse(model))) *  vec3(boneTransform * vec4(norm, 0.0f));

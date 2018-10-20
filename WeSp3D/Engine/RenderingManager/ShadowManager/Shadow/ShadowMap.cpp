@@ -53,7 +53,7 @@ ShadowMap::~ShadowMap()
 {
   if (FBO)
   {
-    glDeleteFramebuffers(1, &FBO);
+    //glDeleteFramebuffers(1, &FBO);
   }
 
   if (shadowMap)

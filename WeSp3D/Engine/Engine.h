@@ -127,6 +127,7 @@ public:
   int globObjID;
   
   // Shader uniform handles
+  GLuint uf_bIsSkeletonAnimated = 0;
   GLuint uniformProjection = 0;
   GLuint uniformModel = 0;
   GLuint uniformView = 0;
@@ -330,7 +331,7 @@ public:
       )
     );
 
-    GetGLErrors(__FILE__, __LINE__);
+    Engine::GetGLErrors(__FILE__, __LINE__);
     std::vector<int> data;
     data.push_back(globObjID);
     ++globObjID;
@@ -341,7 +342,7 @@ public:
     return true;
   }
   
-  void GetGLErrors(const char* file, unsigned int lineNum)
+  static void GetGLErrors(const char* file, unsigned int lineNum)
   {
     const GLubyte*  stdee;
     GLenum err;
@@ -600,9 +601,16 @@ public:
 
     directionalShadowShader.Validate();
     // Render objects in scene with their own shaders
-    //RenderScene();
+
+
+    Engine::GetGLErrors(__FILE__, __LINE__);
+
+    directionalShadowShader.SetIsSkeletonAnimated(false);
     RenderScenePlain();
 
+    directionalShadowShader.SetIsSkeletonAnimated(false);
+    RenderSceneXPlain(directionalShadowShader.GetShaderID());
+   
     // Deatach from framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -635,7 +643,11 @@ public:
     omniShadowShader.Validate();
 
     // Render objects in scene for omni light scene
+    omniShadowShader.SetIsSkeletonAnimated(false);
     RenderScenePlain();
+
+    omniShadowShader.SetIsSkeletonAnimated(false);
+    RenderSceneXPlain(omniShadowShader.GetShaderID());
 
     // Deatach from framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -644,78 +656,52 @@ public:
   void RenderSceneX()
   {
     glm::mat4 model = std::move(glm::mat4(1.0f));
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+    model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+    model = glm::rotate(model, -90.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+    
+    dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    
+    std::vector<glm::mat4> Transforms;
+    dude.boneTransform(glfwGetTime(), Transforms);
+    
+    for (unsigned int i = 0; i < Transforms.size(); ++i)
+    {
+      const std::string name = "gBones[" + std::to_string(i) + "]";
+      GLuint boneTransform = glGetUniformLocation(shaderList[0]->GetShaderID(), name.c_str());
+      glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
+    }
+    Engine::GetGLErrors(__FILE__, __LINE__);
+
+    dude.render(shaderList[0]->GetShaderID());
+
+  }
+
+
+  void RenderSceneXPlain(GLuint shaderId)
+  {
+    glm::mat4 model = std::move(glm::mat4(1.0f));
+    model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
     model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
     model = glm::rotate(model, -90.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 
-    dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-    
     std::vector<glm::mat4> Transforms;
     dude.boneTransform(glfwGetTime(), Transforms);
 
     for (unsigned int i = 0; i < Transforms.size(); ++i)
     {
       const std::string name = "gBones[" + std::to_string(i) + "]";
-      GLuint boneTransform = glGetUniformLocation(shaderList[0]->GetShaderID(), name.c_str());
+      GLuint boneTransform = glGetUniformLocation(shaderId, name.c_str());
       glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
     }
-    
+    Engine::GetGLErrors(__FILE__, __LINE__);
+
     dude.render(shaderList[0]->GetShaderID());
 
   }
 
-  void RenderSceneXX()
-  {
-    glm::mat4 model = std::move(glm::mat4(1.0f));
-    //model = glm::rotate(model, blackhawkAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::translate(model, glm::vec3(-10.0f, -2.0f, 0.0f));
-    model = glm::scale(model, glm::vec3(5.1f, 5.1f, 5.1f));
-    model = glm::rotate(model, -90.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-
-    dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-
-    std::vector<glm::mat4> Transforms;
-    wolf.boneTransform(glfwGetTime(), Transforms);
-
-
-    for (unsigned int i = 0; i < Transforms.size(); ++i)
-    {
-      const std::string name = "gBones[" + std::to_string(i) + "]";
-      GLuint boneTransform = glGetUniformLocation(shaderList[0]->GetShaderID(), name.c_str());
-      glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
-    }
-
-    wolf.render(shaderList[0]->GetShaderID());
-
-  }
-
-  void RenderSceneXXX()
-  {
-    glm::mat4 model = std::move(glm::mat4(1.0f));
-    //model = glm::rotate(model, blackhawkAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::translate(model, glm::vec3(-5.0f, -2.0f, -5.0f));
-    model = glm::scale(model, glm::vec3(5.1f, 5.1f, 5.1f));
-    model = glm::rotate(model, -90.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-
-    dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-
-    std::vector<glm::mat4> Transforms;
-    plane.boneTransform(glfwGetTime(), Transforms);
-
-
-    for (unsigned int i = 0; i < Transforms.size(); ++i)
-    {
-      const std::string name = "gBones[" + std::to_string(i) + "]";
-      GLuint boneTransform = glGetUniformLocation(shaderList[0]->GetShaderID(), name.c_str());
-      glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
-    }
-
-    plane.render(shaderList[0]->GetShaderID());
-
-  }
 
   void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
   {
@@ -728,6 +714,7 @@ public:
 
     skybox.DrawSkybox(viewMatrix, projectionMatrix);
 
+    Engine::GetGLErrors(__FILE__, __LINE__);
 
     // Draw main scene
     shaderList[0]->UseShader();
@@ -768,45 +755,17 @@ public:
       spotLights[1].SetFlash(glm::vec3(0.0f, -100.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f));
     }
 
-
     shaderList[0]->Validate();
+
+    // Switch off skeletal animation shader.
+    shaderList[0]->SetIsSkeletonAnimated(false);
 
     // Go ahead and render scene
     RenderScene();
 
-
-    //// Draw main scene
-    //animatedShader.UseShader();
-    //uniformModel = animatedShader.GetModelLocation();
-    //uniformProjection = animatedShader.GetProjectionLocation();
-    //uniformView = animatedShader.GetViewLocation();
-    //uniformEyePosition = animatedShader.GetEyePosition();
-    //uniformSpecularIntensity = animatedShader.GetSpecularIntensityLocation();
-    //uniformShininess = animatedShader.GetShininessLocation();
-
-    //// Set values in shader uniforms
-    //glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-    //glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-    //glUniform3f(uniformEyePosition, camera.GetCameraPosition().x, camera.GetCameraPosition().y, camera.GetCameraPosition().z);
-
-    //animatedShader.SetDirectionalLight(&mainLight);
-    //animatedShader.SetPointLights(pointLights, pointLightCount, 3, 0);
-    //animatedShader.SetSpotLights(spotLights, spotLightCount, 3 + pointLightCount, pointLightCount);
-    //animatedShader.SetDirectionalLightTransform(&mainLight.CalculateLightTransform());
-
-    //// Texture 0 is used for actual texture of mesh
-    //mainLight.GetShadowMap()->Read(GL_TEXTURE2);
-    //// Shift everything by 1 so unused members of array in shader mapped into 0 wont collide types
-    //// Set normal texture to 1
-    //animatedShader.SetTexture(1);
-    //// Set shadow mapt texture to 1
-    //animatedShader.SetDirectionalShadowMap(2);
-
-
-    //animatedShader.Validate();
+    // Switch off skeletal animation shader.
+    shaderList[0]->SetIsSkeletonAnimated(true);
     RenderSceneX();
-    RenderSceneXX();
-    RenderSceneXXX();
 
   }
 
