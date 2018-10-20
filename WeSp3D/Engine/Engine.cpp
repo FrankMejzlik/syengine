@@ -80,14 +80,17 @@ bool Engine::Run()
   blackhawk = Model();
   blackhawk.LoadModel("Resource/models/uh60.obj");
 
+  dude2 = Model();
+  dude2.LoadModel("Resource/boblampclean.md5mesh");
+
   dude = SkeletalModel();
-  dude.loadMesh("Resource/boblampclean.md5mesh");
+  dude.LoadModel("Resource/boblampclean.md5mesh");
 
   wolf = SkeletalModel();
-  wolf.loadMesh("Resource/Wolf_dae.dae");
+  wolf.LoadModel("Resource/Wolf_dae.dae");
 
   plane = SkeletalModel();
-  plane.loadMesh("Resource/Wolf_dae.dae");
+  plane.LoadModel("Resource/Wolf_dae.dae");
   
 
   {

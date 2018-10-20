@@ -7,6 +7,7 @@
 #include <assimp\scene.h>
 #include <assimp\postprocess.h>
 
+#include "Logger.h"
 #include "Component.h"
 #include "Mesh.h"
 #include "Texture.h"

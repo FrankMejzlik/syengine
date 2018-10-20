@@ -4,7 +4,7 @@ layout (location = 0) in vec3 pos;
 layout (location = 1) in vec2 tex;             
 layout (location = 2) in vec3 norm;
 layout (location = 3) in ivec4 BoneIDs;
-layout (location = 4) in ivec4 Weights;
+layout (location = 4) in vec4 Weights;
 
 out vec2 textureCoords;
 out vec3 normal;
@@ -45,7 +45,7 @@ void main()
     gl_Position = (projection * view * model) * (boneTransform * vec4(pos, 1.0));
 
 	// Get vertex position in directional light space
-    directionalLightSpacePos = directionalLightTransform * model * boneTransform * vec4(pos, 1.0);
+    directionalLightSpacePos = directionalLightTransform * model * vec4(pos, 1.0);
 	
 	// Set normal vector for this vertex.
 	normal = mat3(transpose(inverse(model))) *  vec3(boneTransform * vec4(norm, 0.0f));

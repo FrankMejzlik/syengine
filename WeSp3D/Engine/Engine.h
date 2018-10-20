@@ -168,6 +168,7 @@ public:
 
   Model xwing;
   Model blackhawk;
+  Model dude2;
 
   DirectionalLight mainLight;
   PointLight pointLights[MAX_POINT_LIGHTS];
@@ -531,7 +532,6 @@ public:
     shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     meshList[2]->RenderMesh();
 
-
     model = std::move(glm::mat4(1.0f));
     model = glm::translate(model, glm::vec3(2.0f, 0.0f, 10.0f));
     model = glm::scale(model, glm::vec3(0.006f, 0.006f, 0.006f));
@@ -578,6 +578,15 @@ public:
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
     shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     blackhawk.RenderModel();
+
+
+    model = std::move(glm::mat4(1.0f));
+    model = glm::translate(model, glm::vec3(-2.0f, -2.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(1.006f, 1.006f, 1.006f));
+    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+    dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    //dude2.RenderModel();
+
   }
 
   void DirectionalShadowMapPass(DirectionalLight* light)
@@ -608,7 +617,7 @@ public:
     directionalShadowShader.SetIsSkeletonAnimated(false);
     RenderScenePlain();
 
-    directionalShadowShader.SetIsSkeletonAnimated(false);
+    directionalShadowShader.SetIsSkeletonAnimated(true);
     RenderSceneXPlain(directionalShadowShader.GetShaderID());
    
     // Deatach from framebuffer
@@ -674,6 +683,7 @@ public:
     }
     Engine::GetGLErrors(__FILE__, __LINE__);
 
+    shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     dude.render(shaderList[0]->GetShaderID());
 
   }
