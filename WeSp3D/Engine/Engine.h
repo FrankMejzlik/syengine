@@ -186,8 +186,8 @@ public:
 #pragma warning(disable : 4100)
 
   // Shdaer files
-  const char* vShader = "Resource/shaders/shader.vert";
-  const char* fShader = "Resource/shaders/shader.frag";
+  const char* vShader = "shaders/shader.vert";
+  const char* fShader = "shaders/shader.frag";
 
   
 
@@ -433,19 +433,19 @@ public:
     shaderList.push_back(shader1);
 
     directionalShadowShader.CreateFromFiles(
-      "Resource/shaders/directional_shadow_map.vert", 
-      "Resource/shaders/directional_shadow_map.frag"
+      "shaders/directional_shadow_map.vert", 
+      "shaders/directional_shadow_map.frag"
     );
 
     animatedShader.CreateFromFiles(
-      "Resource/shaders/shader_animate.vert", 
-      "Resource/shaders/shader_animate.frag"
+      "shaders/shader_animate.vert", 
+      "shaders/shader_animate.frag"
     );
 
     omniShadowShader.CreateFromFiles(
-      "Resource/shaders/omni_shadow_map.vert", 
-      "Resource/shaders/omni_shadow_map.geom", 
-      "Resource/shaders/omni_shadow_map.frag"
+      "shaders/omni_shadow_map.vert", 
+      "shaders/omni_shadow_map.geom", 
+      "shaders/omni_shadow_map.frag"
     );
   }
 
@@ -635,8 +635,7 @@ public:
     glUniform3f(uniformOmniLightPos, light->GetPosition().x, light->GetPosition().y, light->GetPosition().z);
     glUniform1f(uniformFarPlane, light->GetFarPlane());
     // Bind to shader 6 direction transofrm light metrices
-    omniShadowShader.SetOmniLightMatrices(light->CalculateLightTransform());
-
+    omniShadowShader.SetOmniLightMatrices(light->GetOmniLightModelToWorldMatrices());
 
     omniShadowShader.Validate();
 
@@ -668,7 +667,7 @@ public:
       glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
     }
     
-    dude.render(animatedShader.GetShaderID());
+    dude.render();
 
   }
 
@@ -694,7 +693,7 @@ public:
       glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
     }
 
-    wolf.render(animatedShader.GetShaderID());
+    wolf.render();
 
   }
 
@@ -720,7 +719,7 @@ public:
       glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
     }
 
-    plane.render(animatedShader.GetShaderID());
+    plane.render();
 
   }
 

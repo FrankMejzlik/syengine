@@ -35,7 +35,7 @@ public:
     GLuint exponentLocation
   );
 
-  std::vector<glm::mat4> CalculateLightTransform();
+  std::vector<glm::mat4> GetOmniLightModelToWorldMatrices();
 
   glm::vec3 GetPosition();
   GLfloat GetFarPlane();

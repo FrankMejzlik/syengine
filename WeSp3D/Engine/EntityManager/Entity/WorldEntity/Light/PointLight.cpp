@@ -63,7 +63,7 @@ void PointLight::UseLight(
   glUniform1f(exponentLocation, _exponent);
 }
 
-std::vector<glm::mat4> PointLight::CalculateLightTransform()
+std::vector<glm::mat4> PointLight::GetOmniLightModelToWorldMatrices()
 {
   std::vector<glm::mat4> lightMatrices;
 
