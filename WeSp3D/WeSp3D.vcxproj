@@ -167,6 +167,7 @@
     <ClCompile Include="Engine\Abstract\IInputManagerSubmodule.cpp" />
     <ClCompile Include="Engine\Abstract\IRenderingManagerSubmodule.cpp" />
     <ClCompile Include="Engine\Abstract\ISimulationManagerSubmodule.cpp" />
+    <ClCompile Include="Engine\ComponentManager\Component\Model\SkeletalModel.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Model\StaticModel.cpp" />
     <ClCompile Include="Engine\InputManager\ControllerManager.cpp" />
     <ClCompile Include="Engine\ComponentManager\ComponentManager.cpp" />
@@ -246,6 +247,7 @@
     <ClInclude Include="Engine\Abstract\IInputManagerSubmodule.h" />
     <ClInclude Include="Engine\Abstract\IRenderingManagerSubmodule.h" />
     <ClInclude Include="Engine\Abstract\ISimulationManagerSubmodule.h" />
+    <ClInclude Include="Engine\ComponentManager\Component\Model\SkeletalModel.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Model\StaticModel.h" />
     <ClInclude Include="Engine\InputManager\ControllerManager.h" />
     <ClInclude Include="Engine\ComponentManager\ComponentManager.h" />

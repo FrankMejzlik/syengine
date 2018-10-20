@@ -1,7 +1,7 @@
 
 #include "Engine.h"
 #include "Instance.h"
-#include "skinned_mesh.cpp"
+
 
 using namespace WeSp;
 
@@ -80,13 +80,13 @@ bool Engine::Run()
   blackhawk = Model();
   blackhawk.LoadModel("Resource/models/uh60.obj");
 
-  dude = SkinnedMesh();
+  dude = SkeletalModel();
   dude.loadMesh("Resource/boblampclean.md5mesh");
 
-  wolf = SkinnedMesh();
+  wolf = SkeletalModel();
   wolf.loadMesh("Resource/Wolf_dae.dae");
 
-  plane = SkinnedMesh();
+  plane = SkeletalModel();
   plane.loadMesh("Resource/Wolf_dae.dae");
   
 

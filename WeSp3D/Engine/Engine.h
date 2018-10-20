@@ -69,7 +69,7 @@
 
 // -------------------------
 
-#include "skinned_mesh.hpp"
+#include "SkeletalModel.h"
 
 
 using namespace WeSp;
@@ -137,9 +137,9 @@ public:
   GLuint uniformOmniLightPos = 0;
   GLuint uniformFarPlane = 0;
 
-  SkinnedMesh dude;
-  SkinnedMesh wolf;
-  SkinnedMesh plane;
+  SkeletalModel dude;
+  SkeletalModel wolf;
+  SkeletalModel plane;
 
 
   Skybox skybox;
@@ -646,7 +646,7 @@ public:
     omniShadowShader.SetIsSkeletonAnimated(false);
     RenderScenePlain();
 
-    omniShadowShader.SetIsSkeletonAnimated(false);
+    omniShadowShader.SetIsSkeletonAnimated(true);
     RenderSceneXPlain(omniShadowShader.GetShaderID());
 
     // Deatach from framebuffer

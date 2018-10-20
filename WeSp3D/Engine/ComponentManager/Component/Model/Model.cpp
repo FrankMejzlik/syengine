@@ -21,36 +21,36 @@ void Model::LoadModel(const std::string & fileName)
 
 void Model::RenderModel()
 {
-  for (size_t i = 0; i < meshList.size(); ++i)
+  for (size_t i = 0; i < _meshList.size(); ++i)
   {
-    unsigned int materialIndex = meshToTex[i];
+    unsigned int materialIndex = _meshToTexture[i];
 
-    if (materialIndex < textureList.size() && textureList[materialIndex])
+    if (materialIndex < _textureList.size() && _textureList[materialIndex])
     {
-      textureList[materialIndex]->UseTexture();
+      _textureList[materialIndex]->UseTexture();
     }
 
-    meshList[i]->RenderMesh();
+    _meshList[i]->RenderMesh();
   }
 }
 
 void Model::ClearModel()
 {
-  for (size_t i = 0; i < meshList.size(); ++i)
+  for (size_t i = 0; i < _meshList.size(); ++i)
   {
-    if (meshList[i])
+    if (_meshList[i])
     {
-      delete meshList[i];
-      meshList[i] = nullptr;
+      delete _meshList[i];
+      _meshList[i] = nullptr;
     }
   }
 
-  for (size_t i = 0; i < textureList.size(); ++i)
+  for (size_t i = 0; i < _textureList.size(); ++i)
   {
-    if (textureList[i])
+    if (_textureList[i])
     {
-      delete textureList[i];
-      textureList[i] = nullptr;
+      delete _textureList[i];
+      _textureList[i] = nullptr;
     }
   }
 }
@@ -109,19 +109,19 @@ void Model::LoadMesh(aiMesh * mesh, const aiScene * scene)
 
   Mesh* newMesh = new Mesh();
   newMesh->CreateMesh(vertices, indices);
-  meshList.push_back(newMesh);
+  _meshList.push_back(newMesh);
 
-  meshToTex.push_back(mesh->mMaterialIndex);
+  _meshToTexture.push_back(mesh->mMaterialIndex);
 }
 
 void Model::LoadMaterials(const aiScene * scene)
 {
-  textureList.resize(scene->mNumMaterials);
+  _textureList.resize(scene->mNumMaterials);
 
   for (size_t i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* material = scene->mMaterials[i];
-    textureList[i] = nullptr;
+    _textureList[i] = nullptr;
 
     if (material->GetTextureCount(aiTextureType_DIFFUSE))
     {
@@ -134,13 +134,13 @@ void Model::LoadMaterials(const aiScene * scene)
 
         std::string texPath = std::string("Resource/textures/") + filename;
 
-        textureList[i] = new Texture(texPath.c_str());
+        _textureList[i] = new Texture(texPath.c_str());
 
-        if (!textureList[i]->LoadTexture())
+        if (!_textureList[i]->LoadTexture())
         {
           printf("Failed to load texture at: %s\n", texPath); 
-          delete textureList[i];
-          textureList[i] = nullptr;
+          delete _textureList[i];
+          _textureList[i] = nullptr;
 
         }
 
@@ -148,8 +148,8 @@ void Model::LoadMaterials(const aiScene * scene)
     }
     else
     {
-      textureList[i] = new Texture("Resource/textures/plain.png");
-      textureList[i]->LoadTextureA();
+      _textureList[i] = new Texture("Resource/textures/plain.png");
+      _textureList[i]->LoadTextureA();
     }
   }
 }
