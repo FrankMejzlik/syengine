@@ -156,7 +156,7 @@ public:
 
   Camera camera;
 
-  Shader animatedShader;
+  //Shader animatedShader;
 
   Texture brickTexture;
   Texture dirtTexture;
@@ -437,11 +437,6 @@ public:
       "shaders/directional_shadow_map.frag"
     );
 
-    animatedShader.CreateFromFiles(
-      "shaders/shader_animate.vert", 
-      "shaders/shader_animate.frag"
-    );
-
     omniShadowShader.CreateFromFiles(
       "shaders/omni_shadow_map.vert", 
       "shaders/omni_shadow_map.geom", 
@@ -659,15 +654,14 @@ public:
     std::vector<glm::mat4> Transforms;
     dude.boneTransform(glfwGetTime(), Transforms);
 
-
     for (unsigned int i = 0; i < Transforms.size(); ++i)
     {
       const std::string name = "gBones[" + std::to_string(i) + "]";
-      GLuint boneTransform = glGetUniformLocation(animatedShader.GetShaderID(), name.c_str());
+      GLuint boneTransform = glGetUniformLocation(shaderList[0]->GetShaderID(), name.c_str());
       glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
     }
     
-    dude.render();
+    dude.render(shaderList[0]->GetShaderID());
 
   }
 
@@ -689,11 +683,11 @@ public:
     for (unsigned int i = 0; i < Transforms.size(); ++i)
     {
       const std::string name = "gBones[" + std::to_string(i) + "]";
-      GLuint boneTransform = glGetUniformLocation(animatedShader.GetShaderID(), name.c_str());
+      GLuint boneTransform = glGetUniformLocation(shaderList[0]->GetShaderID(), name.c_str());
       glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
     }
 
-    wolf.render();
+    wolf.render(shaderList[0]->GetShaderID());
 
   }
 
@@ -715,11 +709,11 @@ public:
     for (unsigned int i = 0; i < Transforms.size(); ++i)
     {
       const std::string name = "gBones[" + std::to_string(i) + "]";
-      GLuint boneTransform = glGetUniformLocation(animatedShader.GetShaderID(), name.c_str());
+      GLuint boneTransform = glGetUniformLocation(shaderList[0]->GetShaderID(), name.c_str());
       glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
     }
 
-    plane.render();
+    plane.render(shaderList[0]->GetShaderID());
 
   }
 
@@ -781,35 +775,35 @@ public:
     RenderScene();
 
 
-    // Draw main scene
-    animatedShader.UseShader();
-    uniformModel = animatedShader.GetModelLocation();
-    uniformProjection = animatedShader.GetProjectionLocation();
-    uniformView = animatedShader.GetViewLocation();
-    uniformEyePosition = animatedShader.GetEyePosition();
-    uniformSpecularIntensity = animatedShader.GetSpecularIntensityLocation();
-    uniformShininess = animatedShader.GetShininessLocation();
+    //// Draw main scene
+    //animatedShader.UseShader();
+    //uniformModel = animatedShader.GetModelLocation();
+    //uniformProjection = animatedShader.GetProjectionLocation();
+    //uniformView = animatedShader.GetViewLocation();
+    //uniformEyePosition = animatedShader.GetEyePosition();
+    //uniformSpecularIntensity = animatedShader.GetSpecularIntensityLocation();
+    //uniformShininess = animatedShader.GetShininessLocation();
 
-    // Set values in shader uniforms
-    glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-    glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
-    glUniform3f(uniformEyePosition, camera.GetCameraPosition().x, camera.GetCameraPosition().y, camera.GetCameraPosition().z);
+    //// Set values in shader uniforms
+    //glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+    //glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+    //glUniform3f(uniformEyePosition, camera.GetCameraPosition().x, camera.GetCameraPosition().y, camera.GetCameraPosition().z);
 
-    animatedShader.SetDirectionalLight(&mainLight);
-    animatedShader.SetPointLights(pointLights, pointLightCount, 3, 0);
-    animatedShader.SetSpotLights(spotLights, spotLightCount, 3 + pointLightCount, pointLightCount);
-    animatedShader.SetDirectionalLightTransform(&mainLight.CalculateLightTransform());
+    //animatedShader.SetDirectionalLight(&mainLight);
+    //animatedShader.SetPointLights(pointLights, pointLightCount, 3, 0);
+    //animatedShader.SetSpotLights(spotLights, spotLightCount, 3 + pointLightCount, pointLightCount);
+    //animatedShader.SetDirectionalLightTransform(&mainLight.CalculateLightTransform());
 
-    // Texture 0 is used for actual texture of mesh
-    mainLight.GetShadowMap()->Read(GL_TEXTURE2);
-    // Shift everything by 1 so unused members of array in shader mapped into 0 wont collide types
-    // Set normal texture to 1
-    animatedShader.SetTexture(1);
-    // Set shadow mapt texture to 1
-    animatedShader.SetDirectionalShadowMap(2);
+    //// Texture 0 is used for actual texture of mesh
+    //mainLight.GetShadowMap()->Read(GL_TEXTURE2);
+    //// Shift everything by 1 so unused members of array in shader mapped into 0 wont collide types
+    //// Set normal texture to 1
+    //animatedShader.SetTexture(1);
+    //// Set shadow mapt texture to 1
+    //animatedShader.SetDirectionalShadowMap(2);
 
 
-    animatedShader.Validate();
+    //animatedShader.Validate();
     RenderSceneX();
     RenderSceneXX();
     RenderSceneXXX();

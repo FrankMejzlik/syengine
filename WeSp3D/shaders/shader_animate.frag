@@ -1,7 +1,7 @@
 #version 330
 
 in vec4 vCol;
-in vec2 texCoords;
+in vec2 textureCoords;
 in vec3 normal;
 in vec3 fragPos;
 in vec4 directionalLightSpacePos;
@@ -235,5 +235,5 @@ void main()
 	finalColour += CalcPointLights();
 	finalColour += CalcSpotLights();
 	
-	colour = texture(theTexture, texCoords) * finalColour;
+	colour = texture(theTexture, textureCoords) * finalColour;
 }
