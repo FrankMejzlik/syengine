@@ -80,8 +80,8 @@ bool Engine::Run()
   blackhawk = Model();
   blackhawk.LoadModel("Resource/models/uh60.obj");
 
-  dude2 = Model();
-  dude2.LoadModel("Resource/boblampclean.md5mesh");
+  dude2 = SkeletalModel();
+  dude2.LoadModel("Resource/panFazulka.DAE");
 
   dude = SkeletalModel();
   dude.LoadModel("Resource/boblampclean.md5mesh");

@@ -12,10 +12,10 @@ void Model::LoadModel(const std::string & fileName)
   if (!pScene)
   {
     printf("Model (%s) failed to load: %s\n", fileName.c_str(), importer.GetErrorString());
+    return;
   }
 
   LoadNode(pScene->mRootNode, pScene);
-
   LoadMaterials(pScene);
 }
 

@@ -224,7 +224,7 @@ void Shader::ClearShader()
 {
   if (shaderID != 0)
   {
-    glDeleteProgram(0);
+    glDeleteProgram(shaderID);
     shaderID = 0;
   }
 
