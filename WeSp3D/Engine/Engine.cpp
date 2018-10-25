@@ -1,24 +1,31 @@
 
 #include "Engine.h"
-#include "Instance.h"
-
 
 using namespace WeSp;
 
 Engine::Engine(Instance* pInstance) :
+  BaseModule(MAGIC_BASE_MODULE_NUMBER), // Identify as root module
   _pInstance(pInstance),
   globObjID(0)
 {
-  // Instantiate main modules into map container
-  _modules.insert(std::make_pair(ID_ENGINE_API, std::make_shared<EngineAPI>(this)));
-  _modules.insert(std::make_pair(ID_ENTITY_MANAGER, std::make_shared<EntityManager>(this)));
-  _modules.insert(std::make_pair(ID_INPUT_MANAGER, std::make_shared<InputManager>(this)));
-  _modules.insert(std::make_pair(ID_NETWORK_MANAGER, std::make_shared<NetworkManager>(this)));
-  _modules.insert(std::make_pair(ID_OUTPUT_MANAGER, std::make_shared<OutputManager>(this)));
-  _modules.insert(std::make_pair(ID_RENDERING_MANAGER, std::make_shared<RenderingManager>(this)));
-  _modules.insert(std::make_pair(ID_SCENE_MANAGER, std::make_shared<SceneManager>(this)));
-  _modules.insert(std::make_pair(ID_SIMULATION_MANAGER, std::make_shared<SimulationManager>(this)));
-  _modules.insert(std::make_pair(ID_AUDIO_MANAGER, std::make_shared<AudioManager>(this)));
+  /*
+    Whatever modules are pushed into _subModules hasp map are loaded and initialized.
+  */
+#if RUN_ENGINE_API
+
+  // Insert EngineAPI instance
+  _subModules.insert(std::make_pair(ID_ENGINE_API, std::make_shared<EngineApi>(*this)));
+  // Set engine pointer to this.
+  SetEngineApiPointer(std::static_pointer_cast<EngineApi>(_subModules.find(ID_ENGINE_API)->second).get());
+
+#endif
+
+  _subModules.insert(std::make_pair(ID_ENTITY_MANAGER, std::make_shared<EntityManager>(*this)));
+  _subModules.insert(std::make_pair(ID_SCENE_MANAGER, std::make_shared<SceneManager>(*this)));
+  _subModules.insert(std::make_pair(ID_INPUT_MANAGER, std::make_shared<InputManager>(*this)));
+  _subModules.insert(std::make_pair(ID_NETWORK_MANAGER, std::make_shared<NetworkManager>(*this)));
+  _subModules.insert(std::make_pair(ID_SIMULATION_MANAGER, std::make_shared<SimulationManager>(*this)));
+  _subModules.insert(std::make_pair(ID_OUTPUT_MANAGER, std::make_shared<OutputManager>(*this)));
 
   DLog(eLogType::Success, "Engine instance created.");
 }
@@ -35,12 +42,22 @@ Engine::~Engine()
 
 bool Engine::Initialize()
 {
-  // Initialize all other modules and send them sPointer to EngineAPI with also other sPointer that this module needs  
-  for (std::map<int, std::shared_ptr<IMainEngineModule>>::iterator it = _modules.begin(); it != _modules.end(); ++it)
+  // Call initialize on all submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
-    (*it).second->Initialize(_modules);
+    // Initialize module.
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
+
   }
 
+  // Set Engine module state to Idle.
   SetModuleState(eModuleState::Idle);
   return true;
 }
@@ -54,6 +71,25 @@ bool Engine::Run()
   {
     Initialize();
   }
+
+#if 0
+  // Create all output channels.
+  OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
+
+  
+
+  // Main game loop.
+  while (_engineContext.GetBShouldRun())
+  {
+
+    mainWindow.SwapBuffers();
+
+  }
+
+
+  //// vvvvvvvvvvvvvvvvvv to ref vvvvvvvvvvvvvvvvvvvvvvv
+#endif
+#if 1
 
   Window mainWindow(GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
   mainWindow.Initialize();
@@ -251,7 +287,7 @@ bool Engine::Run()
 
     mainWindow.SwapBuffers();
   }
-
+#endif
   // OpenGL windows closed
 
   // Send Command to terminate Editor
@@ -269,7 +305,7 @@ bool Engine::Run()
 bool Engine::Terminate()
 {
   // Terminate all modules
-  for (std::map<int, std::shared_ptr<IMainEngineModule>>::iterator it = _modules.begin(); it != _modules.end(); ++it)
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     if (!(*it).second->Terminate())
     {
@@ -286,7 +322,7 @@ bool Engine::Terminate()
   return true;
 }
 
-std::shared_ptr<EngineAPI> Engine::GetEngineAPI()
+std::shared_ptr<EngineApi> Engine::GetEngineAPI()
 {
   return ENGINE_API;
 }

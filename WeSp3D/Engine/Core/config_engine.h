@@ -7,6 +7,7 @@
 #define ALPHA 0
 #define BEETA 0
 #define LOG_DEV 1
+#define RUN_ENGINE_API 1
 
 // Main modules IDs
 #define ID_ENGINE_API 100
@@ -54,6 +55,8 @@
 
 #define MAX_POINT_LIGHTS 3
 #define MAX_SPOT_LIGHTS 3
+
+#define MAGIC_BASE_MODULE_NUMBER 42
 
 enum class eModuleState
 {

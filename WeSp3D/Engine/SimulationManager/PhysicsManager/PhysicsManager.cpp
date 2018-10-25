@@ -2,10 +2,14 @@
 
 using namespace WeSp;
 
-PhysicsManager::PhysicsManager(SimulationManager* pParentInstance):
-  ISimulationManagerSubmodule(pParentInstance)
+PhysicsManager::PhysicsManager(BaseModule &parentModule):
+  BaseModule(parentModule)
 {
-  DLog(eLogType::Success, "\t PhysicsManager instance created.");
+  // Instantiate submodules into map container
+  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
+  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
+
+  DLog(eLogType::Success, "PhysicsManager instance created.");
 }
 
 PhysicsManager::~PhysicsManager()
@@ -16,22 +20,28 @@ PhysicsManager::~PhysicsManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t PhysicsManager instance destroyed.");
+  DLog(eLogType::Success, "PhysicsManager instance destroyed.");
 }
 
-bool PhysicsManager::Initialize(std::map<int, std::shared_ptr<ISimulationManagerSubmodule>> modules)
+bool PhysicsManager::Initialize()
 {
-  // Call parent Initialize method
-  if (!ISimulationManagerSubmodule::Initialize(modules))
+  // Initialize submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
-    DLog(eLogType::Error, "\t Initialization of base Initialize in PhysicsManager failed.");
-    return false;
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
   }
 
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "\t PhysicsManager instance initialized.");
+  DLog(eLogType::Success, "PhysicsManager instance initialized.");
   return true;
 }
 
@@ -39,14 +49,7 @@ bool PhysicsManager::Terminate()
 {
   // Class specific terminate
 
-  if (!ISimulationManagerSubmodule::Terminate())
-  {
-    SetModuleState(eModuleState::Error);
-    DLog(eLogType::Error, "\t Error terminating base of PhysicsManager instance.");
-    return false;
-  }
-
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t PhysicsManager instance terminated.");
+  DLog(eLogType::Success, "PhysicsManager instance terminated.");
   return true;
 }

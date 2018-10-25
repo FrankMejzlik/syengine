@@ -1,28 +1,26 @@
 #pragma once
 
-#include "IInputManagerSubmodule.h"
-#include "IModuleState.h"
-#include "IErrorLogging.h"
-#include "IUsesEngineAPI.h"
+#include "BaseModule.h"
 
 using namespace WeSp;
 
-namespace WeSp 
-{
-
-class InputManager;
+namespace WeSp {
 
 class KeyboardManager :
-  public IInputManagerSubmodule, public IModuleState, public IErrorLogging, public IUsesEngineAPI
+  public BaseModule
 {
 public:
   KeyboardManager() = delete;
 
-  KeyboardManager(InputManager* pParentInstance);
+  KeyboardManager(BaseModule &parentModule);
   ~KeyboardManager();
 
-  virtual bool Initialize(std::map<int, std::shared_ptr<IInputManagerSubmodule>> modules) override;
+  virtual bool Initialize() override;
   virtual bool Terminate() override;
+
+
+private:
+
 };
 
 }

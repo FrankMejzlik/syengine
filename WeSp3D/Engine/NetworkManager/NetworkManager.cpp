@@ -1,8 +1,8 @@
 
 #include "NetworkManager.h"
 
-NetworkManager::NetworkManager(Engine* pParentInstance):
-  IMainEngineModule(pParentInstance)
+NetworkManager::NetworkManager(BaseModule &parentModule):
+  BaseModule(parentModule)
 {
   DLog(eLogType::Success, "NetworkManager instance created.");
 }
@@ -18,13 +18,19 @@ NetworkManager::~NetworkManager()
   DLog(eLogType::Success, "NetworkManager instance destroyed.");
 }
 
-bool NetworkManager::Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> modules)
+bool NetworkManager::Initialize()
 {
-  // Call parent Initialize method
-  if (!IMainEngineModule::Initialize(modules))
+  // Initialize submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
-    DLog(eLogType::Error, "Initialization of base Initialize in NetworkManager failed.");
-    return false;
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
   }
 
   // Class specific initialization
@@ -38,12 +44,6 @@ bool NetworkManager::Terminate()
 {
   // Class specific terminate
 
-  if (!IMainEngineModule::Terminate())
-  {
-    SetModuleState(eModuleState::Error);
-    DLog(eLogType::Error, "Error terminating base of EntitiManager instance.");
-    return false;
-  }
 
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "NetworkManager instance terminated.");

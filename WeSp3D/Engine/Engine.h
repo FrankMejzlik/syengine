@@ -1,5 +1,6 @@
 #pragma once
 
+// Standard includes.
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <iostream>
@@ -11,6 +12,7 @@
 #include <queue>
 #include <map>
 
+// External includes.
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -22,6 +24,16 @@
 
 #include "stb_image.h"
 #include <assimp/Importer.hpp>
+
+// Project includes.
+#include "macros.h"
+#include "config_engine.h"
+#include "config_world.h"
+
+#include "IModuleState.h"
+#include "IErrorLogging.h"
+
+#include "Logger.h"
 #include "Command.h"
 #include "Skybox.h"
 #include "Mesh.h"
@@ -38,13 +50,11 @@
 
 // =============
 
-#include "Logger.h"
 
-#include "macros.h"
-#include "config_engine.h"
-#include "IModuleState.h"
-#include "IErrorLogging.h"
-#include "IMainEngineModule.h"
+
+
+
+
 
 #include "EngineContext.h"
 #include "GameContext.h"
@@ -65,8 +75,6 @@
 #include "ComponentManager.h"
 
 
-//#include "AnimatedModel.h"
-
 // -------------------------
 
 #include "SkeletalModel.h"
@@ -77,10 +85,11 @@ using namespace WeSp;
 namespace WeSp
 {
 class Engine :
-  public IModuleState, public IErrorLogging,
-  public BaseEngine
+  public BaseEngine, public BaseModule
 {
 public:
+  Engine() = delete;
+
   Engine(Instance* instance);
   virtual ~Engine();
 
@@ -88,15 +97,32 @@ public:
   bool Run();
   bool Terminate();
 
-  std::shared_ptr<EngineAPI> GetEngineAPI();
+  std::shared_ptr<EngineApi> GetEngineAPI();
+
+
+
+private:
+  // Instance that this Engine is running in.
+  Instance* _pInstance;
+  // Engine context instance.
+  EngineContext _engineContext;
+
+  void ProcessFrame(float deltaTime);
+
+
+
+
+
+
+  // vvvvv to refactor vvvvvvv
+
 
 public:
-  Instance* _pInstance;
+  
 
-  // Main Engine modules
-  std::map<int, std::shared_ptr<IMainEngineModule>> _modules;
+  
 
-  EngineContext _engineContext;
+  //EngineContext _engineContext;
   GameContext _gameContext;
   SceneContext _sceneContext;
 
@@ -316,7 +342,7 @@ public:
 
     float radius = 1.0f;
 
-    // RENDERING_MANAGER->MESH_MANAGER->CreatePrimitive(eMeshPrimitives::Block, x, x, x, x, x);
+    //RENDERING_MANAGER->MESH_MANAGER->CreatePrimitive(eMeshPrimitives::Block, x, x, x, x, x);
 
     // Mesh
     Mesh* blockMesh = new Mesh();

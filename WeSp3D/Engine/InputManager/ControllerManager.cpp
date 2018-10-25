@@ -2,8 +2,8 @@
 
 using namespace WeSp;
 
-ControllerManager::ControllerManager(InputManager* pParentInstance):
-  IInputManagerSubmodule(pParentInstance)
+ControllerManager::ControllerManager(BaseModule &parentModule):
+  BaseModule(parentModule)
 {
   DLog(eLogType::Success, "\t ControllerManager instance created.");
 }
@@ -19,13 +19,19 @@ ControllerManager::~ControllerManager()
   DLog(eLogType::Success, "\t ControllerManager instance destroyed.");
 }
 
-bool ControllerManager::Initialize(std::map<int, std::shared_ptr<IInputManagerSubmodule>> modules)
+bool ControllerManager::Initialize()
 {
-  // Call parent Initialize method
-  if (!IInputManagerSubmodule::Initialize(modules))
+  // Initialize submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
-    DLog(eLogType::Error, "\t Initialization of base Initialize in ControllerManager failed.");
-    return false;
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
   }
 
   // Class specific initialization
@@ -38,13 +44,6 @@ bool ControllerManager::Initialize(std::map<int, std::shared_ptr<IInputManagerSu
 bool ControllerManager::Terminate()
 {
   // Class specific terminate
-
-  if (!IInputManagerSubmodule::Terminate())
-  {
-    SetModuleState(eModuleState::Error);
-    DLog(eLogType::Error, "\t Error terminating base of ControllerManager instance.");
-    return false;
-  }
 
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "\t ControllerManager instance terminated.");

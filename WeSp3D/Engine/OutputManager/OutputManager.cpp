@@ -1,8 +1,12 @@
 #include "OutputManager.h"
 
-OutputManager::OutputManager(Engine* pParentInstance):
-  IMainEngineModule(pParentInstance)
+OutputManager::OutputManager(BaseModule &parentModule):
+  BaseModule(parentModule)
 {
+  // Instantiate submodules into map container
+  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
+  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
+
   DLog(eLogType::Success, "OutputManager instance created.");
 }
 
@@ -17,13 +21,19 @@ OutputManager::~OutputManager()
   DLog(eLogType::Success, "OutputManager instance destroyed.");
 }
 
-bool OutputManager::Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> modules)
+bool OutputManager::Initialize()
 {
-  // Call parent Initialize method
-  if (!IMainEngineModule::Initialize(modules))
+  // Initialize submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
-    DLog(eLogType::Error, "Initialization of base Initialize in OutputManager failed.");
-    return false;
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
   }
 
   // Class specific initialization
@@ -37,14 +47,13 @@ bool OutputManager::Terminate()
 {
   // Class specific terminate
 
-  if (!IMainEngineModule::Terminate())
-  {
-    SetModuleState(eModuleState::Error);
-    DLog(eLogType::Error, "Error terminating base of EntitiManager instance.");
-    return false;
-  }
-
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "OutputManager instance terminated.");
   return true;
+}
+
+
+bool OutputManager::ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height)
+{
+  return false;
 }

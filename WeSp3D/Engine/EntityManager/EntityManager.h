@@ -1,24 +1,21 @@
 #pragma once
 
-#include "IMainEngineModule.h"
-#include "IModuleState.h"
-#include "IErrorLogging.h"
-#include "IUsesEngineAPI.h"
+#include "BaseModule.h"
 
 using namespace WeSp;
 
 namespace WeSp {
 
 class EntityManager :
-  public IMainEngineModule, public IModuleState, public IErrorLogging, public IUsesEngineAPI
+  public BaseModule
 {
 public:
   EntityManager() = delete;
 
-  EntityManager(Engine* pParentInstance);
+  EntityManager(BaseModule &parentModule);
   ~EntityManager();
 
-  virtual bool Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> modules) override;
+  virtual bool Initialize() override;
   virtual bool Terminate() override;
 
 

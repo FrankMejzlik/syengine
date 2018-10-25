@@ -1,27 +1,39 @@
 #pragma once
 
-#include "IMainEngineModule.h"
-#include "IModuleState.h"
-#include "IErrorLogging.h"
-#include "IUsesEngineAPI.h"
+#include <map>
+#include <string>
 
+
+#include "common.h"
+#include "BaseModule.h"
 #include "Scene.h"
 
 using namespace WeSp;
 
-namespace WeSp {
+namespace WeSp 
+{
 
 class SceneManager :
-  public IMainEngineModule, public IModuleState, public IErrorLogging, public IUsesEngineAPI
+  public BaseModule
 {
 public:
   SceneManager() = delete;
 
-  SceneManager(Engine* pParentInstance);
+  SceneManager(BaseModule &parentModule);
   ~SceneManager();
 
-  virtual bool Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> modules) override;
+  /**
+   * Gets Scene instance by its name if exists. Else returns nullptr.
+   */
+  std::shared_ptr<Scene> GetScene(std::string sceneName);
+  std::shared_ptr<Scene> CreateScene(std::string sceneName);
+  
+  
+  virtual bool Initialize() override;
   virtual bool Terminate() override;
+
+private:
+
 };
 
-}
+} // namespace WeSp

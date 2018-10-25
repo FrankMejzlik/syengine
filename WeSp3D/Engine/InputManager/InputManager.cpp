@@ -1,13 +1,13 @@
 #include "InputManager.h"
 
-InputManager::InputManager(Engine* pParentInstance):
-  IMainEngineModule(pParentInstance)
+InputManager::InputManager(BaseModule &parentModule):
+  BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_KEYBOARD_MANAGER, std::make_shared<KeyboardManager>(this)));
-  _subModules.insert(std::make_pair(ID_MOUSE_MANAGER, std::make_shared<MouseManager>(this)));
-  _subModules.insert(std::make_pair(ID_CONTROLLER_MANAGER, std::make_shared<ControllerManager>(this)));
-
+ /* _subModules.insert(std::make_pair(ID_KEYBOARD_MANAGER, std::make_shared<KeyboardManager>(*this)));
+  _subModules.insert(std::make_pair(ID_MOUSE_MANAGER, std::make_shared<MouseManager>(*this)));
+  _subModules.insert(std::make_pair(ID_CONTROLLER_MANAGER, std::make_shared<ControllerManager>(*this)));
+*/
   DLog(eLogType::Success, "InputManager instance created.");
 }
 
@@ -22,23 +22,24 @@ InputManager::~InputManager()
   DLog(eLogType::Success, "InputManager instance destroyed.");
 }
 
-bool InputManager::Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> modules)
+bool InputManager::Initialize()
 {
-  // Call parent Initialize method
-  if (!IMainEngineModule::Initialize(modules))
-  {
-    DLog(eLogType::Error, "Initialization of base Initialize in InputManager failed.");
-    return false;
-  }
 
   // Class specific initialization
   // -- Goes here
   // Class specific initialization
 
-  // Initialize submodules
-  for (std::map<int, std::shared_ptr<IInputManagerSubmodule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  // Initialize submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
-    (*it).second->Initialize(_subModules);
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
   }
 
   SetModuleState(eModuleState::Idle);
@@ -49,13 +50,6 @@ bool InputManager::Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> 
 bool InputManager::Terminate()
 {
   // Class specific terminate
-
-  if (!IMainEngineModule::Terminate())
-  {
-    SetModuleState(eModuleState::Error);
-    DLog(eLogType::Error, "Error terminating base of EntitiManager instance.");
-    return false;
-  }
 
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "InputManager instance terminated.");

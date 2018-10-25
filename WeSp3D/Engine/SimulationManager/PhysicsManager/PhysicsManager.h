@@ -1,26 +1,26 @@
 #pragma once
 
-#include "ISimulationManagerSubmodule.h"
-#include "IModuleState.h"
-#include "IErrorLogging.h"
-#include "IUsesEngineAPI.h"
+#include "BaseModule.h"
 
-namespace WeSp
-{
+using namespace WeSp;
 
-class SimulationManager;
+namespace WeSp {
 
 class PhysicsManager :
-  public ISimulationManagerSubmodule, public IModuleState, public IErrorLogging, public IUsesEngineAPI
+  public BaseModule
 {
 public:
   PhysicsManager() = delete;
 
-  PhysicsManager(SimulationManager* pParentInstance);
+  PhysicsManager(BaseModule &parentModule);
   ~PhysicsManager();
 
-  virtual bool Initialize(std::map<int, std::shared_ptr<ISimulationManagerSubmodule>> modules) override;
+  virtual bool Initialize() override;
   virtual bool Terminate() override;
+
+
+private:
+
 };
 
 }

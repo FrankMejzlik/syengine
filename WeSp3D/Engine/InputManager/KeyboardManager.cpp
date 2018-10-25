@@ -2,8 +2,8 @@
 
 using namespace WeSp;
 
-KeyboardManager::KeyboardManager(InputManager* pParentInstance):
-  IInputManagerSubmodule(pParentInstance)
+KeyboardManager::KeyboardManager(BaseModule &parentModule):
+  BaseModule(parentModule)
 {
   DLog(eLogType::Success, "\t KeyboardManager instance created.");
 }
@@ -19,13 +19,19 @@ KeyboardManager::~KeyboardManager()
   DLog(eLogType::Success, "\t KeyboardManager instance destroyed.");
 }
 
-bool KeyboardManager::Initialize(std::map<int, std::shared_ptr<IInputManagerSubmodule>> modules)
+bool KeyboardManager::Initialize()
 {
-  // Call parent Initialize method
-  if (!IInputManagerSubmodule::Initialize(modules))
+  // Initialize submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
-    DLog(eLogType::Error, "\t Initialization of base Initialize in KeyboardManager failed.");
-    return false;
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
   }
 
   // Class specific initialization
@@ -39,12 +45,6 @@ bool KeyboardManager::Terminate()
 {
   // Class specific terminate
 
-  if (!IInputManagerSubmodule::Terminate())
-  {
-    SetModuleState(eModuleState::Error);
-    DLog(eLogType::Error, "\t Error terminating base of KeyboardManager instance.");
-    return false;
-  }
 
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "\t KeyboardManager instance terminated.");

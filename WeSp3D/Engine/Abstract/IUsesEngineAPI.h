@@ -7,7 +7,7 @@ using namespace WeSp;
 
 namespace WeSp {
 
-class EngineAPI;
+class EngineApi;
 
 /**
  * Interface for classes that needs to communicate with EngineAPI.
@@ -16,11 +16,11 @@ class IUsesEngineAPI
 {
 public:
   IUsesEngineAPI();
-  IUsesEngineAPI(std::shared_ptr<EngineAPI> pEngineAPI);
+  IUsesEngineAPI(std::shared_ptr<EngineApi> pEngineAPI);
   virtual ~IUsesEngineAPI();
 
 protected:
-  std::shared_ptr<EngineAPI> _pEngineAPI;
+  std::shared_ptr<EngineApi> _pEngineAPI;
 
 };
 

@@ -2,8 +2,8 @@
 
 using namespace WeSp;
 
-MouseManager::MouseManager(InputManager* pParentInstance):
-  IInputManagerSubmodule(pParentInstance)
+MouseManager::MouseManager(BaseModule &parentModule):
+  BaseModule(parentModule)
 {
   DLog(eLogType::Success, "\t MouseManager instance created.");
 }
@@ -19,13 +19,19 @@ MouseManager::~MouseManager()
   DLog(eLogType::Success, "\t MouseManager instance destroyed.");
 }
 
-bool MouseManager::Initialize(std::map<int, std::shared_ptr<IInputManagerSubmodule>> modules)
+bool MouseManager::Initialize()
 {
-  // Call parent Initialize method
-  if (!IInputManagerSubmodule::Initialize(modules))
+  // Initialize submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
-    DLog(eLogType::Error, "\t Initialization of base Initialize in MouseManager failed.");
-    return false;
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
   }
 
   // Class specific initialization
@@ -38,13 +44,6 @@ bool MouseManager::Initialize(std::map<int, std::shared_ptr<IInputManagerSubmodu
 bool MouseManager::Terminate()
 {
   // Class specific terminate
-
-  if (!IInputManagerSubmodule::Terminate())
-  {
-    SetModuleState(eModuleState::Error);
-    DLog(eLogType::Error, "\t Error terminating base of MouseManager instance.");
-    return false;
-  }
 
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "\t MouseManager instance terminated.");

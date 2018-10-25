@@ -3,8 +3,6 @@
 
 #include <queue>
 
-#include "IMainEngineModule.h"
-
 #include "Command.h"
 #include "EntityManager.h"
 #include "InputManager.h"
@@ -22,17 +20,20 @@ namespace WeSp
 
 class Engine;
 
-class EngineAPI:
-  public IMainEngineModule, public IModuleState, public IErrorLogging
+class EngineApi:
+  public BaseModule
 {
 public:
-  EngineAPI() = delete;
-  EngineAPI(Engine* pParentInstance);
-  ~EngineAPI();
+  EngineApi() = delete;
+  EngineApi(BaseModule &parentModule);
+  ~EngineApi();
 
-  virtual bool Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> modules) override;
+  virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+
+
+  /// vvvvvvvvvvvvvvvvvvvvvv
   template <typename T>
   bool PushEngineCommand(eCommandType type, std::vector<T> data)
   {
@@ -64,6 +65,8 @@ public:
 private:
   std::queue<Command> _engineQueue;
   std::queue<Command> _editorQueue;
+
+  void SimulateEditorInput();
 
 };
 

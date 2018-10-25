@@ -33,7 +33,7 @@ class Editor :
 {
 public:
   Editor() = delete;
-  Editor(Instance* pInstance, std::shared_ptr<EngineAPI> pEngineAPI);
+  Editor(Instance* pInstance, std::shared_ptr<EngineApi> pEngineAPI);
   ~Editor();
 
   virtual bool OnInit();

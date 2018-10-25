@@ -46,7 +46,7 @@ class ListControl :
 public:
   ListControl(
     EditorWindow* pParentInstance,
-    std::shared_ptr<EngineAPI> pEngineAPI,
+    std::shared_ptr<EngineApi> pEngineAPI,
     wxWindow* parent,
     const wxWindowID id,
     const wxPoint& pos,

@@ -4,9 +4,12 @@ using namespace WeSp;
 
 bool EngineContext::gTorchOn = false;
 
-EngineContext::EngineContext()
+EngineContext::EngineContext():
+  _bShouldRun(true)
 {}
 
+bool WeSp::EngineContext::GetBShouldRun()
+{
+  return _bShouldRun;
+}
 
-EngineContext::~EngineContext()
-{}

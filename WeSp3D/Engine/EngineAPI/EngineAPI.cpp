@@ -4,15 +4,15 @@
 
 using namespace WeSp;
 
-EngineAPI::EngineAPI(Engine* pParentInstance):
-  IMainEngineModule(pParentInstance),
+EngineApi::EngineApi(BaseModule &parentModule):
+  BaseModule(parentModule),
   _engineQueue(),
   _editorQueue()
 {
   DLog(eLogType::Success, "EngineAPI instance created.");
 }
 
-EngineAPI::~EngineAPI()
+EngineApi::~EngineApi()
 {
   // If instance not terminated, do so
   if (GetModuleState() != eModuleState::Null)
@@ -23,15 +23,21 @@ EngineAPI::~EngineAPI()
   DLog(eLogType::Success, "EngineAPI instance destroyed.");
 }
 
-bool EngineAPI::Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> modules)
+bool EngineApi::Initialize()
 {
-  // Call parent Initialize method
-  if (!IMainEngineModule::Initialize(modules))
+  // Initialize submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
-    DLog(eLogType::Error, "Initialization of base Initialize in EngineAPI failed.");
-    return false;
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
   }
-  
+
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
@@ -39,23 +45,16 @@ bool EngineAPI::Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> mod
   return true;
 }
 
-bool EngineAPI::Terminate()
+bool EngineApi::Terminate()
 {
   // Class specific terminate
-
-  if (!IMainEngineModule::Terminate())
-  {
-    SetModuleState(eModuleState::Error);
-    DLog(eLogType::Error, "Error terminating base of EngineAPI instance.");
-    return false;
-  }
 
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "EngineAPI instance terminated.");
   return true;
 }
 
-void EngineAPI::ProcessEngineQueue()
+void EngineApi::ProcessEngineQueue()
 {
   while (!_engineQueue.empty())
   {
@@ -66,11 +65,12 @@ void EngineAPI::ProcessEngineQueue()
     switch (cmd.GetType())  
     {
     case eCommandType::CreateBlock:
-      _pParentInstance->HandleCommandCreateBlock(cmd.GetFloatData());
+      static_cast<Engine&>(_parentModule).HandleCommandCreateBlock(cmd.GetFloatData());
+      
       break;
 
     case eCommandType::CreateSphere:
-      _pParentInstance->HandleCommandCreateSphere(cmd.GetFloatData());
+      static_cast<Engine&>(_parentModule).HandleCommandCreateSphere(cmd.GetFloatData());
       break;
 
     case eCommandType::CreatePointLight:
@@ -83,7 +83,7 @@ void EngineAPI::ProcessEngineQueue()
       break;
 
     case eCommandType::DeleteObjectId:
-      _pParentInstance->HandleCommandDeleteObjectId(cmd.GetIntData());
+      static_cast<Engine&>(_parentModule).HandleCommandDeleteObjectId(cmd.GetIntData());
       break;
 
     case eCommandType::Terminate:
@@ -94,8 +94,14 @@ void EngineAPI::ProcessEngineQueue()
   }
 }
 
-std::queue<Command>* EngineAPI::GetEditorCommandQueue()
+std::queue<Command>* EngineApi::GetEditorCommandQueue()
 {
   return &_editorQueue;
+}
+
+void WeSp::EngineApi::SimulateEditorInput()
+{
+
+
 }
 

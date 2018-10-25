@@ -1,8 +1,8 @@
 
 #include "SceneManager.h"
 
-SceneManager::SceneManager(Engine* pParentInstance):
-  IMainEngineModule(pParentInstance)
+SceneManager::SceneManager(BaseModule &parentModule):
+  BaseModule(parentModule)
 {
   DLog(eLogType::Success, "SceneManager instance created.");
 }
@@ -18,16 +18,23 @@ SceneManager::~SceneManager()
   DLog(eLogType::Success, "SceneManager instance destroyed.");
 }
 
-bool SceneManager::Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> modules)
+bool SceneManager::Initialize()
 {
-  // Call parent Initialize method
-  if (!IMainEngineModule::Initialize(modules))
-  {
-    DLog(eLogType::Error, "Initialization of base Initialize in SceneManager failed.");
-    return false;
-  }
 
   // Class specific initialization
+
+  // Initialize submodules.
+  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  {
+    (*it).second->Initialize();
+
+  #if RUN_ENGINE_API
+
+    // Setup submodule pointer to EngineAPI.
+    it->second->SetEngineApiPointer(_pEngineApi);
+
+  #endif
+  }
 
   SetModuleState(eModuleState::Idle);
   DLog(eLogType::Success, "SceneManager instance initialized.");
@@ -37,13 +44,6 @@ bool SceneManager::Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> 
 bool SceneManager::Terminate()
 {
   // Class specific terminate
-
-  if (!IMainEngineModule::Terminate())
-  {
-    SetModuleState(eModuleState::Error);
-    DLog(eLogType::Error, "Error terminating base of EntitiManager instance.");
-    return false;
-  }
 
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "SceneManager instance terminated.");

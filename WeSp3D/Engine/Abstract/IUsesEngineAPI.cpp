@@ -9,6 +9,6 @@ IUsesEngineAPI::IUsesEngineAPI() :
   _pEngineAPI(nullptr)
 {}
 
-IUsesEngineAPI::IUsesEngineAPI(std::shared_ptr<EngineAPI> pEngineAPI) :
+IUsesEngineAPI::IUsesEngineAPI(std::shared_ptr<EngineApi> pEngineAPI) :
   _pEngineAPI(pEngineAPI)
 {}

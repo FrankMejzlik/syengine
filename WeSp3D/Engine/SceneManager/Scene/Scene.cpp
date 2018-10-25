@@ -1,10 +1,7 @@
+
 #include "Scene.h"
 
-
-
-Scene::Scene()
-{}
-
+using namespace WeSp;
 
 Scene::~Scene()
 {}

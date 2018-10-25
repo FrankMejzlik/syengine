@@ -1,10 +1,7 @@
 #pragma once
 
-// Include interfaces
-#include "IMainEngineModule.h"
-#include "IModuleState.h"
-#include "IErrorLogging.h"
-#include "IUsesEngineAPI.h"
+
+#include "BaseModule.h"
 
 // Include submodules
 #include "KeyboardManager.h"
@@ -16,20 +13,20 @@ using namespace WeSp;
 namespace WeSp {
 
 class InputManager:
-  public IMainEngineModule, public IModuleState, public IErrorLogging, public IUsesEngineAPI
+  public BaseModule
 {
 public:
   InputManager() = delete;
 
-  InputManager(Engine* pParentInstance);
+  InputManager(BaseModule &parentModule);
   ~InputManager();
 
-  virtual bool Initialize(std::map<int, std::shared_ptr<IMainEngineModule>> modules) override;
+  virtual bool Initialize() override;
   virtual bool Terminate() override;
 
 
 private:
-  std::map<int, std::shared_ptr<IInputManagerSubmodule>> _subModules;
+
 };
 
 }

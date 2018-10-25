@@ -43,7 +43,7 @@ public:
 
   EditorWindow(
     Editor* pParentInstance, 
-    std::shared_ptr<EngineAPI> pEngineAPI,
+    std::shared_ptr<EngineApi> pEngineAPI,
     size_t windowWidth, size_t windowHeight, 
     const wxString& title 
   );

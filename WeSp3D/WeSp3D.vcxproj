@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;NOMINMAX;_CRTDBG_MAP_ALLOC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Diagnostics;$(ProjectDir)Engine\Abstract;$(ProjectDir)external\wxWidgets\include;$(ProjectDir)external\wxWidgets\lib\vc_x64_lib\mswud;$(ProjectDir);$(ProjectDir)Helper;$(ProjectDir)external;$(ProjectDir)Editor;$(ProjectDir)Engine\Core;$(ProjectDir)Engine\Common;$(ProjectDir)Engine\ComponentManager\Component\Sound;$(ProjectDir)Engine\ComponentManager\Component\Music;$(ProjectDir)Engine\ComponentManager\Component\Logic;$(ProjectDir)Engine\ComponentManager\Component\Animation;$(ProjectDir)Engine\ComponentManager\Component\Window;$(ProjectDir)Engine\ComponentManager\Component\Physics;$(ProjectDir)Engine\ComponentManager\Component\Shader;$(ProjectDir)Engine\ComponentManager\Component\Skybox;$(ProjectDir)Engine\ComponentManager\Component\Texture;$(ProjectDir)Engine\ComponentManager\Component\Material;$(ProjectDir)Engine\ComponentManager\Component\Model;$(ProjectDir)Engine\ComponentManager\Component\Mesh\Primitives;$(ProjectDir)Engine\ComponentManager\Component\Mesh;$(ProjectDir)Engine\ComponentManager\Component\AI;$(ProjectDir)Engine\ComponentManager\Component;$(ProjectDir)Engine\ComponentManager;$(ProjectDir)Engine\InputManager;$(ProjectDir)Engine\AudioManager\SoundManager;$(ProjectDir)Engine\AudioManager\MusicManager;$(ProjectDir)Engine\AudioManager;$(ProjectDir)Engine\OutputManager;$(ProjectDir)Engine\SceneManager\Scene;$(ProjectDir)Engine\SceneManager;$(ProjectDir)Engine\NetworkManager;$(ProjectDir)Engine\RenderingManager\AnimationManager;$(ProjectDir)Engine\RenderingManager\SkyboxManager;$(ProjectDir)Engine\RenderingManager\WindowManager;$(ProjectDir)Engine\RenderingManager\TextureManager;$(ProjectDir)Engine\RenderingManager\ShadowManager\Shadow;$(ProjectDir)Engine\RenderingManager\ModelManager;$(ProjectDir)Engine\RenderingManager\ShadowManager;$(ProjectDir)Engine\RenderingManager\ShaderManager;$(ProjectDir)Engine\RenderingManager\MaterialManager;$(ProjectDir)Engine\RenderingManager\MeshManager\Primitives;$(ProjectDir)Engine\RenderingManager\MeshManager;$(ProjectDir)Engine\RenderingManager;$(ProjectDir)Engine\SimulationManager\PhysicsManager;$(ProjectDir)Engine\SimulationManager\LogicManager;$(ProjectDir)Engine\SimulationManager\AIManager;$(ProjectDir)Engine\SimulationManager;$(ProjectDir)Engine\EntityManager;$(ProjectDir)Engine\EntityManager\Entity;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Camera;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject\Static;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject\Animated;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Light;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature\Player;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature\NPC;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity\ScreenEffect;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity\UI;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity;$(ProjectDir)Engine\EngineAPI;$(ProjectDir)Engine;C:\libs\x64\assimp-4.1.0\include;c:\libs\x64\glm-0.9.9.0\;c:\libs\x64\glfw-3.2.1.bin.WIN64\include\;c:\libs\x64\GLEW-2.1.0\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Diagnostics;$(ProjectDir)Engine\Abstract;$(ProjectDir)external\wxWidgets\include;$(ProjectDir)external\wxWidgets\lib\vc_x64_lib\mswud;$(ProjectDir);$(ProjectDir)Helper;$(ProjectDir)external;$(ProjectDir)Editor;$(ProjectDir)Engine\Core;$(ProjectDir)Engine\Common;$(ProjectDir)Engine\ComponentManager\Component\Sound;$(ProjectDir)Engine\ComponentManager\Component\Music;$(ProjectDir)Engine\ComponentManager\Component\Logic;$(ProjectDir)Engine\ComponentManager\Component\Animation;$(ProjectDir)Engine\ComponentManager\Component\Window;$(ProjectDir)Engine\ComponentManager\Component\Physics;$(ProjectDir)Engine\ComponentManager\Component\Shader;$(ProjectDir)Engine\ComponentManager\Component\Skybox;$(ProjectDir)Engine\ComponentManager\Component\Texture;$(ProjectDir)Engine\ComponentManager\Component\Material;$(ProjectDir)Engine\ComponentManager\Component\Model;$(ProjectDir)Engine\ComponentManager\Component\Mesh\Primitives;$(ProjectDir)Engine\ComponentManager\Component\Mesh;$(ProjectDir)Engine\ComponentManager\Component\AI;$(ProjectDir)Engine\ComponentManager\Component;$(ProjectDir)Engine\ComponentManager;$(ProjectDir)Engine\InputManager;$(ProjectDir)Engine\OutputManager\AudioManager\SoundManager;$(ProjectDir)Engine\OutputManager\AudioManager\MusicManager;$(ProjectDir)Engine\OutputManager\AudioManager;$(ProjectDir)Engine\OutputManager;$(ProjectDir)Engine\SceneManager\Scene;$(ProjectDir)Engine\SceneManager;$(ProjectDir)Engine\NetworkManager;$(ProjectDir)Engine\OutputManager\RenderingManager\AnimationManager;$(ProjectDir)Engine\OutputManager\RenderingManager\SkyboxManager;$(ProjectDir)Engine\OutputManager\RenderingManager\WindowManager;$(ProjectDir)Engine\OutputManager\RenderingManager\ShadowManager\Shadow\;$(ProjectDir)Engine\OutputManager\RenderingManager\TextureManager;$(ProjectDir)Engine\OutputManager\RenderingManager\ModelManager;$(ProjectDir)Engine\OutputManager\RenderingManager\ShadowManager;$(ProjectDir)Engine\OutputManager\RenderingManager\ShaderManager;$(ProjectDir)Engine\OutputManager\RenderingManager\MaterialManager;$(ProjectDir)Engine\OutputManager\RenderingManager\MeshManager\Primitives;$(ProjectDir)Engine\OutputManager\RenderingManager\MeshManager;$(ProjectDir)Engine\OutputManager\RenderingManager;$(ProjectDir)Engine\SimulationManager\PhysicsManager;$(ProjectDir)Engine\SimulationManager\LogicManager;$(ProjectDir)Engine\SimulationManager\AIManager;$(ProjectDir)Engine\SimulationManager;$(ProjectDir)Engine\EntityManager;$(ProjectDir)Engine\EntityManager\Entity;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Camera;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject\Static;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject\Animated;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Light;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature\Player;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature\NPC;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity\ScreenEffect;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity\UI;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity;$(ProjectDir)Engine\EngineAPI;$(ProjectDir)Engine;C:\libs\x64\assimp-4.1.0\include;c:\libs\x64\glm-0.9.9.0\;c:\libs\x64\glfw-3.2.1.bin.WIN64\include\;c:\libs\x64\GLEW-2.1.0\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <PrecompiledHeaderFile />
       <TreatWarningAsError>false</TreatWarningAsError>
@@ -150,7 +150,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Diagnostics;$(ProjectDir)Engine\Abstract;$(ProjectDir)external\wxWidgets\include;$(ProjectDir)external\wxWidgets\lib\vc_x64_lib\mswud;$(ProjectDir);$(ProjectDir)Helper;$(ProjectDir)external;$(ProjectDir)Editor;$(ProjectDir)Engine\Core;$(ProjectDir)Engine\Common;$(ProjectDir)Engine\ComponentManager\Component\Sound;$(ProjectDir)Engine\ComponentManager\Component\Music;$(ProjectDir)Engine\ComponentManager\Component\Logic;$(ProjectDir)Engine\ComponentManager\Component\Animation;$(ProjectDir)Engine\ComponentManager\Component\Window;$(ProjectDir)Engine\ComponentManager\Component\Physics;$(ProjectDir)Engine\ComponentManager\Component\Shader;$(ProjectDir)Engine\ComponentManager\Component\Skybox;$(ProjectDir)Engine\ComponentManager\Component\Texture;$(ProjectDir)Engine\ComponentManager\Component\Material;$(ProjectDir)Engine\ComponentManager\Component\Model;$(ProjectDir)Engine\ComponentManager\Component\Mesh\Primitives;$(ProjectDir)Engine\ComponentManager\Component\Mesh;$(ProjectDir)Engine\ComponentManager\Component\AI;$(ProjectDir)Engine\ComponentManager\Component;$(ProjectDir)Engine\ComponentManager;$(ProjectDir)Engine\InputManager;$(ProjectDir)Engine\AudioManager\SoundManager;$(ProjectDir)Engine\AudioManager\MusicManager;$(ProjectDir)Engine\AudioManager;$(ProjectDir)Engine\OutputManager;$(ProjectDir)Engine\SceneManager\Scene;$(ProjectDir)Engine\SceneManager;$(ProjectDir)Engine\NetworkManager;$(ProjectDir)Engine\RenderingManager\AnimationManager;$(ProjectDir)Engine\RenderingManager\SkyboxManager;$(ProjectDir)Engine\RenderingManager\WindowManager;$(ProjectDir)Engine\RenderingManager\TextureManager;$(ProjectDir)Engine\RenderingManager\ShadowManager\Shadow;$(ProjectDir)Engine\RenderingManager\ModelManager;$(ProjectDir)Engine\RenderingManager\ShadowManager;$(ProjectDir)Engine\RenderingManager\ShaderManager;$(ProjectDir)Engine\RenderingManager\MaterialManager;$(ProjectDir)Engine\RenderingManager\MeshManager\Primitives;$(ProjectDir)Engine\RenderingManager\MeshManager;$(ProjectDir)Engine\RenderingManager;$(ProjectDir)Engine\SimulationManager\PhysicsManager;$(ProjectDir)Engine\SimulationManager\LogicManager;$(ProjectDir)Engine\SimulationManager\AIManager;$(ProjectDir)Engine\SimulationManager;$(ProjectDir)Engine\EntityManager;$(ProjectDir)Engine\EntityManager\Entity;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Camera;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject\Static;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject\Animated;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Light;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature\Player;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature\NPC;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity\ScreenEffect;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity\UI;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity;$(ProjectDir)Engine\EngineAPI;$(ProjectDir)Engine;C:\libs\x64\assimp-4.1.0\include;c:\libs\x64\glm-0.9.9.0\;c:\libs\x64\glfw-3.2.1.bin.WIN64\include\;c:\libs\x64\GLEW-2.1.0\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Diagnostics;$(ProjectDir)Engine\Abstract;$(ProjectDir)external\wxWidgets\include;$(ProjectDir)external\wxWidgets\lib\vc_x64_lib\mswud;$(ProjectDir);$(ProjectDir)Helper;$(ProjectDir)external;$(ProjectDir)Editor;$(ProjectDir)Engine\Core;$(ProjectDir)Engine\Common;$(ProjectDir)Engine\ComponentManager\Component\Sound;$(ProjectDir)Engine\ComponentManager\Component\Music;$(ProjectDir)Engine\ComponentManager\Component\Logic;$(ProjectDir)Engine\ComponentManager\Component\Animation;$(ProjectDir)Engine\ComponentManager\Component\Window;$(ProjectDir)Engine\ComponentManager\Component\Physics;$(ProjectDir)Engine\ComponentManager\Component\Shader;$(ProjectDir)Engine\ComponentManager\Component\Skybox;$(ProjectDir)Engine\ComponentManager\Component\Texture;$(ProjectDir)Engine\ComponentManager\Component\Material;$(ProjectDir)Engine\ComponentManager\Component\Model;$(ProjectDir)Engine\ComponentManager\Component\Mesh\Primitives;$(ProjectDir)Engine\ComponentManager\Component\Mesh;$(ProjectDir)Engine\ComponentManager\Component\AI;$(ProjectDir)Engine\ComponentManager\Component;$(ProjectDir)Engine\ComponentManager;$(ProjectDir)Engine\InputManager;$(ProjectDir)Engine\OutputManager\AudioManager\SoundManager;$(ProjectDir)Engine\OutputManager\AudioManager\MusicManager;$(ProjectDir)Engine\OutputManager\AudioManager;$(ProjectDir)Engine\OutputManager;$(ProjectDir)Engine\SceneManager\Scene;$(ProjectDir)Engine\SceneManager;$(ProjectDir)Engine\NetworkManager;$(ProjectDir)Engine\OutputManager\RenderingManager\AnimationManager;$(ProjectDir)Engine\OutputManager\RenderingManager\SkyboxManager;$(ProjectDir)Engine\OutputManager\RenderingManager\WindowManager;$(ProjectDir)Engine\OutputManager\RenderingManager\ShadowManager\Shadow\;$(ProjectDir)Engine\OutputManager\RenderingManager\TextureManager;$(ProjectDir)Engine\OutputManager\RenderingManager\ModelManager;$(ProjectDir)Engine\OutputManager\RenderingManager\ShadowManager;$(ProjectDir)Engine\OutputManager\RenderingManager\ShaderManager;$(ProjectDir)Engine\OutputManager\RenderingManager\MaterialManager;$(ProjectDir)Engine\OutputManager\RenderingManager\MeshManager\Primitives;$(ProjectDir)Engine\OutputManager\RenderingManager\MeshManager;$(ProjectDir)Engine\OutputManager\RenderingManager;$(ProjectDir)Engine\SimulationManager\PhysicsManager;$(ProjectDir)Engine\SimulationManager\LogicManager;$(ProjectDir)Engine\SimulationManager\AIManager;$(ProjectDir)Engine\SimulationManager;$(ProjectDir)Engine\EntityManager;$(ProjectDir)Engine\EntityManager\Entity;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Camera;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject\Static;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject\Animated;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\WorldObject;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Light;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature\Player;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature\NPC;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity\Creature;$(ProjectDir)Engine\EntityManager\Entity\WorldEntity;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity\ScreenEffect;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity\UI;$(ProjectDir)Engine\EntityManager\Entity\ScreenEntity;$(ProjectDir)Engine\EngineAPI;$(ProjectDir)Engine;C:\libs\x64\assimp-4.1.0\include;c:\libs\x64\glm-0.9.9.0\;c:\libs\x64\glfw-3.2.1.bin.WIN64\include\;c:\libs\x64\GLEW-2.1.0\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
@@ -164,17 +164,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Abstract\IInputManagerSubmodule.cpp" />
-    <ClCompile Include="Engine\Abstract\IRenderingManagerSubmodule.cpp" />
-    <ClCompile Include="Engine\Abstract\ISimulationManagerSubmodule.cpp" />
+    <ClCompile Include="Engine\Core\BaseModule.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Model\SkeletalModel.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Model\StaticModel.cpp" />
     <ClCompile Include="Engine\InputManager\ControllerManager.cpp" />
     <ClCompile Include="Engine\ComponentManager\ComponentManager.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\AI\AI.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Component.cpp" />
-    <ClCompile Include="Engine\SimulationManager\AIManager\AIManager.cpp" />
-    <ClCompile Include="Engine\RenderingManager\AnimationManager\AnimationManager.cpp" />
+    <ClCompile Include="Engine\LogicManager\AIManager\AiManager.cpp" />
+    <ClCompile Include="Engine\SimulationManager\AnimationManager\AnimationManager.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Animation\Animation.cpp" />
     <ClCompile Include="Diagnostics\Logger.cpp" />
     <ClCompile Include="Editor\Editor.cpp" />
@@ -184,8 +182,8 @@
     <ClCompile Include="Engine\Abstract\IModuleState.cpp" />
     <ClCompile Include="Engine\Common\EngineError.cpp" />
     <ClCompile Include="Engine\Abstract\IUsesEngineAPI.cpp" />
-    <ClCompile Include="Engine\EngineAPI\EngineAPI.cpp" />
-    <ClCompile Include="Engine\EngineAPI\Command.cpp" />
+    <ClCompile Include="Engine\EngineApi\EngineAPI.cpp" />
+    <ClCompile Include="Engine\EngineApi\Command.cpp" />
     <ClCompile Include="Engine\Core\BaseEngine.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\Core\EngineContext.cpp" />
@@ -196,65 +194,65 @@
     <ClCompile Include="Engine\ComponentManager\Component\Skybox\Skybox.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Texture\Texture.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Window\Window.cpp" />
-    <ClCompile Include="Engine\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp" />
     <ClCompile Include="Engine\EntityManager\Entity\WorldEntity\Camera\Camera.cpp" />
     <ClCompile Include="Engine\EntityManager\Entity\WorldEntity\Light\DirectionalLight.cpp" />
     <ClCompile Include="Engine\EntityManager\Entity\WorldEntity\Light\Light.cpp" />
     <ClCompile Include="Engine\EntityManager\Entity\WorldEntity\Light\PointLight.cpp" />
     <ClCompile Include="Engine\EntityManager\Entity\WorldEntity\Light\SpotLight.cpp" />
-    <ClCompile Include="Engine\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp" />
     <ClCompile Include="Engine\Core\GameContext.cpp" />
     <ClCompile Include="Engine\EntityManager\EntityManager.cpp" />
     <ClCompile Include="Engine\InputManager\InputManager.cpp" />
-    <ClCompile Include="Engine\Abstract\IMainEngineModule.cpp" />
     <ClCompile Include="Engine\EntityManager\Entity\Entity.cpp" />
-    <ClCompile Include="Engine\SimulationManager\LogicManager\LogicManager.cpp" />
+    <ClCompile Include="Engine\LogicManager\LogicManager.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Logic\Logic.cpp" />
     <ClCompile Include="Engine\Abstract\IComponentState.cpp" />
     <ClCompile Include="Engine\InputManager\KeyboardManager.cpp" />
-    <ClCompile Include="Engine\InputManager\main.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\Core\SceneContext.cpp" />
     <ClCompile Include="Engine\NetworkManager\NetworkManager.cpp" />
     <ClCompile Include="Engine\OutputManager\OutputManager.cpp" />
     <ClCompile Include="Engine\SimulationManager\SimulationManager.cpp" />
-    <ClCompile Include="Engine\AudioManager\AudioManager.cpp" />
-    <ClCompile Include="Engine\RenderingManager\RenderingManager.cpp" />
+    <ClCompile Include="Engine\OutputManager\AudioManager\AudioManager.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\RenderingManager.cpp" />
     <ClCompile Include="Engine\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Engine\SceneManager\Scene\Scene.cpp" />
     <ClCompile Include="Engine\Common\TimeManager.cpp" />
     <ClCompile Include="Engine\EntityManager\Entity\ScreenEntity\ScreenEntity.cpp" />
     <ClCompile Include="Engine\EntityManager\Entity\WorldEntity\WorldEntity.cpp" />
-    <ClCompile Include="Engine\RenderingManager\MaterialManager\MaterialManager.cpp" />
-    <ClCompile Include="Engine\RenderingManager\MeshManager\MeshManager.cpp" />
-    <ClCompile Include="Engine\RenderingManager\ModelManager\ModelManager.cpp" />
+    <ClCompile Include="Engine\ComponentManager\MaterialManager\MaterialManager.cpp" />
+    <ClCompile Include="Engine\ComponentManager\MeshManager\MeshManager.cpp" />
+    <ClCompile Include="Engine\ComponentManager\ModelManager\ModelManager.cpp" />
     <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsManager.cpp" />
-    <ClCompile Include="Engine\RenderingManager\SkyboxManager\SkyboxManager.cpp" />
-    <ClCompile Include="Engine\RenderingManager\TextureManager\TextureManager.cpp" />
-    <ClCompile Include="Engine\RenderingManager\WindowManager\WindowManager.cpp" />
-    <ClCompile Include="Engine\RenderingManager\ShaderManager\ShaderManager.cpp" />
+    <ClCompile Include="Engine\ComponentManager\SkyboxManager\SkyboxManager.cpp" />
+    <ClCompile Include="Engine\ComponentManager\TextureManager\TextureManager.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Physics\Physics.cpp" />
-    <ClCompile Include="Engine\RenderingManager\ShadowManager\ShadowManager.cpp" />
-    <ClCompile Include="Engine\RenderingManager\ShadowManager\Shadow\Shadow.cpp" />
-    <ClCompile Include="Engine\RenderingManager\MeshManager\Primitives\WorldBlock.cpp" />
-    <ClCompile Include="Engine\RenderingManager\MeshManager\Primitives\WorldPrimitive.cpp" />
-    <ClCompile Include="Engine\AudioManager\MusicManager.cpp" />
-    <ClCompile Include="Engine\AudioManager\SoundManager.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp" />
+    <ClCompile Include="Engine\ComponentManager\MeshManager\Primitives\WorldBlock.cpp" />
+    <ClCompile Include="Engine\ComponentManager\MeshManager\Primitives\WorldPrimitive.cpp" />
+    <ClCompile Include="Engine\OutputManager\AudioManager\MusicManager.cpp" />
+    <ClCompile Include="Engine\OutputManager\AudioManager\SoundManager.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Sound\Sound.cpp" />
     <ClCompile Include="Engine\ComponentManager\Component\Music\Music.cpp" />
     <ClCompile Include="Engine\InputManager\MouseManager.cpp" />
+    <ClCompile Include="Engine\EntityManager\EntityController\EntityController.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Abstract\IInputManagerSubmodule.h" />
-    <ClInclude Include="Engine\Abstract\IRenderingManagerSubmodule.h" />
-    <ClInclude Include="Engine\Abstract\ISimulationManagerSubmodule.h" />
+    <ClInclude Include="Engine\Common\common.h" />
+    <ClInclude Include="Engine\Core\BaseModule.h" />
+    <ClInclude Include="Engine\Abstract\IModule.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Model\SkeletalModel.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Model\StaticModel.h" />
+    <ClInclude Include="Engine\Core\config_world.h" />
     <ClInclude Include="Engine\InputManager\ControllerManager.h" />
     <ClInclude Include="Engine\ComponentManager\ComponentManager.h" />
     <ClInclude Include="Engine\ComponentManager\Component\AI\AI.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Component.h" />
-    <ClInclude Include="Engine\SimulationManager\AIManager\AIManager.h" />
-    <ClInclude Include="Engine\RenderingManager\AnimationManager\AnimationManager.h" />
+    <ClInclude Include="Engine\LogicManager\AIManager\AiManager.h" />
+    <ClInclude Include="Engine\SimulationManager\AnimationManager\AnimationManager.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Animation\Animation.h" />
     <ClInclude Include="Diagnostics\Logger.h" />
     <ClInclude Include="Diagnostics\memory_diagnostics.h" />
@@ -264,8 +262,8 @@
     <ClInclude Include="Editor\ListControl.h" />
     <ClInclude Include="Engine\Common\EngineError.h" />
     <ClInclude Include="Engine\Core\CommonValues.h" />
-    <ClInclude Include="Engine\EngineAPI\EngineAPI.h" />
-    <ClInclude Include="Engine\EngineAPI\Command.h" />
+    <ClInclude Include="Engine\EngineApi\EngineAPI.h" />
+    <ClInclude Include="Engine\EngineApi\Command.h" />
     <ClInclude Include="Engine\Core\BaseEngine.h" />
     <ClInclude Include="Engine\Core\config_engine.h" />
     <ClInclude Include="Engine\Engine.h" />
@@ -277,54 +275,53 @@
     <ClInclude Include="Engine\ComponentManager\Component\Skybox\Skybox.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Texture\Texture.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Window\Window.h" />
-    <ClInclude Include="Engine\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h" />
     <ClInclude Include="Engine\EntityManager\Entity\WorldEntity\Camera\Camera.h" />
     <ClInclude Include="Engine\EntityManager\Entity\WorldEntity\Light\DirectionalLight.h" />
     <ClInclude Include="Engine\EntityManager\Entity\WorldEntity\Light\Light.h" />
     <ClInclude Include="Engine\EntityManager\Entity\WorldEntity\Light\PointLight.h" />
     <ClInclude Include="Engine\EntityManager\Entity\WorldEntity\Light\SpotLight.h" />
-    <ClInclude Include="Engine\RenderingManager\ShadowManager\Shadow\ShadowMap.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h" />
     <ClInclude Include="Engine\Core\GameContext.h" />
     <ClInclude Include="Engine\Core\SceneContext.h" />
     <ClInclude Include="Engine\Abstract\IUncopyable.h" />
     <ClInclude Include="Engine\Core\Instance.h" />
     <ClInclude Include="Engine\EntityManager\EntityManager.h" />
     <ClInclude Include="Engine\EntityManager\Entity\Entity.h" />
+    <ClInclude Include="Engine\EntityManager\EntityController\EntityController.h" />
     <ClInclude Include="Helper\macros.h" />
     <ClInclude Include="Editor\wxWidgetsEnums.h" />
     <ClInclude Include="Engine\InputManager\InputManager.h" />
     <ClInclude Include="Engine\NetworkManager\NetworkManager.h" />
     <ClInclude Include="Engine\OutputManager\OutputManager.h" />
     <ClInclude Include="Engine\SimulationManager\SimulationManager.h" />
-    <ClInclude Include="Engine\AudioManager\AudioManager.h" />
-    <ClInclude Include="Engine\RenderingManager\RenderingManager.h" />
+    <ClInclude Include="Engine\OutputManager\AudioManager\AudioManager.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\RenderingManager.h" />
     <ClInclude Include="Engine\SceneManager\SceneManager.h" />
     <ClInclude Include="Engine\Abstract\IUsesEngineAPI.h" />
-    <ClInclude Include="Engine\Abstract\IMainEngineModule.h" />
     <ClInclude Include="Engine\Abstract\IErrorLogging.h" />
     <ClInclude Include="Engine\Abstract\IModuleState.h" />
     <ClInclude Include="Engine\SceneManager\Scene\Scene.h" />
     <ClInclude Include="Engine\Common\TimeManager.h" />
     <ClInclude Include="Engine\EntityManager\Entity\ScreenEntity\ScreenEntity.h" />
     <ClInclude Include="Engine\EntityManager\Entity\WorldEntity\WorldEntity.h" />
-    <ClInclude Include="Engine\RenderingManager\MaterialManager\MaterialManager.h" />
-    <ClInclude Include="Engine\RenderingManager\MeshManager\MeshManager.h" />
-    <ClInclude Include="Engine\RenderingManager\ModelManager\ModelManager.h" />
-    <ClInclude Include="Engine\SimulationManager\LogicManager\LogicManager.h" />
+    <ClInclude Include="Engine\ComponentManager\MaterialManager\MaterialManager.h" />
+    <ClInclude Include="Engine\ComponentManager\MeshManager\MeshManager.h" />
+    <ClInclude Include="Engine\ComponentManager\ModelManager\ModelManager.h" />
+    <ClInclude Include="Engine\LogicManager\LogicManager.h" />
     <ClInclude Include="Engine\SimulationManager\PhysicsManager\PhysicsManager.h" />
-    <ClInclude Include="Engine\RenderingManager\SkyboxManager\SkyboxManager.h" />
-    <ClInclude Include="Engine\RenderingManager\TextureManager\TextureManager.h" />
-    <ClInclude Include="Engine\RenderingManager\WindowManager\WindowManager.h" />
-    <ClInclude Include="Engine\RenderingManager\ShaderManager\ShaderManager.h" />
+    <ClInclude Include="Engine\ComponentManager\SkyboxManager\SkyboxManager.h" />
+    <ClInclude Include="Engine\ComponentManager\TextureManager\TextureManager.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Physics\Physics.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Logic\Logic.h" />
-    <ClInclude Include="Engine\RenderingManager\ShadowManager\ShadowManager.h" />
-    <ClInclude Include="Engine\RenderingManager\ShadowManager\Shadow\Shadow.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h" />
     <ClInclude Include="Engine\Abstract\IComponentState.h" />
-    <ClInclude Include="Engine\RenderingManager\MeshManager\Primitives\WorldBlock.h" />
-    <ClInclude Include="Engine\RenderingManager\MeshManager\Primitives\WorldPrimitive.h" />
-    <ClInclude Include="Engine\AudioManager\MusicManager.h" />
-    <ClInclude Include="Engine\AudioManager\SoundManager.h" />
+    <ClInclude Include="Engine\ComponentManager\MeshManager\Primitives\WorldBlock.h" />
+    <ClInclude Include="Engine\ComponentManager\MeshManager\Primitives\WorldPrimitive.h" />
+    <ClInclude Include="Engine\OutputManager\AudioManager\MusicManager.h" />
+    <ClInclude Include="Engine\OutputManager\AudioManager\SoundManager.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Sound\Sound.h" />
     <ClInclude Include="Engine\ComponentManager\Component\Music\Music.h" />
     <ClInclude Include="Engine\InputManager\KeyboardManager.h" />

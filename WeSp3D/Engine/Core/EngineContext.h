@@ -7,13 +7,20 @@ class EngineContext
 {
 public:
   EngineContext();
-  virtual ~EngineContext();
 
-  static bool gTorchOn;
+  bool GetBShouldRun();
 
-protected:
+private:
+  bool _bShouldRun;
+
+
+
+
+public:
+    /////////// VVVVVVVVVVVVVVVVVVVVVVVVVV
+    static bool gTorchOn;
   const float toRadians = 3.14159265f / 180.0f;
 
 };
 
-}
+} // namespace WeSp

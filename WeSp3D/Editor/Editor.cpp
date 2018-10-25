@@ -5,7 +5,7 @@
 
 using namespace WeSp;
 
-Editor::Editor(Instance* pInstance, std::shared_ptr<EngineAPI> pEngineAPI):
+Editor::Editor(Instance* pInstance, std::shared_ptr<EngineApi> pEngineAPI):
   IUsesEngineAPI(pEngineAPI),
   _pInstance(pInstance),
   _pMainEditorWindow(nullptr)
