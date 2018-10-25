@@ -8,8 +8,13 @@ EngineContext::EngineContext():
   _bShouldRun(true)
 {}
 
-bool WeSp::EngineContext::GetBShouldRun()
+bool EngineContext::GetBShouldRun()
 {
   return _bShouldRun;
+}
+
+bool EngineContext::SetBShouldRun(bool newValue)
+{
+  _bShouldRun = newValue;
 }
 

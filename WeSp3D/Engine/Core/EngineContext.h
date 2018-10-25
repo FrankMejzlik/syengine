@@ -9,6 +9,7 @@ public:
   EngineContext();
 
   bool GetBShouldRun();
+  bool SetBShouldRun(bool newValue);
 
 private:
   bool _bShouldRun;

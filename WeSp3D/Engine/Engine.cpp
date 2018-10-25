@@ -72,9 +72,9 @@ bool Engine::Run()
     Initialize();
   }
 
-#if 0
+#if 1
   // Create all output channels.
-  OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
+  std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
   
 
@@ -82,17 +82,19 @@ bool Engine::Run()
   while (_engineContext.GetBShouldRun())
   {
 
-    mainWindow.SwapBuffers();
+    pMainWindow->SwapBuffers();
 
   }
 
 
   //// vvvvvvvvvvvvvvvvvv to ref vvvvvvvvvvvvvvvvvvvvvvv
 #endif
-#if 1
+#if 0
 
-  Window mainWindow(GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
-  mainWindow.Initialize();
+  std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
+
+  //Window mainWindow(GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
+  pMainWindow->Initialize();
 
   CreateObjects();
   CreateShaders();
@@ -232,13 +234,13 @@ bool Engine::Run()
     uniformSpecularIntensity = 0, uniformShininess = 0;
 
   // Get projeciton matrix
-  glm::mat4 projection = glm::perspective(glm::radians(45.0f), (GLfloat)(mainWindow.GetBufferWidth()) / mainWindow.GetBufferHeight(), 0.1f, 100.0f);
+  glm::mat4 projection = glm::perspective(glm::radians(45.0f), (GLfloat)(pMainWindow->GetBufferWidth()) / pMainWindow->GetBufferHeight(), 0.1f, 100.0f);
 
   double frameTimer = 0;
   float toAngle = 0;
   // Loop until window is closed
 
-  while (!mainWindow.GetShouldClose())
+  while (_engineContext.GetBShouldRun())
   {
     // Timing
     GLfloat now = static_cast<GLfloat>(glfwGetTime());
@@ -247,22 +249,22 @@ bool Engine::Run()
 
     // Get and handle user input events
     glfwPollEvents();
-    camera.KeyControl(mainWindow.GetKeys(), deltaTime);
-    camera.MouseControl(mainWindow.GetXChange(), mainWindow.GetYChange());
+    camera.KeyControl(pMainWindow->GetKeys(), deltaTime);
+    camera.MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
 
 
-    if (mainWindow.GetKeys()[GLFW_KEY_L])
+    if (pMainWindow->GetKeys()[GLFW_KEY_L])
     {
       pointLights[0].TogglePoint();
       pointLights[1].TogglePoint();
       pointLights[2].TogglePoint();
-      mainWindow.GetKeys()[GLFW_KEY_L] = false;
+      pMainWindow->GetKeys()[GLFW_KEY_L] = false;
     }
 
-    if (mainWindow.GetKeys()[GLFW_KEY_K])
+    if (pMainWindow->GetKeys()[GLFW_KEY_K])
     {
       spotLights[0].ToggleSpot();
-      mainWindow.GetKeys()[GLFW_KEY_K] = false;
+      pMainWindow->GetKeys()[GLFW_KEY_K] = false;
     }
 
     ENGINE_API->ProcessEngineQueue();
@@ -285,7 +287,7 @@ bool Engine::Run()
     // Render actual scene with computed shadow maps
     RenderPass(camera.CalculateViewMatrix(), projection);
 
-    mainWindow.SwapBuffers();
+    pMainWindow->SwapBuffers();
   }
 #endif
   // OpenGL windows closed

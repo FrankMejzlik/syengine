@@ -84,6 +84,9 @@ using namespace WeSp;
 
 namespace WeSp
 {
+
+class Window;
+
 class Engine :
   public BaseEngine, public BaseModule
 {

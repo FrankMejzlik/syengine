@@ -2,6 +2,7 @@
 
 #include <vector>
 
+#include "common.h"
 #include "BaseModule.h"
 
 // Submodules.
@@ -11,13 +12,10 @@
 
 using namespace WeSp;
 
-enum class eWindowType
+namespace WeSp 
 {
-  MAIN_GAME_WINDOW,
-  COUNT
-};
 
-namespace WeSp {
+class Window;
 
 class OutputManager :
   public BaseModule
@@ -31,7 +29,7 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  bool ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height);
+  std::shared_ptr<Window> ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height);
 
 
 private:

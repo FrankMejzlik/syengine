@@ -203,6 +203,12 @@
     <ClCompile Include="Engine\ComponentManager\SkyboxManager\SkyboxManager.cpp">
       <Filter>Engine\RenderingManager\SkyboxManager</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.cpp">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.cpp">
+      <Filter>Engine\RenderingManager\ShaderManager</Filter>
+    </ClCompile>
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp">
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
     </ClCompile>
@@ -212,12 +218,8 @@
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp">
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.cpp">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.cpp">
-      <Filter>Engine\RenderingManager\ShaderManager</Filter>
-    </ClCompile>
+    <ClCompile Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.cpp" />
+    <ClCompile Include="WINDOWMANAGER.CPP" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -448,6 +450,12 @@
     <ClInclude Include="Engine\ComponentManager\SkyboxManager\SkyboxManager.h">
       <Filter>Engine\RenderingManager\SkyboxManager</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.h">
+      <Filter>Engine\RenderingManager\ShaderManager</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h">
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
     </ClInclude>
@@ -457,12 +465,7 @@
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h">
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.h">
-      <Filter>Engine\RenderingManager\ShaderManager</Filter>
-    </ClInclude>
+    <ClInclude Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

@@ -4,8 +4,8 @@ OutputManager::OutputManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
+  _subModules.insert(std::make_pair(ID_RENDERING_MANAGER, std::make_shared<RenderingManager>(*this)));
+  
 
   DLog(eLogType::Success, "OutputManager instance created.");
 }
@@ -53,7 +53,7 @@ bool OutputManager::Terminate()
 }
 
 
-bool OutputManager::ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height)
+std::shared_ptr<Window> OutputManager::ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height)
 {
-  return false;
+  return RENDERING_MANAGER->ConstructWindow(windowType, windowTitle, width, height);
 }

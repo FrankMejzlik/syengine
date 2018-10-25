@@ -239,6 +239,8 @@
     <ClCompile Include="Engine\ComponentManager\Component\Music\Music.cpp" />
     <ClCompile Include="Engine\InputManager\MouseManager.cpp" />
     <ClCompile Include="Engine\EntityManager\EntityController\EntityController.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.cpp" />
+    <ClCompile Include="WINDOWMANAGER.CPP" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Common\common.h" />
@@ -326,6 +328,7 @@
     <ClInclude Include="Engine\ComponentManager\Component\Music\Music.h" />
     <ClInclude Include="Engine\InputManager\KeyboardManager.h" />
     <ClInclude Include="Engine\InputManager\MouseManager.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\shaders\directional_shadow_map.frag" />
