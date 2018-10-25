@@ -77,10 +77,15 @@ bool Engine::Run()
   std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
   
+  // Construct initial scene.
+  SCENE_MANAGER->LoadInitialScene();
 
   // Main game loop.
   while (_engineContext.GetBShouldRun())
   {
+
+
+
 
     pMainWindow->SwapBuffers();
 

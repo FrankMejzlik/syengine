@@ -27,12 +27,15 @@ public:
    */
   std::shared_ptr<Scene> GetScene(std::string sceneName);
   std::shared_ptr<Scene> CreateScene(std::string sceneName);
+  std::shared_ptr<Scene> LoadInitialScene();
+
   
   
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
 private:
+  std::map<std::string, std::shared_ptr<Scene>> _scenes;
 
 };
 

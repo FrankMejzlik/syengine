@@ -127,7 +127,6 @@ public:
 
   //EngineContext _engineContext;
   GameContext _gameContext;
-  SceneContext _sceneContext;
 
 
   // ------------------------

@@ -8,8 +8,8 @@ class EngineContext
 public:
   EngineContext();
 
-  bool GetBShouldRun();
-  bool SetBShouldRun(bool newValue);
+  bool GetBShouldRun() const;
+  void SetBShouldRun(bool newValue);
 
 private:
   bool _bShouldRun;
