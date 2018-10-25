@@ -8,7 +8,7 @@ RenderingManager::RenderingManager(BaseModule &parentModule):
   // Add submodules for this module.
   _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_shared<WindowManager>(*this)));
   
-  DLog(eLogType::Success, "RenderingManager instance created.");
+  DLog(eLogType::Success, "\t RenderingManager instance created.");
 }
 
 RenderingManager::~RenderingManager()
@@ -19,7 +19,7 @@ RenderingManager::~RenderingManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "RenderingManager instance destroyed.");
+  DLog(eLogType::Success, "\t RenderingManager instance destroyed.");
 }
 
 bool RenderingManager::Initialize()
@@ -40,7 +40,7 @@ bool RenderingManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "RenderingManager instance initialized.");
+  DLog(eLogType::Success, "\t RenderingManager instance initialized.");
   return true;
 }
 
@@ -49,7 +49,7 @@ bool RenderingManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "RenderingManager instance terminated.");
+  DLog(eLogType::Success, "\t RenderingManager instance terminated.");
   return true;
 }
 

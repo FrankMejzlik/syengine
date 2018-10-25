@@ -1,21 +1,19 @@
-#include "MaterialManager.h"
+#include "MeshManager.h"
 
 using namespace WeSp;
 
-MaterialManager::MaterialManager(BaseModule &parentModule):
+
+MeshManager::MeshManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
   //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
   //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
-  
-  _genericMaterials.insert(std::make_pair(std::string("shiny_material"), std::make_shared<Material>(1.0f, 512)));
-  _genericMaterials.insert(std::make_pair(std::string("dull_material"), std::make_shared<Material>(0.3f, 4)));
 
-  DLog(eLogType::Success, "MaterialManager instance created.");
+  DLog(eLogType::Success, "\t\t\t MeshManager instance created.");
 }
 
-MaterialManager::~MaterialManager()
+MeshManager::~MeshManager()
 {
   // If instance not terminated, do so
   if (GetModuleState() != eModuleState::Null)
@@ -23,10 +21,10 @@ MaterialManager::~MaterialManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "MaterialManager instance destroyed.");
+  DLog(eLogType::Success, "\t\t\t MeshManager instance destroyed.");
 }
 
-bool MaterialManager::Initialize()
+bool MeshManager::Initialize()
 {
   // Initialize submodules.
   for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
@@ -44,20 +42,15 @@ bool MaterialManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "MaterialManager instance initialized.");
+  DLog(eLogType::Success, "\t\t\t MeshManager instance initialized.");
   return true;
 }
 
-bool MaterialManager::Terminate()
+bool MeshManager::Terminate()
 {
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "MaterialManager instance terminated.");
+  DLog(eLogType::Success, "\t\t\t MeshManager instance terminated.");
   return true;
-}
-
-std::shared_ptr<Material> MaterialManager::GetDefaultMaterial() const
-{
-  return _genericMaterials.find(std::string("shiny_material"))->second;
 }

@@ -1,19 +1,18 @@
-#include "MeshManager.h"
+#include "SkyboxManager.h"
 
 using namespace WeSp;
 
-
-MeshManager::MeshManager(BaseModule &parentModule):
+SkyboxManager::SkyboxManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
   //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
   //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
 
-  DLog(eLogType::Success, "MeshManager instance created.");
+  DLog(eLogType::Success, "\t\t\tSkyboxManager instance created.");
 }
 
-MeshManager::~MeshManager()
+SkyboxManager::~SkyboxManager()
 {
   // If instance not terminated, do so
   if (GetModuleState() != eModuleState::Null)
@@ -21,10 +20,10 @@ MeshManager::~MeshManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "MeshManager instance destroyed.");
+  DLog(eLogType::Success, "\t\t\tSkyboxManager instance destroyed.");
 }
 
-bool MeshManager::Initialize()
+bool SkyboxManager::Initialize()
 {
   // Initialize submodules.
   for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
@@ -42,15 +41,15 @@ bool MeshManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "MeshManager instance initialized.");
+  DLog(eLogType::Success, "\t\t\t\t SkyboxManager instance initialized.");
   return true;
 }
 
-bool MeshManager::Terminate()
+bool SkyboxManager::Terminate()
 {
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "MeshManager instance terminated.");
+  DLog(eLogType::Success, "\t\t\t SkyboxManager instance terminated.");
   return true;
 }

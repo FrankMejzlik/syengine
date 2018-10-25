@@ -4,7 +4,7 @@
 AudioManager::AudioManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
-  DLog(eLogType::Success, "AudioManager instance created.");
+  DLog(eLogType::Success, "\t AudioManager instance created.");
 }
 
 AudioManager::~AudioManager()
@@ -15,14 +15,14 @@ AudioManager::~AudioManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "AudioManager instance destroyed.");
+  DLog(eLogType::Success, "\t AudioManager instance destroyed.");
 }
 
 bool AudioManager::Initialize()
 {
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "AudioManager instance initialized.");
+  DLog(eLogType::Success, "\t AudioManager instance initialized.");
   return true;
 }
 
@@ -32,6 +32,6 @@ bool AudioManager::Terminate()
 
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "AudioManager instance terminated.");
+  DLog(eLogType::Success, "\t AudioManager instance terminated.");
   return true;
 }

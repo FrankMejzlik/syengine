@@ -49,9 +49,6 @@
     <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsManager.cpp">
       <Filter>Engine\SimulationManager\PhysicsManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\InputManager\ControllerManager.cpp">
-      <Filter>Engine\InputManager</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\InputManager\KeyboardManager.cpp">
       <Filter>Engine\InputManager</Filter>
     </ClCompile>
@@ -150,76 +147,79 @@
     </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Quad.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.cpp" />
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\AI\AI.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\AI\AI.cpp">
       <Filter>Engine\ComponentManager\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Animation\Animation.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Animation\Animation.cpp">
       <Filter>Engine\ComponentManager\Component\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Controller\Controller.cpp" />
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Logic\Logic.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Controller\Controller.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.cpp">
       <Filter>Engine\ComponentManager\Component\Logic</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Material\Material.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Material\Material.cpp">
       <Filter>Engine\ComponentManager\Component\Material</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Mesh\Mesh.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Mesh\Mesh.cpp">
       <Filter>Engine\ComponentManager\Component\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Model\Model.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\Model.cpp">
       <Filter>Engine\ComponentManager\Component\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Model\SkeletalModel.cpp" />
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Model\StaticModel.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\StaticModel.cpp">
       <Filter>Engine\ComponentManager\Component\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Music\Music.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Music\Music.cpp">
       <Filter>Engine\ComponentManager\Component\Music</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Physics\Physics.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Physics.cpp">
       <Filter>Engine\ComponentManager\Component\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Shader\Shader.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Shader\Shader.cpp">
       <Filter>Engine\ComponentManager\Component\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Skybox\Skybox.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Skybox\Skybox.cpp">
       <Filter>Engine\ComponentManager\Component\Skybox</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Sound\Sound.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Sound\Sound.cpp">
       <Filter>Engine\ComponentManager\Component\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Texture\Texture.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Texture\Texture.cpp">
       <Filter>Engine\ComponentManager\Component\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Window\Window.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window\Window.cpp">
       <Filter>Engine\ComponentManager\Component\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\Component\Component.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Component.cpp">
       <Filter>Engine\ComponentManager\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\MaterialManager\MaterialManager.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MaterialManager\MaterialManager.cpp">
       <Filter>Engine\RenderingManager\MaterialManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\MeshManager\Primitives\MeshGenerator.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\Primitives\MeshGenerator.cpp">
       <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\MeshManager\Primitives\PrimitiveMeshGenerator.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\Primitives\PrimitiveMeshGenerator.cpp">
       <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\MeshManager\MeshManager.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshManager.cpp">
       <Filter>Engine\RenderingManager\MeshManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\ModelManager\ModelManager.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\ModelManager\ModelManager.cpp">
       <Filter>Engine\RenderingManager\ModelManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\SkyboxManager\SkyboxManager.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\SkyboxManager\SkyboxManager.cpp">
       <Filter>Engine\RenderingManager\SkyboxManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\TextureManager\TextureManager.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\TextureManager\TextureManager.cpp">
       <Filter>Engine\RenderingManager\TextureManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\ComponentManager\ComponentManager.cpp">
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\ComponentManager.cpp">
       <Filter>Engine\ComponentManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\ControllerManager\ControllerManager.cpp">
+      <Filter>Engine\InputManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -293,9 +293,6 @@
       <Filter>Engine\SimulationManager\PhysicsManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\InputManager\KeyboardManager.h">
-      <Filter>Engine\InputManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\InputManager\ControllerManager.h">
       <Filter>Engine\InputManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\InputManager\MouseManager.h">
@@ -398,76 +395,79 @@
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Quad.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.h" />
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\AI\AI.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\AI\AI.h">
       <Filter>Engine\ComponentManager\Component\AI</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Animation\Animation.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Animation\Animation.h">
       <Filter>Engine\ComponentManager\Component\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Controller\Controller.h" />
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Logic\Logic.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Controller\Controller.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.h">
       <Filter>Engine\ComponentManager\Component\Logic</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Material\Material.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Material\Material.h">
       <Filter>Engine\ComponentManager\Component\Material</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Mesh\Mesh.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Mesh\Mesh.h">
       <Filter>Engine\ComponentManager\Component\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Model\Model.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\Model.h">
       <Filter>Engine\ComponentManager\Component\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Model\SkeletalModel.h" />
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Model\StaticModel.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\StaticModel.h">
       <Filter>Engine\ComponentManager\Component\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Music\Music.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Music\Music.h">
       <Filter>Engine\ComponentManager\Component\Music</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Physics\Physics.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Physics.h">
       <Filter>Engine\ComponentManager\Component\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Shader\Shader.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Shader\Shader.h">
       <Filter>Engine\ComponentManager\Component\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Skybox\Skybox.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Skybox\Skybox.h">
       <Filter>Engine\ComponentManager\Component\Skybox</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Sound\Sound.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Sound\Sound.h">
       <Filter>Engine\ComponentManager\Component\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Texture\Texture.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Texture\Texture.h">
       <Filter>Engine\ComponentManager\Component\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Window\Window.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window\Window.h">
       <Filter>Engine\ComponentManager\Component\Window</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\Component\Component.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Component.h">
       <Filter>Engine\ComponentManager\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\MaterialManager\MaterialManager.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MaterialManager\MaterialManager.h">
       <Filter>Engine\RenderingManager\MaterialManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\MeshManager\Primitives\MeshGenerator.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\Primitives\MeshGenerator.h">
       <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\MeshManager\Primitives\PrimitiveMeshGenerator.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\Primitives\PrimitiveMeshGenerator.h">
       <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\MeshManager\MeshManager.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshManager.h">
       <Filter>Engine\RenderingManager\MeshManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\ModelManager\ModelManager.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\ModelManager\ModelManager.h">
       <Filter>Engine\RenderingManager\ModelManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\SkyboxManager\SkyboxManager.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\SkyboxManager\SkyboxManager.h">
       <Filter>Engine\RenderingManager\SkyboxManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\TextureManager\TextureManager.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\TextureManager\TextureManager.h">
       <Filter>Engine\RenderingManager\TextureManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\ComponentManager\ComponentManager.h">
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\ComponentManager.h">
       <Filter>Engine\ComponentManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\ControllerManager\ControllerManager.h">
+      <Filter>Engine\InputManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

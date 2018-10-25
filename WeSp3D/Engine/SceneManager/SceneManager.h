@@ -7,6 +7,8 @@
 #include "common.h"
 #include "BaseModule.h"
 #include "Scene.h"
+#include "ComponentManager.h"
+#include "EntityManager.h"
 
 using namespace WeSp;
 

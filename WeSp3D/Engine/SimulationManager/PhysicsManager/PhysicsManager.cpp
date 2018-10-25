@@ -9,7 +9,7 @@ PhysicsManager::PhysicsManager(BaseModule &parentModule):
   //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
   //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
 
-  DLog(eLogType::Success, "PhysicsManager instance created.");
+  DLog(eLogType::Success, "\t PhysicsManager instance created.");
 }
 
 PhysicsManager::~PhysicsManager()
@@ -20,7 +20,7 @@ PhysicsManager::~PhysicsManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "PhysicsManager instance destroyed.");
+  DLog(eLogType::Success, "\t PhysicsManager instance destroyed.");
 }
 
 bool PhysicsManager::Initialize()
@@ -41,7 +41,7 @@ bool PhysicsManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "PhysicsManager instance initialized.");
+  DLog(eLogType::Success, "\t PhysicsManager instance initialized.");
   return true;
 }
 
@@ -50,6 +50,6 @@ bool PhysicsManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "PhysicsManager instance terminated.");
+  DLog(eLogType::Success, "\t PhysicsManager instance terminated.");
   return true;
 }

@@ -5,7 +5,9 @@ using namespace WeSp;
 EntityManager::EntityManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
-  DLog(eLogType::Success, "EntityManager instance created.");
+  _subModules.insert(std::make_pair(ID_COMPONENT_MANAGER, std::make_shared<ComponentManager>(*this)));
+
+  DLog(eLogType::Success, "\t EntityManager instance created.");
 }
 
 EntityManager::~EntityManager()
@@ -16,7 +18,7 @@ EntityManager::~EntityManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "EntityManager instance destroyed.");
+  DLog(eLogType::Success, "\t EntityManager instance destroyed.");
 }
 
 bool EntityManager::Initialize()
@@ -38,7 +40,7 @@ bool EntityManager::Initialize()
   }
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "EntityManager instance initialized.");
+  DLog(eLogType::Success, "\t EntityManager instance initialized.");
   return true;
 }
 
@@ -47,7 +49,7 @@ bool EntityManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "EntityManager instance terminated.");
+  DLog(eLogType::Success, "\t EntityManager instance terminated.");
   return true;
 }
 

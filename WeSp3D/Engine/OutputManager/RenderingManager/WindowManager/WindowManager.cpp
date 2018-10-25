@@ -8,7 +8,7 @@ WindowManager::WindowManager(BaseModule &parentModule):
   //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
   //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
 
-  DLog(eLogType::Success, "WindowManager instance created.");
+  DLog(eLogType::Success, "\t\t WindowManager instance created.");
 }
 
 WindowManager::~WindowManager()
@@ -19,7 +19,7 @@ WindowManager::~WindowManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "WindowManager instance destroyed.");
+  DLog(eLogType::Success, "\t\t WindowManager instance destroyed.");
 }
 
 bool WindowManager::Initialize()
@@ -40,7 +40,7 @@ bool WindowManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "WindowManager instance initialized.");
+  DLog(eLogType::Success, "\t\t WindowManager instance initialized.");
   return true;
 }
 
@@ -49,7 +49,7 @@ bool WindowManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "WindowManager instance terminated.");
+  DLog(eLogType::Success, "\t\t WindowManager instance terminated.");
   return true;
 }
 

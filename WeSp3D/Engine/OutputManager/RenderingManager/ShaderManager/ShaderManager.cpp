@@ -9,7 +9,7 @@ ShaderManager::ShaderManager(BaseModule &parentModule):
   //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
   //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
 
-  DLog(eLogType::Success, "ShaderManager instance created.");
+  DLog(eLogType::Success, "\t\t ShaderManager instance created.");
 }
 
 ShaderManager::~ShaderManager()
@@ -20,7 +20,7 @@ ShaderManager::~ShaderManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "ShaderManager instance destroyed.");
+  DLog(eLogType::Success, "\t\t ShaderManager instance destroyed.");
 }
 
 bool ShaderManager::Initialize()
@@ -41,7 +41,7 @@ bool ShaderManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "ShaderManager instance initialized.");
+  DLog(eLogType::Success, "\t\t ShaderManager instance initialized.");
   return true;
 }
 
@@ -50,6 +50,6 @@ bool ShaderManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "ShaderManager instance terminated.");
+  DLog(eLogType::Success, "\t\t ShaderManager instance terminated.");
   return true;
 }

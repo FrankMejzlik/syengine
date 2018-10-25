@@ -9,7 +9,7 @@ ShadowManager::ShadowManager(BaseModule &parentModule):
   //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
   //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
 
-  DLog(eLogType::Success, "ShadowManager instance created.");
+  DLog(eLogType::Success, "\t\t ShadowManager instance created.");
 }
 
 ShadowManager::~ShadowManager()
@@ -20,7 +20,7 @@ ShadowManager::~ShadowManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "ShadowManager instance destroyed.");
+  DLog(eLogType::Success, "\t\t ShadowManager instance destroyed.");
 }
 
 bool ShadowManager::Initialize()
@@ -41,7 +41,7 @@ bool ShadowManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "ShadowManager instance initialized.");
+  DLog(eLogType::Success, "\t\t ShadowManager instance initialized.");
   return true;
 }
 
@@ -50,6 +50,6 @@ bool ShadowManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "ShadowManager instance terminated.");
+  DLog(eLogType::Success, "\t\t ShadowManager instance terminated.");
   return true;
 }

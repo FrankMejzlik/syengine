@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseModule.h"
+#include "ComponentManager.h"
 
 using namespace WeSp;
 

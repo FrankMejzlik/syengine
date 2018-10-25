@@ -1,10 +1,12 @@
 
 #include "SceneManager.h"
 
+
 SceneManager::SceneManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
-
+  
+  _subModules.insert(std::make_pair(ID_ENTITY_MANAGER, std::make_shared<EntityManager>(*this)));
 
   DLog(eLogType::Success, "SceneManager instance created.");
 }
@@ -16,6 +18,7 @@ SceneManager::~SceneManager()
   {
     Terminate();
   }
+
 
   DLog(eLogType::Success, "SceneManager instance destroyed.");
 }

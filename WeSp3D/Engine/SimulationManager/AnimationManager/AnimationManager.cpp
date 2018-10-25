@@ -10,7 +10,7 @@ AnimationManager::AnimationManager(BaseModule &parentModule):
   //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
   //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
 
-  DLog(eLogType::Success, "AnimationManager instance created.");
+  DLog(eLogType::Success, "\t AnimationManager instance created.");
 }
 
 AnimationManager::~AnimationManager()
@@ -21,7 +21,7 @@ AnimationManager::~AnimationManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "AnimationManager instance destroyed.");
+  DLog(eLogType::Success, "\t AnimationManager instance destroyed.");
 }
 
 bool AnimationManager::Initialize()
@@ -42,7 +42,7 @@ bool AnimationManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "AnimationManager instance initialized.");
+  DLog(eLogType::Success, "\t AnimationManager instance initialized.");
   return true;
 }
 
@@ -51,6 +51,6 @@ bool AnimationManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "AnimationManager instance terminated.");
+  DLog(eLogType::Success, "\t AnimationManager instance terminated.");
   return true;
 }

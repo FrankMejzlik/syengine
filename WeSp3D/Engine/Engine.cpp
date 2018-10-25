@@ -20,7 +20,6 @@ Engine::Engine(Instance* pInstance) :
 
 #endif
 
-  _subModules.insert(std::make_pair(ID_ENTITY_MANAGER, std::make_shared<EntityManager>(*this)));
   _subModules.insert(std::make_pair(ID_SCENE_MANAGER, std::make_shared<SceneManager>(*this)));
   _subModules.insert(std::make_pair(ID_INPUT_MANAGER, std::make_shared<InputManager>(*this)));
   _subModules.insert(std::make_pair(ID_NETWORK_MANAGER, std::make_shared<NetworkManager>(*this)));

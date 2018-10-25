@@ -5,7 +5,7 @@ using namespace WeSp;
 ControllerManager::ControllerManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
-  DLog(eLogType::Success, "\t ControllerManager instance created.");
+  DLog(eLogType::Success, "\t\t\t ControllerManager instance created.");
 }
 
 ControllerManager::~ControllerManager()
@@ -16,7 +16,7 @@ ControllerManager::~ControllerManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t ControllerManager instance destroyed.");
+  DLog(eLogType::Success, "\t\t\t ControllerManager instance destroyed.");
 }
 
 bool ControllerManager::Initialize()
@@ -37,7 +37,7 @@ bool ControllerManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "\t ControllerManager instance initialized.");
+  DLog(eLogType::Success, "\t\t\t ControllerManager instance initialized.");
   return true;
 }
 
@@ -46,6 +46,6 @@ bool ControllerManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t ControllerManager instance terminated.");
+  DLog(eLogType::Success, "\t\t\t ControllerManager instance terminated.");
   return true;
 }

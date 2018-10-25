@@ -3,17 +3,16 @@
 using namespace WeSp;
 
 TextureManager::TextureManager(BaseModule &parentModule):
-  BaseModule(parentModule),
-  _defaultTexture(std::make_shared<Texture>("Resource/textures/plain.png"))
+  BaseModule(parentModule)
 {
   // Instantiate submodules into map container
   //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
   //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
 
   // Load texture.
-  _defaultTexture->LoadTextureA();
+  //_defaultTexture->LoadTextureA();
 
-  DLog(eLogType::Success, "TextureManager instance created.");
+  DLog(eLogType::Success, "\t\t\tTextureManager instance created.");
 }
 
 TextureManager::~TextureManager()
@@ -24,7 +23,7 @@ TextureManager::~TextureManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "TextureManager instance destroyed.");
+  DLog(eLogType::Success, "\t\t\tTextureManager instance destroyed.");
 }
 
 bool TextureManager::Initialize()
@@ -45,7 +44,7 @@ bool TextureManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::Idle);
-  DLog(eLogType::Success, "TextureManager instance initialized.");
+  DLog(eLogType::Success, "\t\t\tTextureManager instance initialized.");
   return true;
 }
 
@@ -54,7 +53,7 @@ bool TextureManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "TextureManager instance terminated.");
+  DLog(eLogType::Success, "\t\t\tTextureManager instance terminated.");
   return true;
 }
 
