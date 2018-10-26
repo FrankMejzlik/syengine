@@ -21,7 +21,7 @@ Texture::Texture(const char* const fileLocation):
   strcpy_s(this->fileLocation, 1024, fileLocation);
 }
 
-bool Texture::LoadTextureA()
+bool Texture::LoadTexture()
 {
   unsigned char* texData = stbi_load(fileLocation, &width, &height, &bitDepth, 0);
   if (!texData)
@@ -58,48 +58,14 @@ bool Texture::LoadTextureA()
   stbi_image_free(texData);
   return true;
 }
-bool Texture::LoadTexture()
-{
-  unsigned char* texData = stbi_load(fileLocation, &width, &height, &bitDepth, 0);
-  if (!texData)
-  {
-    printf("Failed to find %s\n", fileLocation);
-    return false;
-  }
 
-  glGenTextures(1, &textureID);
-  glBindTexture(GL_TEXTURE_2D, textureID);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-  glTexImage2D(
-    GL_TEXTURE_2D,
-    0, // Mipmaps 
-    GL_RGB, // Data fomrat in GPU memory
-    width,
-    height,
-    0,  // Legacy border
-    GL_RGB, // Type on input
-    GL_UNSIGNED_BYTE,
-    texData
-  );
-
-  // Generate mipmaps automaticaly
-  glGenerateMipmap(GL_TEXTURE_2D);
-
-  glBindTexture(GL_TEXTURE_2D, 0);
-
-  // Dealocate CPU mem 
-  stbi_image_free(texData);
-  return true;
-}
 void Texture::UseTexture()
 {
+  // TODO: Use all units
   glActiveTexture(GL_TEXTURE1); // Minimum of 16 texture unit available
   glBindTexture(GL_TEXTURE_2D, textureID);
 }
+
 void Texture::ClearTexture()
 {
   // Delete texture from GPU

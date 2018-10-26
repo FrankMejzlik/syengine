@@ -5,7 +5,10 @@ using namespace WeSp;
 Model::Model()
 {}
 
-void Model::LoadModel(const std::string & fileName)
+Model::~Model()
+{}
+
+void Model::LoadModelFromFile(const std::string & fileName)
 {
   Assimp::Importer importer;
   const aiScene* pScene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
@@ -40,7 +43,7 @@ void Model::ClearModel()
   {
     if (_meshList[i])
     {
-      delete _meshList[i];
+      //delete _meshList[i];
       _meshList[i] = nullptr;
     }
   }
@@ -49,15 +52,33 @@ void Model::ClearModel()
   {
     if (_textureList[i])
     {
-      delete _textureList[i];
+      //delete _textureList[i];
       _textureList[i] = nullptr;
     }
   }
 }
 
+size_t Model::AddMesh(std::shared_ptr<Mesh> pNewMesh)
+{
+  _meshList.push_back(pNewMesh);
+  
+  return _meshList.size() - 1;
+}
 
-Model::~Model()
-{}
+size_t Model::AddTexture(std::shared_ptr<Texture> pNewTexture)
+{
+  _textureList.push_back(pNewTexture);
+
+  return _textureList.size() - 1;
+}
+
+void Model::SetMeshIndexToTexture(size_t meshIndex, size_t textureIndex)
+{
+  _meshToTexture[meshIndex] = textureIndex;
+  return;
+}
+
+
 
 void Model::LoadNode(aiNode * node, const aiScene * scene)
 {
@@ -107,9 +128,9 @@ void Model::LoadMesh(aiMesh * mesh, const aiScene * scene)
     }
   }
 
-  Mesh* newMesh = new Mesh();
-  newMesh->CreateMesh(vertices, indices);
-  _meshList.push_back(newMesh);
+  std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>();
+  pNewMesh->CreateMesh(vertices, indices);
+  _meshList.push_back(pNewMesh);
 
   _meshToTexture.push_back(mesh->mMaterialIndex);
 }
@@ -123,6 +144,7 @@ void Model::LoadMaterials(const aiScene * scene)
     aiMaterial* material = scene->mMaterials[i];
     _textureList[i] = nullptr;
 
+    // TODO: Support more types of textures.
     if (material->GetTextureCount(aiTextureType_DIFFUSE))
     {
       aiString path;
@@ -132,24 +154,28 @@ void Model::LoadMaterials(const aiScene * scene)
         int idx = std::string(path.data).rfind("\\");
         std::string filename = std::string(path.data).substr(idx + 1);
 
-        std::string texPath = std::string("Resource/textures/") + filename;
+        std::string texPath = std::string(PATH_TEXTURES) + filename;
 
-        _textureList[i] = new Texture(texPath.c_str());
+        //_textureList[i] = new Texture(texPath.c_str());
+        _textureList[i] = std::make_shared<Texture>(texPath.c_str());
 
         if (!_textureList[i]->LoadTexture())
         {
           printf("Failed to load texture at: %s\n", texPath); 
-          delete _textureList[i];
+          //delete _textureList[i];
           _textureList[i] = nullptr;
 
         }
 
       }
     }
+    // If no texture loaded.
     else
     {
-      _textureList[i] = new Texture("Resource/textures/plain.png");
-      _textureList[i]->LoadTextureA();
+      // Load default texture.
+      //_textureList[i] = new Texture(CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+      _textureList[i] = std::make_shared<Texture>(CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+      _textureList[i]->LoadTexture();
     }
   }
 }

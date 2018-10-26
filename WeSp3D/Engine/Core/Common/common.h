@@ -8,6 +8,7 @@
 
 #include "macros.h"
 #include "Logger.h"
+#include "typedefs.h"
 #include "config_engine.h"
 
 

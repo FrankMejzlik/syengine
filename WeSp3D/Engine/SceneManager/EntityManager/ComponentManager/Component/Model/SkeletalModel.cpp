@@ -93,7 +93,7 @@ void SkeletalModel::Clear()
 }
 
 
-void SkeletalModel::LoadModel(const std::string& fileName)
+void SkeletalModel::LoadModelFromFile(const std::string& fileName)
 {
   /* Deletes the previous loaded mesh(if it exists) */
   Clear();
@@ -108,7 +108,7 @@ void SkeletalModel::LoadModel(const std::string& fileName)
   /* Return value */
   bool ret = false;
 
-  m_pScene = m_Importer->ReadFile(fileName, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
+  m_pScene = m_Importer->ReadFile(fileName, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
 
   if (m_pScene)
   {

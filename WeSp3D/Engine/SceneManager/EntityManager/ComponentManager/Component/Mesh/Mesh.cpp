@@ -240,24 +240,6 @@ void Mesh::RenderMesh()
 
   return;
 }
- 
-void Mesh::RenderMesh(GLuint ul_specularIntensity, GLuint ul_shininess)
-{
-
-  _pTexture->UseTexture();
-  _pMaterial->UseMaterial(ul_specularIntensity, ul_shininess);
-
-  glBindVertexArray(_VAO);
-
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _IBO);
-  glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_INT, 0);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-  glBindVertexArray(0);
-
-  return;
-}
-
 
 void Mesh::ClearMesh()
 {

@@ -247,6 +247,7 @@
     <ClInclude Include="Engine\Core\Common\common.h" />
     <ClInclude Include="Engine\Core\BaseModule.h" />
     <ClInclude Include="Engine\Core\Abstract\IModule.h" />
+    <ClInclude Include="Engine\Core\typedefs.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\StaticModel.h" />
     <ClInclude Include="Engine\Core\config_world.h" />

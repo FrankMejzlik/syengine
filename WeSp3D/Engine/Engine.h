@@ -196,7 +196,7 @@ public:
 
   Model xwing;
   Model blackhawk;
-  SkeletalModel dude2;
+  Model dude2;
 
   DirectionalLight mainLight;
   PointLight pointLights[MAX_POINT_LIGHTS];
@@ -541,7 +541,7 @@ public:
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
     brickTexture.UseTexture();
-    shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    //shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     meshList[0]->RenderMesh();
 
 
@@ -549,7 +549,7 @@ public:
     model = glm::translate(model, glm::vec3(0.0f, 4.0f, -2.5f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
     dirtTexture.UseTexture();
-    shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    //shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     meshList[1]->RenderMesh();
 
 
@@ -557,15 +557,23 @@ public:
     model = glm::translate(model, glm::vec3(0.0f, -2.0f, -0.0f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
     dirtTexture.UseTexture();
-    shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    //shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     meshList[2]->RenderMesh();
 
     model = std::move(glm::mat4(1.0f));
     model = glm::translate(model, glm::vec3(2.0f, 0.0f, 10.0f));
     model = glm::scale(model, glm::vec3(0.006f, 0.006f, 0.006f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-    dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    //dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     xwing.RenderModel();
+
+
+    model = std::move(glm::mat4(1.0f));
+    model = glm::translate(model, glm::vec3(-8.0f, -1.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
+    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+    //dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    dude2.RenderModel();
 
     // Render editor objects
     for (std::map<int, SceneObject>::iterator it = editorMeshList.begin(); it != editorMeshList.end(); ++it)
@@ -586,7 +594,7 @@ public:
       plainTexture.UseTexture();
 
       // Set Material
-      shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+      //shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
       sceneObject._pMesh->RenderMesh();
     }
 
@@ -604,7 +612,7 @@ public:
     model = glm::rotate(model, -15.0f * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::rotate(model, -90.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-    shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    //shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     blackhawk.RenderModel();
 
   }
@@ -690,7 +698,7 @@ public:
     model = glm::rotate(model, -90.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
     
-    dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    //dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     
     std::vector<glm::mat4> Transforms;
     dude.boneTransform(glfwGetTime(), Transforms);
@@ -703,11 +711,11 @@ public:
     }
     Engine::GetGLErrors(__FILE__, __LINE__);
 
-    shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+    //shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     dude.render(shaderList[0]->GetShaderID());
 
 
-    model = std::move(glm::mat4(1.0f));
+    /*model = std::move(glm::mat4(1.0f));
     model = glm::translate(model, glm::vec3(-8.0f, -1.0f, 0.0f));
     model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -722,7 +730,7 @@ public:
       glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
     }
 
-    dude2.render(shaderList[0]->GetShaderID());
+    dude2.render(shaderList[0]->GetShaderID());*/
 
 
 
@@ -751,7 +759,7 @@ public:
 
     dude.render(shaderList[0]->GetShaderID());
 
-    model = std::move(glm::mat4(1.0f));
+    /*model = std::move(glm::mat4(1.0f));
     model = glm::translate(model, glm::vec3(-8.0f, -1.0f, 0.0f));
     model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -765,7 +773,7 @@ public:
       glUniformMatrix4fv(boneTransform, 1, GL_FALSE, glm::value_ptr(Transforms[i]));
     }
 
-    dude2.render(shaderList[0]->GetShaderID());
+    dude2.render(shaderList[0]->GetShaderID());*/
 
   }
 

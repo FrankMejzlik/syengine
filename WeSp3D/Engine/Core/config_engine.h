@@ -60,6 +60,10 @@
 
 #define MAGIC_BASE_MODULE_NUMBER 42
 
+// Paths
+#define PATH_TEXTURES "resource/textures"
+#define FILENAME_DEFAULT_TEXTURE "/plain.png"
+
 enum class eModuleState
 {
   Null,

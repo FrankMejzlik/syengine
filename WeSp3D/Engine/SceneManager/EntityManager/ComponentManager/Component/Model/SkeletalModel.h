@@ -86,7 +86,7 @@ public:
   /**
    * Loads skeleton model from specified file.
    */
-  virtual void LoadModel(const std::string& fileName) override;
+  virtual void LoadModelFromFile(const std::string& fileName) override;
 
   void render(GLuint shaderId);
 

@@ -9,8 +9,8 @@ MaterialManager::MaterialManager(BaseModule &parentModule):
   //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
   //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
   
-  _genericMaterials.insert(std::make_pair(std::string("shiny_material"), std::make_shared<Material>(1.0f, 512)));
-  _genericMaterials.insert(std::make_pair(std::string("dull_material"), std::make_shared<Material>(0.3f, 4)));
+  //_genericMaterials.insert(std::make_pair(std::string("shiny_material"), std::make_shared<Material>(1.0f, 512)));
+  //_genericMaterials.insert(std::make_pair(std::string("dull_material"), std::make_shared<Material>(0.3f, 4)));
 
   DLog(eLogType::Success, "\t\t\t MaterialManager instance created.");
 }

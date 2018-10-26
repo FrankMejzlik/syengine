@@ -469,6 +469,7 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\ControllerManager\ControllerManager.h">
       <Filter>Engine\InputManager</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Core\typedefs.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

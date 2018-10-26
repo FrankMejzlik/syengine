@@ -71,7 +71,7 @@ bool Engine::Run()
     Initialize();
   }
 
-#if 1
+#if 0
   // Create all output channels.
   std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
@@ -93,7 +93,7 @@ bool Engine::Run()
 
   //// vvvvvvvvvvvvvvvvvv to ref vvvvvvvvvvvvvvvvvvvvvvv
 #endif
-#if 0
+#if 1
 
   std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
@@ -109,30 +109,27 @@ bool Engine::Run()
   dirtTexture = Texture("Resource/textures/dirt.png");
   plainTexture = Texture("Resource/textures/plain.png");
 
-  brickTexture.LoadTextureA();
-  dirtTexture.LoadTextureA();
-  plainTexture.LoadTextureA();
-
-  shinyMaterial = Material(1.0f, 512);
-  dullMaterial = Material(0.3f, 4);
+  brickTexture.LoadTexture();
+  dirtTexture.LoadTexture();
+  plainTexture.LoadTexture();
 
   xwing = Model();
-  xwing.LoadModel("Resource/models/x-wing.obj");
+  xwing.LoadModelFromFile("Resource/models/x-wing.obj");
 
   blackhawk = Model();
-  blackhawk.LoadModel("Resource/models/uh60.obj");
+  blackhawk.LoadModelFromFile("Resource/models/uh60.obj");
 
-  dude2 = SkeletalModel();
-  dude2.LoadModel("Resource/panFazulka.DAE");
+  dude2 = Model();
+  dude2.LoadModelFromFile("Resource/panFazulka.DAE");
 
   dude = SkeletalModel();
-  dude.LoadModel("Resource/boblampclean.md5mesh");
+  dude.LoadModelFromFile("Resource/boblampclean.md5mesh");
 
   wolf = SkeletalModel();
-  wolf.LoadModel("Resource/Wolf_dae.dae");
+  wolf.LoadModelFromFile("Resource/Wolf_dae.dae");
 
   plane = SkeletalModel();
-  plane.LoadModel("Resource/Wolf_dae.dae");
+  plane.LoadModelFromFile("Resource/Wolf_dae.dae");
   
 
   {

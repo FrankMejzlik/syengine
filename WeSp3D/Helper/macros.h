@@ -4,7 +4,8 @@
 #define SAFE_DELETE_ARR(ptrArr) {delete[] ptrArr; ptrArr = nullptr; }
 
 
-#define PARENT_ENGINE std::static_cast<Engine&>(_parentModule)
+#define CONCATENATE_LITERALS(A, B) A ## B
+#define CONCATENATE_DEFINES(A, B) CONCATENATE_LITERALS(A, B)
 
 /**
  * Macros for accesing main modules from map container

@@ -34,7 +34,6 @@ public:
     bool calculateAverageNormals = false
   );
   virtual void RenderMesh();
-  virtual void RenderMesh(GLuint ul_specularIntensity, GLuint ul_shininess);
   virtual void ClearMesh();
 
 protected:
