@@ -2,11 +2,6 @@
 
 using namespace WeSp;
 
-// Initialize static attributes
-size_t Entity::_entityCounter(0);
-size_t Entity::_nextGUID(0);
-
-
 Entity::Entity(
   std::shared_ptr<ComponentManager> pComponentManager,
   glm::vec3 positionVector,
@@ -14,25 +9,17 @@ Entity::Entity(
   glm::vec3 scaleVector
 ):
   _pComponentManager(pComponentManager),
-  _GUID(_nextGUID),
   _positionVector(positionVector),
   _rotationVector(rotationVector),
-  _scaleVector(scaleVector)
+  _scaleVector(scaleVector),
+  _bIsToRender(false)
 {
-  // Increment counters
-  ++_entityCounter;
-  ++_nextGUID;
+
 }
 
 Entity::~Entity() 
 {
-  // Decrement entity counter
-  --_entityCounter;
-}
 
-size_t Entity::GetEntityCount() const
-{
-  return _entityCounter;
 }
 
 size_t Entity::GetGUID() const
@@ -71,4 +58,15 @@ bool Entity::SetScaleVector(const glm::vec3 scaleVector)
 {
   _scaleVector = scaleVector;
   return true;
+}
+
+void Entity::SetEntityName(std::string name)
+{
+  _name = name;
+  return;
+}
+
+std::string Entity::GetEntityName() const
+{
+  return _name;
 }

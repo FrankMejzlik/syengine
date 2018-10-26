@@ -1,3 +1,4 @@
+
 #include "ComponentManager.h"
 
 using namespace WeSp; 
@@ -5,6 +6,7 @@ using namespace WeSp;
 ComponentManager::ComponentManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
+  // Instantiate all submodules.
   _subModules.insert(std::make_pair(ID_CONTROLLER_MANAGER, std::make_shared<ControllerManager>(*this)));
   _subModules.insert(std::make_pair(ID_MATERIAL_MANAGER, std::make_shared<MaterialManager>(*this)));
   _subModules.insert(std::make_pair(ID_MESH_MANAGER, std::make_shared<MeshManager>(*this)));
@@ -16,7 +18,6 @@ ComponentManager::ComponentManager(BaseModule &parentModule):
   DLog(eLogType::Success, "\t\tComponentManager instance created.");
 }
 
-
 ComponentManager::~ComponentManager()
 {
   DLog(eLogType::Success, "\t\tComponentManager instance destroyed.");
@@ -24,7 +25,6 @@ ComponentManager::~ComponentManager()
 
 bool ComponentManager::Initialize()
 {
-
   // Class specific initialization
 
   // Initialize submodules.
@@ -52,4 +52,18 @@ bool ComponentManager::Terminate()
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "ComponentManager instance terminated.");
   return true;
+}
+
+std::shared_ptr<Mesh> ComponentManager::GenerateMeshQuad(dfloat width, dfloat height)
+{
+  std::shared_ptr<Mesh> newComponent = MESH_MANAGER->GenerateMeshQuad(width, height);
+
+  return newComponent;
+
+}
+
+std::shared_ptr<Model> ComponentManager::CreateModel(std::shared_ptr<Mesh> pQuadMesh, std::shared_ptr<Texture> pTexture, std::shared_ptr<Shininess> pShininess)
+{
+  std::shared_ptr<Model> newComponent = MODEL_MANAGER->CreateModel(pQuadMesh, pTexture, pShininess);
+  return newComponent;
 }

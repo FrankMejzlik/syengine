@@ -6,10 +6,6 @@ using namespace WeSp;
 ModelManager::ModelManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
-  // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
-
   DLog(eLogType::Success, "\t\t\t ModelManager instance created.");
 }
 
@@ -53,4 +49,31 @@ bool ModelManager::Terminate()
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "\t\t\t ModelManager instance terminated.");
   return true;
+}
+
+std::shared_ptr<Model> ModelManager::CreateModel(std::shared_ptr<Mesh> pQuadMesh, std::shared_ptr<Texture> pTexture, std::shared_ptr<Shininess> pShininess)
+{
+  std::shared_ptr<Model> newModel = std::make_shared<Model>();
+
+  // Add Mesh, Texture and Shininess to model
+  size_t meshIndex = newModel->AddMesh(pQuadMesh);
+  size_t textureIndex = 0;
+  size_t shininessIndex = 0;
+
+  // If texture provided.
+  if (pTexture)
+  {
+    textureIndex = newModel->AddTexture(pTexture);
+  }
+  newModel->SetMeshIndexToShininess(meshIndex, shininessIndex);
+
+  // If shininess provided.
+  if (pShininess)
+  {
+    shininessIndex = newModel->AddShininess(pShininess);
+  }
+  newModel->SetMeshIndexToShininess(meshIndex, shininessIndex);
+
+  
+  return newModel;
 }

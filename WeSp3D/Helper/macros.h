@@ -32,8 +32,8 @@
 
 
 // RenderingManager submodules
-#define MESH_MANAGER std::static_pointer_cast<EngineApi>(_subModules[ID_MESH_MANAGER])
-#define MODEL_MANAGER std::static_pointer_cast<InputManager>(_subModules[ID_MODEL_MANAGER])
+#define MESH_MANAGER std::static_pointer_cast<MeshManager>(_subModules[ID_MESH_MANAGER])
+#define MODEL_MANAGER std::static_pointer_cast<ModelManager>(_subModules[ID_MODEL_MANAGER])
 #define SHADER_MANAGER std::static_pointer_cast<EntityManager>(_subModules[ID_SHADER_MANAGER])
 #define SHDOW_MANAGER std::static_pointer_cast<NetworkManager>(_subModules[ID_SHDOW_MANAGER])
 #define SKYBOX_MANAGER std::static_pointer_cast<OutputManager>(_subModules[ID_SKYBOX_MANAGER])
@@ -45,4 +45,6 @@
 #define LOGIC_MANAGER std::static_pointer_cast<LogicManager>(_subModules[ID_LOGIC_MANAGER])
 #define PHYSICS_MANAGER std::static_pointer_cast<PhysicsManager>(_subModules[ID_PHYSICS_MANAGER])
 
+
+#define MESH_GENERATOR std::static_pointer_cast<MeshGenerator>(_subModules[ID_MESH_GENERATOR])
 

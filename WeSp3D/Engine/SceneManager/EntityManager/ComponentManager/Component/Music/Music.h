@@ -5,8 +5,7 @@
 namespace WeSp {
 
 class Music :
-  public Component,
-  public IComponentState
+  public Component
 {
 public:
   Music();

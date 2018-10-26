@@ -17,7 +17,10 @@ Light::Light(
   _pShadowMap(std::make_shared<ShadowMap>())
 {
   // Initialize shadow map
-  _pShadowMap->Init(_shadowDimensions.x, _shadowDimensions.y);
+  _pShadowMap->Init(
+    static_cast<unsigned int>(_shadowDimensions.x), 
+    static_cast<unsigned int>(_shadowDimensions.y)
+  );
 }
 
 Light::~Light()

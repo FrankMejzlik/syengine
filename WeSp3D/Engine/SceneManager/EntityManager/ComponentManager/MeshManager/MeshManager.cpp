@@ -7,8 +7,7 @@ MeshManager::MeshManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
+  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_shared<MeshGenerator>(*this)));
 
   DLog(eLogType::Success, "\t\t\t MeshManager instance created.");
 }
@@ -53,4 +52,13 @@ bool MeshManager::Terminate()
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "\t\t\t MeshManager instance terminated.");
   return true;
+}
+
+std::shared_ptr<Mesh> MeshManager::GenerateMeshQuad(dfloat width, dfloat height)
+{
+  std::shared_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshQuad(width, height, false);
+  
+  // TODO store Mesh
+
+  return newMesh;
 }

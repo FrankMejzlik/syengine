@@ -8,6 +8,8 @@
 #include "Primitive\Quad.h"
 
 
+
+
 enum class eEntityType
 {
   ENTITY,
@@ -42,13 +44,14 @@ public:
 
 
   std::shared_ptr<Quad> CreateQuad(
+    std::string entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height
   );
 
 
 private:
-
+  std::map<std::string, std::shared_ptr<Entity>> _entityList;
 };
 
 }

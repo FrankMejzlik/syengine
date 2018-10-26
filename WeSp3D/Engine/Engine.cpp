@@ -78,9 +78,23 @@ bool Engine::Run()
   // Construct initial scene.
   SCENE_MANAGER->LoadInitialScene();
 
+  TimeStamp ts;
+
+  auto prev = std::chrono::high_resolution_clock::now();
+
   // Main game loop.
   while (_engineContext.GetBShouldRun())
   {
+    
+    // get difference -> dletaTime
+    auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(
+      std::chrono::high_resolution_clock::now() - prev
+     ).count();
+
+    prev = std::chrono::high_resolution_clock::now();
+
+    std::cout << "deltaT is " << deltaTime << std::endl;
+    
 
     pMainWindow->SwapBuffers();
 

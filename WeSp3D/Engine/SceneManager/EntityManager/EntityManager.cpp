@@ -54,9 +54,21 @@ bool EntityManager::Terminate()
 }
 
 std::shared_ptr<Quad> EntityManager::CreateQuad(
+  std::string entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   dfloat width, dfloat height
 )
 {
-  return nullptr;
+  // Instantiate new Quad instance.
+  std::shared_ptr<Quad> newEntity = std::make_shared<Quad>(
+    COMPONENT_MANAGER, 
+    positionVector, rotationVector, scaleVector,
+    true, // Is static.
+    width, height
+  );
+  // Set name of Entity.
+  newEntity->SetEntityName(entityName);
+
+
+  return newEntity;
 }

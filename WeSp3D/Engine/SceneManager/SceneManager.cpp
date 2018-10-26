@@ -65,6 +65,17 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
     10.0f, 10.0f
    );
 
+  pNewScene->CreateDirectionalLight(
+    "main_light",
+    glm::vec3(0.0f, 0.0f, 0.0f),          // Position vector
+    glm::vec3(0.0f, 0.0f, 0.0f),          // rotation vector
+    glm::vec3(1.0f, 1.0f, 1.0f),          // scale vector
+
+    glm::vec3(1.0f, 1.0f, 1.0f),          // Colour vector
+    glm::vec3(0.5f, 0.9f, 0.0f),          // Intensities
+    glm::vec3(2048.0f, 2048.0f, 0.0f),    // Shadow dimensions
+    glm::vec3(-10.0f, -12.0f, 18.5f)
+  );
 
   // Insert test Entities into scene here.
 
@@ -102,4 +113,10 @@ bool SceneManager::Terminate()
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "SceneManager instance terminated.");
   return true;
+}
+
+
+void SceneManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
+{
+  // TODO:
 }

@@ -62,6 +62,9 @@ size_t Model::AddMesh(std::shared_ptr<Mesh> pNewMesh)
 {
   _meshList.push_back(pNewMesh);
   
+  _meshToTexture.push_back(0);
+  _meshToShininess.push_back(0);
+  
   return _meshList.size() - 1;
 }
 
@@ -72,13 +75,24 @@ size_t Model::AddTexture(std::shared_ptr<Texture> pNewTexture)
   return _textureList.size() - 1;
 }
 
+size_t Model::AddShininess(std::shared_ptr<Shininess> pNewShininess)
+{
+  _shininesList.push_back(pNewShininess);
+
+  return _shininesList.size() - 1;
+}
+
 void Model::SetMeshIndexToTexture(size_t meshIndex, size_t textureIndex)
 {
   _meshToTexture[meshIndex] = textureIndex;
   return;
 }
 
-
+void Model::SetMeshIndexToShininess(size_t meshIndex, size_t shininessIndex)
+{
+  _meshToShininess[meshIndex] = shininessIndex;
+  return;
+}
 
 void Model::LoadNode(aiNode * node, const aiScene * scene)
 {

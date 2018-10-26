@@ -12,6 +12,9 @@
 #include <queue>
 #include <map>
 
+
+#include "TimeManager.h"
+
 // External includes.
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

@@ -47,6 +47,9 @@
 #define ID_PHYSICS_MANAGER 73
 
 
+#define ID_MESH_GENERATOR 74
+
+
 // Game window settings
 #define GAME_WINDOW_TITLE "WeSp3D Game Preview"
 #define GAME_WINDOW_DEFAULT_WIDTH 1333

@@ -2,6 +2,8 @@
 
 #include "common.h"
 #include "WorldObject.h"
+#include "ComponentManager.h"
+#include "Model.h"
 
 class Quad :
   public WorldObject
@@ -14,5 +16,10 @@ public:
     dfloat width, dfloat height
   );
   ~Quad();
+
+
+
+private:
+  std::shared_ptr<Model> _pModel;
 };
 

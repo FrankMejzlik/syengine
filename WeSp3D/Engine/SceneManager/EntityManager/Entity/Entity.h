@@ -5,24 +5,28 @@
 
 #include <glm/glm.hpp>
 
-#include "macros.h"
+#include "common.h"
+#include "IGuidCounted.h"
+
 
 namespace WeSp 
 {
 
 class ComponentManager;
 class Component;
-class Mesh;
+class Model;
 
 /**
  * Base class for every entity that can be part of Scene.
  *
  * Every Entity MUST have pointer to it's ComponentManager instance.
  */
-class Entity
+class Entity:
+  public IGuidCounted
 {
 public:
   Entity() = delete;
+
   Entity(
     std::shared_ptr<ComponentManager> pComponentManager,
     glm::vec3 positionVector,
@@ -32,7 +36,8 @@ public:
   virtual ~Entity();
 
 
-  size_t GetEntityCount() const;
+  void SetEntityName(std::string name);
+  std::string GetEntityName() const;
   size_t GetGUID() const;
   glm::vec3 GetPositionVector() const;
   bool SetPositionVector(const glm::vec3 positionVector);
@@ -44,20 +49,21 @@ public:
 
 protected:
   std::shared_ptr<ComponentManager> _pComponentManager;
-  static size_t _entityCounter;
-  static size_t _nextGUID;
+  bool _bIsToRender;
 
   // Global Unique ID
   size_t _GUID;
+  std::string _name;
   // Position relative to origin in world
   glm::vec3 _positionVector;
   // Rotation angles in radians by particular axes
   glm::vec3 _rotationVector;
   // Scale factor for every direction
   glm::vec3 _scaleVector;
+
   // All components attached to this Entity.
   std::map<std::string, std::shared_ptr<Component>> _componentList;
-  std::map<std::string, std::shared_ptr<Mesh>> _meshesToRender;
+  std::map<std::string, std::shared_ptr<Model>> _modelsToRenderList;
 
 };
 
