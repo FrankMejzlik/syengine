@@ -18,8 +18,13 @@ class Camera:
   public WorldEntity
 {
 public:
-	Camera();
-	Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed);
+	Camera() = delete;
+
+	Camera(
+    std::shared_ptr<ComponentManager> pComponentManager,
+    glm::vec3 startPosition,
+    glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed
+  );
 
 	void KeyControl(bool* keys, GLfloat deltaTime);
 	void MouseControl(GLfloat xChange, GLfloat yChange);

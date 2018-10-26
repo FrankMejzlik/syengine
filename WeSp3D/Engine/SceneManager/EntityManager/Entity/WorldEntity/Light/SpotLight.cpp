@@ -2,11 +2,9 @@
 
 using namespace WeSp;
 
-SpotLight::SpotLight() :
-  PointLight()
-{}
 
 SpotLight::SpotLight(
+  std::shared_ptr<ComponentManager> pComponentManager,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 colourVector,
   glm::vec3 lightIntensities,
@@ -17,6 +15,7 @@ SpotLight::SpotLight(
   GLfloat coneAngle
 ):
   PointLight(
+    pComponentManager,
     positionVector, rotationVector, scaleVector,
     colourVector,
     lightIntensities,

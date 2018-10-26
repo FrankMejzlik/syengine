@@ -18,6 +18,7 @@ class ComponentManager:
 {
 public:
   ComponentManager() = delete;
+
   ComponentManager(BaseModule &parentModule);
   ~ComponentManager();
   bool Initialize();

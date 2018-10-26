@@ -14,8 +14,10 @@ class WorldEntity :
   public Entity
 {
 public:
-  WorldEntity();
+  WorldEntity() = delete;
+
   WorldEntity(
+    std::shared_ptr<ComponentManager> pComponentManager,
     glm::vec3 positionVector,
     glm::vec3 rotationVector,
     glm::vec3 scaleVector

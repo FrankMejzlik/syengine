@@ -131,7 +131,7 @@ public:
 
   // ------------------------
 
-
+#if 0
   class SceneObject
   {
   public:
@@ -183,7 +183,7 @@ public:
   Shader directionalShadowShader;
   Shader omniShadowShader;
 
-  Camera camera;
+  //Camera camera;
 
   //Shader animatedShader;
 
@@ -844,7 +844,7 @@ public:
 
   }
 
-
+#endif
 };
 
 }

@@ -7,21 +7,13 @@ size_t Entity::_entityCounter(0);
 size_t Entity::_nextGUID(0);
 
 
-Entity::Entity() :
-  _GUID(_nextGUID),
-  _positionVector(0.0f, 0.0f, 0.0f),
-  _rotationVector(0.0f, 0.0f, 0.0f),
-  _scaleVector(1.0f, 1.0f, 1.0f)
-{
-  // Increment counters
-  ++_entityCounter;
-  ++_nextGUID;
-}
 Entity::Entity(
+  std::shared_ptr<ComponentManager> pComponentManager,
   glm::vec3 positionVector,
   glm::vec3 rotationVector,
   glm::vec3 scaleVector
 ):
+  _pComponentManager(pComponentManager),
   _GUID(_nextGUID),
   _positionVector(positionVector),
   _rotationVector(rotationVector),

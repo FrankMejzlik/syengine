@@ -10,18 +10,21 @@
 namespace WeSp 
 {
 
+class ComponentManager;
+class Component;
+class Mesh;
+
 /**
  * Base class for every entity that can be part of Scene.
+ *
+ * Every Entity MUST have pointer to it's ComponentManager instance.
  */
 class Entity
 {
-
-  class Component;
-  class Mesh;
-
 public:
-  Entity();
+  Entity() = delete;
   Entity(
+    std::shared_ptr<ComponentManager> pComponentManager,
     glm::vec3 positionVector,
     glm::vec3 rotationVector,
     glm::vec3 scaleVector
@@ -40,6 +43,7 @@ public:
 
 
 protected:
+  std::shared_ptr<ComponentManager> _pComponentManager;
   static size_t _entityCounter;
   static size_t _nextGUID;
 
@@ -52,7 +56,7 @@ protected:
   // Scale factor for every direction
   glm::vec3 _scaleVector;
   // All components attached to this Entity.
-  std::map<std::string, std::shared_ptr<Component>> _components;
+  std::map<std::string, std::shared_ptr<Component>> _componentList;
   std::map<std::string, std::shared_ptr<Mesh>> _meshesToRender;
 
 };

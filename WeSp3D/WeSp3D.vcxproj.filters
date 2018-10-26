@@ -100,9 +100,6 @@
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
     </ClCompile>
     <ClCompile Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\ScreenEntity\ScreenEntity.cpp">
-      <Filter>Engine\EntityManager\Entity\ScreenEntity</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Camera\Camera.cpp">
       <Filter>Engine\EntityManager\Entity\WorldEntity\Camera</Filter>
     </ClCompile>
@@ -343,9 +340,6 @@
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\ScreenEntity\ScreenEntity.h">
-      <Filter>Engine\EntityManager\Entity\ScreenEntity</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Camera\Camera.h">
       <Filter>Engine\EntityManager\Entity\WorldEntity\Camera</Filter>
     </ClInclude>

@@ -3,11 +3,8 @@
 
 using namespace WeSp;
 
-DirectionalLight::DirectionalLight() :
-  Light()
-{};
-
 DirectionalLight::DirectionalLight(
+  std::shared_ptr<ComponentManager> pComponentManager,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 colourVector,
   glm::vec3 lightIntensities,
@@ -15,6 +12,7 @@ DirectionalLight::DirectionalLight(
   glm::vec3 lightDirectionVector
 ) : 
   Light(
+    pComponentManager,
     positionVector, rotationVector, scaleVector,
     colourVector,
     lightIntensities,

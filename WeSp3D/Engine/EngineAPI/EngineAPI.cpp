@@ -65,12 +65,12 @@ void EngineApi::ProcessEngineQueue()
     switch (cmd.GetType())  
     {
     case eCommandType::CreateBlock:
-      static_cast<Engine&>(_parentModule).HandleCommandCreateBlock(cmd.GetFloatData());
+      //static_cast<Engine&>(_parentModule).HandleCommandCreateBlock(cmd.GetFloatData());
       
       break;
 
     case eCommandType::CreateSphere:
-      static_cast<Engine&>(_parentModule).HandleCommandCreateSphere(cmd.GetFloatData());
+      //static_cast<Engine&>(_parentModule).HandleCommandCreateSphere(cmd.GetFloatData());
       break;
 
     case eCommandType::CreatePointLight:
@@ -83,7 +83,7 @@ void EngineApi::ProcessEngineQueue()
       break;
 
     case eCommandType::DeleteObjectId:
-      static_cast<Engine&>(_parentModule).HandleCommandDeleteObjectId(cmd.GetIntData());
+      //static_cast<Engine&>(_parentModule).HandleCommandDeleteObjectId(cmd.GetIntData());
       break;
 
     case eCommandType::Terminate:

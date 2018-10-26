@@ -3,15 +3,14 @@
 
 using namespace WeSp;
 
-WorldEntity::WorldEntity() :
-  Entity() 
-{}
+
 WorldEntity::WorldEntity(
+  std::shared_ptr<ComponentManager> pComponentManager,
   glm::vec3 positionVector, 
   glm::vec3 rotationVector, 
   glm::vec3 scaleVector
 ) :
-  Entity(positionVector, rotationVector, scaleVector)
+  Entity(pComponentManager, positionVector, rotationVector, scaleVector)
 {}
 
 WorldEntity::~WorldEntity() {}

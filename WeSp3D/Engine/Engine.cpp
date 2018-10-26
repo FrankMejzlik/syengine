@@ -4,9 +4,8 @@
 using namespace WeSp;
 
 Engine::Engine(Instance* pInstance) :
-  BaseModule(MAGIC_BASE_MODULE_NUMBER), // Identify as root module
-  _pInstance(pInstance),
-  globObjID(0)
+  BaseModule(MAGIC_BASE_MODULE_NUMBER), // Identify as root module.
+  _pInstance(pInstance) // Save OS instance handle.
 {
   /*
     Whatever modules are pushed into _subModules hasp map are loaded and initialized.
@@ -71,7 +70,7 @@ bool Engine::Run()
     Initialize();
   }
 
-#if 0
+#if 1
   // Create all output channels.
   std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
@@ -83,9 +82,6 @@ bool Engine::Run()
   while (_engineContext.GetBShouldRun())
   {
 
-
-
-
     pMainWindow->SwapBuffers();
 
   }
@@ -93,7 +89,7 @@ bool Engine::Run()
 
   //// vvvvvvvvvvvvvvvvvv to ref vvvvvvvvvvvvvvvvvvvvvvv
 #endif
-#if 1
+#if 0
 
   std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
@@ -250,8 +246,8 @@ bool Engine::Run()
 
     // Get and handle user input events
     glfwPollEvents();
-    camera.KeyControl(pMainWindow->GetKeys(), deltaTime);
-    camera.MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
+    //camera.KeyControl(pMainWindow->GetKeys(), deltaTime);
+    //camera.MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
 
 
     if (pMainWindow->GetKeys()[GLFW_KEY_L])

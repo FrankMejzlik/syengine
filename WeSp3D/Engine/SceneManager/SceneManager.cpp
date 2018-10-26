@@ -25,8 +25,11 @@ SceneManager::~SceneManager()
 
 std::shared_ptr<Scene> SceneManager::CreateScene(std::string sceneName)
 {
-  // Construct new scene.
-  std::shared_ptr<Scene> pNewScene = std::make_shared<Scene>(sceneName);
+  // Construct new scene instance.
+  std::shared_ptr<Scene> pNewScene = std::make_shared<Scene>(
+    std::static_pointer_cast<EntityManager>(_subModules.find(ID_ENTITY_MANAGER)->second), 
+    sceneName
+  );
 
   // If instantiation failed.
   if (!pNewScene)
@@ -51,14 +54,18 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
   // Insert test Entities into scene here.
 
   // Create main camera.
+  
   pNewScene->CreateCamera(
     std::string("main_camera"), glm::vec3(-1.0f, -0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f
   );
+
   // Create main floor.
   pNewScene->CreateQuad(
     std::string("main_floor"), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
     10.0f, 10.0f
    );
+
+
   // Insert test Entities into scene here.
 
   DLog(eLogType::Success, "Initial test scene loaded.");

@@ -70,7 +70,7 @@ void Logger::Log(bool showTimestamp, eLogType logType,const char* format, ...) c
   va_start(ap, format);
   vfprintf(hOut, format, ap);
   va_end(ap);
-  printf("\n", prefix);
+  printf("\n");
 
 	Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::White);
 }

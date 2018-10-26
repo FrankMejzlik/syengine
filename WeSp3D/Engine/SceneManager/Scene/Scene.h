@@ -9,25 +9,30 @@
 
 
 #include "common.h"
+#include "EntityManager.h"
 #include "Entity.h"
 #include "SceneContext.h"
+
+// Entities.
 #include "Camera.h"
+#include "Quad.h"
 
 namespace WeSp
 {
 
-class Quad; // 
-class Camera;
 class Block;
 class DirectionalLight;
 class PointLight;
 
+/**
+ * Every Scene MUST have it's EntityController to call to.
+ */
 class Scene
 {
 public:
   Scene() = delete;
 
-  Scene(std::string sceneName);
+  Scene(std::shared_ptr<EntityManager> pEntityManager, std::string sceneName);
   ~Scene();
 
   std::string GetSceneName();
@@ -50,7 +55,9 @@ public:
 
 private:
   SceneContext _sceneContext;
-  std::map<std::string, std::shared_ptr<Entity>> _entities;
+  std::map<std::string, std::shared_ptr<Entity>> _entityList;
+  // EntityManager instance dedicated for this Scene instance.
+  std::shared_ptr<EntityManager> _pEntityManager;
 };
 
 } // namespace WeSp

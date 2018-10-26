@@ -2,17 +2,15 @@
 
 using namespace WeSp;
 
-Light::Light() :
-  WorldEntity()
-{}
 
 Light::Light(
+  std::shared_ptr<ComponentManager> pComponentManager,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 colourVector,
   glm::vec3 lightIntensities,
   glm::vec3 shadowDimensions
 ) :
-  WorldEntity(positionVector, rotationVector, scaleVector),
+  WorldEntity(pComponentManager, positionVector, rotationVector, scaleVector),
   _colourVector(colourVector), 
   _lightIntensities(lightIntensities), 
   _shadowDimensions(shadowDimensions),

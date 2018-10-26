@@ -7,6 +7,7 @@ class WorldObject:
 {
 public:
   WorldObject(
+    std::shared_ptr<ComponentManager> pComponentManager,
     glm::vec3 positionVector, 
     glm::vec3 rotationVector, 
     glm::vec3 scaleVector,

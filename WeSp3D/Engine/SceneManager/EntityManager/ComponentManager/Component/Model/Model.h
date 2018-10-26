@@ -35,9 +35,6 @@ public:
   size_t AddTexture(std::shared_ptr<Texture> pNewTexture);
   void SetMeshIndexToTexture(size_t meshIndex, size_t textureIndex);
 
-
-
-
 protected: 
   std::vector<std::shared_ptr<Mesh>> _meshList;
   std::vector<std::shared_ptr<Texture>> _textureList;

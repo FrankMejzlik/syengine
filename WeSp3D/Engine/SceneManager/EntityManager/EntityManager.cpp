@@ -53,3 +53,10 @@ bool EntityManager::Terminate()
   return true;
 }
 
+std::shared_ptr<Quad> EntityManager::CreateQuad(
+  glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+  dfloat width, dfloat height
+)
+{
+  return nullptr;
+}

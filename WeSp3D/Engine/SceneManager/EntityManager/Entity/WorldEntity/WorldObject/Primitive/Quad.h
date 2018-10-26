@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common.h"
 #include "WorldObject.h"
 
 class Quad :
@@ -7,9 +8,10 @@ class Quad :
 {
 public:
   Quad(
+    std::shared_ptr<ComponentManager> pComponentManager,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     bool bIsStatic,
-    glm::vec3 leftBottomCoordinate, glm::vec3 rightTopCoordinate
+    dfloat width, dfloat height
   );
   ~Quad();
 };

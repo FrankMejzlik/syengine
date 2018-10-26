@@ -17,9 +17,10 @@ class Light:
   public WorldEntity
 {
 public:
-  Light();
+  Light() = delete;
 
   Light(
+    std::shared_ptr<ComponentManager> pComponentManager,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 colourVector,
     glm::vec3 lightIntensities,

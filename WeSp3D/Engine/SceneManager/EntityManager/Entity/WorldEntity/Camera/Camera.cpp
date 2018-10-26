@@ -6,9 +6,16 @@ using namespace WeSp;
 namespace WeSp 
 {
 
-Camera::Camera() {}
-
-Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed):
+Camera::Camera(
+  std::shared_ptr<ComponentManager> pComponentManager,
+  glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed
+):
+  WorldEntity(
+    pComponentManager,
+    startPosition,
+    glm::vec3(0.0f, 0.0f, 0.0f),
+    glm::vec3(1.0f, 1.0f, 1.0f)
+  ),
   position(startPosition), 
   worldUp(startUp), 
   yaw(startYaw), 
