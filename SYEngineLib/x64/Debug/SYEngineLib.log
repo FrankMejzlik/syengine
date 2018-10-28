@@ -1,0 +1,6 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (WeSp3DLib.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  stdafx.cpp
+  dllmain.cpp
+  SYEngineLib.cpp
+  Generating Code...
+  SYEngineLib.vcxproj -> C:\Users\devwe\source\repos\SYEngine\x64\Debug\SYEngineLib.dll

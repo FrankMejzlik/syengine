@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="editor\Editor.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\Engine.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\BaseEngine.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\EngineContext.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
+    <ClCompile Include="editor\EditorWindow.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="editor\ListControl.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\api\Command.cpp">
+      <Filter>engine\api</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\scene_manager\OmniShadowMap.cpp">
+      <Filter>engine\render_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\scene_manager\ShadowMap.cpp">
+      <Filter>engine\render_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\render_engine\Material.cpp">
+      <Filter>engine\render_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\render_engine\Mesh.cpp">
+      <Filter>engine\render_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\render_engine\Model.cpp">
+      <Filter>engine\render_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\render_engine\Shader.cpp">
+      <Filter>engine\render_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\render_engine\Skybox.cpp">
+      <Filter>engine\render_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\render_engine\Texture.cpp">
+      <Filter>engine\render_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\render_engine\Window.cpp">
+      <Filter>engine\render_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\entity_manager\entity\Camera.cpp">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\entity_manager\entity\DirectionalLight.cpp">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\entity_manager\entity\Light.cpp">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\entity_manager\entity\PointLight.cpp">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\entity_manager\entity\SpotLight.cpp">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="editor\Editor.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Engine.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\BaseEngine.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\config.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\EngineContext.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonValues.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="editor\EditorWindow.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="editor\config_editor_window.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="editor\ListControl.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\api\Command.h">
+      <Filter>engine\api</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\scene_manager\OmniShadowMap.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\scene_manager\ShadowMap.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\render_engine\Material.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\render_engine\Mesh.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\render_engine\Model.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\render_engine\Shader.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\render_engine\Skybox.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\render_engine\Texture.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\render_engine\Window.h">
+      <Filter>engine\render_engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\entity_manager\entity\SpotLight.h">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\entity_manager\entity\Camera.h">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\entity_manager\entity\DirectionalLight.h">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\entity_manager\entity\Light.h">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\entity_manager\entity\PointLight.h">
+      <Filter>engine\entity_manager\entity</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="editor">
+      <UniqueIdentifier>{a76eb7dc-9366-4f19-b997-864640a89a9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine">
+      <UniqueIdentifier>{3e6034e2-24fd-471f-8530-6f21890da7d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{dbc0ee7f-331e-4195-9c2d-feff618adc62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\Shaders">
+      <UniqueIdentifier>{581a9661-0eb8-47a5-97c0-df2c485c7204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\scene_manager">
+      <UniqueIdentifier>{36bb2fb3-d39a-4adc-95a7-14fdc0b4a846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\api">
+      <UniqueIdentifier>{f0e4b920-cf6a-4c7b-a1c4-ad8a7a5e1794}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\input_manager">
+      <UniqueIdentifier>{3e7c570a-09f9-452e-8606-04b36c8ff52a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\entity_manager">
+      <UniqueIdentifier>{d4309ae9-9000-4c6a-8c56-2ef39d7e03d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\render_engine">
+      <UniqueIdentifier>{5066e0f2-bb0b-41f7-8849-af2652482bfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\simulate_engine">
+      <UniqueIdentifier>{b0634ca4-b8bf-446d-8bc3-65ce1c821423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\network_manager">
+      <UniqueIdentifier>{ad584ccc-b492-4cef-9389-fe3bc55a96aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\scene_manager\scene">
+      <UniqueIdentifier>{9096e2ce-eaae-461d-b687-ee84dee0aea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\entity_manager\entity">
+      <UniqueIdentifier>{c2d7c114-87d7-4aaa-bb8e-1a2bbec9ad4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\render_engine\shader">
+      <UniqueIdentifier>{1ee9cd94-5a57-49f0-9494-a9bc6211a0f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\render_engine\material">
+      <UniqueIdentifier>{7fed71d6-f331-4f2e-87a8-5b91e0f8724f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\render_engine\mesh">
+      <UniqueIdentifier>{3b4ce1eb-55a7-4d25-bcf0-86bb1c6d26be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\render_engine\texture">
+      <UniqueIdentifier>{ad4f3a07-cb08-4e12-826c-940b03bafabc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\render_engine\animation">
+      <UniqueIdentifier>{1deba878-38f9-4765-8e69-532c32676ac1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\render_engine\mesh\primitives">
+      <UniqueIdentifier>{3f179194-2dbd-4a5f-8a16-728de0b54dab}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

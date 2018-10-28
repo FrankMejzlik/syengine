@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{8775F226-84D9-470F-94F4-E1DC1E394C2F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>TESTSYEngine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <AdditionalIncludeDirectories>$(ProjectDir)..\SYEngine\Diagnostics;$(ProjectDir)..\SYEngine\Engine\Abstract;$(ProjectDir)..\SYEngine\external\wxWidgets\include;$(ProjectDir)..\SYEngine\external\wxWidgets\lib\vc_x64_lib\mswud;$(ProjectDir)..\SYEngine\;$(ProjectDir)..\SYEngine\Helper;$(ProjectDir)..\SYEngine\external;$(ProjectDir)..\SYEngine\Editor;$(ProjectDir)..\SYEngine\Engine\Core;$(ProjectDir)..\SYEngine\Engine\Common;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Sound;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Music;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Logic;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Animation;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Window;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Physics;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Shader;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Skybox;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Texture;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Material;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Model;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Mesh\Primitives;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Mesh;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\AI;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component;$(ProjectDir)..\SYEngine\Engine\ComponentManager;$(ProjectDir)..\SYEngine\Engine\InputManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\AudioManager\SoundManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\AudioManager\MusicManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\AudioManager;$(ProjectDir)..\SYEngine\Engine\OutputManager;$(ProjectDir)..\SYEngine\Engine\SceneManager\Scene;$(ProjectDir)..\SYEngine\Engine\SceneManager;$(ProjectDir)..\SYEngine\Engine\NetworkManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\AnimationManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\SkyboxManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\WindowManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\TextureManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\ShadowManager\Shadow;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\ModelManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\ShadowManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\ShaderManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\MaterialManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\MeshManager\Primitives;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\MeshManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager;$(ProjectDir)..\SYEngine\Engine\SimulationManager\PhysicsManager;$(ProjectDir)..\SYEngine\Engine\SimulationManager\LogicManager;$(ProjectDir)..\SYEngine\Engine\SimulationManager\AIManager;$(ProjectDir)..\SYEngine\Engine\SimulationManager;$(ProjectDir)..\SYEngine\Engine\EntityManager;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Camera;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\WorldObject\Static;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\WorldObject\Animated;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\WorldObject;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Light;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Creature\Player;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Creature\NPC;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Creature;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\ScreenEntity\ScreenEffect;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\ScreenEntity\UI;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\ScreenEntity;$(ProjectDir)..\SYEngine\Engine\EngineAPI;$(ProjectDir)..\SYEngine\Engine;C:\libs\x64\assimp-4.1.0\include;c:\libs\x64\glm-0.9.9.0\;c:\libs\x64\glfw-3.2.1.bin.WIN64\include\;c:\libs\x64\GLEW-2.1.0\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <AdditionalIncludeDirectories>$(ProjectDir)..\SYEngine\Diagnostics;$(ProjectDir)..\SYEngine\Engine\Abstract;$(ProjectDir)..\SYEngine\external\wxWidgets\include;$(ProjectDir)..\SYEngine\external\wxWidgets\lib\vc_x64_lib\mswud;$(ProjectDir)..\SYEngine\;$(ProjectDir)..\SYEngine\Helper;$(ProjectDir)..\SYEngine\external;$(ProjectDir)..\SYEngine\Editor;$(ProjectDir)..\SYEngine\Engine\Core;$(ProjectDir)..\SYEngine\Engine\Common;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Sound;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Music;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Logic;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Animation;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Window;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Physics;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Shader;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Skybox;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Texture;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Material;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Model;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Mesh\Primitives;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\Mesh;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component\AI;$(ProjectDir)..\SYEngine\Engine\ComponentManager\Component;$(ProjectDir)..\SYEngine\Engine\ComponentManager;$(ProjectDir)..\SYEngine\Engine\InputManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\AudioManager\SoundManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\AudioManager\MusicManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\AudioManager;$(ProjectDir)..\SYEngine\Engine\OutputManager;$(ProjectDir)..\SYEngine\Engine\SceneManager\Scene;$(ProjectDir)..\SYEngine\Engine\SceneManager;$(ProjectDir)..\SYEngine\Engine\NetworkManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\AnimationManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\SkyboxManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\WindowManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\TextureManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\ShadowManager\Shadow;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\ModelManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\ShadowManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\ShaderManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\MaterialManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\MeshManager\Primitives;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager\MeshManager;$(ProjectDir)..\SYEngine\Engine\OutputManager\RenderingManager;$(ProjectDir)..\SYEngine\Engine\SimulationManager\PhysicsManager;$(ProjectDir)..\SYEngine\Engine\SimulationManager\LogicManager;$(ProjectDir)..\SYEngine\Engine\SimulationManager\AIManager;$(ProjectDir)..\SYEngine\Engine\SimulationManager;$(ProjectDir)..\SYEngine\Engine\EntityManager;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Camera;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\WorldObject\Static;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\WorldObject\Animated;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\WorldObject;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Light;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Creature\Player;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Creature\NPC;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity\Creature;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\WorldEntity;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\ScreenEntity\ScreenEffect;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\ScreenEntity\UI;$(ProjectDir)..\SYEngine\Engine\EntityManager\Entity\ScreenEntity;$(ProjectDir)..\SYEngine\Engine\EngineAPI;$(ProjectDir)..\SYEngine\Engine;C:\libs\x64\assimp-4.1.0\include;c:\libs\x64\glm-0.9.9.0\;c:\libs\x64\glfw-3.2.1.bin.WIN64\include\;c:\libs\x64\GLEW-2.1.0\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="TEST_SceneManager.cpp" />
+    <ClCompile Include="TEST_SYEngine.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TEST_SceneManager.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
