@@ -3,7 +3,6 @@
 #include <Windows.h>
 
 #include "config_engine.h"
-#include "config_editor.h"
 #include "IUncopyable.h"
 
 namespace WeSp 
@@ -68,13 +67,13 @@ public:
   #if USING_EDITOR
 
       // Move console window
-    MoveWindow(
+    /*MoveWindow(
       _hConsole,
       EDITOR_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT + 20,
       static_cast<int>(_instanceContext.GetScreenWidth() - EDITOR_DEFAULT_WIDTH), 
       static_cast<int>(_instanceContext.GetScreenHeight() - GAME_WINDOW_DEFAULT_HEIGHT - 50),
       TRUE
-    );
+    );*/
 
 
   #else
