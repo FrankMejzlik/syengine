@@ -115,7 +115,7 @@ float CalcDirectionalShadowFactor(DirectionalLight light)
 	vec3 nnormal = normalize(normal);
 	vec3 lightDir = normalize(directionalLight.direction);
 	
-	float bias = max(0.05 * (1.0 - dot(nnormal, lightDir)), 0.0005);
+	float bias = max(0.0005 * (1.0 - dot(nnormal, lightDir)), 0.0005);
 
 	
 	float shadow = 0.0;

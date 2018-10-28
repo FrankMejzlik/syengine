@@ -58,42 +58,59 @@ std::shared_ptr<Mesh> MeshGenerator::GenerateMeshBlock(
   bool bAverageNormals
 )
 {
+
+  dfloat halfWidth = width / 2;
+  dfloat halfHeight = height / 2;
+  dfloat halfLength = length / 2;
+
   // Generate vertices vector.
   std::vector<float> blockVertices = 
   {
     // x      y         z           u    v       nx     ny   nz
-    -width, height, -length,		  0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    -width, -height, -length,	    0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    width, height, -length,		      0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    width, -height, -length,		    0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+    -halfWidth, halfHeight, -halfLength,		  0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+    -halfWidth, -halfHeight, -halfLength,	    0.0f, 1.0f,		0.0f, 0.0f, 0.0f,
+    halfWidth, halfHeight, -halfLength,		      1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+    halfWidth, -halfHeight, -halfLength,		    1.0f, 1.0f,		0.0f, 0.0f, 0.0f,
 
-    -width, height, length,		    0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    width, height, length,		  0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    -width, -height, length,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    width, -height, length,		  0.0f, 0.0f,		0.0f, 0.0f, 0.0f
+    -halfWidth, halfHeight, halfLength,		    0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+    halfWidth, halfHeight, halfLength,		  1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+    -halfWidth, -halfHeight, halfLength,		0.0f, 1.0f,		0.0f, 0.0f, 0.0f,
+    halfWidth, -halfHeight, halfLength,		  1.0f, 1.0f,		0.0f, 0.0f, 0.0f
   };
 
   // Create indices vector.
   std::vector<unsigned int>  blockIndices = 
   {
     // front
-    0, 1, 2,
-    2, 1, 3,
+    //0, 1, 2,
+    //2, 1, 3,
+    2, 1, 0,
+    3, 1, 2,
     // right
-    2, 3, 5,
-    5, 3, 7,
+    //2, 3, 5,
+    //5, 3, 7,
+    5, 3, 2, 
+    7, 3, 5, 
     // back
-    5, 7, 4,
-    4, 7, 6,
+    //5, 7, 4,
+    //4, 7, 6,
+    4, 7, 5, 
+    6, 7, 4, 
     // left
-    4, 6, 0,
-    0, 6, 1,
+    //4, 6, 0,
+    //0, 6, 1,
+    0, 6, 4, 
+    1, 6, 0,
     // top
-    4, 0, 5,
-    5, 0, 2,
+    //4, 0, 5,
+    //5, 0, 2,
+    5, 0, 4, 
+    2, 0, 5, 
     // bottom
-    1, 6, 3,
-    3, 6, 7
+    //1, 6, 3,
+    //3, 6, 7
+    3, 6, 1, 
+    7, 6, 3, 
   };
 
   // Mesh
@@ -117,9 +134,9 @@ std::shared_ptr<Mesh>  MeshGenerator::GenerateMeshQuad(
   {
     // x            y         z           u    v       nx     ny   nz
     -halfWidth, -halfHeight, 0.0f, 		  0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
-    -halfWidth, halfHeight, 0.0f,	      0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
-    halfWidth, halfHeight, 0.0f,		      0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
-    halfWidth, -halfHeight, 0.0f,		    0.0f, 0.0f,		0.0f, 0.0f, 1.0f
+    -halfWidth, halfHeight, 0.0f,	      0.0f, 1.0f,		0.0f, 0.0f, 1.0f,
+    halfWidth, halfHeight, 0.0f,		      1.0f, 1.0f,		0.0f, 0.0f, 1.0f,
+    halfWidth, -halfHeight, 0.0f,		    1.0f, 0.0f,		0.0f, 0.0f, 1.0f
   };
 
   // Create indices vector.

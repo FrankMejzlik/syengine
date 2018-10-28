@@ -17,15 +17,16 @@
 
 // temp
 #include "DirectionalLight.h"
+#include "SpotLight.h"
 
 // Entities.
 #include "Camera.h"
 #include "Quad.h"
+#include "Block.h"
 
 namespace WeSp
 {
 
-class Block;
 class DirectionalLight;
 class PointLight;
 
@@ -41,6 +42,7 @@ public:
   Scene(std::shared_ptr<EntityManager> pEntityManager, std::string sceneName);
   ~Scene();
 
+  std::shared_ptr<Camera>GetEditorCamera() const;
   std::string GetSceneName() const;
   size_t GetSceneNumberOfEntities() const;
   // Shortcut for create Entity, add components: camera, controller
@@ -52,9 +54,20 @@ public:
   std::shared_ptr<Quad> CreateQuad(
     std::string entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-    float width, float height
+    dfloat width, dfloat height
   );
-  std::shared_ptr<Block> CreateBlock(glm::vec3 leftBottomCoordinate, glm::vec3 rightTopCoordinate);
+  std::shared_ptr<Block> CreateBlock(
+    std::string entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    dfloat width, dfloat height, dfloat length
+  );
+
+  std::shared_ptr<WorldObject> CreateStaticModelFromFile(
+    std::string entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    std::string filePath
+  );
+  
   std::shared_ptr<DirectionalLight> CreateDirectionalLight
   (
     std::string entityName,
@@ -63,22 +76,56 @@ public:
     glm::vec3 shadowMapSize,
     glm::vec3 lightDirection
   );
-  std::shared_ptr<PointLight> CreatePointLight(glm::vec3 leftBottomCoordinate, glm::vec3 rightTopCoordinate);
 
+  std::shared_ptr<PointLight> CreatePointLight(
+    std::string entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    glm::vec3 lightColour,
+    glm::vec3 lightIntensities,
+    glm::vec3 shadowMapSize,
+    glm::vec2 planeDimensions,
+    glm::vec3 coefficients
+  );
 
+  std::shared_ptr<SpotLight> CreateSpotLight(
+    std::string entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    glm::vec3 lightColour,
+    glm::vec3 lightIntensities,
+    glm::vec3 shadowMapSize,
+    glm::vec2 planeDimensions,
+    glm::vec3 coefficients,
+    glm::vec3 lightDirection,
+    dfloat coneAngle
+  );
+
+  const std::unordered_map<size_t, std::shared_ptr<Entity>> &GetActiveModelsRefConst() const;
+  const std::unordered_map<size_t, std::shared_ptr<Entity>> &GetDirectionalLightsMapRefConst() const;
+  const std::unordered_map<size_t, std::shared_ptr<Entity>> &GetPointLightsMapRefConst() const;
+  const std::unordered_map<size_t, std::shared_ptr<Entity>> &GetSpotLightsMapRefConst() const;
 
 private:
+  std::shared_ptr<Camera> _pEditorCamera;
   SceneContext _sceneContext;
   std::unordered_map<size_t, std::shared_ptr<Entity>> _entities;
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeModels;
   std::unordered_map<size_t, std::shared_ptr<Entity>> _activeDirectionalLights;
-  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeOmniDirectionallLights;
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _activePointLights;
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeSpotLights;
 
   // EntityManager instance dedicated for this Scene instance.
   std::shared_ptr<EntityManager> _pEntityManager;
 
+  // Global Entity inerter.
   std::shared_ptr<Entity> InsertEntity(std::shared_ptr<Entity> entityToInsert);
+
+  // Models to be rendered inserter.
+  std::shared_ptr<Entity> InsertActiveModel(std::shared_ptr<Entity> entityToInsert);
+
+  // Light insertors.
   std::shared_ptr<Entity> InsertDirectionalLight(std::shared_ptr<Entity> entityToInsert);
-  std::shared_ptr<Entity> InsertOmniDirectionalLight(std::shared_ptr<Entity> entityToInsert);
+  std::shared_ptr<Entity> InsertPointLight(std::shared_ptr<Entity> entityToInsert);
+  std::shared_ptr<Entity> InsertSpotLight(std::shared_ptr<Entity> entityToInsert);
 };
 
 } // namespace WeSp

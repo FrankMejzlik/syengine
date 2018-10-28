@@ -3,7 +3,14 @@
 using namespace WeSp;
 
 Model::Model()
-{}
+{
+
+}
+
+Model::Model(std::shared_ptr<Entity> pEntity):
+  Component(pEntity)
+{
+}
 
 Model::~Model()
 {}
@@ -22,8 +29,19 @@ void Model::LoadModelFromFile(const std::string & fileName)
   LoadMaterials(pScene);
 }
 
-void Model::RenderModel()
+void Model::RenderModel(GLuint ul_modelToWorldMatrix)
 {
+
+  glm::mat4 modelToWorldMatrix;
+  modelToWorldMatrix = std::move(glm::mat4(1.0f));
+  modelToWorldMatrix = glm::translate(modelToWorldMatrix, _pEntity->GetPositionVectorRefConst());
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pEntity->GetRotationVectorRefConst().z, glm::vec3(0.0f, 0.0f, 1.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pEntity->GetRotationVectorRefConst().y, glm::vec3(0.0f, 1.0f, 0.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pEntity->GetRotationVectorRefConst().x, glm::vec3(1.0f, 0.0f, 0.0f));
+  modelToWorldMatrix = glm::scale(modelToWorldMatrix, _pEntity->GetScaleVectorRefConst());
+
+  glUniformMatrix4fv(ul_modelToWorldMatrix, 1, GL_FALSE, glm::value_ptr(modelToWorldMatrix));
+
   for (size_t i = 0; i < _meshList.size(); ++i)
   {
     unsigned int materialIndex = _meshToTexture[i];
@@ -168,7 +186,7 @@ void Model::LoadMaterials(const aiScene * scene)
         int idx = std::string(path.data).rfind("\\");
         std::string filename = std::string(path.data).substr(idx + 1);
 
-        std::string texPath = std::string(PATH_TEXTURES) + filename;
+        std::string texPath = std::string(CONCATENATE_LITERALS(PATH_TEXTURES, "/")) + filename;
 
         //_textureList[i] = new Texture(texPath.c_str());
         _textureList[i] = std::make_shared<Texture>(texPath.c_str());

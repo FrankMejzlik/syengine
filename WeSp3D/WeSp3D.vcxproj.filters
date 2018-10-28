@@ -219,6 +219,7 @@
       <Filter>Engine\InputManager</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Core\Abstract\IGuidCounted.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -466,6 +467,7 @@
     </ClInclude>
     <ClInclude Include="Engine\Core\typedefs.h" />
     <ClInclude Include="Engine\Core\Abstract\IGuidCounted.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

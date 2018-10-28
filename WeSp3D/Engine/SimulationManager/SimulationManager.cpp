@@ -51,3 +51,6 @@ bool SimulationManager::Terminate()
   DLog(eLogType::Success, "SimulationManager instance terminated.");
   return true;
 }
+
+void SimulationManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
+{}

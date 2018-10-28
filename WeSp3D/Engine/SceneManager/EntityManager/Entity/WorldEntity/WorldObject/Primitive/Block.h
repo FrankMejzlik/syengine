@@ -5,17 +5,17 @@
 #include "ComponentManager.h"
 #include "Model.h"
 
-class Quad :
+class Block :
   public WorldObject
 {
 public:
-  Quad(
+  Block(
     std::shared_ptr<ComponentManager> pComponentManager,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     bool bIsStatic,
-    dfloat width, dfloat height
+    dfloat width, dfloat height, dfloat length
   );
-  ~Quad();
+  ~Block();
 
 
 

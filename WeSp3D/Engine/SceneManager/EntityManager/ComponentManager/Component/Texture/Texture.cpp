@@ -1,14 +1,20 @@
 
-// Treat header file like implementation file
-#define STB_IMAGE_IMPLEMENTATION
+
 
 #include <cstring>
 #include <string>
 
+#include <iostream>
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include "stb_image.h"
 #pragma warning (push, 3)
+
 #include "Texture.h"
 #pragma warning(pop)
-
+// Treat header file like implementation file
+//
 using namespace WeSp;
 
 Texture::Texture() :
@@ -31,11 +37,9 @@ bool Texture::LoadTexture()
   }
 
   glGenTextures(1, &textureID);
+
   glBindTexture(GL_TEXTURE_2D, textureID);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 
   glTexImage2D(
     GL_TEXTURE_2D,
@@ -52,6 +56,12 @@ bool Texture::LoadTexture()
   // Generate mipmaps automaticaly
   glGenerateMipmap(GL_TEXTURE_2D);
 
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  
   glBindTexture(GL_TEXTURE_2D, 0);
 
   // Dealocate CPU mem 

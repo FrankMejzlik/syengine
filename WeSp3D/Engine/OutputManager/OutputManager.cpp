@@ -53,6 +53,11 @@ bool OutputManager::Terminate()
 }
 
 
+void OutputManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene, std::shared_ptr<Window> pTargetWindow)
+{
+  RENDERING_MANAGER->RenderScene(pScene, pTargetWindow);
+}
+
 std::shared_ptr<Window> OutputManager::ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height)
 {
   return RENDERING_MANAGER->ConstructWindow(windowType, windowTitle, width, height);

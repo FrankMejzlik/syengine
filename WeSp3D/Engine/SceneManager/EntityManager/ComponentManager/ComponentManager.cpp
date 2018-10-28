@@ -15,6 +15,8 @@ ComponentManager::ComponentManager(BaseModule &parentModule):
   _subModules.insert(std::make_pair(ID_TEXTURE_MANAGER, std::make_shared<TextureManager>(*this)));
 
 
+  _pTextureManager = TEXTURE_MANAGER;
+
   DLog(eLogType::Success, "\t\tComponentManager instance created.");
 }
 
@@ -62,8 +64,25 @@ std::shared_ptr<Mesh> ComponentManager::GenerateMeshQuad(dfloat width, dfloat he
 
 }
 
-std::shared_ptr<Model> ComponentManager::CreateModel(std::shared_ptr<Mesh> pQuadMesh, std::shared_ptr<Texture> pTexture, std::shared_ptr<Shininess> pShininess)
+std::shared_ptr<Mesh> ComponentManager::GenerateMeshBlock(dfloat width, dfloat height, dfloat length)
 {
-  std::shared_ptr<Model> newComponent = MODEL_MANAGER->CreateModel(pQuadMesh, pTexture, pShininess);
+  std::shared_ptr<Mesh> newComponent = MESH_MANAGER->GenerateMeshBlock(width, height,length);
+
+  return newComponent;
+}
+
+
+std::shared_ptr<Model> ComponentManager::CreateModel(std::shared_ptr<Entity> pEntity, std::shared_ptr<Mesh> pQuadMesh, std::shared_ptr<Texture> pTexture, std::shared_ptr<Shininess> pShininess)
+{
+  std::shared_ptr<Model> newComponent = MODEL_MANAGER->CreateModel(pEntity, pQuadMesh, pTexture, pShininess);
+  return newComponent;
+}
+
+std::shared_ptr<Model> ComponentManager::CreateModelFromFile(
+  std::shared_ptr<Entity> pEntity,
+  std::string filePath
+)
+{
+  std::shared_ptr<Model> newComponent = MODEL_MANAGER->CreateModelFromFile(pEntity, filePath);
   return newComponent;
 }

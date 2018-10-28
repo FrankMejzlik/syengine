@@ -66,9 +66,16 @@ int Window::Initialize()
   // Depth test
   glEnable(GL_DEPTH_TEST);
 
+#if DISABLE_VSYNC
   // Disable VSync
-  //glfwSwapInterval(0);
+  glfwSwapInterval(0);
+#endif
 
+#if BACK_FACE_CULLING
+  glEnable(GL_CULL_FACE);
+  glCullFace(GL_BACK);
+
+#endif
   // Setup viewport size
   glViewport(0, 0, bufferWidth, bufferHeight);
 

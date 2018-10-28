@@ -56,15 +56,53 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
   // Create main camera.
   
   pNewScene->CreateCamera(
-    std::string("main_camera"), glm::vec3(-1.0f, -0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f
+    std::string("main_camera"), glm::vec3(-0.0f, -0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f
   );
 
-  // Create main floor.
   pNewScene->CreateQuad(
-    std::string("main_floor"), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+    std::string("main_floor"), glm::vec3(0.0f, -0.0f, -0.0f), glm::vec3(90.0f * DEG_TO_RAD, 00.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
     10.0f, 10.0f
-   );
+  );
+  pNewScene->CreateQuad(
+    std::string("main_floor"), glm::vec3(0.0f, -0.0f, -0.0f), glm::vec3(-90.0f * DEG_TO_RAD, 00.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+    10.0f, 10.0f
+  );
 
+  pNewScene->CreateQuad(
+    std::string("main_floor"), glm::vec3(0.0f, -0.0f, 0.0f), glm::vec3(0.0f, 90.0f * DEG_TO_RAD, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+    10.0f, 10.0f
+  );
+  pNewScene->CreateQuad(
+    std::string("main_floor"), glm::vec3(0.0f, -0.0f, 0.0f), glm::vec3(0.0f, -90.0f * DEG_TO_RAD, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+    10.0f, 10.0f
+  );
+
+  pNewScene->CreateQuad(
+    std::string("main_floor"), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 90.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+    10.0f, 10.0f
+  ); 
+  pNewScene->CreateQuad(
+    std::string("main_floor"), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(180.0f * DEG_TO_RAD, 0.0f, -90.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+    10.0f, 10.0f
+  ); 
+
+  pNewScene->CreateBlock(
+    std::string("block1"), glm::vec3(-3.0f, 3.0f, -3.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+    2.0f, 2.0f, 2.0f
+  );
+
+  pNewScene->CreateBlock(
+    std::string("block1"), glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+    2.0f, 2.0f, 2.0f
+  );
+  pNewScene->CreateStaticModelFromFile(
+    "model1",
+    glm::vec3(6.0f, 6.0f, 4.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(.1f, .1f, 0.1f),
+    "Resource/panFazulka.DAE"
+  );
+
+
+  // Create main DirectionalLight.
   pNewScene->CreateDirectionalLight(
     "main_light",
     glm::vec3(0.0f, 0.0f, 0.0f),          // Position vector
@@ -72,12 +110,42 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
     glm::vec3(1.0f, 1.0f, 1.0f),          // scale vector
 
     glm::vec3(1.0f, 1.0f, 1.0f),          // Colour vector
-    glm::vec3(0.5f, 0.9f, 0.0f),          // Intensities
+    glm::vec3(0.1f, 0.5f, 0.0f),          // Intensities
     glm::vec3(2048.0f, 2048.0f, 0.0f),    // Shadow dimensions
-    glm::vec3(-10.0f, -12.0f, 18.5f)
+    glm::vec3(10.0f, -10.0f, 10.0f)
   );
 
-  // Insert test Entities into scene here.
+  // Create  PointLight.
+  pNewScene->CreatePointLight(
+    "point_light_001",
+    glm::vec3(0.0f, 2.0f, -5.0f),       // Position vector
+    glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
+    glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
+
+    glm::vec3(1.0f, 0.0f, 0.0f),        // Colour vector
+    glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
+    glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
+    glm::vec2(0.01f, 100.0f),           // Plane dimensions
+    glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
+  );
+
+  // Create  SpotLight.
+  pNewScene->CreateSpotLight(
+    "spot_light_001",
+    glm::vec3(6.0f, 6.0f, 6.0f),       // Position vector
+    glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
+    glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
+
+    glm::vec3(0.0f, 1.0f, 0.0f),        // Colour vector
+    glm::vec3(0.5f, 1.0f, 0.0f),        // Intensities
+    glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
+    glm::vec2(0.01f, 100.0f),           // Plane dimensions
+    glm::vec3(0.04f, 0.03f, 0.01f),      // Coefficients
+
+    glm::vec3(-1.0f, -1.0f, -1.0f),      // Light direction
+    20.0f                                // Cone angle (degrees)
+  );
+
 
   DLog(eLogType::Success, "Initial test scene loaded.");
   return pNewScene;

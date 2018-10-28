@@ -7,11 +7,15 @@
 #include <assimp\Importer.hpp>
 #include <assimp\scene.h>
 #include <assimp\postprocess.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 #include "Logger.h"
 #include "Component.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "Entity.h"
 
 
 using namespace WeSp;
@@ -24,10 +28,11 @@ class Model:
 {
 public:
   Model();
+  Model(std::shared_ptr<Entity> pEntity);
   virtual ~Model();
 
   virtual void LoadModelFromFile(const std::string& fileName);
-  virtual void RenderModel();
+  virtual void RenderModel(GLuint ul_modelToWorldMatrix);
   virtual void ClearModel();
 
 

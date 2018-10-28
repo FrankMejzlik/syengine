@@ -72,3 +72,42 @@ std::shared_ptr<Quad> EntityManager::CreateQuad(
 
   return newEntity;
 }
+
+std::shared_ptr<Block> EntityManager::CreateBlock(
+  std::string entityName,
+  glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+  dfloat width, dfloat height, dfloat length
+)
+{
+  // Instantiate new Block instance.
+  std::shared_ptr<Block> newEntity = std::make_shared<Block>(
+    COMPONENT_MANAGER, 
+    positionVector, rotationVector, scaleVector,
+    true, // Is static.
+    width, height, length
+    );
+  // Set name of Entity.
+  newEntity->SetEntityName(entityName);
+
+
+  return newEntity;
+}
+
+std::shared_ptr<WorldObject> EntityManager::CreateStaticModelFromFile(
+  std::string entityName,
+  glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+  std::string filePath
+)
+{
+  // Instantiate new Block instance.
+  std::shared_ptr<WorldObject> newEntity = std::make_shared<WorldObject>(
+    COMPONENT_MANAGER, 
+    positionVector, rotationVector, scaleVector,
+    true, // Is static.
+    filePath
+    );
+  // Set name of Entity.
+  newEntity->SetEntityName(entityName);
+
+  return newEntity;
+}

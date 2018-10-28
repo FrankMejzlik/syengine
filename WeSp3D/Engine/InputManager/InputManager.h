@@ -2,6 +2,7 @@
 
 
 #include "BaseModule.h"
+#include "Scene.h"
 
 // Include submodules
 #include "KeyboardManager.h"
@@ -24,6 +25,7 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  void ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene);
 
 private:
 

@@ -305,9 +305,9 @@ bool Mesh::CalculateAverageNormals(std::vector<GLfloat>& vertices, std::vector<u
     glm::vec3 vec(vertices[nOffset], vertices[nOffset + 1], vertices[nOffset + 2]);
     vec = glm::normalize(vec);
 
-    vertices[nOffset] = vec.x;
-    vertices[nOffset + 1] = vec.y;
-    vertices[nOffset + 2] = vec.z;
+    vertices[nOffset] = -vec.x;
+    vertices[nOffset + 1] = -vec.y;
+    vertices[nOffset + 2] = -vec.z;
   }
   return true;
 }

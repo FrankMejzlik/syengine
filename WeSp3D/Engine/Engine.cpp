@@ -76,25 +76,42 @@ bool Engine::Run()
 
   
   // Construct initial scene.
-  SCENE_MANAGER->LoadInitialScene();
-
-  TimeStamp ts;
+  std::shared_ptr<Scene> pScene = SCENE_MANAGER->LoadInitialScene();
 
   auto prev = std::chrono::high_resolution_clock::now();
+
+  dfloat deltaTime = 0.0f;
 
   // Main game loop.
   while (_engineContext.GetBShouldRun())
   {
-    
-    // get difference -> dletaTime
-    auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(
+    //TODO: Implement in TimeStamp class.
+    // Get delta time.
+    deltaTime = static_cast<dfloat>(std::chrono::duration_cast<std::chrono::microseconds>(
       std::chrono::high_resolution_clock::now() - prev
-     ).count();
-
+     ).count()) / 1000000;
+    // Save now time for next frame calculation.
     prev = std::chrono::high_resolution_clock::now();
 
-    std::cout << "deltaT is " << deltaTime << std::endl;
+    //std::cout << deltaTime << std::endl;
+
+
+
+    glfwPollEvents();
+    pScene->GetEditorCamera()->KeyControl(pMainWindow->GetKeys(), deltaTime);
+    pScene->GetEditorCamera()->MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
+
+
+    // Main game loop pipeline.
     
+    SCENE_MANAGER->ProcessScene(deltaTime, pScene);
+    INPUT_MANAGER->ProcessScene(deltaTime, pScene);
+    NETWORK_MANAGER->ProcessScene(deltaTime, pScene);
+    LOGIC_MANAGER->ProcessScene(deltaTime, pScene);
+    SIMULATION_MANAGER->ProcessScene(deltaTime, pScene);
+    OUTPUT_MANAGER->ProcessScene(deltaTime, pScene, pMainWindow);
+
+    // Main game loop pipeline.
 
     pMainWindow->SwapBuffers();
 

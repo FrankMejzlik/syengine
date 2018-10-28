@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_map>
+
 #include "CommonValues.h"
 
 #include <stdio.h>
@@ -11,6 +13,7 @@
 #include "SpotLight.h"
 #include "DirectionalLight.h"
 
+#include <GLFW/glfw3.h>
 #include <GL\glew.h>
 #include <glm\glm.hpp>
 #include <glm\gtc\type_ptr.hpp>
@@ -74,8 +77,16 @@ public:
   GLuint GetFarPlaneLocation();
 
   void SetDirectionalLight(DirectionalLight* dLight);
-  void SetPointLights(PointLight* pLight, unsigned int lightCount, unsigned int textureUnit, unsigned int offset);
-  void SetSpotLights(SpotLight* sLight, unsigned int lightCount, unsigned int textureUnit, unsigned int offset);
+  void SetPointLights(
+    const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights, 
+    unsigned int textureUnit,
+    int offset
+  );
+  void SetSpotLights(
+    const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights, 
+    unsigned int textureUnit,
+    int offset
+  );
 
   void SetTexture(GLuint textureUnit);
   void SetDirectionalShadowMap(GLuint textureUnit);

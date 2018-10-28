@@ -21,7 +21,7 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  std::shared_ptr<Texture> GetDefaultTexture() const;
+  std::shared_ptr<Texture> GetDefaultTexture();
 
 private:
   std::shared_ptr<Texture> _defaultTexture;

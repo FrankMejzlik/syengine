@@ -1,5 +1,7 @@
 #pragma once
 
+#define DEG_TO_RAD (3.14159265 / 180.0f)
+
 //
 #define DEV 1
 #define USING_EDITOR 1
@@ -8,6 +10,9 @@
 #define BETA 0
 #define LOG_DEV 1
 #define RUN_ENGINE_API 1
+
+#define BACK_FACE_CULLING 1
+#define DISABLE_VSYNC 0
 
 // Main modules IDs
 #define ID_ENGINE_API 100
@@ -65,7 +70,13 @@
 
 // Paths
 #define PATH_TEXTURES "resource/textures"
-#define FILENAME_DEFAULT_TEXTURE "/plain.png"
+#define FILENAME_DEFAULT_TEXTURE "/dirt.png"
+
+
+// Scene light limits.
+#define MAX_POINT_LIGHTS 3
+#define MAX_SPOT_LIGHTS 3
+#define MAX_DIRECTIONAL_LIGHTS 1
 
 enum class eModuleState
 {

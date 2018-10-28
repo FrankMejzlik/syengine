@@ -51,9 +51,9 @@ bool ModelManager::Terminate()
   return true;
 }
 
-std::shared_ptr<Model> ModelManager::CreateModel(std::shared_ptr<Mesh> pQuadMesh, std::shared_ptr<Texture> pTexture, std::shared_ptr<Shininess> pShininess)
+std::shared_ptr<Model> ModelManager::CreateModel(std::shared_ptr<Entity> pEntity, std::shared_ptr<Mesh> pQuadMesh, std::shared_ptr<Texture> pTexture, std::shared_ptr<Shininess> pShininess)
 {
-  std::shared_ptr<Model> newModel = std::make_shared<Model>();
+  std::shared_ptr<Model> newModel = std::make_shared<Model>(pEntity);
 
   // Add Mesh, Texture and Shininess to model
   size_t meshIndex = newModel->AddMesh(pQuadMesh);
@@ -76,4 +76,14 @@ std::shared_ptr<Model> ModelManager::CreateModel(std::shared_ptr<Mesh> pQuadMesh
 
   
   return newModel;
+}
+
+
+std::shared_ptr<Model> ModelManager::CreateModelFromFile(std::shared_ptr<Entity> pEntity, std::string filePath)
+{
+  std::shared_ptr<Model> pNewModel = std::make_shared<Model>(pEntity);
+
+  pNewModel->LoadModelFromFile(filePath);
+
+  return pNewModel;
 }

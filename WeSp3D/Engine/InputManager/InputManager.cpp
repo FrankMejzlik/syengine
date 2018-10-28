@@ -55,3 +55,6 @@ bool InputManager::Terminate()
   DLog(eLogType::Success, "InputManager instance terminated.");
   return true;
 }
+
+void InputManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
+{}

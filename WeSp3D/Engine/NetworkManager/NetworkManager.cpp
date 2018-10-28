@@ -49,3 +49,6 @@ bool NetworkManager::Terminate()
   DLog(eLogType::Success, "NetworkManager instance terminated.");
   return true;
 }
+
+void NetworkManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
+{}

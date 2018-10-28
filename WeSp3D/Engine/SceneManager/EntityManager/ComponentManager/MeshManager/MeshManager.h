@@ -28,6 +28,7 @@ public:
   virtual bool Terminate() override;
 
   std::shared_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
+  std::shared_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
 
 
 private:

@@ -22,6 +22,22 @@ Entity::~Entity()
 
 }
 
+void Entity::SetBIsToRender(const bool newValue)
+{
+  _bIsToRender = newValue;
+}
+
+bool Entity::GetBIsToRender() const
+{
+  return _bIsToRender;
+}
+
+void Entity::SetEntityName(std::string name)
+{
+  _name = name;
+  return;
+}
+
 size_t Entity::GetGUID() const
 {
   return _GUID;
@@ -60,13 +76,22 @@ bool Entity::SetScaleVector(const glm::vec3 scaleVector)
   return true;
 }
 
-void Entity::SetEntityName(std::string name)
-{
-  _name = name;
-  return;
-}
-
 std::string Entity::GetEntityName() const
 {
   return _name;
+}
+
+const glm::vec3& Entity::GetPositionVectorRefConst() const
+{
+  return _positionVector;
+}
+
+const glm::vec3& Entity::GetRotationVectorRefConst() const
+{
+  return _rotationVector;
+}
+
+const glm::vec3& Entity::GetScaleVectorRefConst() const
+{
+  return _scaleVector;
 }

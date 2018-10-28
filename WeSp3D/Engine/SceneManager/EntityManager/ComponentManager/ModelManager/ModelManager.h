@@ -21,7 +21,8 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  std::shared_ptr<Model> CreateModel(std::shared_ptr<Mesh> pQuadMesh, std::shared_ptr<Texture> pTexture, std::shared_ptr<Shininess> pShininess);
+  std::shared_ptr<Model> CreateModel(std::shared_ptr<Entity> pEntity, std::shared_ptr<Mesh> pQuadMesh, std::shared_ptr<Texture> pTexture, std::shared_ptr<Shininess> pShininess);
+  std::shared_ptr<Model> CreateModelFromFile(std::shared_ptr<Entity> pEntity, std::string filePath);
 
 
 private:

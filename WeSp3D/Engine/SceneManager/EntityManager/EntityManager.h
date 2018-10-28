@@ -2,10 +2,12 @@
 
 #include "common.h"
 #include "BaseModule.h"
+//#include "Scene.h"
 #include "ComponentManager.h"
 #include "Entity.h"
 
 #include "Primitive\Quad.h"
+#include "Primitive\Block.h"
 
 
 
@@ -47,6 +49,17 @@ public:
     std::string entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height
+  );
+  std::shared_ptr<Block> CreateBlock(
+    std::string entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    dfloat width, dfloat height, dfloat length
+  );
+
+  std::shared_ptr<WorldObject> CreateStaticModelFromFile(
+    std::string entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    std::string filePath
   );
 
 

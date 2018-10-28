@@ -35,7 +35,8 @@ public:
   );
   virtual ~Entity();
 
-
+  void SetBIsToRender(const bool newValue);
+  bool GetBIsToRender() const;
   void SetEntityName(std::string name);
   std::string GetEntityName() const;
   size_t GetGUID() const;
@@ -45,6 +46,11 @@ public:
   bool SetRotationVector(const glm::vec3 rotationVector);
   glm::vec3 GetScaleVector() const;
   bool SetScaleVector(const glm::vec3 scaleVector);
+  const glm::vec3& GetPositionVectorRefConst() const;
+  const glm::vec3& GetRotationVectorRefConst() const;
+  const glm::vec3& GetScaleVectorRefConst() const;
+
+  std::shared_ptr<Model> GetModel() const { return _pModel; };
 
 
 protected:
@@ -64,7 +70,7 @@ protected:
   // All components attached to this Entity.
   std::map<std::string, std::shared_ptr<Component>> _componentList;
   std::map<std::string, std::shared_ptr<Model>> _modelsToRenderList;
-
+  std::shared_ptr<Model> _pModel;
 };
 
 } // namespace WeSp

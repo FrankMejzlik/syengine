@@ -37,7 +37,9 @@
 #define SHADER_MANAGER std::static_pointer_cast<EntityManager>(_subModules[ID_SHADER_MANAGER])
 #define SHDOW_MANAGER std::static_pointer_cast<NetworkManager>(_subModules[ID_SHDOW_MANAGER])
 #define SKYBOX_MANAGER std::static_pointer_cast<OutputManager>(_subModules[ID_SKYBOX_MANAGER])
-#define TEXTURE_MANAGER std::static_pointer_cast<RenderingManager>(_subModules[ID_TEXTURE_MANAGER])
+#define TEXTURE_MANAGER std::static_pointer_cast<TextureManager>(_subModules[ID_TEXTURE_MANAGER])
+#define SIMULATION_MANAGER std::static_pointer_cast<SimulationManager>(_subModules[ID_SIMULATION_MANAGER])
+
 
 
 // SimulationManager submodules

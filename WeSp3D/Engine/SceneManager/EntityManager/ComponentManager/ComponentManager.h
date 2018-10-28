@@ -34,13 +34,26 @@ public:
   virtual bool Terminate() override;
 
 
+  std::shared_ptr<TextureManager> GetTextureManager() const { return _pTextureManager;  }
+  
+
   std::shared_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
+  std::shared_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
 
   std::shared_ptr<Model> CreateModel(
+    std::shared_ptr<Entity> pEntity,
     std::shared_ptr<Mesh> pQuadMesh,
     std::shared_ptr<Texture> pTexture = nullptr, 
     std::shared_ptr<Shininess> pShininess = nullptr
   );
+
+  std::shared_ptr<Model> CreateModelFromFile(
+    std::shared_ptr<Entity> pEntity,
+    std::string filePath
+  );
+
+
+  std::shared_ptr<TextureManager> _pTextureManager;
 
 };
 

@@ -49,3 +49,6 @@ bool LogicManager::Terminate()
   DLog(eLogType::Success, "\t LogicManager instance terminated.");
   return true;
 }
+
+void LogicManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
+{}

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "BaseModule.h"
-
+#include "Scene.h"
 
 
 namespace WeSp
@@ -20,6 +20,8 @@ public:
 
   virtual bool Initialize() override;
   virtual bool Terminate() override;
+
+  void ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene);
 };
 
 }

@@ -43,6 +43,7 @@ bool TextureManager::Initialize()
 
   // Class specific initialization
 
+
   SetModuleState(eModuleState::Idle);
   DLog(eLogType::Success, "\t\t\tTextureManager instance initialized.");
   return true;
@@ -57,7 +58,12 @@ bool TextureManager::Terminate()
   return true;
 }
 
-std::shared_ptr<Texture> TextureManager::GetDefaultTexture() const
+std::shared_ptr<Texture> TextureManager::GetDefaultTexture() 
 {
+  if (!_defaultTexture) {
+     _defaultTexture = std::make_shared<Texture>(CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+    _defaultTexture->LoadTexture();
+  }
+
   return _defaultTexture;
 }
