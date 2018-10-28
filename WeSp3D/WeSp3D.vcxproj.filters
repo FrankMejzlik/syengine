@@ -4,15 +4,6 @@
     <ClCompile Include="Engine\Engine.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Editor\Editor.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Editor\EditorWindow.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Editor\ListControl.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
     <ClCompile Include="Diagnostics\Logger.cpp">
       <Filter>Diagnostics</Filter>
     </ClCompile>
@@ -224,21 +215,6 @@
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Editor\config_editor.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Editor\Editor.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Editor\EditorWindow.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Editor\ListControl.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Editor\wxWidgetsEnums.h">
-      <Filter>Editor</Filter>
     </ClInclude>
     <ClInclude Include="Diagnostics\Logger.h">
       <Filter>Diagnostics</Filter>

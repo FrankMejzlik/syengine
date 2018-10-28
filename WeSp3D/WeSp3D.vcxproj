@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -177,9 +177,6 @@
     <ClCompile Include="Engine\SimulationManager\AnimationManager\AnimationManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Animation\Animation.cpp" />
     <ClCompile Include="Diagnostics\Logger.cpp" />
-    <ClCompile Include="Editor\Editor.cpp" />
-    <ClCompile Include="Editor\EditorWindow.cpp" />
-    <ClCompile Include="Editor\ListControl.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IErrorLogging.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IModuleState.cpp" />
     <ClCompile Include="Engine\Core\Common\EngineError.cpp" />
@@ -262,10 +259,6 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Animation\Animation.h" />
     <ClInclude Include="Diagnostics\Logger.h" />
     <ClInclude Include="Diagnostics\memory_diagnostics.h" />
-    <ClInclude Include="Editor\config_editor.h" />
-    <ClInclude Include="Editor\Editor.h" />
-    <ClInclude Include="Editor\EditorWindow.h" />
-    <ClInclude Include="Editor\ListControl.h" />
     <ClInclude Include="Engine\Core\Common\EngineError.h" />
     <ClInclude Include="Engine\Core\CommonValues.h" />
     <ClInclude Include="Engine\EngineApi\EngineAPI.h" />
@@ -296,7 +289,6 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\Entity.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Controller\Controller.h" />
     <ClInclude Include="Helper\macros.h" />
-    <ClInclude Include="Editor\wxWidgetsEnums.h" />
     <ClInclude Include="Engine\InputManager\InputManager.h" />
     <ClInclude Include="Engine\NetworkManager\NetworkManager.h" />
     <ClInclude Include="Engine\OutputManager\OutputManager.h" />
