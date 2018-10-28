@@ -10,6 +10,8 @@ enum class eCommandType
   Null,
   CreateBlock,
   CreateSphere,
+  CreateStaticModelFromFile,
+  CreatedStaticModelFromFile,
   CreatePointLight,
   CreateSpotLight,
   CreatedObjectId,
@@ -29,19 +31,21 @@ class Command
 {
 public:
   Command(eCommandType type);
-  Command(eCommandType type, std::wstring stringData);
-  Command(eCommandType type, std::vector<int> _intData);
+  Command(eCommandType type, std::vector<std::string> stringData);
+  Command(eCommandType type, std::vector<float> _floatData, std::vector<std::string> stringData);
+  Command(eCommandType type, std::vector<uint64_t> _intData);
   Command(eCommandType type, std::vector<float> _floatData);
   ~Command();
     
   eCommandType GetType() const;
   std::vector<float> GetFloatData() const;
-  std::vector<int> GetIntData() const;
+  std::vector<uint64_t> GetUIntData() const;
+  std::vector<std::string> GetStringData() const;
 
 private:
   eCommandType _commandType;
-  std::wstring _stringData;
-  std::vector<int> _intData;
+  std::vector<std::string> _stringData;
+  std::vector<uint64_t> _intData;
   std::vector<float> _floatData;
 
 };

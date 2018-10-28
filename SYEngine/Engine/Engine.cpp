@@ -104,6 +104,8 @@ bool Engine::Run()
 
     // Main game loop pipeline.
     
+    ENGINE_API->ProcessEngineQueue();
+
     SCENE_MANAGER->ProcessScene(deltaTime, pScene);
     INPUT_MANAGER->ProcessScene(deltaTime, pScene);
     NETWORK_MANAGER->ProcessScene(deltaTime, pScene);

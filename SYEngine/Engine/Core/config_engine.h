@@ -14,6 +14,9 @@
 #define BACK_FACE_CULLING 1
 #define DISABLE_VSYNC 0
 
+
+#define CALL_CONVENTION _stdcall
+
 // Main modules IDs
 #define ID_ENGINE_API 100
 #define ID_INPUT_MANAGER 1
@@ -70,7 +73,7 @@
 
 // Paths
 #define PATH_TEXTURES "resource/textures"
-#define FILENAME_DEFAULT_TEXTURE "/dirt.png"
+#define FILENAME_DEFAULT_TEXTURE "/plain.png"
 
 
 // Scene light limits.

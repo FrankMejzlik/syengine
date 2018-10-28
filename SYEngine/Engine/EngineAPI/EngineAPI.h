@@ -3,6 +3,7 @@
 
 #include <queue>
 
+#include "Scene.h"
 #include "Command.h"
 #include "EntityManager.h"
 #include "InputManager.h"
@@ -12,13 +13,12 @@
 #include "SceneManager.h"
 #include "SimulationManager.h"
 #include "AudioManager.h"
+#include "Engine.h"
 
 using namespace WeSp;
 
 namespace WeSp 
 {
-
-class Engine;
 
 class EngineApi:
   public BaseModule
@@ -28,8 +28,24 @@ public:
   EngineApi(BaseModule &parentModule);
   ~EngineApi();
 
+
   virtual bool Initialize() override;
   virtual bool Terminate() override;
+
+
+
+  uint64_t CreateBlock(
+    glm::vec3 positionVector,
+    glm::vec3 rotationVector,
+    glm::vec3 scaleVector,
+    dfloat width, dfloat height, dfloat length
+  );
+
+
+  static EngineApi* GetEngineApi()
+  {
+    return _pEngineApistatic;
+  }
 
 
 
@@ -38,6 +54,14 @@ public:
   bool PushEngineCommand(eCommandType type, std::vector<T> data)
   {
     Command cmd(type, data);
+    _engineQueue.push(cmd);
+    return true;
+  }
+
+  template <typename T, typename S>
+  bool PushEngineCommand(eCommandType type, std::vector<T> data, std::vector<S> dataNext)
+  {
+    Command cmd(type, data, dataNext);
     _engineQueue.push(cmd);
     return true;
   }
@@ -58,11 +82,14 @@ public:
   }
 
 
+
   void ProcessEngineQueue();
 
   std::queue<Command>* GetEditorCommandQueue();
 
 private:
+  static EngineApi* _pEngineApistatic;
+
   std::queue<Command> _engineQueue;
   std::queue<Command> _editorQueue;
 

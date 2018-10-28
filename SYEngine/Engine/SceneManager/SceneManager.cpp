@@ -2,6 +2,8 @@
 #include "SceneManager.h"
 
 
+Scene* SceneManager::_pActiveScene = nullptr;
+
 SceneManager::SceneManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
@@ -147,8 +149,15 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
   );
 
 
+  _pActiveScene = pNewScene.get();
+
   DLog(eLogType::Success, "Initial test scene loaded.");
   return pNewScene;
+}
+
+Scene* SceneManager::GetActiveScene()
+{
+  return _pActiveScene;
 }
 
 bool SceneManager::Initialize()

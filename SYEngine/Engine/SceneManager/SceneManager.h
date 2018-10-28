@@ -24,6 +24,9 @@ public:
   SceneManager(BaseModule &parentModule);
   ~SceneManager();
 
+  static Scene* GetActiveScene();
+
+
   /**
    * Gets Scene instance by its name if exists. Else returns nullptr.
    */
@@ -32,13 +35,19 @@ public:
   std::shared_ptr<Scene> LoadInitialScene();
 
   
+
   
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
   void ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene);
 
+
+
+
 private:
+  static Scene* _pActiveScene;
+
   std::map<std::string, std::shared_ptr<Scene>> _scenes;
 
 };
