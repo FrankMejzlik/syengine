@@ -52,9 +52,7 @@ public:
     std::string filePath
   );
 
-
   std::shared_ptr<TextureManager> _pTextureManager;
-
 };
 
 } // namespace WeSp

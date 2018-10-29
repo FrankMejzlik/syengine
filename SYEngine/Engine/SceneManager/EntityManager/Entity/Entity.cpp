@@ -95,3 +95,8 @@ const glm::vec3& Entity::GetScaleVectorRefConst() const
 {
   return _scaleVector;
 }
+
+const std::shared_ptr<ComponentManager> Entity::GetComponentManager() const
+{
+  return _pComponentManager;
+}

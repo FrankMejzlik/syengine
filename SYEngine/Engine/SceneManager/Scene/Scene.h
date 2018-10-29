@@ -105,23 +105,31 @@ public:
   const std::unordered_map<size_t, std::shared_ptr<Entity>> &GetSpotLightsMapRefConst() const;
 
 private:
-  std::shared_ptr<Camera> _pEditorCamera;
   SceneContext _sceneContext;
-  std::unordered_map<size_t, std::shared_ptr<Entity>> _entities;
-  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeModels;
-  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeDirectionalLights;
-  std::unordered_map<size_t, std::shared_ptr<Entity>> _activePointLights;
-  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeSpotLights;
-
   // EntityManager instance dedicated for this Scene instance.
   std::shared_ptr<EntityManager> _pEntityManager;
+  // Pointer to default Engine Editor camera instance.
+  std::shared_ptr<Camera> _pEditorCamera;
+ 
+  // Map of all entities in this Scene.
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _entities;
+  // Map of all Entities that have something to render out.
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeModels;
+  // Map of all active DirectionalLights.
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeDirectionalLights;
+  // Map of all active SpotLights.
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _activePointLights;
+  // Map of all active SpotLights.
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeSpotLights;
+  // Map of all Entities that have Colliders.
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeWithColliders;
+  // Map of all Entities that have RigidBodies.
+  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeWithRigidBodies;
 
-  // Global Entity inerter.
+  // Global Entity inserter.
   std::shared_ptr<Entity> InsertEntity(std::shared_ptr<Entity> entityToInsert);
-
   // Models to be rendered inserter.
   std::shared_ptr<Entity> InsertActiveModel(std::shared_ptr<Entity> entityToInsert);
-
   // Light insertors.
   std::shared_ptr<Entity> InsertDirectionalLight(std::shared_ptr<Entity> entityToInsert);
   std::shared_ptr<Entity> InsertPointLight(std::shared_ptr<Entity> entityToInsert);

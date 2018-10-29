@@ -42,13 +42,14 @@ public:
   size_t GetGUID() const;
   glm::vec3 GetPositionVector() const;
   bool SetPositionVector(const glm::vec3 positionVector);
-  glm::vec3 GetRotationVector() const;
+  glm::vec3 GetRotationVector() const;;
   bool SetRotationVector(const glm::vec3 rotationVector);
   glm::vec3 GetScaleVector() const;
   bool SetScaleVector(const glm::vec3 scaleVector);
   const glm::vec3& GetPositionVectorRefConst() const;
   const glm::vec3& GetRotationVectorRefConst() const;
   const glm::vec3& GetScaleVectorRefConst() const;
+  const std::shared_ptr<ComponentManager> GetComponentManager() const;
 
   std::shared_ptr<Model> GetModel() const { return _pModel; };
 
