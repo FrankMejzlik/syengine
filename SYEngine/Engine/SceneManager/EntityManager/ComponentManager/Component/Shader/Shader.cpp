@@ -188,7 +188,7 @@ void Shader::SetPointLights(
       uniformPointLight[i].uniformExponent
     );
 
-    pointLight->GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i);
+    pointLight->GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i );
 
     glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, textureUnit + i);
     glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, pointLight->GetFarPlane());

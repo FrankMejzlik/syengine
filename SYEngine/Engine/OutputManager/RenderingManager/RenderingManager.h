@@ -53,18 +53,22 @@ private:
   GLuint uniformOmniLightPos = 0;
   GLuint uniformFarPlane = 0;
 
-  void DirectionalShadowMapPass(
+  void DirectionalShadowMapPass
+  (
     const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels,
     const std::unordered_map<size_t, std::shared_ptr<Entity>>& directionalLights
   );
-  void OmniShadowMapPass(
+  void OmniShadowMapPass
+  (
     const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels,
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& omniDirectionalLights
+    const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights,
+    const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights
   );
 
-  void FinalMainRenderPass(
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels,
+  void FinalMainRenderPass
+  (
     std::shared_ptr<Scene> pScene, 
+    const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels,
     const std::unordered_map<size_t, std::shared_ptr<Entity>>& directonalLights,
     const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights,
     const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights

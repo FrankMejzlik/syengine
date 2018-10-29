@@ -90,16 +90,18 @@ void RenderingManager::RenderScene(std::shared_ptr<Scene> pScene, std::shared_pt
   DirectionalShadowMapPass(pScene->GetActiveModelsRefConst(), pScene->GetDirectionalLightsMapRefConst());
 
   // Calculate point light shadow maps
-  OmniShadowMapPass(pScene->GetActiveModelsRefConst(), pScene->GetPointLightsMapRefConst());
+  OmniShadowMapPass(pScene->GetActiveModelsRefConst(), pScene->GetPointLightsMapRefConst(), pScene->GetSpotLightsMapRefConst());
 
 
   // Render actual scene with computed shadow maps
-  FinalMainRenderPass(
-    pScene->GetActiveModelsRefConst(), 
+  FinalMainRenderPass
+  (
     pScene,  
+    pScene->GetActiveModelsRefConst(), 
     pScene->GetDirectionalLightsMapRefConst(), 
     pScene->GetPointLightsMapRefConst(), 
-    pScene->GetSpotLightsMapRefConst());
+    pScene->GetSpotLightsMapRefConst()
+  );
 
 }
 
@@ -127,7 +129,11 @@ void RenderingManager::CreateShaders()
 
 }
 
-void WeSp::RenderingManager::DirectionalShadowMapPass(const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels, const std::unordered_map<size_t, std::shared_ptr<Entity>>& directionalLights)
+void RenderingManager::DirectionalShadowMapPass
+(
+  const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels, 
+  const std::unordered_map<size_t, std::shared_ptr<Entity>>& directionalLights
+)
 {
   _shaders[1]->UseShader();
 
@@ -168,11 +174,17 @@ void WeSp::RenderingManager::DirectionalShadowMapPass(const std::unordered_map<s
 
 }
 
-void WeSp::RenderingManager::OmniShadowMapPass(const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels, const std::unordered_map<size_t, std::shared_ptr<Entity>>& omniDirectionalLights)
+void RenderingManager::OmniShadowMapPass
+(
+  const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels, 
+  const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights,
+  const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights
+)
 {
   _shaders[2]->UseShader();
 
-  for (auto it : omniDirectionalLights)
+  // Process PointLights.
+  for (auto it : pointLights)
   {
     std::shared_ptr<SpotLight> light = std::static_pointer_cast<SpotLight>(it.second);
 
@@ -210,12 +222,54 @@ void WeSp::RenderingManager::OmniShadowMapPass(const std::unordered_map<size_t, 
     }
   }
 
+  // Process SpotLights.
+  for (auto it : spotLights)
+  {
+    std::shared_ptr<SpotLight> light = std::static_pointer_cast<SpotLight>(it.second);
+
+    // Setup viewport same as frame buffer
+    glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
+
+    // Prepare depth buffer to write into it
+    light->GetShadowMap()->Write();
+
+    // CLear depth buffer
+    glClear(GL_DEPTH_BUFFER_BIT);
+
+    // Get handle to model uniform in shader
+    uniformModel = _shaders[2]->GetModelLocation();
+    uniformOmniLightPos = _shaders[2]->GetOmniLightPosLocation();
+    uniformFarPlane = _shaders[2]->GetFarPlaneLocation();
+
+    // Bind to shader position of light in the World coordinates
+    glUniform3f(uniformOmniLightPos, light->GetPosition().x, light->GetPosition().y, light->GetPosition().z);
+    glUniform1f(uniformFarPlane, light->GetFarPlane());
+
+    // Bind to shader 6 direction transofrm light metrices
+    _shaders[2]->SetOmniLightMatrices(light->GetOmniLightModelToWorldMatrices());
+
+    _shaders[2]->Validate();
+
+    // Render objects in scene with their own shaders
+
+    for (auto it : activeModels)
+    {
+      std::shared_ptr<Model> model;
+      model = std::static_pointer_cast<Model>(it.second->GetModel());
+      model->RenderModel(uniformModel);
+
+    }
+  }
+
+
   // Deatach from framebuffer
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void WeSp::RenderingManager::FinalMainRenderPass(const std::unordered_map<size_t, 
-  std::shared_ptr<Entity>>& activeModels, std::shared_ptr<Scene> pScene, 
+void RenderingManager::FinalMainRenderPass
+(
+  std::shared_ptr<Scene> pScene, 
+  const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels, 
   const std::unordered_map<size_t, std::shared_ptr<Entity>>& directionalLights,
   const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights,
   const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights
@@ -236,8 +290,7 @@ void WeSp::RenderingManager::FinalMainRenderPass(const std::unordered_map<size_t
   uniformProjection = _shaders[0]->GetProjectionLocation();
   uniformView = _shaders[0]->GetViewLocation();
   uniformEyePosition = _shaders[0]->GetEyePosition();
-  //uniformSpecularIntensity = _shaders[0]->GetSpecularIntensityLocation();
-  //uniformShininess = _shaders[0]->GetShininessLocation();
+
 
   // Set values in shader uniforms
   glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(_perspectiveProjectionMatrix));

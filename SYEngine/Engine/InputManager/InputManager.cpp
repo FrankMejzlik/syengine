@@ -4,10 +4,10 @@ InputManager::InputManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
- /* _subModules.insert(std::make_pair(ID_KEYBOARD_MANAGER, std::make_shared<KeyboardManager>(*this)));
+  _subModules.insert(std::make_pair(ID_KEYBOARD_MANAGER, std::make_shared<KeyboardManager>(*this)));
   _subModules.insert(std::make_pair(ID_MOUSE_MANAGER, std::make_shared<MouseManager>(*this)));
-  _subModules.insert(std::make_pair(ID_CONTROLLER_MANAGER, std::make_shared<ControllerManager>(*this)));
-*/
+  
+
   DLog(eLogType::Success, "InputManager instance created.");
 }
 
@@ -57,4 +57,8 @@ bool InputManager::Terminate()
 }
 
 void InputManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
-{}
+{
+
+
+
+}

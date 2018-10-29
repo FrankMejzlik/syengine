@@ -72,7 +72,7 @@ std::shared_ptr<Entity> Scene::InsertPointLight(std::shared_ptr<Entity> entityTo
 std::shared_ptr<Entity> Scene::InsertSpotLight(std::shared_ptr<Entity> entityToInsert)
 {
   // TODO: Increase light limit.
-  if (_activePointLights.size() >= MAX_SPOT_LIGHTS)
+  if (_activeSpotLights.size() >= MAX_SPOT_LIGHTS)
   {
     return nullptr;
   }

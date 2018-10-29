@@ -117,19 +117,47 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
     glm::vec3(10.0f, -10.0f, 10.0f)
   );
 
-  // Create  PointLight.
-  pNewScene->CreatePointLight(
-    "point_light_001",
-    glm::vec3(0.0f, 2.0f, -5.0f),       // Position vector
-    glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-    glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
+  //// Create  PointLight.
+  //pNewScene->CreatePointLight(
+  //  "point_light_001",
+  //  glm::vec3(0.0f, 2.0f, -5.0f),       // Position vector
+  //  glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
+  //  glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
 
-    glm::vec3(1.0f, 0.0f, 0.0f),        // Colour vector
-    glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-    glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-    glm::vec2(0.01f, 100.0f),           // Plane dimensions
-    glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
-  );
+  //  glm::vec3(1.0f, 0.0f, 0.0f),        // Colour vector
+  //  glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
+  //  glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
+  //  glm::vec2(0.01f, 100.0f),           // Plane dimensions
+  //  glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
+  //);
+
+  //// Create  PointLight.
+  //pNewScene->CreatePointLight(
+  //  "point_light_001",
+  //  glm::vec3(-5.0f, 2.0f, 0.0f),       // Position vector
+  //  glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
+  //  glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
+
+  //  glm::vec3(0.0f, 1.0f, 0.0f),        // Colour vector
+  //  glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
+  //  glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
+  //  glm::vec2(0.01f, 100.0f),           // Plane dimensions
+  //  glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
+  //);
+
+  //// Create  PointLight.
+  //pNewScene->CreatePointLight(
+  //  "point_light_001",
+  //  glm::vec3(0.0f, 2.0f, 5.0f),       // Position vector
+  //  glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
+  //  glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
+
+  //  glm::vec3(0.0f, 0.0f, 1.0f),        // Colour vector
+  //  glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
+  //  glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
+  //  glm::vec2(0.01f, 100.0f),           // Plane dimensions
+  //  glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
+  //);
 
   // Create  SpotLight.
   pNewScene->CreateSpotLight(
@@ -138,13 +166,30 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
     glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
     glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
 
-    glm::vec3(0.0f, 1.0f, 0.0f),        // Colour vector
-    glm::vec3(0.5f, 1.0f, 0.0f),        // Intensities
+    glm::vec3(0.0f, 1.0f, 1.0f),        // Colour vector
+    glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
     glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
     glm::vec2(0.01f, 100.0f),           // Plane dimensions
     glm::vec3(0.04f, 0.03f, 0.01f),      // Coefficients
 
     glm::vec3(-1.0f, -1.0f, -1.0f),      // Light direction
+    20.0f                                // Cone angle (degrees)
+  );
+
+  // Create  SpotLight.
+  pNewScene->CreateSpotLight(
+    "spot_light_001",
+    glm::vec3(-6.0f, 6.0f, -6.0f),       // Position vector
+    glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
+    glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
+
+    glm::vec3(1.0f, 1.0f, 0.0f),        // Colour vector
+    glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
+    glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
+    glm::vec2(0.01f, 100.0f),           // Plane dimensions
+    glm::vec3(0.04f, 0.03f, 0.01f),      // Coefficients
+
+    glm::vec3(1.0f, -1.0f, 1.0f),      // Light direction
     20.0f                                // Cone angle (degrees)
   );
 

@@ -1,6 +1,6 @@
 #include "Camera.h"
 #include "CommonValues.h"
-
+#include <iostream>
 using namespace WeSp;
 
 namespace WeSp 
@@ -51,6 +51,16 @@ void Camera::KeyControl(bool* keys, GLfloat deltaTime)
 	{
 		position += right * speed;
 	}
+
+  if (keys[GLFW_KEY_SPACE] && !keys[GLFW_KEY_LEFT_SHIFT])
+  {
+    position += up * speed;
+  }
+
+  if (keys[GLFW_KEY_SPACE] && keys[GLFW_KEY_LEFT_SHIFT])
+  {
+    position -= up * speed;
+  }
 }
 
 void Camera::MouseControl(GLfloat xChange, GLfloat yChange)

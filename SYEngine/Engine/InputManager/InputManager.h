@@ -7,7 +7,6 @@
 // Include submodules
 #include "KeyboardManager.h"
 #include "MouseManager.h"
-#include "ControllerManager.h"
 
 using namespace WeSp;
 
