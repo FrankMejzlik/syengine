@@ -13,15 +13,17 @@
 
 #include "Texture.h"
 #pragma warning(pop)
-// Treat header file like implementation file
-//
+
 using namespace WeSp;
 
-Texture::Texture() :
-  textureID(0), width(0), height(0), bitDepth(0), fileLocation()
-{}
+Texture::Texture(std::shared_ptr<Entity> pEntity):
+  Component(pEntity)
+{
 
-Texture::Texture(const char* const fileLocation):
+}
+
+Texture::Texture(std::shared_ptr<Entity> pEntity, const char* const fileLocation):
+  Component(pEntity),
   textureID(0), width(0), height(0), bitDepth(0)
 {
   strcpy_s(this->fileLocation, 1024, fileLocation);

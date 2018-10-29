@@ -16,7 +16,9 @@ class Window:
   public Component
 {
 public:
-  Window(GLsizei windowWidth, GLsizei WindowHeight);
+  Window() = delete;
+
+  Window(std::shared_ptr<Entity> pEntity, GLsizei windowWidth, GLsizei WindowHeight);
 
   int Initialize();
 

@@ -114,7 +114,7 @@ std::shared_ptr<Mesh> MeshGenerator::GenerateMeshBlock(
   };
 
   // Mesh
-  std::shared_ptr<Mesh> pBlockMesh = std::make_shared<Mesh>();    
+  std::shared_ptr<Mesh> pBlockMesh = std::make_shared<Mesh>(nullptr);    
   pBlockMesh->CreateMesh(blockVertices, blockIndices, bAverageNormals);
 
   return pBlockMesh;
@@ -147,7 +147,7 @@ std::shared_ptr<Mesh>  MeshGenerator::GenerateMeshQuad(
   };
 
   // Instantiate Mesh instance.
-  std::shared_ptr<Mesh> pBlockMesh = std::make_shared<Mesh>();    
+  std::shared_ptr<Mesh> pBlockMesh = std::make_shared<Mesh>(nullptr);    
   pBlockMesh->CreateMesh(vertexArray, indexArray, bAverageNormals);
 
   return pBlockMesh;

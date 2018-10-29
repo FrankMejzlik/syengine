@@ -115,15 +115,15 @@ void RenderingManager::CreateShaders()
   const char* gODLShader = "shaders/omni_shadow_map.geom";
   const char* fODLShader = "shaders/omni_shadow_map.frag";
 
-  std::shared_ptr<Shader> pMainShader = std::make_shared<Shader>();
+  std::shared_ptr<Shader> pMainShader = std::make_shared<Shader>(nullptr);
   pMainShader->CreateFromFiles(vShader, fShader);
   _shaders.push_back(pMainShader);
 
-  std::shared_ptr<Shader> pDLShader = std::make_shared<Shader>();
+  std::shared_ptr<Shader> pDLShader = std::make_shared<Shader>(nullptr);
   pDLShader->CreateFromFiles(vDLShader, fDLShader);
   _shaders.push_back(pDLShader);
 
-  std::shared_ptr<Shader> pODLShader = std::make_shared<Shader>();
+  std::shared_ptr<Shader> pODLShader = std::make_shared<Shader>(nullptr);
   pODLShader->CreateFromFiles(vODLShader, gODLShader, fODLShader);
   _shaders.push_back(pODLShader);
 

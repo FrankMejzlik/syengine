@@ -1,21 +1,19 @@
 #pragma once
 
-#include <memory>
-
 #include "common.h"
 #include "Component.h"
 
 namespace WeSp
 {
 
-class Controller :
+class Collider :
   public Component
 {
 public:
-  Controller() = delete;
-
-  Controller(std::shared_ptr<Entity> pEntity);
-  ~Controller();
+  Collider() = delete;
+  
+  Collider(std::shared_ptr<Entity> pEntity);
+  virtual ~Collider();
 };
 
 } // namespace WeSp

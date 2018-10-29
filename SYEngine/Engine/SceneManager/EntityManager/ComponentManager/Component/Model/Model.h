@@ -27,7 +27,7 @@ class Model:
   public Component
 {
 public:
-  Model();
+  Model() = delete;
   Model(std::shared_ptr<Entity> pEntity);
   virtual ~Model();
 

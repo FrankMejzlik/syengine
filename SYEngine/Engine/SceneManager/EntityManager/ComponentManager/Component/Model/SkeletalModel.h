@@ -80,7 +80,9 @@ class SkeletalModel :
   public Model
 {
 public:
-  SkeletalModel();
+  SkeletalModel() = delete;
+
+  SkeletalModel(std::shared_ptr<Entity> pEntity);
   ~SkeletalModel();
 
   /**

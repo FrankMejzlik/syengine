@@ -29,7 +29,9 @@ class Shader:
   public Component
 {
 public:
-  Shader();
+  Shader() = delete;
+
+  Shader(std::shared_ptr<Entity> pEntity);
   
   void SetIsSkeletonAnimated(int newValue)
   {

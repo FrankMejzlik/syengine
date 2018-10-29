@@ -2,10 +2,6 @@
 
 using namespace WeSp;
 
-Model::Model()
-{
-
-}
 
 Model::Model(std::shared_ptr<Entity> pEntity):
   Component(pEntity)
@@ -44,7 +40,7 @@ void Model::RenderModel(GLuint ul_modelToWorldMatrix)
 
   for (size_t i = 0; i < _meshList.size(); ++i)
   {
-    unsigned int materialIndex = _meshToTexture[i];
+    size_t materialIndex = _meshToTexture[i];
 
     if (materialIndex < _textureList.size() && _textureList[materialIndex])
     {
@@ -160,7 +156,7 @@ void Model::LoadMesh(aiMesh * mesh, const aiScene * scene)
     }
   }
 
-  std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>();
+  std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>(_pEntity);
   pNewMesh->CreateMesh(vertices, indices);
   _meshList.push_back(pNewMesh);
 
@@ -189,7 +185,7 @@ void Model::LoadMaterials(const aiScene * scene)
         std::string texPath = std::string(CONCATENATE_LITERALS(PATH_TEXTURES, "/")) + filename;
 
         //_textureList[i] = new Texture(texPath.c_str());
-        _textureList[i] = std::make_shared<Texture>(texPath.c_str());
+        _textureList[i] = std::make_shared<Texture>(_pEntity, texPath.c_str());
 
         if (!_textureList[i]->LoadTexture())
         {
@@ -206,7 +202,7 @@ void Model::LoadMaterials(const aiScene * scene)
     {
       // Load default texture.
       //_textureList[i] = new Texture(CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
-      _textureList[i] = std::make_shared<Texture>(CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+      _textureList[i] = std::make_shared<Texture>(_pEntity, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
       _textureList[i]->LoadTexture();
     }
   }

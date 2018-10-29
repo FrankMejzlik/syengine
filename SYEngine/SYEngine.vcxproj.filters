@@ -135,12 +135,6 @@
     </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Quad.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\AI\AI.cpp">
-      <Filter>Engine\ComponentManager\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Animation\Animation.cpp">
-      <Filter>Engine\ComponentManager\Component\Animation</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Controller\Controller.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.cpp">
       <Filter>Engine\ComponentManager\Component\Logic</Filter>
@@ -155,15 +149,6 @@
       <Filter>Engine\ComponentManager\Component\Model</Filter>
     </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\StaticModel.cpp">
-      <Filter>Engine\ComponentManager\Component\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Music\Music.cpp">
-      <Filter>Engine\ComponentManager\Component\Music</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Physics.cpp">
-      <Filter>Engine\ComponentManager\Component\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Shader\Shader.cpp">
       <Filter>Engine\ComponentManager\Component\Shader</Filter>
     </ClCompile>
@@ -211,6 +196,8 @@
     </ClCompile>
     <ClCompile Include="Engine\Core\Abstract\IGuidCounted.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\Collider.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\BlockCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -367,12 +354,6 @@
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Quad.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\AI\AI.h">
-      <Filter>Engine\ComponentManager\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Animation\Animation.h">
-      <Filter>Engine\ComponentManager\Component\Animation</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Controller\Controller.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.h">
       <Filter>Engine\ComponentManager\Component\Logic</Filter>
@@ -387,15 +368,6 @@
       <Filter>Engine\ComponentManager\Component\Model</Filter>
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\StaticModel.h">
-      <Filter>Engine\ComponentManager\Component\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Music\Music.h">
-      <Filter>Engine\ComponentManager\Component\Music</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Physics.h">
-      <Filter>Engine\ComponentManager\Component\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Shader\Shader.h">
       <Filter>Engine\ComponentManager\Component\Shader</Filter>
     </ClInclude>
@@ -444,6 +416,8 @@
     <ClInclude Include="Engine\Core\typedefs.h" />
     <ClInclude Include="Engine\Core\Abstract\IGuidCounted.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\Collider.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\BlockCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

@@ -57,7 +57,7 @@ bool WindowManager::Terminate()
 std::shared_ptr<Window> WindowManager::ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height)
 {
   // Construct new Window instance and push it into vector.
-  _activeWindows.push_back(std::make_shared<Window>(GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT));
+  _activeWindows.push_back(std::make_shared<Window>(nullptr, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT));
   // Get new
   std::shared_ptr<Window> newWindow = _activeWindows.back();
   newWindow->Initialize();

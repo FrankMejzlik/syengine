@@ -7,7 +7,9 @@ class Logic :
   public Component
 {
 public:
-  Logic();
+  Logic() = delete;
+
+  Logic(std::shared_ptr<Entity> pEntity);
   virtual ~Logic();
 };
 

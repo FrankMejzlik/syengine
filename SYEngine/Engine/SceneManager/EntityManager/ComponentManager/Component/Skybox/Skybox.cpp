@@ -2,13 +2,12 @@
 
 using namespace WeSp;
 
-Skybox::Skybox()
-{}
 
-Skybox::Skybox(std::vector<std::string> faceLocation)
+Skybox::Skybox(std::shared_ptr<Entity> pEntity,std::vector<std::string> faceLocation):
+  Component(pEntity)
 {
   // Shader setup
-  skyShader = new Shader();
+  skyShader = new Shader(_pEntity);
   skyShader->CreateFromFiles(
     "shaders/skybox.vert", 
     "shaders/skybox.frag"
@@ -87,7 +86,7 @@ Skybox::Skybox(std::vector<std::string> faceLocation)
     1.0f, -1.0f, 1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f
   };
 
-  skyMesh = new Mesh();
+  skyMesh = new Mesh(_pEntity);
   skyMesh->CreateMesh(skyboxVertices, skyboxIndices);
 }
 

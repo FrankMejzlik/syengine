@@ -47,7 +47,7 @@ std::shared_ptr<Mesh> PrimitiveMeshGenerator::GenerateBlockMesh(
   };
 
   // Mesh
-  std::shared_ptr<Mesh> pBlockMesh = std::make_shared<Mesh>();    
+  std::shared_ptr<Mesh> pBlockMesh = std::make_shared<Mesh>(nullptr);    
   pBlockMesh->CreateMesh(blockVertices, blockIndices, bAverageNormals);
 
   return pBlockMesh;

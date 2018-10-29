@@ -164,18 +164,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\BlockCollider.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\Collider.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IGuidCounted.cpp" />
     <ClCompile Include="Engine\Core\BaseModule.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\StaticModel.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\ControllerManager\ControllerManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\ComponentManager.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\AI\AI.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Component.cpp" />
     <ClCompile Include="Engine\LogicManager\AIManager\AiManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.cpp" />
     <ClCompile Include="Engine\SimulationManager\AnimationManager\AnimationManager.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Animation\Animation.cpp" />
     <ClCompile Include="Diagnostics\Logger.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IErrorLogging.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IModuleState.cpp" />
@@ -226,7 +225,6 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\SkyboxManager\SkyboxManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\TextureManager\TextureManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Physics.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\Primitives\PrimitiveMeshGenerator.cpp" />
@@ -234,7 +232,6 @@
     <ClCompile Include="Engine\OutputManager\AudioManager\MusicManager.cpp" />
     <ClCompile Include="Engine\OutputManager\AudioManager\SoundManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Sound\Sound.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Music\Music.cpp" />
     <ClCompile Include="Engine\InputManager\MouseManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Controller\Controller.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.cpp" />
@@ -242,21 +239,20 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\BlockCollider.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\Collider.h" />
     <ClInclude Include="Engine\Core\Common\common.h" />
     <ClInclude Include="Engine\Core\BaseModule.h" />
     <ClInclude Include="Engine\Core\Abstract\IModule.h" />
     <ClInclude Include="Engine\Core\typedefs.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\StaticModel.h" />
     <ClInclude Include="Engine\Core\config_world.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\ControllerManager\ControllerManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\ComponentManager.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\AI\AI.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Component.h" />
     <ClInclude Include="Engine\LogicManager\AIManager\AiManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.h" />
     <ClInclude Include="Engine\SimulationManager\AnimationManager\AnimationManager.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Animation\Animation.h" />
     <ClInclude Include="Diagnostics\Logger.h" />
     <ClInclude Include="Diagnostics\memory_diagnostics.h" />
     <ClInclude Include="Engine\Core\Common\EngineError.h" />
@@ -310,7 +306,6 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\SkyboxManager\SkyboxManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\TextureManager\TextureManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Physics.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h" />
@@ -320,7 +315,6 @@
     <ClInclude Include="Engine\OutputManager\AudioManager\MusicManager.h" />
     <ClInclude Include="Engine\OutputManager\AudioManager\SoundManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Sound\Sound.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Music\Music.h" />
     <ClInclude Include="Engine\InputManager\KeyboardManager.h" />
     <ClInclude Include="Engine\InputManager\MouseManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.h" />

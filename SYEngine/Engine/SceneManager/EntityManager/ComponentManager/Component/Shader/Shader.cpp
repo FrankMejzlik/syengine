@@ -2,10 +2,8 @@
 
 using namespace WeSp;
 
-
-extern void GetGLErrors(const  char* file, unsigned int lineNum);
-
-Shader::Shader():
+Shader::Shader(std::shared_ptr<Entity> pEntity):
+  Component(pEntity),
   _ul_bIsSkeletonAnimated(0),
   shaderID(0), 
   uniformModel(0), 

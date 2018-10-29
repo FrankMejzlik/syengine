@@ -2,7 +2,7 @@
 
 using namespace WeSp;
 
-Sound::Sound()
+Sound::Sound(std::shared_ptr<Entity> pEntity)
 {}
 
 

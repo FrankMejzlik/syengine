@@ -18,20 +18,25 @@ namespace WeSp
  * Used in: 
  * @see   class Material
  */
-class Shininess
+class Shininess:
+  public Component
 {
 public:
+  Shininess() = delete;
+
   /**
    * Default constructor.
    * shiny: 1.0f, 512
    * dull: 0.3f  4
    */
-  Shininess(): 
+  Shininess(std::shared_ptr<Entity> pEntity):
+    Component(pEntity),
     _specularIntensity(0.3f), _shininessIntensity(4)
   {}
 
   // Parametrized constructor.
-  Shininess(dfloat specularIntensity, dfloat shininessIntensity):
+  Shininess(std::shared_ptr<Entity> pEntity, dfloat specularIntensity, dfloat shininessIntensity):
+    Component(pEntity),
     _specularIntensity(specularIntensity), _shininessIntensity(shininessIntensity)
   {}
 
@@ -59,10 +64,12 @@ class Material:
   public Component
 {
 public:
+  Material() = delete;
+
   /**
    * Adds default Texture and Shininess.
    */
-  Material();
+  Material(std::shared_ptr<Entity> pEntity);
   ~Material();
 
   /**

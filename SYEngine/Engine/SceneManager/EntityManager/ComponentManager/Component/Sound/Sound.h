@@ -8,7 +8,8 @@ class Sound:
   public IComponentState
 {
 public:
-  Sound();
+  Sound() = delete;
+  Sound(std::shared_ptr<Entity> pEntity);
   ~Sound();
 };
 

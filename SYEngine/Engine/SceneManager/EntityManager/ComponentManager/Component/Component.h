@@ -15,7 +15,8 @@ class Component:
   public IComponentState, public IGuidCounted
 {
 public:
-  Component();
+  Component() = delete;
+
   Component(std::shared_ptr<Entity> pEntity);
   ~Component();
 

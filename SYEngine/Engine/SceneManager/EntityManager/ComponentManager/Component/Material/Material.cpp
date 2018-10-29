@@ -2,11 +2,12 @@
 
 using namespace WeSp;
 
-Material::Material()
+Material::Material(std::shared_ptr<Entity> pEntity):
+  Component(pEntity)
 {
   // Add default Texture and Shininess.
-  _textures.push_back(Texture());
-  _shininesses.push_back(Shininess());
+  _textures.push_back(Texture(pEntity));
+  _shininesses.push_back(Shininess(pEntity));
 }
 
 Material::~Material()
@@ -14,7 +15,7 @@ Material::~Material()
 
 size_t Material::AddTexture(std::string filePathToTexture)
 {
-  Texture newTexture(filePathToTexture.c_str());
+  Texture newTexture(_pEntity, filePathToTexture.c_str());
   newTexture.LoadTexture();
   _textures.push_back(newTexture);
 
@@ -23,7 +24,7 @@ size_t Material::AddTexture(std::string filePathToTexture)
 
 size_t Material::AddShininess(dfloat specularIntensity, dfloat shininessIntensity)
 {
-  _shininesses.push_back(Shininess(specularIntensity, shininessIntensity));
+  _shininesses.push_back(Shininess(_pEntity, specularIntensity, shininessIntensity));
   
   return _shininesses.size() - 1;
 }

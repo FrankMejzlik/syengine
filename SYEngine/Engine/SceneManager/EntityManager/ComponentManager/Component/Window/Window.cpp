@@ -7,7 +7,8 @@
 
 using namespace WeSp;
 
-Window::Window(GLsizei windowWidth = 800, GLsizei windowHeight = 600) :
+Window::Window(std::shared_ptr<Entity> pEntity, GLsizei windowWidth = 800, GLsizei windowHeight = 600) :
+  Component(pEntity),
   bufferWidth(windowWidth), bufferHeight(windowHeight), xChange(0.0f), yChange(0.0f), mouseFirstMoved(true)
 {
   for (size_t i = 0; i < 1024; ++i)

@@ -12,8 +12,10 @@ class Texture:
   public Component
 {
 public:
-  Texture();
-  Texture(const char* const fileLocation);
+  Texture() = delete;
+
+  Texture(std::shared_ptr<Entity> pEntity);
+  Texture(std::shared_ptr<Entity> pEntity, const char* const fileLocation);
 
   bool LoadTexture();
   void UseTexture();

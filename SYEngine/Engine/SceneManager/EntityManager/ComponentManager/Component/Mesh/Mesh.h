@@ -20,8 +20,16 @@ class Mesh:
   public Component
 {
 public:
-  Mesh();
-  Mesh(std::vector<GLfloat> vertices, std::vector<unsigned int> indices, bool calculateAverageNormals = false);
+  Mesh() = delete;
+
+  Mesh(std::shared_ptr<Entity> pEntity);
+
+  Mesh(
+    std::shared_ptr<Entity> pEntity,
+    std::vector<GLfloat> vertices, 
+    std::vector<unsigned int> indices, 
+    bool calculateAverageNormals = false
+  );
   ~Mesh();
 
   virtual void CreateMesh(

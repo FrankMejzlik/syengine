@@ -2,18 +2,24 @@
 
 using namespace WeSp;
 
-Mesh::Mesh() :
-  Component(),
-  _vertices(), _indices(),
-  _VAO(0), _VBO(0), _IBO(0), 
-  _indexCount(0), _vertexCount(0),
+Mesh::Mesh(std::shared_ptr<Entity> pEntity) :
+  Component(pEntity),
   _pTexture(nullptr), _pMaterial(nullptr)
-{}
+{
 
-Mesh::Mesh(std::vector<GLfloat> vertices, std::vector<unsigned int> indices, bool calculateAverageNormals):
-  Component(),
+}
+
+
+Mesh::Mesh(
+  std::shared_ptr<Entity> pEntity,
+  std::vector<GLfloat> vertices, 
+  std::vector<unsigned int> indices, 
+  bool calculateAverageNormals
+):
+  Component(pEntity),
   _vertices(vertices), _indices(indices),
-  _vertexCount(vertices.size()), _indexCount(indices.size()),
+  _vertexCount(static_cast<GLsizei>(vertices.size())), 
+  _indexCount(static_cast<GLsizei>(indices.size())),
   _pTexture(nullptr), _pMaterial(nullptr)
 {
   // If requred, compute average normals for every vertex

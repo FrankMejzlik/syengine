@@ -60,8 +60,8 @@ void VertexBoneData::Reset()
 }
 
 /* Init */
-SkeletalModel::SkeletalModel()
-
+SkeletalModel::SkeletalModel(std::shared_ptr<Entity> pEntity):
+  Model(pEntity)
 {
   m_Importer = new Assimp::Importer();
 
@@ -334,7 +334,7 @@ bool SkeletalModel::InitMaterials(const aiScene* pScene, const std::string& File
 
         std::string FullPath = Dir + "/" + p;
 
-        _textures[i] = new Texture(FullPath.c_str());
+        _textures[i] = new Texture(_pEntity, FullPath.c_str());
 
         if (!_textures[i]->LoadTexture())
         {

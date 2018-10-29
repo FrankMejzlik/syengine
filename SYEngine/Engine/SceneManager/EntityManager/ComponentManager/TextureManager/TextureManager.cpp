@@ -61,7 +61,7 @@ bool TextureManager::Terminate()
 std::shared_ptr<Texture> TextureManager::GetDefaultTexture() 
 {
   if (!_defaultTexture) {
-     _defaultTexture = std::make_shared<Texture>(CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+     _defaultTexture = std::make_shared<Texture>(nullptr, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
     _defaultTexture->LoadTexture();
   }
 

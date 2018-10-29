@@ -23,8 +23,9 @@ class Skybox:
   public Component
 {
 public:
-  Skybox();
-  Skybox(std::vector<std::string> faceLocation);
+  Skybox() = delete;
+
+  Skybox(std::shared_ptr<Entity> pEntity, std::vector<std::string> faceLocation);
   ~Skybox();
 
   void DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
