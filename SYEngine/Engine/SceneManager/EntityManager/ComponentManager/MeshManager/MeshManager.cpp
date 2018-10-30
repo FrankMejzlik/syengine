@@ -1,6 +1,6 @@
 #include "MeshManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 MeshManager::MeshManager(BaseModule &parentModule):

@@ -1,6 +1,6 @@
 #include "ControllerManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 ControllerManager::ControllerManager(BaseModule &parentModule):
   BaseModule(parentModule)

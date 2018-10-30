@@ -9,7 +9,7 @@
 
 #include "Component.h"
 
-namespace WeSp 
+namespace SYE 
 {
 
 class Window:
@@ -19,6 +19,7 @@ public:
   Window() = delete;
 
   Window(std::shared_ptr<Entity> pEntity, GLsizei windowWidth, GLsizei WindowHeight);
+  ~Window();
 
   int Initialize();
 
@@ -46,7 +47,7 @@ public:
     glfwSwapBuffers(mainWindow);
   }
   
-  ~Window();
+  GLFWwindow* GetPGlfwWindow() const { return mainWindow; }
 
 private:
   GLFWwindow* mainWindow;

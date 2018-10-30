@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 
-namespace WeSp {
+namespace SYE {
 
 class Logic :
   public Component

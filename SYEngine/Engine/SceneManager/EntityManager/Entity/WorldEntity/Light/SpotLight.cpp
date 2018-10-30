@@ -1,6 +1,6 @@
 #include "SpotLight.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 SpotLight::SpotLight(

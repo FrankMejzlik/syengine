@@ -11,9 +11,9 @@
 #include "MeshGenerator.h"
 
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp {
+namespace SYE {
 
 class MeshManager :
   public BaseModule

@@ -14,7 +14,7 @@
 #include "Texture.h"
 #pragma warning(pop)
 
-using namespace WeSp;
+using namespace SYE;
 
 Texture::Texture(std::shared_ptr<Entity> pEntity):
   Component(pEntity)

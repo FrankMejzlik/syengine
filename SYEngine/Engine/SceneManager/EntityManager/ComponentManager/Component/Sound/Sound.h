@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-namespace WeSp {
+namespace SYE {
 
 class Sound:
   public IComponentState

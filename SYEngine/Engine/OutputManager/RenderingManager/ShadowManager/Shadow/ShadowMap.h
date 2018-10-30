@@ -6,7 +6,7 @@
 
 #include "Shadow.h"
 
-namespace WeSp 
+namespace SYE 
 {
 
 class ShadowMap:

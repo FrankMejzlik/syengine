@@ -10,9 +10,9 @@
 #include "ComponentManager.h"
 #include "EntityManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp 
+namespace SYE 
 {
 
 class SceneManager :
@@ -52,4 +52,4 @@ private:
 
 };
 
-} // namespace WeSp
+} // namespace SYE

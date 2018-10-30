@@ -1,6 +1,6 @@
 #include "Shader.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Shader::Shader(std::shared_ptr<Entity> pEntity):
   Component(pEntity),

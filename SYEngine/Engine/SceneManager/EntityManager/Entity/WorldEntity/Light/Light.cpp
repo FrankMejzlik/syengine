@@ -1,6 +1,6 @@
 #include "Light.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 Light::Light(

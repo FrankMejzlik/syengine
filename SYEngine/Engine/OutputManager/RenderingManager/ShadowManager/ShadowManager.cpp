@@ -1,6 +1,6 @@
 #include "ShadowManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 ShadowManager::ShadowManager(BaseModule &parentModule):
   BaseModule(parentModule)

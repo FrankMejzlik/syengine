@@ -1,6 +1,6 @@
 #include "AiManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 AiManager::AiManager(BaseModule &parentModule):
   BaseModule(parentModule)

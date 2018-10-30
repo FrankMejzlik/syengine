@@ -23,9 +23,9 @@
 
 #include "Model.h"
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp
+namespace SYE
 {
 
 enum eVertexBufferType

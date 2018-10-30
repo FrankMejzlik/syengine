@@ -1,6 +1,6 @@
 #include "ShaderManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 ShaderManager::ShaderManager(BaseModule &parentModule):
   BaseModule(parentModule)

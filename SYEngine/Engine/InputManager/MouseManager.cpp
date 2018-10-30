@@ -1,6 +1,6 @@
 #include "MouseManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 MouseManager::MouseManager(BaseModule &parentModule):
   BaseModule(parentModule)

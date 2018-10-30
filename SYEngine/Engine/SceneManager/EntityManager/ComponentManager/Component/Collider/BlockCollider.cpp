@@ -1,6 +1,6 @@
 #include "BlockCollider.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 BlockCollider::BlockCollider(std::shared_ptr<Entity> pEntity) :
   Collider(pEntity)

@@ -5,9 +5,9 @@
 #include "Light.h"
 #include "OmniShadowMap.h"
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp 
+namespace SYE 
 {
 
 class PointLight :

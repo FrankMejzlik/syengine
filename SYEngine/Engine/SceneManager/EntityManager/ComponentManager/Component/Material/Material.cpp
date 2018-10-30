@@ -1,6 +1,6 @@
 #include "Material.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Material::Material(std::shared_ptr<Entity> pEntity):
   Component(pEntity)

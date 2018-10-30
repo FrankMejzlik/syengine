@@ -48,6 +48,7 @@
 #define ID_TEXTURE_MANAGER 57
 #define ID_WINDOW_MANAGER 58
 #define ID_MODEL_MANAGER 59
+#define ID_UI_MANAGER 60
 
 // SimulationManager
 #define ID_AI_MANAGER 71

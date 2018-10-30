@@ -5,7 +5,7 @@
 
 #include "Logger.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Logger* Logger::_pInstance = nullptr;
 

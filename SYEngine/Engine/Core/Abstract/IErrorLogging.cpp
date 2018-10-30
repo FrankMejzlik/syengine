@@ -1,7 +1,7 @@
 
 #include "IErrorLogging.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 IErrorLogging::IErrorLogging()

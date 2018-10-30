@@ -1,6 +1,6 @@
 #include "LogicManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 LogicManager::LogicManager(BaseModule &parentModule):
   BaseModule(parentModule)

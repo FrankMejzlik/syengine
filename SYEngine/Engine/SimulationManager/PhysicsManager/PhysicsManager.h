@@ -2,9 +2,9 @@
 
 #include "BaseModule.h"
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp {
+namespace SYE {
 
 class PhysicsManager :
   public BaseModule

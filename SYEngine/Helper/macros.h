@@ -21,6 +21,7 @@
 #define AUDIO_MANAGER std::static_pointer_cast<AudioManager>(_subModules[ID_AUDIO_MANAGER])
 #define COMPONENT_MANAGER std::static_pointer_cast<ComponentManager>(_subModules[ID_COMPONENT_MANAGER])
 #define WINDOW_MANAGER std::static_pointer_cast<WindowManager>(_subModules[ID_WINDOW_MANAGER])
+#define UI_MANAGER std::static_pointer_cast<UiManager>(_subModules[ID_UI_MANAGER])
 
 /**
  * Macros for accesing main sub-modules from map container

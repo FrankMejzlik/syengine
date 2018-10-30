@@ -1,6 +1,6 @@
 #include "Logic.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Logic::Logic(std::shared_ptr<Entity> pEntity):
   Component(pEntity)

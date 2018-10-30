@@ -5,7 +5,7 @@
 #include "Entity.h"
 #include "ComponentManager.h"
 
-namespace WeSp
+namespace SYE
 {
 
 class BlockCollider :
@@ -20,4 +20,4 @@ public:
   virtual ~BlockCollider();
 };
 
-} // namespace WeSp
+} // namespace SYE

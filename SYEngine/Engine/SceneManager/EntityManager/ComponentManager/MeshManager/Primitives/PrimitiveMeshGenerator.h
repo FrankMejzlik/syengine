@@ -6,7 +6,7 @@
 
 #include "MeshGenerator.h"
 
-namespace WeSp
+namespace SYE
 {
 
 class PrimitiveMeshGenerator:
@@ -32,4 +32,4 @@ public:
 
 };
 
-} // namespace WeSp
+} // namespace SYE

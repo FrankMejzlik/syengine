@@ -1,6 +1,6 @@
 #include "ShadowMap.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 ShadowMap::ShadowMap():
   FBO(0), shadowMap(0)

@@ -1,7 +1,7 @@
 
 #include "Scene.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Scene::Scene(std::shared_ptr<EntityManager> pEntityManager, std::string sceneName) :
   _pEntityManager(pEntityManager),

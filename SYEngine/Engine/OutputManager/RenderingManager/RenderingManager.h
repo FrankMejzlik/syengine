@@ -2,16 +2,19 @@
 
 #include "common.h"
 #include "BaseModule.h"
+#include "ShaderManager.h"
 #include "ShadowManager.h"
+#include "UiManager.h"
+#include "WindowManager.h"
 #include "Shader.h"
 #include "Scene.h"
 
 // Submodules.
 #include "WindowManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp 
+namespace SYE 
 {
 
 class RenderingManager :

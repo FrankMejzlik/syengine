@@ -1,6 +1,6 @@
 #include "PhysicsManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 PhysicsManager::PhysicsManager(BaseModule &parentModule):
   BaseModule(parentModule)

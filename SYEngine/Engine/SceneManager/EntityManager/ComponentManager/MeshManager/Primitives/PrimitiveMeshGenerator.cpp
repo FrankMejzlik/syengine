@@ -1,7 +1,7 @@
 
 #include "PrimitiveMeshGenerator.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 std::shared_ptr<Mesh> PrimitiveMeshGenerator::GenerateBlockMesh(
   float width, float height, float length,

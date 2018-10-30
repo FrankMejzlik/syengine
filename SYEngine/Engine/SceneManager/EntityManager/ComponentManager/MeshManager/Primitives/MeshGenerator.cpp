@@ -1,6 +1,6 @@
 #include "MeshGenerator.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 MeshGenerator::MeshGenerator(BaseModule &parentModule):
   BaseModule(parentModule)

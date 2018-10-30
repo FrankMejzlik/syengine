@@ -1,6 +1,6 @@
 #include "Mesh.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Mesh::Mesh(std::shared_ptr<Entity> pEntity) :
   Component(pEntity),

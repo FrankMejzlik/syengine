@@ -1,7 +1,7 @@
 
 #include "WorldEntity.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 WorldEntity::WorldEntity(

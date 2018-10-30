@@ -1,7 +1,7 @@
 
 #include "ComponentManager.h"
 
-using namespace WeSp; 
+using namespace SYE; 
 
 ComponentManager::ComponentManager(BaseModule &parentModule):
   BaseModule(parentModule)

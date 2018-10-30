@@ -1,6 +1,6 @@
 #include "MusicManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 MusicManager::MusicManager()
 {}

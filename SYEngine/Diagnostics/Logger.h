@@ -12,7 +12,7 @@
   #define DLog(type, format, ...)
 #endif
 
-namespace WeSp
+namespace SYE
 {
 
 enum class eConsoleTextColour

@@ -28,9 +28,9 @@ enum class eEntityType
       
 };
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp {
+namespace SYE {
 
 class EntityManager :
   public BaseModule

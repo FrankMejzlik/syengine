@@ -5,7 +5,7 @@
 
 #include "EngineContext.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Window::Window(std::shared_ptr<Entity> pEntity, GLsizei windowWidth = 800, GLsizei windowHeight = 600) :
   Component(pEntity),

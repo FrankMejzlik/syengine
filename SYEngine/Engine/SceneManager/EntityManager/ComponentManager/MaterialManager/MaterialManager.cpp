@@ -1,6 +1,6 @@
 #include "MaterialManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 MaterialManager::MaterialManager(BaseModule &parentModule):
   BaseModule(parentModule)

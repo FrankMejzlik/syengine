@@ -1,7 +1,7 @@
 
 #include "AnimationManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 AnimationManager::AnimationManager(BaseModule &parentModule):
   BaseModule(parentModule)

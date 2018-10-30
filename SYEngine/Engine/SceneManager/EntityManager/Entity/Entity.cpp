@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Entity::Entity(
   std::shared_ptr<ComponentManager> pComponentManager,

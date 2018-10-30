@@ -1,6 +1,6 @@
 #include "GameContext.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 GameContext::GameContext()
 {}

@@ -1,9 +1,9 @@
 #include "Camera.h"
 #include "CommonValues.h"
 #include <iostream>
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp 
+namespace SYE 
 {
 
 Camera::Camera(
@@ -61,6 +61,9 @@ void Camera::KeyControl(bool* keys, GLfloat deltaTime)
   {
     position -= up * speed;
   }
+
+  DLog(eLogType::Info, "%d, %d",keys[GLFW_KEY_SPACE], keys[GLFW_KEY_LEFT_SHIFT])
+
 }
 
 void Camera::MouseControl(GLfloat xChange, GLfloat yChange)

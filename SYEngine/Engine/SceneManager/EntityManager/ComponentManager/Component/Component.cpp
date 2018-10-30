@@ -1,6 +1,6 @@
 #include "Component.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 Component::Component(std::shared_ptr<Entity> pEntity) :

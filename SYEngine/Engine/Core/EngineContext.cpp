@@ -1,6 +1,6 @@
 #include "EngineContext.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 bool EngineContext::gTorchOn = false;
 

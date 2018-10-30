@@ -7,7 +7,7 @@
 #include "IGuidCounted.h"
 
 
-namespace WeSp
+namespace SYE
 {
 class Entity;
 

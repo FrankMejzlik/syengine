@@ -1,6 +1,6 @@
 #include "BaseEngine.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 BaseEngine::BaseEngine()
 {}

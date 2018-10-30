@@ -1,6 +1,6 @@
 #include "Model.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 Model::Model(std::shared_ptr<Entity> pEntity):

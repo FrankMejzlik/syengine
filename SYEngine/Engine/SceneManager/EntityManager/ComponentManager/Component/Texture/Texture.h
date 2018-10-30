@@ -5,7 +5,7 @@
 #include "CommonValues.h"
 #include "Component.h"
 
-namespace WeSp 
+namespace SYE 
 {
 
 class Texture:

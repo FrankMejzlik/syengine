@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace WeSp 
+namespace SYE 
 {
 
 class SceneContext

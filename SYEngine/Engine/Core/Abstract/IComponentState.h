@@ -7,7 +7,7 @@ enum class eComponentState
   Error
 };
 
-namespace WeSp {
+namespace SYE {
 
 class IComponentState
 {

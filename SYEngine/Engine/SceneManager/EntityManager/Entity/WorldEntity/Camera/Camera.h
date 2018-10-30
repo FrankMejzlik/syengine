@@ -11,7 +11,7 @@
 
 #include "WorldEntity.h"
 
-namespace WeSp 
+namespace SYE 
 {
 
 class Camera:

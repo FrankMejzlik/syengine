@@ -1,6 +1,6 @@
 #include "SoundManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 SoundManager::SoundManager()
 {}

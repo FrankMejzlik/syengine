@@ -1,6 +1,6 @@
 #pragma once
 
-namespace WeSp 
+namespace SYE 
 {
 
 class EngineContext
@@ -24,4 +24,4 @@ public:
 
 };
 
-} // namespace WeSp
+} // namespace SYE

@@ -1,6 +1,6 @@
 #include "ModelManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 ModelManager::ModelManager(BaseModule &parentModule):

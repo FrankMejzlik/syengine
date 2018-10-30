@@ -1,7 +1,7 @@
 
 #include "DirectionalLight.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 DirectionalLight::DirectionalLight(
   std::shared_ptr<ComponentManager> pComponentManager,

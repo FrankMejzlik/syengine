@@ -4,9 +4,9 @@
 #include "BaseModule.h"
 #include "Texture.h"
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp 
+namespace SYE 
 {
 
 class TextureManager :

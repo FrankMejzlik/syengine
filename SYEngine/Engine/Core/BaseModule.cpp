@@ -1,6 +1,6 @@
 #include "BaseModule.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 BaseModule::BaseModule(int magicNumber) :

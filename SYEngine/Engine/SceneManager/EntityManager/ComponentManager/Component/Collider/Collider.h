@@ -6,7 +6,7 @@
 #include "Component.h"
 #include "Mesh.h"
 
-namespace WeSp
+namespace SYE
 {
 
 class Collider :
@@ -30,4 +30,4 @@ protected:
 
 };
 
-} // namespace WeSp
+} // namespace SYE

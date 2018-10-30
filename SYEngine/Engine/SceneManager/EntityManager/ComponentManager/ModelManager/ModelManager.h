@@ -4,9 +4,9 @@
 #include "BaseModule.h"
 #include "Model.h"
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp 
+namespace SYE 
 {
 
 class ModelManager :

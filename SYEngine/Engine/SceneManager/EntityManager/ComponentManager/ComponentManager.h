@@ -18,7 +18,7 @@
 #include "Mesh.h"
 #include "Model.h"
 
-namespace WeSp 
+namespace SYE 
 {
 
 class ComponentManager:
@@ -55,4 +55,4 @@ public:
   std::shared_ptr<TextureManager> _pTextureManager;
 };
 
-} // namespace WeSp
+} // namespace SYE

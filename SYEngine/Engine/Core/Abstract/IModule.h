@@ -11,7 +11,7 @@
 #include "Logger.h"
 #include "BaseModule.h"
 
-namespace WeSp 
+namespace SYE 
 {
 
 // Forward declarations.
@@ -33,6 +33,6 @@ public:
   
 };
 
-} // namespace WeSp
+} // namespace SYE
 
 #endif // #ifndef I_MODULE_H_

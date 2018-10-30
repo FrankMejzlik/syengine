@@ -1,6 +1,6 @@
 #include "IModuleState.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 IModuleState::IModuleState():
   _moduleState(eModuleState::Null)

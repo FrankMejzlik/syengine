@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace WeSp {
+namespace SYE {
 
 enum class eCommandType
 {

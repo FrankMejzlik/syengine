@@ -4,7 +4,7 @@
 #include "Scene.h"
 
 
-namespace WeSp
+namespace SYE
 {
 
 class SimulationManager;

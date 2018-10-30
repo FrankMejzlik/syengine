@@ -1,6 +1,6 @@
 #include "PointLight.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 PointLight::PointLight(

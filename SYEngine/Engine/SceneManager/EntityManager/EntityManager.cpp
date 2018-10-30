@@ -1,6 +1,6 @@
 #include "EntityManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 EntityManager::EntityManager(BaseModule &parentModule):
   BaseModule(parentModule)

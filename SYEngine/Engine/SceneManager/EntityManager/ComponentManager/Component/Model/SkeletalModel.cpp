@@ -1,7 +1,7 @@
 
 #include "SkeletalModel.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 glm::mat3 aiMatrix3x3ToGlm(const aiMatrix3x3 &from)
 {

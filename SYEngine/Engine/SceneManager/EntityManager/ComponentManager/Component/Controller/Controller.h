@@ -5,7 +5,7 @@
 #include "common.h"
 #include "Component.h"
 
-namespace WeSp
+namespace SYE
 {
 
 class Controller :
@@ -18,4 +18,4 @@ public:
   ~Controller();
 };
 
-} // namespace WeSp
+} // namespace SYE

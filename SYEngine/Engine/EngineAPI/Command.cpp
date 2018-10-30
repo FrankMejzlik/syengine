@@ -1,7 +1,7 @@
 
 #include "Command.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Command::Command(eCommandType type):
   _commandType(type), _stringData(), _intData(0), _floatData(0.0f)

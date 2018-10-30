@@ -1,6 +1,6 @@
 #include "EngineError.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 EngineError::EngineError(eEngineError type, size_t lineNumber, std::string filePath, std::string shortDescription, std::string longDescription) :
   _type(type),

@@ -1,6 +1,6 @@
 #include "RenderingManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 RenderingManager::RenderingManager(BaseModule &parentModule):
   BaseModule(parentModule)
@@ -60,9 +60,15 @@ bool RenderingManager::Terminate()
 
 std::shared_ptr<Window> RenderingManager::ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height)
 {
-  auto tmp = WINDOW_MANAGER->ConstructWindow(windowType, windowTitle, width, height);
+  // Create new Window instance.
+  std::shared_ptr<Window> pNewWindow = WINDOW_MANAGER->ConstructWindow(windowType, windowTitle, width, height);
+  // Create and compile shaders.
   CreateShaders();
-  return tmp;
+
+  // Initialize ImGUI.
+  UI_MANAGER->InitializeImGui(pNewWindow);
+
+  return pNewWindow;
 }
 
 void RenderingManager::RenderScene(std::shared_ptr<Scene> pScene, std::shared_ptr<Window> pTargetWindow)
@@ -92,6 +98,8 @@ void RenderingManager::RenderScene(std::shared_ptr<Scene> pScene, std::shared_pt
   // Calculate point light shadow maps
   OmniShadowMapPass(pScene->GetActiveModelsRefConst(), pScene->GetPointLightsMapRefConst(), pScene->GetSpotLightsMapRefConst());
 
+  // Initialize ImGUI draw.
+  UI_MANAGER->InitializeImGuiDraw();
 
   // Render actual scene with computed shadow maps
   FinalMainRenderPass
@@ -102,6 +110,12 @@ void RenderingManager::RenderScene(std::shared_ptr<Scene> pScene, std::shared_pt
     pScene->GetPointLightsMapRefConst(), 
     pScene->GetSpotLightsMapRefConst()
   );
+
+  // Run ImGUI draw.
+  UI_MANAGER->DrawImGui();
+
+  // Swap buffers
+  pTargetWindow->SwapBuffers();
 
 }
 
@@ -275,6 +289,7 @@ void RenderingManager::FinalMainRenderPass
   const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights
 )
 {
+
   std::shared_ptr<DirectionalLight> mainLight = std::static_pointer_cast<DirectionalLight>(directionalLights.begin()->second);
 
   // Set correct viewport, just to be sure

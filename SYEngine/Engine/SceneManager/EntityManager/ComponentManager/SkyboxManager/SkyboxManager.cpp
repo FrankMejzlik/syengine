@@ -1,6 +1,6 @@
 #include "SkyboxManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 SkyboxManager::SkyboxManager(BaseModule &parentModule):
   BaseModule(parentModule)

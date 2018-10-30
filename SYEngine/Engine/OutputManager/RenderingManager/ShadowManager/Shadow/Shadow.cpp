@@ -1,6 +1,6 @@
 #include "Shadow.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Shadow::Shadow()
 {}

@@ -75,21 +75,6 @@
     <ClCompile Include="Engine\SimulationManager\AnimationManager\AnimationManager.cpp">
       <Filter>Engine\RenderingManager\AnimationManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.cpp">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.cpp">
-      <Filter>Engine\RenderingManager\ShaderManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Camera\Camera.cpp">
       <Filter>Engine\EntityManager\Entity\WorldEntity\Camera</Filter>
@@ -198,6 +183,29 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\Collider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\BlockCollider.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.cpp">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager.cpp">
+      <Filter>Engine\RenderingManager\ShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\Ui.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.cpp" />
+    <ClCompile Include="external\imgui\imgui.cpp" />
+    <ClCompile Include="external\imgui\imgui_demo.cpp" />
+    <ClCompile Include="external\imgui\imgui_draw.cpp" />
+    <ClCompile Include="external\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -288,21 +296,6 @@
     </ClInclude>
     <ClInclude Include="Engine\SimulationManager\AnimationManager\AnimationManager.h">
       <Filter>Engine\RenderingManager\AnimationManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.h">
-      <Filter>Engine\RenderingManager\ShaderManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Camera\Camera.h">
@@ -418,6 +411,31 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\Collider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\BlockCollider.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h">
+      <Filter>Engine\RenderingManager\ShadowManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager.h">
+      <Filter>Engine\RenderingManager\ShaderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\Ui.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.h" />
+    <ClInclude Include="external\imgui\imstb_truetype.h" />
+    <ClInclude Include="external\imgui\imconfig.h" />
+    <ClInclude Include="external\imgui\imgui.h" />
+    <ClInclude Include="external\imgui\imgui_internal.h" />
+    <ClInclude Include="external\imgui\imstb_rectpack.h" />
+    <ClInclude Include="external\imgui\imstb_textedit.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

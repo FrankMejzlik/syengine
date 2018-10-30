@@ -6,7 +6,7 @@
  * Just inherit from this instance.
  */
 
-namespace WeSp 
+namespace SYE 
 {
 
 class IUncopyable

@@ -1,6 +1,6 @@
 #include "Collider.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Collider::Collider(std::shared_ptr<Entity> pEntity):
   Component(pEntity)

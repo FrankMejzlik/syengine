@@ -2,7 +2,7 @@
 #include "Engine.h"
 #include "EngineAPI.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 EngineApi* EngineApi::_pEngineApistatic = nullptr;
@@ -141,7 +141,7 @@ std::queue<Command>* EngineApi::GetEditorCommandQueue()
   return &_editorQueue;
 }
 
-void WeSp::EngineApi::SimulateEditorInput()
+void SYE::EngineApi::SimulateEditorInput()
 {
 
 

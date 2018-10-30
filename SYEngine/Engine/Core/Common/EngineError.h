@@ -3,7 +3,7 @@
 #include <string>
 #include <queue>
 
-namespace WeSp {
+namespace SYE {
 
 /**
  * All possible error types in engine.

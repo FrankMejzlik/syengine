@@ -1,6 +1,6 @@
 #include "OmniShadowMap.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 OmniShadowMap::OmniShadowMap() :

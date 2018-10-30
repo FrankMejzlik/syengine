@@ -1,6 +1,6 @@
 #include "IComponentState.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 IComponentState::IComponentState():
   _state(eComponentState::Null)

@@ -24,7 +24,7 @@
 #include "Quad.h"
 #include "Block.h"
 
-namespace WeSp
+namespace SYE
 {
 
 class DirectionalLight;
@@ -136,4 +136,4 @@ private:
   std::shared_ptr<Entity> InsertSpotLight(std::shared_ptr<Entity> entityToInsert);
 };
 
-} // namespace WeSp
+} // namespace SYE

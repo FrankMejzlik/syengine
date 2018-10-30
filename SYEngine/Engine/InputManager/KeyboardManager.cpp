@@ -1,6 +1,6 @@
 #include "KeyboardManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 KeyboardManager::KeyboardManager(BaseModule &parentModule):
   BaseModule(parentModule)

@@ -1,7 +1,7 @@
 
 #include "Engine.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Engine::Engine(Instance* pInstance) :
   BaseModule(MAGIC_BASE_MODULE_NUMBER), // Identify as root module.
@@ -60,8 +60,6 @@ bool Engine::Initialize()
   return true;
 }
 
-
-
 bool Engine::Run()
 {
   // If engine not initialized yet, do it so
@@ -70,17 +68,19 @@ bool Engine::Run()
     Initialize();
   }
 
-#if 1
   // Create all output channels.
   std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
-  
   // Construct initial scene.
   std::shared_ptr<Scene> pScene = SCENE_MANAGER->LoadInitialScene();
 
   auto prev = std::chrono::high_resolution_clock::now();
 
   dfloat deltaTime = 0.0f;
+
+  bool show_demo_window = true;
+  bool show_another_window = false;
+  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
   // Main game loop.
   while (_engineContext.GetBShouldRun())
@@ -93,13 +93,51 @@ bool Engine::Run()
     // Save now time for next frame calculation.
     prev = std::chrono::high_resolution_clock::now();
 
-    //std::cout << deltaTime << std::endl;
-
 
 
     glfwPollEvents();
     pScene->GetEditorCamera()->KeyControl(pMainWindow->GetKeys(), deltaTime);
     pScene->GetEditorCamera()->MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
+
+    // Start the Dear ImGui frame
+    ImGuiOpenGlWrapperNewFrame();
+    ImGuiWrapper_NewFrame();
+    ImGui::NewFrame();
+
+    if (show_demo_window)
+      ImGui::ShowDemoWindow(&show_demo_window);
+
+    {
+      static float f = 0.0f;
+      static int counter = 0;
+
+      ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+
+      ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+      ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+      ImGui::Checkbox("Another Window", &show_another_window);
+
+      ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+      ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+      if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+        counter++;
+      ImGui::SameLine();
+      ImGui::Text("counter = %d", counter);
+
+      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+      ImGui::End();
+    }
+
+    // 3. Show another simple window.
+    if (show_another_window)
+    {
+      ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+      ImGui::Text("Hello from another window!");
+      if (ImGui::Button("Close Me"))
+        show_another_window = false;
+      ImGui::End();
+    }
 
 
     // Main game loop pipeline.
@@ -113,214 +151,8 @@ bool Engine::Run()
     SIMULATION_MANAGER->ProcessScene(deltaTime, pScene);
     OUTPUT_MANAGER->ProcessScene(deltaTime, pScene, pMainWindow);
 
-    // Main game loop pipeline.
-
-    pMainWindow->SwapBuffers();
 
   }
-
-
-  //// vvvvvvvvvvvvvvvvvv to ref vvvvvvvvvvvvvvvvvvvvvvv
-#endif
-#if 0
-
-  std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
-
-  //Window mainWindow(GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
-  pMainWindow->Initialize();
-
-  CreateObjects();
-  CreateShaders();
-
-  camera = Camera(glm::vec3(-1.0f, -0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f, 5.0f, 1.0f);
-
-  brickTexture = Texture("Resource/textures/brick.png");
-  dirtTexture = Texture("Resource/textures/dirt.png");
-  plainTexture = Texture("Resource/textures/plain.png");
-
-  brickTexture.LoadTexture();
-  dirtTexture.LoadTexture();
-  plainTexture.LoadTexture();
-
-  xwing = Model();
-  xwing.LoadModelFromFile("Resource/models/x-wing.obj");
-
-  blackhawk = Model();
-  blackhawk.LoadModelFromFile("Resource/models/uh60.obj");
-
-  dude2 = Model();
-  dude2.LoadModelFromFile("Resource/panFazulka.DAE");
-
-  dude = SkeletalModel();
-  dude.LoadModelFromFile("Resource/boblampclean.md5mesh");
-
-  wolf = SkeletalModel();
-  wolf.LoadModelFromFile("Resource/Wolf_dae.dae");
-
-  plane = SkeletalModel();
-  plane.LoadModelFromFile("Resource/Wolf_dae.dae");
-  
-
-  {
-    mainLight = DirectionalLight(
-      glm::vec3(0.0f, 0.0f, 0.0f),          // Position vector
-      glm::vec3(0.0f, 0.0f, 0.0f),          // rotation vector
-      glm::vec3(1.0f, 1.0f, 1.0f),          // scale vector
-
-      glm::vec3(1.0f, 1.0f, 1.0f),          // Colour vector
-      glm::vec3(0.0f, 0.9f, 0.0f),          // Intensities
-      glm::vec3(2048.0f, 2048.0f, 0.0f),    // Shadow dimensions
-      glm::vec3(-10.0f, -12.0f, 18.5f)      // Light direction vector
-    );
-
-    pointLights[0] = PointLight(           
-      glm::vec3(3.0f, 2.0f, 5.0f),        // Position vector
-      glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-      glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-      glm::vec3(0.0f, 0.0f, 1.0f),        // Colour vector
-      glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-      glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-      glm::vec2(0.01f, 100.0f),           // Plane dimensions
-      glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
-    );
-    ++pointLightCount;
-
-    pointLights[1] = PointLight(
-      glm::vec3(-3.0f, 2.0f, 5.0f),       // Position vector
-      glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-      glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-      glm::vec3(0.0f, 1.0f, 0.0f),        // Colour vector
-      glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-      glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-      glm::vec2(0.01f, 100.0f),           // Plane dimensions
-      glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
-    );
-    ++pointLightCount;
-
-    pointLights[2] = PointLight(
-      glm::vec3(0.0f, 2.0f, -5.0f),       // Position vector
-      glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-      glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-      glm::vec3(1.0f, 0.0f, 0.0f),        // Colour vector
-      glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-      glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-      glm::vec2(0.01f, 100.0f),           // Plane dimensions
-      glm::vec3(0.08f, 0.05f, 0.02f)      // Coefficients
-    );
-    //++pointLightCount;
-
-
-    spotLights[0] = SpotLight(
-      glm::vec3(2.5f, 2.0f, -5.0f),       // Position vector
-      glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-      glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-      glm::vec3(1.0f, 1.0f, 1.0f),        // Colour vector
-      glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-      glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-      glm::vec2(0.01f, 100.0f),           // Plane dimensions
-      glm::vec3(0.08f, 0.05f, 0.02f),      // Coefficients
-
-      glm::vec3(-1.0f, -1.0f, -1.0f),      // Light direction
-      20.0f                                // Cone angle (degrees)
-    );
-    ++spotLightCount;
-
-
-    spotLights[1] = SpotLight(
-      glm::vec3(2.5f, 2.0f, -5.0f),       // Position vector
-      glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-      glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-      glm::vec3(0.0f, 1.0f, 0.0f),        // Colour vector
-      glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-      glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-      glm::vec2(0.01f, 100.0f),           // Plane dimensions
-      glm::vec3(0.08f, 0.05f, 0.02f),      // Coefficients
-
-      glm::vec3(0.0f, 5.0f, -1.0f),      // Light direction
-      30.0f                                 // Cone angle (degrees)
-    );
-    ++spotLightCount;
-  }
-
-  // Order matters!
-  std::vector<std::string> skyboxFaces;
-  skyboxFaces.push_back("Resource/textures/skybox/cupertin-lake_rt.tga");
-  skyboxFaces.push_back("Resource/textures/skybox/cupertin-lake_lf.tga");
-  skyboxFaces.push_back("Resource/textures/skybox/cupertin-lake_up.tga");
-  skyboxFaces.push_back("Resource/textures/skybox/cupertin-lake_dn.tga");
-  skyboxFaces.push_back("Resource/textures/skybox/cupertin-lake_bk.tga");
-  skyboxFaces.push_back("Resource/textures/skybox/cupertin-lake_ft.tga");
-
-
-  // Instantiate skybox
-  skybox = Skybox(skyboxFaces);
-
-  GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-    uniformSpecularIntensity = 0, uniformShininess = 0;
-
-  // Get projeciton matrix
-  glm::mat4 projection = glm::perspective(glm::radians(45.0f), (GLfloat)(pMainWindow->GetBufferWidth()) / pMainWindow->GetBufferHeight(), 0.1f, 100.0f);
-
-  double frameTimer = 0;
-  float toAngle = 0;
-  // Loop until window is closed
-
-  while (_engineContext.GetBShouldRun())
-  {
-    // Timing
-    GLfloat now = static_cast<GLfloat>(glfwGetTime());
-    deltaTime = now - lastTime;
-    lastTime = now;
-
-    // Get and handle user input events
-    glfwPollEvents();
-    //camera.KeyControl(pMainWindow->GetKeys(), deltaTime);
-    //camera.MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
-
-
-    if (pMainWindow->GetKeys()[GLFW_KEY_L])
-    {
-      pointLights[0].TogglePoint();
-      pointLights[1].TogglePoint();
-      pointLights[2].TogglePoint();
-      pMainWindow->GetKeys()[GLFW_KEY_L] = false;
-    }
-
-    if (pMainWindow->GetKeys()[GLFW_KEY_K])
-    {
-      spotLights[0].ToggleSpot();
-      pMainWindow->GetKeys()[GLFW_KEY_K] = false;
-    }
-
-    ENGINE_API->ProcessEngineQueue();
-
-    // Calculate directional light shadow maps
-    DirectionalShadowMapPass(&mainLight);
-
-    // Calculate point light shadow maps
-    for (size_t i = 0; i < pointLightCount; ++i)
-    {
-      OmniShadowMapPass(&pointLights[i]);
-    }
-
-    // Calculate spot light shadow maps
-    for (size_t i = 0; i < spotLightCount; ++i)
-    {
-      OmniShadowMapPass(&spotLights[i]);
-    }
-
-    // Render actual scene with computed shadow maps
-    RenderPass(camera.CalculateViewMatrix(), projection);
-
-    pMainWindow->SwapBuffers();
-  }
-#endif
-  // OpenGL windows closed
 
   // Send Command to terminate Editor
   ENGINE_API->PushEditorCommand(eCommandType::Terminate);

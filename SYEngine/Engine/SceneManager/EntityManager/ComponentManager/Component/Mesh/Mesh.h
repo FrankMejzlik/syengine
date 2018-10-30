@@ -10,7 +10,7 @@
 #include "MaterialManager.h"
 #include "TextureManager.h"
 
-namespace WeSp 
+namespace SYE 
 {
 
 class Texture;

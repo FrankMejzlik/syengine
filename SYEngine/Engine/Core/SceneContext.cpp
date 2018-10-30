@@ -1,6 +1,6 @@
 #include "SceneContext.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 
 SceneContext::SceneContext()

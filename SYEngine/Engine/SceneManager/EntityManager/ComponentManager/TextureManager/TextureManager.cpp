@@ -1,6 +1,6 @@
 #include "TextureManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 TextureManager::TextureManager(BaseModule &parentModule):
   BaseModule(parentModule)

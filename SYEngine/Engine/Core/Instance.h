@@ -5,7 +5,7 @@
 #include "config_engine.h"
 #include "IUncopyable.h"
 
-namespace WeSp 
+namespace SYE 
 {
 
 /**

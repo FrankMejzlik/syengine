@@ -2,7 +2,7 @@
 
 #include "config_engine.h"
 
-namespace WeSp {
+namespace SYE {
 
 /**
 * Interface for every main engine module. Giving it necessary things that modules must have.

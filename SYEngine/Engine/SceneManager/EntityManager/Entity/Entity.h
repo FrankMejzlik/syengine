@@ -9,7 +9,7 @@
 #include "IGuidCounted.h"
 
 
-namespace WeSp 
+namespace SYE 
 {
 
 class ComponentManager;
@@ -74,4 +74,4 @@ protected:
   std::shared_ptr<Model> _pModel;
 };
 
-} // namespace WeSp
+} // namespace SYE

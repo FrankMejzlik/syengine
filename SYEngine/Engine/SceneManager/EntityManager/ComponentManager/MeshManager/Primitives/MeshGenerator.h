@@ -4,7 +4,7 @@
 #include "BaseModule.h"
 #include "Mesh.h"
 
-namespace WeSp 
+namespace SYE 
 {
 
 class MeshGenerator:

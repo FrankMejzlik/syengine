@@ -13,7 +13,7 @@
 #include "IModule.h"
 
 
-namespace WeSp
+namespace SYE
 {
 
 // Forward declarations.
@@ -40,6 +40,6 @@ protected:
 
 };
 
-} // namespace WeSp
+} // namespace SYE
 
 #endif // #ifndef BASE_MODULE_H_

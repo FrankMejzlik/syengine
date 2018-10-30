@@ -3,9 +3,9 @@
 #include "Command.h"
 
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp {
+namespace SYE {
 
 class EngineApi;
 

@@ -9,7 +9,7 @@
 
 #include <GL/glew.h>
 
-namespace WeSp 
+namespace SYE 
 {
 
 /**

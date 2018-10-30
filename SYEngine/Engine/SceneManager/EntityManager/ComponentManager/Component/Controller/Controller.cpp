@@ -1,6 +1,6 @@
 #include "Controller.h"
 
-using namespace WeSp;
+using namespace SYE;
 
 Controller::Controller(std::shared_ptr<Entity> pEntity) :
   Component(pEntity)

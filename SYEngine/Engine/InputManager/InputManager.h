@@ -8,9 +8,9 @@
 #include "KeyboardManager.h"
 #include "MouseManager.h"
 
-using namespace WeSp;
+using namespace SYE;
 
-namespace WeSp {
+namespace SYE {
 
 class InputManager:
   public BaseModule
