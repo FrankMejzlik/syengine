@@ -201,11 +201,11 @@
     </ClCompile>
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\Ui.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.cpp" />
-    <ClCompile Include="external\imgui\imgui.cpp" />
-    <ClCompile Include="external\imgui\imgui_demo.cpp" />
-    <ClCompile Include="external\imgui\imgui_draw.cpp" />
-    <ClCompile Include="external\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.cpp" />
+    <ClCompile Include="external\x64\imgui\1.66\src\imgui.cpp" />
+    <ClCompile Include="external\x64\imgui\1.66\src\imgui_demo.cpp" />
+    <ClCompile Include="external\x64\imgui\1.66\src\imgui_draw.cpp" />
+    <ClCompile Include="external\x64\imgui\1.66\src\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -430,9 +430,6 @@
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\Ui.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.h" />
     <ClInclude Include="external\imgui\imstb_truetype.h" />
-    <ClInclude Include="external\imgui\imconfig.h" />
-    <ClInclude Include="external\imgui\imgui.h" />
-    <ClInclude Include="external\imgui\imgui_internal.h" />
     <ClInclude Include="external\imgui\imstb_rectpack.h" />
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.h" />
