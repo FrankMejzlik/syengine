@@ -16,7 +16,8 @@ namespace SYE
 
 enum class eCameraModes
 {
-
+  FIRST_PERSON_MODE, 
+  EDITOR_MODE
 };
 
 class Camera:
@@ -33,6 +34,7 @@ public:
 
 	void KeyControl(bool* keys, GLfloat deltaTime);
 	void MouseControl(GLfloat xChange, GLfloat yChange);
+  void MouseKeyControl(bool* keys, GLfloat deltaTime);
 
 	glm::mat4 CalculateViewMatrix();
 
@@ -42,21 +44,31 @@ public:
 	~Camera();
 
 private:
+  eCameraModes _eCameraMode;
+
 	glm::vec3 position;
 	glm::vec3 front;
 	glm::vec3 up;
 	glm::vec3 right;
 	glm::vec3 worldUp;
 
+  dfloat _mouseXChange;
+  dfloat _mouseYChange;
+
 	GLfloat yaw;
 	GLfloat pitch;
+  dfloat _inverseYaw;
+  dfloat _inversePitch;
 
-	GLfloat moveSpeed;
-	GLfloat turnSpeed;
 
-  bool torchEnabled;
+	GLfloat _moveSpeed;
+	GLfloat _firstPersonTurnSpeed;
+  dfloat _editorModeTurnSpeed;
 
-	void Update();
+  bool _bIsDragingOn;
+
+  void UpdateEditorMode();
+	void UpdateFirstPersonMode();
 };
 
 }

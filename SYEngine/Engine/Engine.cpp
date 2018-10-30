@@ -98,6 +98,7 @@ bool Engine::Run()
     glfwPollEvents();
     pScene->GetEditorCamera()->KeyControl(pMainWindow->GetKeys(), deltaTime);
     pScene->GetEditorCamera()->MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
+    pScene->GetEditorCamera()->MouseKeyControl(pMainWindow->GetMouseKeys(), deltaTime);
 
     // Start the Dear ImGui frame
     ImGuiOpenGlWrapperNewFrame();

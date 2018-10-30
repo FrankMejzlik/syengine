@@ -18,6 +18,7 @@ class InputManager:
 {
 public:
   static void HandleKeys(GLFWwindow* window, int key, int code, int action, int mode);
+  static void HandleMouseKeys(GLFWwindow* window, int button, int action, int mode);
   static void HandleMouse(GLFWwindow* window, double xPos, double yPos);
 
 

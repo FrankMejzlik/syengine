@@ -55,6 +55,23 @@ void InputManager::HandleKeys(GLFWwindow* window, int key, int code, int action,
   }
 }
 
+void InputManager::HandleMouseKeys(GLFWwindow* window, int button, int action, int mode)
+{
+  Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+
+  if (button >= 0 && button < 1024)
+  {
+    if (action == GLFW_PRESS)
+    {
+      theWindow->_mouseKeys[button] = true;
+    }
+    else if (action == GLFW_RELEASE)
+    {
+      theWindow->_mouseKeys[button] = false;
+    }
+  }
+}
+
 void InputManager::HandleMouse(GLFWwindow* window, double xPos, double yPos)
 {
   Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));

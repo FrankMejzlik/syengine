@@ -54,6 +54,8 @@ public:
   }
 
   bool* GetKeys() { return keys; }
+  bool* GetMouseKeys() { return _mouseKeys; }
+
   GLfloat GetXChange();
   GLfloat GetYChange();
 
@@ -70,11 +72,13 @@ private:
   GLFWwindow* mainWindow;
   GLsizei bufferWidth, bufferHeight;
   bool keys[1024];
+  bool _mouseKeys[1024];
   GLfloat lastX;
   GLfloat lastY;
   GLfloat xChange;
   GLfloat yChange;
   bool mouseFirstMoved;
+
 
   //static void HandleKeys(GLFWwindow* window, int key, int code, int action, int mode);
   //static void HandleMouse(GLFWwindow* window, double xPos, double yPos);
