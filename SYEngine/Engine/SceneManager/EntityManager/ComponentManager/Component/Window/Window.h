@@ -5,7 +5,8 @@
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 
-#include "config_engine.h"
+#include "common.h"
+#include "InputManager.h"
 
 #include "Component.h"
 
@@ -15,13 +16,27 @@ namespace SYE
 class Window:
   public Component
 {
+  friend class InputManager;
+
 public:
+  
+
+
   Window() = delete;
 
   Window(std::shared_ptr<Entity> pEntity, GLsizei windowWidth, GLsizei WindowHeight);
   ~Window();
 
   int Initialize();
+
+  void ShowCursor() { 
+    glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    _bMoveOnMouseMove = false;
+  }
+  void HideCursor() {
+    glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    _bMoveOnMouseMove = true;
+  };
 
   GLsizei GetBufferWidth()
   {
@@ -48,8 +63,10 @@ public:
   }
   
   GLFWwindow* GetPGlfwWindow() const { return mainWindow; }
-
+ 
+  bool _bMoveOnMouseMove = true;
 private:
+  
   GLFWwindow* mainWindow;
   GLsizei bufferWidth, bufferHeight;
   bool keys[1024];
@@ -59,8 +76,8 @@ private:
   GLfloat yChange;
   bool mouseFirstMoved;
 
-  static void HandleKeys(GLFWwindow* window, int key, int code, int action, int mode);
-  static void HandleMouse(GLFWwindow* window, double xPos, double yPos);
+  //static void HandleKeys(GLFWwindow* window, int key, int code, int action, int mode);
+  //static void HandleMouse(GLFWwindow* window, double xPos, double yPos);
 
   void CreateCallbacks();
 

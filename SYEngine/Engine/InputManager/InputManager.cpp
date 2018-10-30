@@ -22,6 +22,63 @@ InputManager::~InputManager()
   DLog(eLogType::Success, "InputManager instance destroyed.");
 }
 
+void InputManager::HandleKeys(GLFWwindow* window, int key, int code, int action, int mode)
+{
+  Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+
+  // Handle pushdowns and pushups
+  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+  {
+    glfwSetWindowShouldClose(window, GL_TRUE);
+  }
+
+  if (key == GLFW_KEY_T && action == GLFW_PRESS)
+  {
+    theWindow->ShowCursor();
+  }
+
+  if (key == GLFW_KEY_G && action == GLFW_PRESS)
+  {
+    theWindow->HideCursor();
+  }
+
+  if (key >= 0 && key < 1024)
+  {
+    if (action == GLFW_PRESS)
+    {
+      theWindow->keys[key] = true;
+    }
+    else if (action == GLFW_RELEASE)
+    {
+      theWindow->keys[key] = false;
+    }
+  }
+}
+
+void InputManager::HandleMouse(GLFWwindow* window, double xPos, double yPos)
+{
+  Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+
+  if (theWindow->_bMoveOnMouseMove)
+  {
+
+    if (theWindow->mouseFirstMoved)
+    {
+      theWindow->lastX = static_cast<GLfloat>(xPos);
+      theWindow->lastY = static_cast<GLfloat>(yPos);
+      theWindow->mouseFirstMoved = false;
+    }
+
+    theWindow->xChange = static_cast<GLfloat>(xPos - theWindow->lastX);
+    theWindow->yChange = static_cast<GLfloat>(theWindow->lastY - yPos);
+
+    theWindow->lastX = static_cast<GLfloat>(xPos);
+    theWindow->lastY = static_cast<GLfloat>(yPos);
+  }
+  //printf("x: %.f6f, y: %.6f\n", theWindow->xChange, theWindow->yChange);
+}
+
+
 bool InputManager::Initialize()
 {
 

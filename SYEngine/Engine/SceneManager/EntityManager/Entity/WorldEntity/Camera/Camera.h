@@ -14,6 +14,11 @@
 namespace SYE 
 {
 
+enum class eCameraModes
+{
+
+};
+
 class Camera:
   public WorldEntity
 {

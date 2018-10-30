@@ -92,70 +92,13 @@ Window::~Window()
   glfwTerminate();
 }
 
-// Suppress unreferenced warnings
-#pragma warning(disable : 4100)
-void Window::HandleKeys(GLFWwindow* window, int key, int code, int action, int mode)
-{
-  Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
-
-  // Handle pushdowns and pushups
-  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-  {
-    glfwSetWindowShouldClose(window, GL_TRUE);
-  }
-
-  if (key == GLFW_KEY_T && action == GLFW_PRESS)
-  {
-    if (EngineContext::gTorchOn == true)
-    {
-      EngineContext::gTorchOn = false;
-    }
-    else
-    {
-      EngineContext::gTorchOn = true;
-    }
-  }
-
-  if (key >= 0 && key < 1024)
-  {
-    if (action == GLFW_PRESS)
-    {
-      theWindow->keys[key] = true;
-    }
-    else if (action == GLFW_RELEASE)
-    {
-      theWindow->keys[key] = false;
-    }
-  }
-}
-
-void Window::HandleMouse(GLFWwindow* window, double xPos, double yPos)
-{
-  Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
-
-  if (theWindow->mouseFirstMoved)
-  {
-    theWindow->lastX = static_cast<GLfloat>(xPos);
-    theWindow->lastY = static_cast<GLfloat>(yPos);
-    theWindow->mouseFirstMoved = false;
-  }
-
-  theWindow->xChange = static_cast<GLfloat>(xPos - theWindow->lastX);
-  theWindow->yChange = static_cast<GLfloat>(theWindow->lastY - yPos);
-
-  theWindow->lastX = static_cast<GLfloat>(xPos);
-  theWindow->lastY = static_cast<GLfloat>(yPos);
-
-  //printf("x: %.f6f, y: %.6f\n", theWindow->xChange, theWindow->yChange);
-}
 
 void Window::CreateCallbacks()
 {
   // When key is pressed in main window call HhadleKeys
-  glfwSetKeyCallback(mainWindow, HandleKeys);
-  glfwSetCursorPosCallback(mainWindow, HandleMouse);
+  glfwSetKeyCallback(mainWindow, InputManager::HandleKeys);
+  glfwSetCursorPosCallback(mainWindow, InputManager::HandleMouse);
 }
-
 GLfloat Window::GetXChange()
 {
   GLfloat theChange = xChange;
