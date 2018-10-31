@@ -29,6 +29,7 @@ namespace SYE
 
 class DirectionalLight;
 class PointLight;
+class Collider;
 
 /**
  * Every Scene MUST have it's EntityController to call to.
@@ -121,13 +122,17 @@ private:
   std::unordered_map<size_t, std::shared_ptr<Entity>> _activePointLights;
   // Map of all active SpotLights.
   std::unordered_map<size_t, std::shared_ptr<Entity>> _activeSpotLights;
-  // Map of all Entities that have Colliders.
-  std::unordered_map<size_t, std::shared_ptr<Entity>> _activeWithColliders;
+  std::unordered_map<size_t, std::shared_ptr<Collider>> _activeColliders;
   // Map of all Entities that have RigidBodies.
   std::unordered_map<size_t, std::shared_ptr<Entity>> _activeWithRigidBodies;
 
   // Global Entity inserter.
   std::shared_ptr<Entity> InsertEntity(std::shared_ptr<Entity> entityToInsert);
+  std::shared_ptr<Entity> DeleteEntity(std::shared_ptr<Entity> entityToDelete);
+  
+  std::shared_ptr<Entity> InsertActiveColliders(std::shared_ptr<Entity> entityToDelete);
+  std::shared_ptr<Entity> DeleteActiveColliders(std::shared_ptr<Entity> entityToDelete);
+  
   // Models to be rendered inserter.
   std::shared_ptr<Entity> InsertActiveModel(std::shared_ptr<Entity> entityToInsert);
   // Light insertors.

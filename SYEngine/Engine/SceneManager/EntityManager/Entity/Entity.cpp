@@ -12,7 +12,8 @@ Entity::Entity(
   _positionVector(positionVector),
   _rotationVector(rotationVector),
   _scaleVector(scaleVector),
-  _bIsToRender(false)
+  _bIsToRender(false),
+  _bHasColliders(false)
 {
 
 }
@@ -38,10 +39,6 @@ void Entity::SetEntityName(std::string name)
   return;
 }
 
-size_t Entity::GetGUID() const
-{
-  return _GUID;
-}
 
 glm::vec3 Entity::GetPositionVector() const
 {
@@ -99,4 +96,29 @@ const glm::vec3& Entity::GetScaleVectorRefConst() const
 const std::shared_ptr<ComponentManager> Entity::GetComponentManager() const
 {
   return _pComponentManager;
+}
+
+const std::unordered_map<size_t, std::shared_ptr<Collider>> &Entity::GetColliders() const
+{
+  return _colliders;
+}
+
+std::shared_ptr<Collider> Entity::AddCollider(std::shared_ptr<Collider> pNewCollider)
+{
+  _colliders.insert(std::make_pair(pNewCollider->GetGuid(), pNewCollider));
+
+  _bHasColliders = true;
+
+  return pNewCollider; 
+}
+
+std::shared_ptr<Collider> Entity::DeleteCollider(std::shared_ptr<Collider> pNewCollider)
+{
+  _colliders.erase(pNewCollider->GetGuid());
+
+  if (_colliders.empty())
+  {
+    _bHasColliders = false;
+  }
+  return pNewCollider; 
 }

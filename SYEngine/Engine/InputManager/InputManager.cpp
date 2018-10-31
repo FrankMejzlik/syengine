@@ -1,5 +1,5 @@
 #include "InputManager.h"
-
+#include "Window.h"
 InputManager::InputManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
@@ -76,24 +76,21 @@ void InputManager::HandleMouse(GLFWwindow* window, double xPos, double yPos)
 {
   Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
-  if (theWindow->_bMoveOnMouseMove)
+  if (theWindow->mouseFirstMoved)
   {
-
-    if (theWindow->mouseFirstMoved)
-    {
-      theWindow->lastX = static_cast<GLfloat>(xPos);
-      theWindow->lastY = static_cast<GLfloat>(yPos);
-      theWindow->mouseFirstMoved = false;
-    }
-
-    theWindow->xChange = static_cast<GLfloat>(xPos - theWindow->lastX);
-    theWindow->yChange = static_cast<GLfloat>(theWindow->lastY - yPos);
-
     theWindow->lastX = static_cast<GLfloat>(xPos);
     theWindow->lastY = static_cast<GLfloat>(yPos);
+    theWindow->mouseFirstMoved = false;
+  }
+
+  theWindow->xChange = static_cast<GLfloat>(xPos - theWindow->lastX);
+  theWindow->yChange = static_cast<GLfloat>(theWindow->lastY - yPos);
+
+  theWindow->lastX = static_cast<GLfloat>(xPos);
+  theWindow->lastY = static_cast<GLfloat>(yPos);
   }
   //printf("x: %.f6f, y: %.6f\n", theWindow->xChange, theWindow->yChange);
-}
+
 
 
 bool InputManager::Initialize()

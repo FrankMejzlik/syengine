@@ -96,7 +96,7 @@ bool Engine::Run()
 
 
     glfwPollEvents();
-    pScene->GetEditorCamera()->KeyControl(pMainWindow->GetKeys(), deltaTime);
+    pScene->GetEditorCamera()->KeyControl(pMainWindow, deltaTime);
     pScene->GetEditorCamera()->MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
     pScene->GetEditorCamera()->MouseKeyControl(pMainWindow->GetMouseKeys(), deltaTime);
 

@@ -1,6 +1,9 @@
 #include "Camera.h"
-#include "CommonValues.h"
+
 #include <iostream>
+
+#include "Window.h"
+
 using namespace SYE;
 
 namespace SYE 
@@ -26,23 +29,30 @@ Camera::Camera(
   _firstPersonTurnSpeed(startTurnSpeed),
   _eCameraMode(eCameraModes::FIRST_PERSON_MODE),
   _bIsDragingOn(false),
-  _editorModeTurnSpeed(3.0f)
+  _editorModeTurnSpeed(0.05f),
+  _inverseYaw(0.0f),
+  _inversePitch(0.0f)
 {
 	UpdateFirstPersonMode();
 }
 
-void Camera::KeyControl(bool* keys, GLfloat deltaTime)
+void Camera::KeyControl(std::shared_ptr<Window> pMainWindow, GLfloat deltaTime)
 {
+
+  bool* keys = pMainWindow->GetKeys();
+
 	GLfloat speed = _moveSpeed * deltaTime;
 
   if (keys[GLFW_KEY_K])
   {
     _eCameraMode = eCameraModes::EDITOR_MODE;
+    pMainWindow->ShowCursor();
   }
 
   if (keys[GLFW_KEY_L])
   {
     _eCameraMode = eCameraModes::FIRST_PERSON_MODE;
+    pMainWindow->HideCursor();
   }
 
 
@@ -91,7 +101,7 @@ void Camera::MouseKeyControl(bool* keys, GLfloat deltaTime)
     _bIsDragingOn = false;
   }
 
-  DLog(eLogType::Info, "%d, %d",keys[GLFW_MOUSE_BUTTON_RIGHT],_bIsDragingOn)
+  //DLog(eLogType::Info, "%d, %d",keys[GLFW_MOUSE_BUTTON_RIGHT],_bIsDragingOn)
 
 }
 
@@ -101,6 +111,8 @@ void Camera::MouseControl(GLfloat xChange, GLfloat yChange)
     _mouseXChange = xChange;
     _mouseYChange = yChange;
  
+   // DLog(eLogType::Info, "xChange: %f, yChange: %f", xChange, yChange);
+
     dfloat firstPersonChangeX = xChange * _firstPersonTurnSpeed;
     dfloat firstPersonChangeY = yChange * _firstPersonTurnSpeed;
 
@@ -109,19 +121,6 @@ void Camera::MouseControl(GLfloat xChange, GLfloat yChange)
 
     yaw += firstPersonChangeX;
     pitch += firstPersonChangeY;
-
-    _inverseYaw -= editorModeChangeX;
-    _inversePitch -= editorModeChangeY;
-
-    if (_inversePitch > 89.0f)
-    {
-      _inversePitch = -89.0f;
-    }
-
-    if (_inversePitch < -89.0f)
-    {
-      _inversePitch = 89.0f;
-    }
 
     if (pitch > 89.0f)
     {
@@ -133,10 +132,28 @@ void Camera::MouseControl(GLfloat xChange, GLfloat yChange)
       pitch = -89.0f;
     }
 
-    DLog(eLogType::Info, "0---%d, %d", _eCameraMode, _bIsDragingOn);
+    
+    //DLog(eLogType::Info, "editorModeChangeX: %f, editorModeChangeY: %f", xChange, yChange);
     if (_bIsDragingOn && _eCameraMode == eCameraModes::EDITOR_MODE)
     {
+
+      _inverseYaw -= editorModeChangeX;
+      _inversePitch -= editorModeChangeY;
+
+      if (_inversePitch > 89.0f)
+      {
+        _inversePitch = 89.0f;
+      }
+
+      if (_inversePitch < -89.0f)
+      {
+        _inversePitch = -89.0f;
+      }
+
       UpdateEditorMode();
+      
+      //DLog(eLogType::Info, "invPitch: %f, invYaw: %f", _inversePitch, _inverseYaw);
+
     }
     else if ( _eCameraMode == eCameraModes::FIRST_PERSON_MODE)
     {
@@ -161,7 +178,7 @@ glm::vec3 Camera::GetCameraDirection()
 
 void Camera::UpdateEditorMode()
 {
-  front.x += cos(glm::radians(_inverseYaw)) * cos(glm::radians(_inversePitch));
+  front.x = cos(glm::radians(_inverseYaw)) * cos(glm::radians(_inversePitch));
   front.y = sin(glm::radians(_inversePitch));
   front.z = sin(glm::radians(_inverseYaw)) * cos(glm::radians(_inversePitch));
   front = glm::normalize(front);

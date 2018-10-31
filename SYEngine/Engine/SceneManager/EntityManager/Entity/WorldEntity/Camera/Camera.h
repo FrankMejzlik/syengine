@@ -11,9 +11,10 @@
 
 #include "WorldEntity.h"
 
+
 namespace SYE 
 {
-
+class Window;
 enum class eCameraModes
 {
   FIRST_PERSON_MODE, 
@@ -31,8 +32,9 @@ public:
     glm::vec3 startPosition,
     glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed
   );
+  ~Camera();
 
-	void KeyControl(bool* keys, GLfloat deltaTime);
+  void KeyControl(std::shared_ptr<Window> pMainWindow, GLfloat deltaTime);
 	void MouseControl(GLfloat xChange, GLfloat yChange);
   void MouseKeyControl(bool* keys, GLfloat deltaTime);
 
@@ -41,7 +43,7 @@ public:
   glm::vec3 GetCameraPosition();
   glm::vec3 GetCameraDirection();
 
-	~Camera();
+	
 
 private:
   eCameraModes _eCameraMode;

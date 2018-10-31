@@ -1,13 +1,13 @@
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 #include <glm/glm.hpp>
 
 #include "common.h"
 #include "IGuidCounted.h"
-
+#include "Collider/Collider.h"
 
 namespace SYE 
 {
@@ -15,6 +15,7 @@ namespace SYE
 class ComponentManager;
 class Component;
 class Model;
+
 
 /**
  * Base class for every entity that can be part of Scene.
@@ -37,9 +38,17 @@ public:
 
   void SetBIsToRender(const bool newValue);
   bool GetBIsToRender() const;
+
+  bool GetBHasColliders() const { return _bHasColliders; };
+
+  std::shared_ptr<Collider> AddCollider(std::shared_ptr<Collider> pNewCollider);
+  std::shared_ptr<Collider> DeleteCollider(std::shared_ptr<Collider> pNewCollider);
+
+  const std::unordered_map<size_t, std::shared_ptr<Collider>> &GetColliders() const;
+
+
   void SetEntityName(std::string name);
   std::string GetEntityName() const;
-  size_t GetGUID() const;
   glm::vec3 GetPositionVector() const;
   bool SetPositionVector(const glm::vec3 positionVector);
   glm::vec3 GetRotationVector() const;;
@@ -57,9 +66,8 @@ public:
 protected:
   std::shared_ptr<ComponentManager> _pComponentManager;
   bool _bIsToRender;
+  bool _bHasColliders;
 
-  // Global Unique ID
-  size_t _GUID;
   std::string _name;
   // Position relative to origin in world
   glm::vec3 _positionVector;
@@ -71,7 +79,9 @@ protected:
   // All components attached to this Entity.
   std::map<std::string, std::shared_ptr<Component>> _componentList;
   std::map<std::string, std::shared_ptr<Model>> _modelsToRenderList;
+  std::unordered_map<size_t, std::shared_ptr<Collider>> _colliders;
   std::shared_ptr<Model> _pModel;
+
 };
 
 } // namespace SYE

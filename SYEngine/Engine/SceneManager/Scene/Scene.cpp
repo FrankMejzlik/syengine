@@ -33,11 +33,53 @@ size_t Scene::GetSceneNumberOfEntities() const
   return _entities.size();
 }
 
-std::shared_ptr<Entity> Scene::InsertEntity(std::shared_ptr<Entity> entityToInsert)
+std::shared_ptr<Entity> Scene::InsertEntity(std::shared_ptr<Entity> pEntityToInsert)
 {
-  _entities.insert(std::make_pair(entityToInsert->GetGuid(), entityToInsert));
-  return entityToInsert;
+  _entities.insert(std::make_pair(pEntityToInsert->GetGuid(), pEntityToInsert));
+
+  // If has Colliders, insert them into map as well.
+  if (pEntityToInsert->GetBHasColliders())
+  {
+    InsertActiveColliders(pEntityToInsert);
+  }
+
+  return pEntityToInsert;
 }
+
+std::shared_ptr<Entity> Scene::DeleteEntity(std::shared_ptr<Entity> pEntityToDelete)
+{
+
+  // If has Colliders, insert them into map as well.
+  if (pEntityToDelete->GetBHasColliders())
+  {
+    DeleteActiveColliders(pEntityToDelete);
+  }
+  return pEntityToDelete;
+}
+
+std::shared_ptr<Entity> Scene::InsertActiveColliders(std::shared_ptr<Entity> pEntityToInsert)
+{
+  auto entityColliders = pEntityToInsert->GetColliders();
+
+  // Iteratre through all Colliders that this Entity has on it.
+  for (auto && it : entityColliders)
+  {
+    _activeColliders.insert(std::make_pair(it.second->GetGuid(), it.second));
+  }
+  return pEntityToInsert;
+}
+std::shared_ptr<Entity> Scene::DeleteActiveColliders(std::shared_ptr<Entity> entityToDelete)
+{
+  auto entityColliders = entityToDelete->GetColliders();
+
+  // Iteratre through all Colliders that this Entity has on it.
+  for (auto && it : entityColliders)
+  {
+    _activeColliders.erase(it.second->GetGuid());
+  }
+  return entityToDelete;
+}
+
 
 std::shared_ptr<Entity> Scene::InsertDirectionalLight(std::shared_ptr<Entity> entityToInsert)
 {
