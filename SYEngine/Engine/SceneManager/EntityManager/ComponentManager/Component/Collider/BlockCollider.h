@@ -15,8 +15,13 @@ public:
   BlockCollider() = delete;
 
   BlockCollider(std::shared_ptr<Entity> pEntity);
-  BlockCollider(std::shared_ptr<Entity> pEntity, float a, float b, float c,
-    glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, bool isSolid);
+  BlockCollider(
+    std::shared_ptr<Entity> pEntity, 
+    glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, 
+    float a, float b, float c,
+    bool isSolid
+  );
+
   virtual ~BlockCollider();
 };
 

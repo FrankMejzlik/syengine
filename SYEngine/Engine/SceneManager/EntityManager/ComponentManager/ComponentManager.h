@@ -13,6 +13,7 @@
 #include "ModelManager.h"
 #include "SkyboxManager.h"
 #include "TextureManager.h"
+#include "Collider/BlockCollider.h"
 
 // Components.
 #include "Mesh.h"
@@ -39,6 +40,14 @@ public:
 
   std::shared_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
   std::shared_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
+
+  std::shared_ptr<Collider> CreateBoxCollider(
+    std::shared_ptr<Entity> pEntity,
+    glm::vec3 position, glm::vec3 rotation, glm::vec3 scale,
+    dfloat width,
+    dfloat heigt,
+    dfloat length
+  );
 
   std::shared_ptr<Model> CreateModel(
     std::shared_ptr<Entity> pEntity,

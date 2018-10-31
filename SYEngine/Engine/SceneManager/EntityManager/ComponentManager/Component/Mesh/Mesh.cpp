@@ -95,6 +95,9 @@ void Mesh::CreateMesh(
   bool calculateAverageNormals  
 )
 {
+  _vertices = vertices;
+  _indices = indices;
+
   _indexCount = indices.size();
   _vertexCount = vertices.size();
 

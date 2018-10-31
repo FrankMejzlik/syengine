@@ -1,4 +1,6 @@
 #include "Entity.h"
+#include "Collider/Collider.h"
+
 
 using namespace SYE;
 

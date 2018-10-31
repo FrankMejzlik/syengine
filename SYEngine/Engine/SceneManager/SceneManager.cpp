@@ -87,16 +87,20 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
     std::string("main_floor"), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(180.0f * DEG_TO_RAD, 0.0f, -90.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     10.0f, 10.0f
   ); 
+  
 
-  pNewScene->CreateBlock(
+  auto block1 = pNewScene->CreateBlock(
     std::string("block1"), glm::vec3(-3.0f, 3.0f, -3.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     2.0f, 2.0f, 2.0f
   );
 
-  pNewScene->CreateBlock(
-    std::string("block1"), glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+  auto block2 = pNewScene->CreateBlock(
+    std::string("block2"), glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     2.0f, 2.0f, 2.0f
   );
+
+
+
   pNewScene->CreateStaticModelFromFile(
     "model1",
     glm::vec3(6.0f, 6.0f, 4.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(.1f, .1f, 0.1f),

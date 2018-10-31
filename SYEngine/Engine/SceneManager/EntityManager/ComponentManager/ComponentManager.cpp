@@ -25,6 +25,23 @@ ComponentManager::~ComponentManager()
   DLog(eLogType::Success, "\t\tComponentManager instance destroyed.");
 }
 
+std::shared_ptr<Collider> ComponentManager::CreateBoxCollider(
+  std::shared_ptr<Entity> pEntity,
+  glm::vec3 position, glm::vec3 rotation, glm::vec3 scale,
+  dfloat width,
+  dfloat heigt,
+  dfloat length
+)
+{
+  return std::make_shared<BlockCollider>(
+    pEntity, 
+    position, rotation, scale, 
+    width, heigt, length,
+    true
+    );
+}
+
+
 bool ComponentManager::Initialize()
 {
   // Class specific initialization

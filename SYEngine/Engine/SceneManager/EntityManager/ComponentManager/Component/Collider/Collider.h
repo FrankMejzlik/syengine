@@ -5,6 +5,7 @@
 #include "common.h"
 #include "Component.h"
 #include "Mesh.h"
+#include "Entity.h"
 
 namespace SYE
 {
@@ -24,6 +25,11 @@ protected:
   glm::vec3 _position;
   glm::vec3 _rotation;
   glm::vec3 _scale;
+
+  // Values relative to world origin
+  glm::vec3 _absolutePosition;
+  glm::vec3 _absoluteRotation;
+  glm::vec3 _absoluteScale;
 
   std::shared_ptr<Mesh> _pMesh;
   bool _bIsSolid;

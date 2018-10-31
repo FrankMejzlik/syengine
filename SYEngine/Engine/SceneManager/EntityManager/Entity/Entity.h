@@ -2,16 +2,17 @@
 
 #include <unordered_map>
 #include <memory>
+#include <map>
+
 
 #include <glm/glm.hpp>
 
 #include "common.h"
 #include "IGuidCounted.h"
-#include "Collider/Collider.h"
 
 namespace SYE 
 {
-
+class Collider;
 class ComponentManager;
 class Component;
 class Model;

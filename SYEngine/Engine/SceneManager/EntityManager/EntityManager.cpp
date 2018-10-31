@@ -89,6 +89,15 @@ std::shared_ptr<Block> EntityManager::CreateBlock(
   // Set name of Entity.
   newEntity->SetEntityName(entityName);
 
+  // Create new Box Collider.
+  std::shared_ptr<Collider> newCollider = COMPONENT_MANAGER->CreateBoxCollider(
+    newEntity, 
+    glm::vec3(0.0f, 0.0f, 0.0f),
+    glm::vec3(0.0f, 0.0f, 0.0f),
+    glm::vec3(1.0f, 1.0f, 1.0f),
+    width, height, length
+  );
+  newEntity->AddCollider(newCollider);
 
   return newEntity;
 }

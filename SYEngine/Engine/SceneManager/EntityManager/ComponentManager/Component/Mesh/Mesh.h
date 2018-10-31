@@ -32,6 +32,16 @@ public:
   );
   ~Mesh();
 
+  const std::vector<unsigned int>& GetIndices()
+  {
+    return _indices;
+  }
+
+  const std::vector<GLfloat>& GetVertices()
+  {
+    return _vertices;
+  }
+
   virtual void CreateMesh(
     std::vector<GLfloat> vertices, std::vector<unsigned int> indices, 
     bool calculateAverageNormals = false
