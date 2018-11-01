@@ -101,6 +101,7 @@ public:
   );
 
   const std::unordered_map<size_t, std::shared_ptr<Entity>> &GetActiveModelsRefConst() const;
+  const std::unordered_map<size_t, std::shared_ptr<Collider>> &GetActiveColliders() const;
   const std::unordered_map<size_t, std::shared_ptr<Entity>> &GetDirectionalLightsMapRefConst() const;
   const std::unordered_map<size_t, std::shared_ptr<Entity>> &GetPointLightsMapRefConst() const;
   const std::unordered_map<size_t, std::shared_ptr<Entity>> &GetSpotLightsMapRefConst() const;

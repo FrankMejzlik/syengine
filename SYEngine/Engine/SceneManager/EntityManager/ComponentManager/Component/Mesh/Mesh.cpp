@@ -101,6 +101,7 @@ void Mesh::CreateMesh(
   _indexCount = indices.size();
   _vertexCount = vertices.size();
 
+
   // If requred, compute average normals for every vertex
   if (calculateAverageNormals)
   {

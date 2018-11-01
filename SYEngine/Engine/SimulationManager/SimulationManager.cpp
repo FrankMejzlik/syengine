@@ -5,9 +5,7 @@ SimulationManager::SimulationManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  /*_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
-  _subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
-  _subModules.insert(std::make_pair(ID_PHYSICS_MANAGER, std::make_shared<PhysicsManager>(this)));*/
+  _subModules.insert(std::make_pair(ID_PHYSICS_MANAGER, std::make_shared<PhysicsManager>(*this)));
 
   DLog(eLogType::Success, "SimulationManager instance created.");
 }
@@ -52,5 +50,16 @@ bool SimulationManager::Terminate()
   return true;
 }
 
+void SimulationManager::InitializePhysicsScene(std::shared_ptr<Scene> pScene)
+{
+  PHYSICS_MANAGER->InitializePhysicsScene(pScene);
+}
+
 void SimulationManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
-{}
+{
+
+// Construct physics scene.
+  PHYSICS_MANAGER->ProcessScene(deltaTime, pScene);
+
+
+}

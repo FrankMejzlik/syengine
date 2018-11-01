@@ -21,6 +21,8 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  void InitializePhysicsScene(std::shared_ptr<Scene> pScene);
+
   void ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene);
 
 private:

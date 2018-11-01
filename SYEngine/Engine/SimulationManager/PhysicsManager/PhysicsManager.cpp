@@ -3,11 +3,9 @@
 using namespace SYE;
 
 PhysicsManager::PhysicsManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+  BaseModule(parentModule),
+  _bulletPhysics(nullptr)
 {
-  // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
 
   DLog(eLogType::Success, "\t PhysicsManager instance created.");
 }
@@ -48,8 +46,24 @@ bool PhysicsManager::Initialize()
 bool PhysicsManager::Terminate()
 {
   // Class specific terminate
+  _bulletPhysics.exitPhysics();
 
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "\t PhysicsManager instance terminated.");
   return true;
+}
+
+
+void PhysicsManager::InitializePhysicsScene(std::shared_ptr<Scene> pScene)
+{
+  _bulletPhysics.SetScene(pScene);
+  _bulletPhysics.initPhysics();
+}
+
+void PhysicsManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
+{
+
+  _bulletPhysics.stepSimulation(deltaTime);
+
+
 }

@@ -126,6 +126,10 @@ const std::unordered_map<size_t, std::shared_ptr<Entity>> &Scene::GetActiveModel
 {
   return _activeModels;
 }
+const std::unordered_map<size_t, std::shared_ptr<Collider>> &Scene::GetActiveColliders() const
+{
+  return _activeColliders;
+}
 const std::unordered_map<size_t, std::shared_ptr<Entity>> &Scene::GetDirectionalLightsMapRefConst() const
 {
   return _activeDirectionalLights;

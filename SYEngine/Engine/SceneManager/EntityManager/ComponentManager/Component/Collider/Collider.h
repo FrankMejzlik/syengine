@@ -20,6 +20,17 @@ public:
   Collider(std::shared_ptr<Entity> pEntity, std::shared_ptr<Mesh> mesh,
     glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, bool isSolid);
   virtual ~Collider();
+
+  const std::vector<unsigned int>& GetIndices()
+  {
+    return _pMesh->GetIndices();
+  }
+
+  const std::vector<GLfloat>& GetVertices()
+  {
+    return _pMesh->GetVertices();;
+  }
+
 protected:
   // Position relative to parent object
   glm::vec3 _position;
