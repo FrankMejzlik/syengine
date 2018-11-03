@@ -53,7 +53,8 @@ public:
   std::shared_ptr<Block> CreateBlock(
     std::string entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-    dfloat width, dfloat height, dfloat length
+    dfloat width, dfloat height, dfloat length,
+    bool bIsStatic
   );
 
   std::shared_ptr<WorldObject> CreateStaticModelFromFile(

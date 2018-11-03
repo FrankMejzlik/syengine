@@ -76,14 +76,15 @@ std::shared_ptr<Quad> EntityManager::CreateQuad(
 std::shared_ptr<Block> EntityManager::CreateBlock(
   std::string entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-  dfloat width, dfloat height, dfloat length
+  dfloat width, dfloat height, dfloat length,
+  bool bIsStatic
 )
 {
   // Instantiate new Block instance.
   std::shared_ptr<Block> newEntity = std::make_shared<Block>(
     COMPONENT_MANAGER, 
     positionVector, rotationVector, scaleVector,
-    true, // Is static.
+    true, // Is non-animated.
     width, height, length
     );
   // Set name of Entity.
@@ -95,7 +96,8 @@ std::shared_ptr<Block> EntityManager::CreateBlock(
     glm::vec3(0.0f, 0.0f, 0.0f),
     glm::vec3(0.0f, 0.0f, 0.0f),
     glm::vec3(1.0f, 1.0f, 1.0f),
-    width, height, length
+    width, height, length,
+    bIsStatic
   );
   newEntity->AddCollider(newCollider);
 

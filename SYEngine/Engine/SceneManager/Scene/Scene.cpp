@@ -198,7 +198,8 @@ std::shared_ptr<Quad> Scene::CreateQuad(
 std::shared_ptr<Block> Scene::CreateBlock(
   std::string entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-  dfloat width, dfloat height, dfloat length
+  dfloat width, dfloat height, dfloat length,
+  bool bIsStatic
 )
 {
   // Call EntityManager to create new Quad Entity.
@@ -207,7 +208,8 @@ std::shared_ptr<Block> Scene::CreateBlock(
     positionVector,
     rotationVector,
     scaleVector,
-    width, height, length
+    width, height, length,
+    bIsStatic
   );
 
   InsertEntity(pNewBlock);

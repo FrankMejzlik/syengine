@@ -19,7 +19,7 @@ public:
     std::shared_ptr<Entity> pEntity, 
     glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, 
     float a, float b, float c,
-    bool isSolid
+    bool bIsStatic, bool isSolid
   );
 
   virtual ~BlockCollider();

@@ -46,7 +46,8 @@ public:
     glm::vec3 position, glm::vec3 rotation, glm::vec3 scale,
     dfloat width,
     dfloat heigt,
-    dfloat length
+    dfloat length,
+    bool bIsStatic
   );
 
   std::shared_ptr<Model> CreateModel(

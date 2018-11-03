@@ -66,15 +66,18 @@ public:
 
       btTriangleMesh* mesh = new btTriangleMesh();
 
-      DLog(eLogType::Info, "Constructing mesh for Bullet3");
+#if LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION
 
+      DLog(eLogType::Info, "Constructing mesh for Bullet3");
+#endif
       for (int i = 0; i < count; i = i + 3)
       {
+#if LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION
         DLog(eLogType::Info, "triangle %d:", i / 3);
         DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i] * 8], vertices[indices[i] * 8 + 1], vertices[indices[i] * 8 + 2]);
         DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i + 1] * 8], vertices[indices[i + 1] * 8 + 1], vertices[indices[i + 1] * 8 + 2]);
         DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i + 2] * 8], vertices[indices[i + 2] * 8 + 1], vertices[indices[i + 2] * 8 + 2]);
-        
+#endif
 
         mesh->addTriangle(
           btVector3(
@@ -95,7 +98,11 @@ public:
           true
         );
       }
+
+#if LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION
       DLog(eLogType::Info, "------------------------");
+#endif
+
       //btBvhTriangleMeshShape* trimesh = new btBvhTriangleMeshShape(mesh, true, true);
       btConvexShape* trimesh = new btConvexTriangleMeshShape(mesh);
       m_collisionShapes.push_back(trimesh);
@@ -117,8 +124,15 @@ public:
           collider->GetAbsoluteRotationConstRef().z
         )
       );
+      
 
-      btScalar mass(1.0f);
+      btScalar mass = 0.0f;
+      if (!collider->GetBIsStatic())
+      {
+        mass = 1.0f;
+      }
+
+      
       auto newRb = createRigidBody(mass, transform, trimesh, btVector4(0, 0, 1, 1));
       newRb->setUserIndex(static_cast<int>(collider->GetGuid()));
       newRb->setUserPointer(collider.get());
@@ -126,6 +140,52 @@ public:
 
   }
 
+  virtual void stepSimulation(float deltaTime)
+  {
+    if (m_dynamicsWorld)
+    {
+      m_dynamicsWorld->stepSimulation(deltaTime);
+    }
+
+    //check collisions with player
+    //m_dynamicsWorld->contactTest(mPlayerObject, resultCallback);
+    int numManifolds = m_dynamicsWorld->getDispatcher()->getNumManifolds();
+    for (int i = 0; i < numManifolds; i++)
+    {
+      btPersistentManifold* contactManifold = m_dynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
+      const btCollisionObject* obA = contactManifold->getBody0();
+      const btCollisionObject* obB = contactManifold->getBody1();
+
+      Collider* obAPtr = static_cast<Collider*>(obA->getUserPointer());
+      Collider* obBPtr = static_cast<Collider*>(obB->getUserPointer());
+
+#if LOG_PHYSICS_MANAGER_COLLISIONS
+      DLog(eLogType::Info, "Collision between objects with IDs: %d, %d", obA->getUserIndex(), obB->getUserIndex());
+#endif
+      int numContacts = contactManifold->getNumContacts();
+      for (int j = 0; j<numContacts; j++)
+      {
+        btManifoldPoint& pt = contactManifold->getContactPoint(j);
+        if (pt.getDistance()<0.f)
+        {
+          const btVector3& ptA = pt.getPositionWorldOnA();
+
+
+
+          const btVector3& ptB = pt.getPositionWorldOnB();
+          const btVector3& normalOnB = pt.m_normalWorldOnB;
+
+#if LOG_PHYSICS_MANAGER_COLLISIONS
+          DLog(eLogType::Info, "contact %d:", j);
+          DLog(eLogType::Info, "A pos: (%f, %f, %f)", ptA.getX(), ptA.getY(), ptA.getX());
+          DLog(eLogType::Info, "B pos: (%f, %f, %f)", ptB.getX(), ptB.getY(), ptB.getZ());
+          DLog(eLogType::Info, "B normal: (%f, %f, %f)", normalOnB.getX(), normalOnB.getY(), normalOnB.getZ());
+#endif
+        }
+      }
+    }
+
+  }
 
   void syncPhysicsToGraphics()
   {

@@ -18,7 +18,7 @@ public:
   
   Collider(std::shared_ptr<Entity> pEntity);
   Collider(std::shared_ptr<Entity> pEntity, std::shared_ptr<Mesh> mesh,
-    glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, bool isSolid);
+    glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, bool bIsStatic, bool bIsSolid);
   virtual ~Collider();
 
   void SetOwnerEntityPosition(dfloat x, dfloat y, dfloat z)
@@ -56,6 +56,15 @@ public:
     return _absoluteScale;
   }
 
+  bool GetBIsStatic() const
+  {
+    return _bIsStatic;
+  }
+  bool GetBIsSolid() const
+  {
+    return _bIsSolid;
+  }
+
 protected:
   // Position relative to parent object
   glm::vec3 _position;
@@ -68,6 +77,7 @@ protected:
   glm::vec3 _absoluteScale;
 
   std::shared_ptr<Mesh> _pMesh;
+  bool _bIsStatic;
   bool _bIsSolid;
 
 

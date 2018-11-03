@@ -58,10 +58,10 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
   // Create main camera.
   
   pNewScene->CreateCamera(
-    std::string("main_camera"), glm::vec3(-0.0f, -0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f
+    std::string("main_camera"), glm::vec3(10.0f, 10.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), -120.0f, -45.0f
   );
 
-  pNewScene->CreateQuad(
+  /*pNewScene->CreateQuad(
     std::string("main_floor"), glm::vec3(0.0f, -0.0f, -0.0f), glm::vec3(90.0f * DEG_TO_RAD, 00.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
     10.0f, 10.0f
   );
@@ -86,24 +86,32 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
   pNewScene->CreateQuad(
     std::string("main_floor"), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(180.0f * DEG_TO_RAD, 0.0f, -90.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     10.0f, 10.0f
-  ); 
+  ); */
   
+
+  auto block0 = pNewScene->CreateBlock(
+    std::string("floor1"), glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+    100.0f, 2.0f, 100.0f, 
+    true // Is  static
+  );
 
   auto block1 = pNewScene->CreateBlock(
     std::string("block1"), glm::vec3(3.0f, 3.0f, 3.1f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
-    2.0f, 2.0f, 2.0f
+    2.0f, 2.0f, 2.0f,
+    false // Is not static
   );
 
   auto block2 = pNewScene->CreateBlock(
     std::string("block2"), glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
-    2.0f, 2.0f, 2.0f
+    2.0f, 2.0f, 2.0f,
+    false // Is not static
   );
 
 
 
   pNewScene->CreateStaticModelFromFile(
     "model1",
-    glm::vec3(6.0f, 6.0f, 4.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(.1f, .1f, 0.1f),
+    glm::vec3(-6.0f, 6.0f, 4.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(.1f, .1f, 0.1f),
     "Resource/panFazulka.DAE"
   );
 
