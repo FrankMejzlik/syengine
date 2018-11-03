@@ -65,7 +65,7 @@ std::shared_ptr<Mesh> MeshManager::GenerateMeshQuad(dfloat width, dfloat height)
 
 std::shared_ptr<Mesh> MeshManager::GenerateMeshBlock(dfloat width, dfloat height, dfloat length)
 {
-  std::shared_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshBlock(width, height, length, true);
+  std::shared_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshBlock(width, height, length, false);
 
   // TODO store Mesh
 

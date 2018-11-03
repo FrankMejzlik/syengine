@@ -95,7 +95,7 @@ void RenderingManager::RenderScene(std::shared_ptr<Scene> pScene, std::shared_pt
   // Calculate directional light shadow maps
   DirectionalShadowMapPass(pScene->GetActiveModelsRefConst(), pScene->GetDirectionalLightsMapRefConst());
 
-  // Calculate point light shadow maps
+  // Calculat e point light shadow maps
   OmniShadowMapPass(pScene->GetActiveModelsRefConst(), pScene->GetPointLightsMapRefConst(), pScene->GetSpotLightsMapRefConst());
 
   // Initialize ImGUI draw.

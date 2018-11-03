@@ -66,51 +66,69 @@ std::shared_ptr<Mesh> MeshGenerator::GenerateMeshBlock(
   // Generate vertices vector.
   std::vector<float> blockVertices = 
   {
-    // x      y         z           u    v       nx     ny   nz
-    -halfWidth, halfHeight, -halfLength,		  0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    -halfWidth, -halfHeight, -halfLength,	    0.0f, 1.0f,		0.0f, 0.0f, 0.0f,
-    halfWidth, halfHeight, -halfLength,		      1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    halfWidth, -halfHeight, -halfLength,		    1.0f, 1.0f,		0.0f, 0.0f, 0.0f,
+    /*
+      Data format:
+      x            y             z             u    v      nx     ny   nz
+    */
+    // Top.
+    -halfWidth, halfHeight, -halfLength,		  0.0f, 0.0f,		0.0f, -1.0f, 0.0f,
+    halfWidth, halfHeight, -halfLength,		  1.0f, 0.0f,		0.0f, -1.0f, 0.0f,
+    halfWidth, halfHeight, halfLength,		  1.0f, 1.0f,		0.0f, -1.0f, 0.0f,
+    -halfWidth, halfHeight, halfLength,		  0.0f, 1.0f,		0.0f, -1.0f, 0.0f,
 
-    -halfWidth, halfHeight, halfLength,		    0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    halfWidth, halfHeight, halfLength,		  1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
-    -halfWidth, -halfHeight, halfLength,		0.0f, 1.0f,		0.0f, 0.0f, 0.0f,
-    halfWidth, -halfHeight, halfLength,		  1.0f, 1.0f,		0.0f, 0.0f, 0.0f
+    // Bottom.
+    -halfWidth, -halfHeight, halfLength,		  0.0f, 0.0f,		0.0f, 1.0f, 0.0f,
+    -halfWidth, -halfHeight, -halfLength,		  1.0f, 0.0f,		0.0f, 1.0f, 0.0f,
+    halfWidth, -halfHeight, -halfLength,		  1.0f, 1.0f,		0.0f, 1.0f, 0.0f,
+    halfWidth, -halfHeight, halfLength,		  0.0f, 1.0f,		0.0f, 1.0f, 0.0f,
+
+    // Front.
+    -halfWidth, halfHeight, halfLength,		  0.0f, 0.0f,		0.0f, 0.0f, -1.0f,
+    halfWidth, halfHeight, halfLength,		  1.0f, 0.0f,		0.0f, 0.0f, -1.0f,
+    halfWidth, -halfHeight, halfLength,		  1.0f, 1.0f,		0.0f, 0.0f, -1.0f,
+    -halfWidth, -halfHeight, halfLength,		  0.0f, 1.0f,		0.0f, 0.0f, -1.0f,
+
+    // Back.
+    -halfWidth, halfHeight, -halfLength,		  0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
+    -halfWidth, -halfHeight, -halfLength,		  1.0f, 0.0f,		0.0f, 0.0f, 1.0f,
+    halfWidth, -halfHeight, -halfLength,		  1.0f, 1.0f,		0.0f, 0.0f, 1.0f,
+    halfWidth, halfHeight, -halfLength,		  0.0f, 1.0f,		0.0f, 0.0f, 1.0f,
+
+    // Left. 
+    halfWidth, halfHeight, -halfLength,		  0.0f, 0.0f,		-1.0f, 0.0f, 0.0f,
+    halfWidth, halfHeight, halfLength,		  1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,
+    halfWidth, -halfHeight, halfLength,		  1.0f, 1.0f,		-1.0f, 0.0f, 0.0f,
+    halfWidth, -halfHeight, -halfLength,		  0.0f, 1.0f,		-1.0f, 0.0f, 0.0f,
+
+    // Right.
+    -halfWidth, halfHeight, -halfLength,		  0.0f, 0.0f,		1.0f, 0.0f, 0.0f,
+    -halfWidth, -halfHeight, -halfLength,		  1.0f, 0.0f,		1.0f, 0.0f, 0.0f,
+    -halfWidth, -halfHeight, halfLength,		  1.0f, 1.0f,		1.0f, 0.0f, 0.0f,
+    -halfWidth, halfHeight, halfLength,		  0.0f, 1.0f,		1.0f, 0.0f, 0.0f,
+
   };
 
   // Create indices vector.
   std::vector<unsigned int>  blockIndices = 
   {
-    // front
-    //0, 1, 2,
-    //2, 1, 3,
+    // Top.
     2, 1, 0,
-    3, 1, 2,
-    // right
-    //2, 3, 5,
-    //5, 3, 7,
-    5, 3, 2, 
-    7, 3, 5, 
-    // back
-    //5, 7, 4,
-    //4, 7, 6,
-    4, 7, 5, 
-    6, 7, 4, 
-    // left
-    //4, 6, 0,
-    //0, 6, 1,
-    0, 6, 4, 
-    1, 6, 0,
-    // top
-    //4, 0, 5,
-    //5, 0, 2,
-    5, 0, 4, 
-    2, 0, 5, 
-    // bottom
-    //1, 6, 3,
-    //3, 6, 7
-    3, 6, 1, 
-    7, 6, 3, 
+    0, 3, 2,
+    // Bottom.
+    6, 5, 4, 
+    4, 7, 6, 
+    // Front.
+    10, 9, 8,
+    8, 11, 10,
+    // Back.
+    14, 13, 12, 
+    12, 15, 14,
+    // Left.
+    16, 17, 18,
+    18, 19, 16,
+    // Right.
+    20, 21, 22, 
+    22, 23, 20
   };
 
   // Mesh

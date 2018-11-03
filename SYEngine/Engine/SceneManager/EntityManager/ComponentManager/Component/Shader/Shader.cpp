@@ -312,8 +312,6 @@ void Shader::CompileProgram()
   uniformShininess = glGetUniformLocation(shaderID, "material.shininess");
   uniformEyePosition = glGetUniformLocation(shaderID, "eyePosition");
 
-  std::cout << gluErrorString(glGetError()) << std::endl;
-
 
   // Bind point lights uniforms to shader
   uniformPointLightCount = glGetUniformLocation(shaderID, "pointLightCount");

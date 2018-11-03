@@ -98,7 +98,7 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
   auto block1 = pNewScene->CreateBlock(
     std::string("block1"), glm::vec3(3.0f, 3.0f, 3.1f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
-    false // Is not static
+    true // Is not static
   );
 
   auto block2 = pNewScene->CreateBlock(
@@ -106,6 +106,18 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
     2.0f, 2.0f, 2.0f,
     false // Is not static
   );
+
+  //for (int i = -100; i < 100; i = i + 5)
+  //{
+  //  for (int j = -100; j < 100; j = j + 5)
+  //  {
+  //    pNewScene->CreateBlock(
+  //      std::string("block2"), glm::vec3(i, 10.0f, j), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+  //      2.0f, 2.0f, 2.0f,
+  //      false // Is not static
+  //    );
+  //  }
+  //}
 
 
 

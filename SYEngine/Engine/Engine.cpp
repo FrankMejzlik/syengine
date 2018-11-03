@@ -96,6 +96,7 @@ bool Engine::Run()
     // Save now time for next frame calculation.
     prev = std::chrono::high_resolution_clock::now();
 
+    //DLog(eLogType::Error, "1: %f", deltaTime);
 
 
     glfwPollEvents();
@@ -154,6 +155,7 @@ bool Engine::Run()
     LOGIC_MANAGER->ProcessScene(deltaTime, pScene);
     SIMULATION_MANAGER->ProcessScene(deltaTime, pScene);
     OUTPUT_MANAGER->ProcessScene(deltaTime, pScene, pMainWindow);
+
 
 
   }
