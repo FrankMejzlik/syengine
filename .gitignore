@@ -1,7 +1,7 @@
-/x64/
-/.vs
-/SYEngine/x64
-/SYEngine/*.dll
-/SYEngine/*.xpm
-/SYEngine/Resource/
-/SYEngine/external/
+/x64
+**/.vs
+/*/x64/
+/*/*.dll
+/*/*.xpm
+/*/Resource/
+/*/external/
