@@ -76,6 +76,43 @@ struct CommonRigidBodyBase : public CommonExampleInterface
 		{
 			m_dynamicsWorld->stepSimulation(deltaTime);
 		}
+    m_dynamicsWorld->performDiscreteCollisionDetection();
+    //check collisions with player
+    //m_dynamicsWorld->contactTest(mPlayerObject, resultCallback);
+    int numManifolds = m_dynamicsWorld->getDispatcher()->getNumManifolds();
+    for (int i = 0; i < numManifolds; i++)
+    {
+      btPersistentManifold* contactManifold = m_dynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
+      const btCollisionObject* obA = contactManifold->getBody0();
+      const btCollisionObject* obB = contactManifold->getBody1();
+
+      Collider* obAPtr = static_cast<Collider*>(obA->getUserPointer());
+      Collider* obBPtr = static_cast<Collider*>(obB->getUserPointer());
+
+      DLog(eLogType::Info, "Collision between objects with Bullet3 IDs: %d, %d -> Engine IDs: (%d, %d)", obA->getUserIndex(), obB->getUserIndex(), obAPtr->GetGuid(), obAPtr->GetGuid() );
+      
+      int numContacts = contactManifold->getNumContacts();
+      for (int j = 0; j<numContacts; j++)
+      {
+        btManifoldPoint& pt = contactManifold->getContactPoint(j);
+        if (pt.getDistance()<0.f)
+        {
+          const btVector3& ptA = pt.getPositionWorldOnA();
+
+         
+
+          const btVector3& ptB = pt.getPositionWorldOnB();
+          const btVector3& normalOnB = pt.m_normalWorldOnB;
+
+          DLog(eLogType::Info, "contact %d:", j);
+          DLog(eLogType::Info, "A pos: (%f, %f, %f)", ptA.getX(), ptA.getY(), ptA.getX());
+          DLog(eLogType::Info, "B pos: (%f, %f, %f)", ptB.getX(), ptB.getY(), ptB.getZ());
+          DLog(eLogType::Info, "B normal: (%f, %f, %f)", normalOnB.getX(), normalOnB.getY(), normalOnB.getZ());
+
+        }
+      }
+    }
+
 	}
 
 	virtual void physicsDebugDraw(int debugFlags)

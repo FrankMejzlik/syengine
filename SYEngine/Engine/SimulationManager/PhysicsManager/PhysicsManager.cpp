@@ -64,6 +64,10 @@ void PhysicsManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScen
 {
 
   _bulletPhysics.stepSimulation(deltaTime);
+  _bulletPhysics.syncPhysicsToGraphics();
+
+
+  
 
 
 }

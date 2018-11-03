@@ -90,7 +90,7 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
   
 
   auto block1 = pNewScene->CreateBlock(
-    std::string("block1"), glm::vec3(-3.0f, 3.0f, -3.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+    std::string("block1"), glm::vec3(3.0f, 3.0f, 3.1f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     2.0f, 2.0f, 2.0f
   );
 

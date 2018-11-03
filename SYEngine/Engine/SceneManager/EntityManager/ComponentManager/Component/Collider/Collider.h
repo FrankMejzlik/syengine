@@ -21,6 +21,16 @@ public:
     glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, bool isSolid);
   virtual ~Collider();
 
+  void SetOwnerEntityPosition(dfloat x, dfloat y, dfloat z)
+  {
+    _pEntity->SetPositionVector(glm::vec3(x, y, z));
+  }
+
+  void SetOwnerEntityRotation(dfloat rotX, dfloat rotY, dfloat rotZ)
+  {
+    _pEntity->SetRotationVector(glm::vec3(rotX, rotY, rotZ));
+  }
+
   const std::vector<unsigned int>& GetIndices()
   {
     return _pMesh->GetIndices();
@@ -29,6 +39,21 @@ public:
   const std::vector<GLfloat>& GetVertices()
   {
     return _pMesh->GetVertices();;
+  }
+
+  const glm::vec3& GetAbsolutePositionConstRef() const
+  {
+    return _absolutePosition;
+  }
+
+  const glm::vec3& GetAbsoluteRotationConstRef() const
+  {
+    return _absoluteRotation;
+  }
+
+  const glm::vec3& GetAbsoluteScaleConstRef() const
+  {
+    return _absoluteScale;
   }
 
 protected:
@@ -44,6 +69,17 @@ protected:
 
   std::shared_ptr<Mesh> _pMesh;
   bool _bIsSolid;
+
+
+  void RecalculateAbsolutePosition()
+  {
+    _absolutePosition = _pEntity->GetPositionVectorRefConst() + _position;
+  }
+
+  void RecalculateAbsoluteRotation()
+  {
+    _absoluteRotation = _pEntity->GetRotationVectorRefConst() + _rotation;
+  }
 
 };
 

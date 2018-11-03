@@ -31,11 +31,21 @@ public:
   
 
 public:
+
+
+  static bool EntityCollisionCallback(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
+  {
+    DLog(eLogType::Info, "collision on objs %d, %d", partId0, partId1);
+    return true;
+  }
+
   void SetScene(std::shared_ptr<Scene> pScene)
   {
     _pScene = pScene;
   }
   std::shared_ptr<Scene> _pScene;
+
+  
 
   virtual void initPhysics()
   {
@@ -56,27 +66,70 @@ public:
 
       btTriangleMesh* mesh = new btTriangleMesh();
 
+      DLog(eLogType::Info, "Constructing mesh for Bullet3");
+
       for (int i = 0; i < count; i = i + 3)
       {
+        DLog(eLogType::Info, "triangle %d:", i / 3);
+        DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i] * 8], vertices[indices[i] * 8 + 1], vertices[indices[i] * 8 + 2]);
+        DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i + 1] * 8], vertices[indices[i + 1] * 8 + 1], vertices[indices[i + 1] * 8 + 2]);
+        DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i + 2] * 8], vertices[indices[i + 2] * 8 + 1], vertices[indices[i + 2] * 8 + 2]);
+        
+
         mesh->addTriangle(
-          btVector3(vertices[indices[i * 8]], vertices[indices[indices[i * 8 + 1]]], indices[indices[i * 8 + 2]]),
-          btVector3(vertices[indices[(i + 1) * 8]], vertices[indices[indices[(i + 1) * 8 + 1]]], indices[indices[(i + 1) * 8 + 2]]),
-          btVector3(vertices[indices[(i + 2) * 8]], vertices[indices[indices[(i + 2) * 8 + 1]]], indices[indices[(i + 2) * 8 + 2]])
+          btVector3(
+            vertices[indices[i] * 8], 
+            vertices[indices[i] * 8 + 1], 
+            vertices[indices[i] * 8 + 2]
+          ),
+          btVector3(
+            vertices[indices[i + 1] * 8],
+            vertices[indices[i + 1] * 8 + 1],
+            vertices[indices[i + 1] * 8 + 2]
+          ),
+          btVector3(
+            vertices[indices[i + 2] * 8],
+            vertices[indices[i + 2] * 8 + 1],
+            vertices[indices[i + 2] * 8 + 2]
+          ),
+          true
         );
       }
-      btBvhTriangleMeshShape* trimesh = new btBvhTriangleMeshShape(mesh, true, true);
-
-
+      DLog(eLogType::Info, "------------------------");
+      //btBvhTriangleMeshShape* trimesh = new btBvhTriangleMeshShape(mesh, true, true);
+      btConvexShape* trimesh = new btConvexTriangleMeshShape(mesh);
       m_collisionShapes.push_back(trimesh);
 
+      // Create rigidbody
+      btTransform transform;
+      transform.setIdentity();
+      transform.setOrigin(
+        btVector3(
+          collider->GetAbsolutePositionConstRef().x, 
+          collider->GetAbsolutePositionConstRef().y,
+          collider->GetAbsolutePositionConstRef().z
+        )
+      );
+      transform.setRotation(
+        btQuaternion(
+          collider->GetAbsoluteRotationConstRef().x,
+          collider->GetAbsoluteRotationConstRef().y,
+          collider->GetAbsoluteRotationConstRef().z
+        )
+      );
+
+      btScalar mass(1.0f);
+      auto newRb = createRigidBody(mass, transform, trimesh, btVector4(0, 0, 1, 1));
+      newRb->setUserIndex(static_cast<int>(collider->GetGuid()));
+      newRb->setUserPointer(collider.get());
     }
 
   }
 
 
-  void syncPhysicsToGraphics(const btDiscreteDynamicsWorld* rbWorld)
+  void syncPhysicsToGraphics()
   {
-
+    auto rbWorld = m_dynamicsWorld;
     int numCollisionObjects = rbWorld->getNumCollisionObjects();
     {
       
@@ -89,7 +142,15 @@ public:
 
         btVector3 pos = colObj->getWorldTransform().getOrigin();
         btQuaternion orn = colObj->getWorldTransform().getRotation();
-        int index = colObj->getUserIndex();
+        
+        btScalar rotX, rotY, rotZ;
+        orn.getEulerZYX(rotX, rotY, rotZ);
+
+
+        Collider* pCollider = static_cast<Collider*>(colObj->getUserPointer());
+
+        pCollider->SetOwnerEntityPosition(pos.getX(), pos.getY(), pos.getZ());
+        pCollider->SetOwnerEntityRotation(rotX, rotY, rotZ);
 
       }
     }

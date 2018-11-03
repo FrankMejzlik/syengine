@@ -74,6 +74,9 @@ bool Engine::Run()
   // Construct initial scene.
   std::shared_ptr<Scene> pScene = SCENE_MANAGER->LoadInitialScene();
 
+  // Initialize physics.
+  SIMULATION_MANAGER->InitializePhysicsScene(pScene);
+
   auto prev = std::chrono::high_resolution_clock::now();
 
   dfloat deltaTime = 0.0f;

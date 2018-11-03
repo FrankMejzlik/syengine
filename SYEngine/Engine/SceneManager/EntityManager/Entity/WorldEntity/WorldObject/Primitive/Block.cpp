@@ -18,7 +18,7 @@ Block::Block(
 
   // Create new model from this Mesh.
   // No Texture nor Shiniess provided so it will be created with default ones.
-  std::shared_ptr<Entity> pThis = std::make_shared<Block>(*this);
+  std::shared_ptr<Entity> pThis = std::shared_ptr<Block>(this);
   
   _pModel = pComponentManager->CreateModel(pThis, pBlockMesh, pTexture);
 

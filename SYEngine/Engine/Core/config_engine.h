@@ -12,7 +12,7 @@
 #define RUN_ENGINE_API 1
 
 #define BACK_FACE_CULLING 1
-#define DISABLE_VSYNC 0
+#define DISABLE_VSYNC 1
 
 
 #define CALL_CONVENTION _stdcall
