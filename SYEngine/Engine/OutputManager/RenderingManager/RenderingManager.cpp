@@ -171,14 +171,14 @@ void RenderingManager::DirectionalShadowMapPass
     // Give it correctly calculated lightTransform matrix
     _shaders[1]->SetDirectionalLightTransform(&light->CalculateLightTransform());
 
-    _shaders[1]->Validate();
+    //_shaders[1]->Validate();
     // Render objects in scene with their own shaders
 
     for (auto it : activeModels)
     {
       std::shared_ptr<Model> model;
       model = std::static_pointer_cast<Model>(it.second->GetModel());
-      model->RenderModel(uniformModel);
+      model->RenderModel(uniformModel, it.second);
 
     }
   }
@@ -223,7 +223,7 @@ void RenderingManager::OmniShadowMapPass
     // Bind to shader 6 direction transofrm light metrices
     _shaders[2]->SetOmniLightMatrices(light->GetOmniLightModelToWorldMatrices());
 
-    _shaders[2]->Validate();
+    //_shaders[2]->Validate();
 
     // Render objects in scene with their own shaders
 
@@ -231,7 +231,7 @@ void RenderingManager::OmniShadowMapPass
     {
       std::shared_ptr<Model> model;
       model = std::static_pointer_cast<Model>(it.second->GetModel());
-      model->RenderModel(uniformModel);
+      model->RenderModel(uniformModel, it.second);
 
     }
   }
@@ -262,7 +262,7 @@ void RenderingManager::OmniShadowMapPass
     // Bind to shader 6 direction transofrm light metrices
     _shaders[2]->SetOmniLightMatrices(light->GetOmniLightModelToWorldMatrices());
 
-    _shaders[2]->Validate();
+    //_shaders[2]->Validate();
 
     // Render objects in scene with their own shaders
 
@@ -270,7 +270,7 @@ void RenderingManager::OmniShadowMapPass
     {
       std::shared_ptr<Model> model;
       model = std::static_pointer_cast<Model>(it.second->GetModel());
-      model->RenderModel(uniformModel);
+      model->RenderModel(uniformModel, it.second);
 
     }
   }
@@ -331,12 +331,12 @@ void RenderingManager::FinalMainRenderPass
   // Set main object texture slot to 1.
   _shaders[0]->SetTexture(1);
   // Validate main shader.
-  _shaders[0]->Validate();
+  //_shaders[0]->Validate();
 
   for (auto it : activeModels)
   {
     std::shared_ptr<Model> pModel = std::static_pointer_cast<Model>(it.second->GetModel());
-    pModel->RenderModel(uniformModel);
+    pModel->RenderModel(uniformModel, it.second);
   }
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

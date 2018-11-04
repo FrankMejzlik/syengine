@@ -119,7 +119,11 @@ std::shared_ptr<Scene> SceneManager::LoadInitialScene()
   //  }
   //}
 
-
+  pNewScene->CreateStaticModelFromFile(
+    "terrain",
+    glm::vec3(-00.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.1f, 1.1f, 1.1f),
+    "Resource/models/SnowTerrain.obj"
+  );
 
   pNewScene->CreateStaticModelFromFile(
     "model1",

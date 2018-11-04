@@ -32,7 +32,7 @@ public:
   virtual ~Model();
 
   virtual void LoadModelFromFile(const std::string& fileName);
-  virtual void RenderModel(GLuint ul_modelToWorldMatrix);
+  virtual void RenderModel(GLuint ul_modelToWorldMatrix, std::shared_ptr<Entity> pOwner);
   virtual void ClearModel();
 
 

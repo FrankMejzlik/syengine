@@ -81,9 +81,25 @@ std::shared_ptr<Model> ModelManager::CreateModel(std::shared_ptr<Entity> pEntity
 
 std::shared_ptr<Model> ModelManager::CreateModelFromFile(std::shared_ptr<Entity> pEntity, std::string filePath)
 {
-  std::shared_ptr<Model> pNewModel = std::make_shared<Model>(pEntity);
+  std::shared_ptr<Model> pNewModel;
+  
+  auto item = _loadedModels.find(filePath);
 
-  pNewModel->LoadModelFromFile(filePath);
+  // If model not already created.
+  if (item == _loadedModels.end())
+  {
+    pNewModel = std::make_shared<Model>(pEntity);
+
+    pNewModel->LoadModelFromFile(filePath);
+
+    // Add this file to cache.
+    _loadedModels.insert(std::make_pair(filePath, pNewModel));
+  }
+  else
+  {
+    pNewModel = item->second;
+  }
+
 
   return pNewModel;
 }

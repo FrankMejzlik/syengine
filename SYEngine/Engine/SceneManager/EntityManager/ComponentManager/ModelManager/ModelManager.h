@@ -26,6 +26,7 @@ public:
 
 
 private:
+  std::unordered_map<std::string, std::shared_ptr<Model>> _loadedModels;
 
 };
 

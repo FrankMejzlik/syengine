@@ -25,16 +25,16 @@ void Model::LoadModelFromFile(const std::string & fileName)
   LoadMaterials(pScene);
 }
 
-void Model::RenderModel(GLuint ul_modelToWorldMatrix)
+void Model::RenderModel(GLuint ul_modelToWorldMatrix, std::shared_ptr<Entity> pOwner)
 {
 
   glm::mat4 modelToWorldMatrix;
   modelToWorldMatrix = std::move(glm::mat4(1.0f));
-  modelToWorldMatrix = glm::translate(modelToWorldMatrix, _pEntity->GetPositionVectorRefConst());
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pEntity->GetRotationVectorRefConst().z, glm::vec3(0.0f, 0.0f, 1.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pEntity->GetRotationVectorRefConst().y, glm::vec3(0.0f, 1.0f, 0.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pEntity->GetRotationVectorRefConst().x, glm::vec3(1.0f, 0.0f, 0.0f));
-  modelToWorldMatrix = glm::scale(modelToWorldMatrix, _pEntity->GetScaleVectorRefConst());
+  modelToWorldMatrix = glm::translate(modelToWorldMatrix, pOwner->GetPositionVectorRefConst());
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, pOwner->GetRotationVectorRefConst().z, glm::vec3(0.0f, 0.0f, 1.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, pOwner->GetRotationVectorRefConst().y, glm::vec3(0.0f, 1.0f, 0.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, pOwner->GetRotationVectorRefConst().x, glm::vec3(1.0f, 0.0f, 0.0f));
+  modelToWorldMatrix = glm::scale(modelToWorldMatrix, pOwner->GetScaleVectorRefConst());
 
   glUniformMatrix4fv(ul_modelToWorldMatrix, 1, GL_FALSE, glm::value_ptr(modelToWorldMatrix));
 
@@ -157,7 +157,7 @@ void Model::LoadMesh(aiMesh * mesh, const aiScene * scene)
   }
 
   std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>(_pEntity);
-  pNewMesh->CreateMesh(vertices, indices);
+  pNewMesh->CreateMesh(vertices, indices, true);
   _meshList.push_back(pNewMesh);
 
   _meshToTexture.push_back(mesh->mMaterialIndex);
