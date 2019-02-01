@@ -97,7 +97,7 @@ class Engine :
 public:
   Engine() = delete;
 
-  Engine(Instance* instance);
+  Engine(ProcessInstance* instance);
   virtual ~Engine();
 
   bool Initialize();
@@ -114,7 +114,7 @@ public:
 
 private:
   // Instance that this Engine is running in.
-  Instance* _pInstance;
+  ProcessInstance* _pInstance;
   // Engine context instance.
   EngineContext _engineContext;
 

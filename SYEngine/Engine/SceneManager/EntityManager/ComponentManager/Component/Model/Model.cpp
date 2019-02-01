@@ -11,7 +11,7 @@ Model::Model(std::shared_ptr<Entity> pEntity):
 Model::~Model()
 {}
 
-void Model::LoadModelFromFile(const std::string & fileName)
+void Model::LoadModelFromFile(const std::string& fileName)
 {
   Assimp::Importer importer;
   const aiScene* pScene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);

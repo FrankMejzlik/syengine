@@ -56,11 +56,11 @@ private:
   * First general to be instantiated class that takes care of the
   * most low level stuff.
   */
-class Instance :
+class ProcessInstance :
   public IUncopyable
 {
 public:
-  Instance() :
+  ProcessInstance() :
     _hConsole(GetConsoleWindow())
   {
     // If engine running with editor

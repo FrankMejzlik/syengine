@@ -3,7 +3,7 @@
 
 using namespace SYE;
 
-Engine::Engine(Instance* pInstance) :
+Engine::Engine(ProcessInstance* pInstance) :
   BaseModule(MAGIC_BASE_MODULE_NUMBER), // Identify as root module.
   _pInstance(pInstance) // Save OS instance handle.
 {

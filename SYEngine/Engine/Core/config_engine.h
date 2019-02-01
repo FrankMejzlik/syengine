@@ -1,8 +1,28 @@
 #pragma once
 
+/**
+ * Platform detection
+ */
+// If target is OS based on UNIX.
+#if __unix__
+  #define TARGET_UNIX 1
+#endif
+
+
+// If target is 32/64-bit Windows OS.
+#if _WIN32
+  #define TARGET_WINDOWS 1
+#endif
+
+
+
 #define DEG_TO_RAD (3.14159265 / 180.0f)
 
-//
+// Export switches.
+#define EXPORT_ENGINE_API 0
+#define TEST_EXPORTED_FUNCTIONS 0
+
+// Development switches.
 #define DEV 1
 #define USING_EDITOR 1
 #define RELEASE 0

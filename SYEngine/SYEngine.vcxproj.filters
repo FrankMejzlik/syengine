@@ -238,9 +238,6 @@
     <ClInclude Include="Engine\Core\SceneContext.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Diagnostics\memory_diagnostics.h">
-      <Filter>Diagnostics</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager\Scene\Scene.h">
       <Filter>Engine\SceneManager\Scene</Filter>
     </ClInclude>
