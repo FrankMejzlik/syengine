@@ -4,7 +4,7 @@ OutputManager::OutputManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_RENDERING_MANAGER, std::make_shared<RenderingManager>(*this)));
+  _subModules.insert(std::make_pair(ID_RENDERING_MANAGER, std::make_unique<RenderingManager>(*this)));
   
 
   DLog(eLogType::Success, "OutputManager instance created.");
@@ -24,7 +24,7 @@ OutputManager::~OutputManager()
 bool OutputManager::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 

@@ -23,7 +23,7 @@ ModelManager::~ModelManager()
 bool ModelManager::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 
@@ -51,26 +51,26 @@ bool ModelManager::Terminate()
   return true;
 }
 
-std::shared_ptr<Model> ModelManager::CreateModel(std::shared_ptr<Entity> pEntity, std::shared_ptr<Mesh> pQuadMesh, std::shared_ptr<Texture> pTexture, std::shared_ptr<Shininess> pShininess)
+std::unique_ptr<Model> ModelManager::CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&& pQuadMesh, std::unique_ptr<Texture>&& pTexture, std::unique_ptr<Shininess>&& pShininess)
 {
-  std::shared_ptr<Model> newModel = std::make_shared<Model>(pEntity);
+  std::unique_ptr<Model> newModel = std::make_unique<Model>(pEntity);
 
   // Add Mesh, Texture and Shininess to model
-  size_t meshIndex = newModel->AddMesh(pQuadMesh);
+  size_t meshIndex = newModel->AddMesh(std::move(pQuadMesh));
   size_t textureIndex = 0;
   size_t shininessIndex = 0;
 
   // If texture provided.
   if (pTexture)
   {
-    textureIndex = newModel->AddTexture(pTexture);
+    textureIndex = newModel->AddTexture(std::move(pTexture));
   }
   newModel->SetMeshIndexToShininess(meshIndex, shininessIndex);
 
   // If shininess provided.
   if (pShininess)
   {
-    shininessIndex = newModel->AddShininess(pShininess);
+    shininessIndex = newModel->AddShininess(std::move(pShininess));
   }
   newModel->SetMeshIndexToShininess(meshIndex, shininessIndex);
 
@@ -79,27 +79,11 @@ std::shared_ptr<Model> ModelManager::CreateModel(std::shared_ptr<Entity> pEntity
 }
 
 
-std::shared_ptr<Model> ModelManager::CreateModelFromFile(std::shared_ptr<Entity> pEntity, std::string filePath)
+std::unique_ptr<Model> ModelManager::CreateModelFromFile(Entity* pEntity, std::string filePath)
 {
-  std::shared_ptr<Model> pNewModel;
-  
-  auto item = _loadedModels.find(filePath);
+  std::unique_ptr<Model> pNewModel = std::make_unique<Model>(pEntity);
 
-  // If model not already created.
-  if (item == _loadedModels.end())
-  {
-    pNewModel = std::make_shared<Model>(pEntity);
-
-    pNewModel->LoadModelFromFile(filePath);
-
-    // Add this file to cache.
-    _loadedModels.insert(std::make_pair(filePath, pNewModel));
-  }
-  else
-  {
-    pNewModel = item->second;
-  }
-
+  pNewModel->LoadModelFromFile(filePath);
 
   return pNewModel;
 }

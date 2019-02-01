@@ -22,7 +22,7 @@ MouseManager::~MouseManager()
 bool MouseManager::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 

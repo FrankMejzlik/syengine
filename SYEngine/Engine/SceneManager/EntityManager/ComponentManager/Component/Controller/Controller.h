@@ -14,7 +14,7 @@ class Controller :
 public:
   Controller() = delete;
 
-  Controller(std::shared_ptr<Entity> pEntity);
+  Controller(Entity* pEntity);
   ~Controller();
 };
 

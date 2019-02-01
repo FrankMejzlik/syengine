@@ -30,7 +30,7 @@ public:
   Entity() = delete;
 
   Entity(
-    std::shared_ptr<ComponentManager> pComponentManager,
+    ComponentManager* pComponentManager,
     glm::vec3 positionVector,
     glm::vec3 rotationVector,
     glm::vec3 scaleVector
@@ -42,10 +42,10 @@ public:
 
   bool GetBHasColliders() const { return _bHasColliders; };
 
-  std::shared_ptr<Collider> AddCollider(std::shared_ptr<Collider> pNewCollider);
-  std::shared_ptr<Collider> DeleteCollider(std::shared_ptr<Collider> pNewCollider);
+  Collider* AddCollider(Collider* pNewCollider);
+  bool DeleteCollider(Collider* pNewCollider);
 
-  const std::unordered_map<size_t, std::shared_ptr<Collider>> &GetColliders() const;
+  const std::unordered_map<size_t, Collider*> &GetColliders() const;
 
 
   void SetEntityName(std::string name);
@@ -59,13 +59,13 @@ public:
   const glm::vec3& GetPositionVectorRefConst() const;
   const glm::vec3& GetRotationVectorRefConst() const;
   const glm::vec3& GetScaleVectorRefConst() const;
-  const std::shared_ptr<ComponentManager> GetComponentManager() const;
+  ComponentManager* GetComponentManager();
 
-  std::shared_ptr<Model> GetModel() const { return _pModel; };
+  Component* GetModel() const { return _pModel; };
 
 
 protected:
-  std::shared_ptr<ComponentManager> _pComponentManager;
+  ComponentManager* _pComponentManager;
   bool _bIsToRender;
   bool _bHasColliders;
 
@@ -78,10 +78,10 @@ protected:
   glm::vec3 _scaleVector;
 
   // All components attached to this Entity.
-  std::map<std::string, std::shared_ptr<Component>> _componentList;
-  std::map<std::string, std::shared_ptr<Model>> _modelsToRenderList;
-  std::unordered_map<size_t, std::shared_ptr<Collider>> _colliders;
-  std::shared_ptr<Model> _pModel;
+  std::map<std::string, Component*> _componentList;
+  std::map<std::string, Model*> _modelsToRenderList;
+  std::unordered_map<size_t, Collider*> _colliders;
+  Component* _pModel;
 
 };
 

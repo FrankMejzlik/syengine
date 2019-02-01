@@ -6,8 +6,8 @@ RenderingManager::RenderingManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Add submodules for this module.
-  _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_shared<WindowManager>(*this)));
-  _subModules.insert(std::make_pair(ID_SHADOW_MANAGER, std::make_shared<ShadowManager>(*this)));
+  _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_unique<WindowManager>(*this)));
+  _subModules.insert(std::make_pair(ID_SHADOW_MANAGER, std::make_unique<ShadowManager>(*this)));
   
   DLog(eLogType::Success, "\t RenderingManager instance created.");
 }
@@ -26,7 +26,7 @@ RenderingManager::~RenderingManager()
 bool RenderingManager::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 
@@ -145,15 +145,15 @@ void RenderingManager::CreateShaders()
 
 void RenderingManager::DirectionalShadowMapPass
 (
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels, 
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& directionalLights
+  const std::unordered_map<size_t, Entity*>& activeModels, 
+  const std::unordered_map<size_t, Entity*>& directionalLights
 )
 {
   _shaders[1]->UseShader();
 
   for (auto it : directionalLights)
   {
-    std::shared_ptr<DirectionalLight> light = std::static_pointer_cast<DirectionalLight>(it.second);
+    DirectionalLight* light = static_cast<DirectionalLight*>(it.second);
 
     // Setup viewport same as frame buffer
     glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
@@ -176,8 +176,8 @@ void RenderingManager::DirectionalShadowMapPass
 
     for (auto it : activeModels)
     {
-      std::shared_ptr<Model> model;
-      model = std::static_pointer_cast<Model>(it.second->GetModel());
+      Model* model;
+      model = static_cast<Model*>(it.second->GetModel());
       model->RenderModel(uniformModel, it.second);
 
     }
@@ -190,9 +190,9 @@ void RenderingManager::DirectionalShadowMapPass
 
 void RenderingManager::OmniShadowMapPass
 (
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels, 
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights,
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights
+  const std::unordered_map<size_t, Entity*>& activeModels, 
+  const std::unordered_map<size_t, Entity*>& pointLights,
+  const std::unordered_map<size_t, Entity*>& spotLights
 )
 {
   _shaders[2]->UseShader();
@@ -200,7 +200,7 @@ void RenderingManager::OmniShadowMapPass
   // Process PointLights.
   for (auto it : pointLights)
   {
-    std::shared_ptr<SpotLight> light = std::static_pointer_cast<SpotLight>(it.second);
+    SpotLight* light = static_cast<SpotLight*>(it.second);
 
     // Setup viewport same as frame buffer
     glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
@@ -229,8 +229,7 @@ void RenderingManager::OmniShadowMapPass
 
     for (auto it : activeModels)
     {
-      std::shared_ptr<Model> model;
-      model = std::static_pointer_cast<Model>(it.second->GetModel());
+      Model* model = static_cast<Model*>(it.second->GetModel());
       model->RenderModel(uniformModel, it.second);
 
     }
@@ -239,7 +238,7 @@ void RenderingManager::OmniShadowMapPass
   // Process SpotLights.
   for (auto it : spotLights)
   {
-    std::shared_ptr<SpotLight> light = std::static_pointer_cast<SpotLight>(it.second);
+    SpotLight* light = static_cast<SpotLight*>(it.second);
 
     // Setup viewport same as frame buffer
     glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
@@ -268,8 +267,8 @@ void RenderingManager::OmniShadowMapPass
 
     for (auto it : activeModels)
     {
-      std::shared_ptr<Model> model;
-      model = std::static_pointer_cast<Model>(it.second->GetModel());
+      Model* model;
+      model = static_cast<Model*>(it.second->GetModel());
       model->RenderModel(uniformModel, it.second);
 
     }
@@ -283,14 +282,13 @@ void RenderingManager::OmniShadowMapPass
 void RenderingManager::FinalMainRenderPass
 (
   std::shared_ptr<Scene> pScene, 
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels, 
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& directionalLights,
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights,
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights
+  const std::unordered_map<size_t, Entity*>& activeModels, 
+  const std::unordered_map<size_t, Entity*>& directionalLights,
+  const std::unordered_map<size_t, Entity*>& pointLights,
+  const std::unordered_map<size_t, Entity*>& spotLights
 )
 {
-
-  std::shared_ptr<DirectionalLight> mainLight = std::static_pointer_cast<DirectionalLight>(directionalLights.begin()->second);
+  DirectionalLight* mainLight = static_cast<DirectionalLight*>(directionalLights.begin()->second);
 
   // Set correct viewport, just to be sure
   glViewport(0, 0, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
@@ -322,7 +320,7 @@ void RenderingManager::FinalMainRenderPass
 
 
   // Set up all lights to scene.
-  _shaders[0]->SetDirectionalLight(mainLight.get());
+  _shaders[0]->SetDirectionalLight(mainLight);
   _shaders[0]->SetPointLights(pointLights, 3, 0); // Offset 0.
   _shaders[0]->SetSpotLights(spotLights, 3 + pointLightCount, pointLightCount); // Offset by number of point lights.
 
@@ -335,8 +333,8 @@ void RenderingManager::FinalMainRenderPass
 
   for (auto it : activeModels)
   {
-    std::shared_ptr<Model> pModel = std::static_pointer_cast<Model>(it.second->GetModel());
-    pModel->RenderModel(uniformModel, it.second);
+    Model* pModel = (Model*)it.second->GetModel();
+    pModel->RenderModel(uniformModel, pModel->GetOwner());
   }
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

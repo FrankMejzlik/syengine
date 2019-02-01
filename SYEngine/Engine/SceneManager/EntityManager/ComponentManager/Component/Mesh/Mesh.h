@@ -22,10 +22,10 @@ class Mesh:
 public:
   Mesh() = delete;
 
-  Mesh(std::shared_ptr<Entity> pEntity);
+  Mesh(Entity* pEntity);
 
   Mesh(
-    std::shared_ptr<Entity> pEntity,
+    Entity* pEntity,
     std::vector<GLfloat> vertices, 
     std::vector<unsigned int> indices, 
     bool calculateAverageNormals = false

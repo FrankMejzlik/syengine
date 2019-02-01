@@ -2,7 +2,7 @@
 
 using namespace SYE;
 
-Mesh::Mesh(std::shared_ptr<Entity> pEntity) :
+Mesh::Mesh(Entity* pEntity) :
   Component(pEntity),
   _pTexture(nullptr), _pMaterial(nullptr)
 {
@@ -11,7 +11,7 @@ Mesh::Mesh(std::shared_ptr<Entity> pEntity) :
 
 
 Mesh::Mesh(
-  std::shared_ptr<Entity> pEntity,
+  Entity* pEntity,
   std::vector<GLfloat> vertices, 
   std::vector<unsigned int> indices, 
   bool calculateAverageNormals
@@ -98,8 +98,8 @@ void Mesh::CreateMesh(
   _vertices = vertices;
   _indices = indices;
 
-  _indexCount = indices.size();
-  _vertexCount = vertices.size();
+  _indexCount = (GLsizei)indices.size();
+  _vertexCount = (GLsizei)vertices.size();
 
 
   // If requred, compute average normals for every vertex
@@ -173,8 +173,8 @@ void Mesh::CreateMesh(
   _pTexture = pTexture;
   _pMaterial = pMaterial;
 
-  _indexCount = indices.size();
-  _vertexCount = vertices.size();
+  _indexCount = (GLsizei)indices.size();
+  _vertexCount = (GLsizei)vertices.size();
 
   // If requred, compute average normals for every vertex
   if (calculateAverageNormals)

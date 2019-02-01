@@ -3,7 +3,7 @@
 
 using namespace SYE;
 
-Scene::Scene(std::shared_ptr<EntityManager> pEntityManager, std::string sceneName) :
+Scene::Scene(EntityManager* pEntityManager, std::string sceneName) :
   _pEntityManager(pEntityManager),
   _sceneContext(sceneName),
   _pEditorCamera(nullptr)
@@ -17,7 +17,7 @@ Scene::~Scene()
   DLog(eLogType::Success, "Scene with name %s destroyed.", _sceneContext.m_sceneName.c_str());
 }
 
-std::shared_ptr<Camera> Scene::GetEditorCamera() const
+Camera* Scene::GetEditorCamera() const
 {
   return _pEditorCamera;
 }
@@ -33,7 +33,7 @@ size_t Scene::GetSceneNumberOfEntities() const
   return _entities.size();
 }
 
-std::shared_ptr<Entity> Scene::InsertEntity(std::shared_ptr<Entity> pEntityToInsert)
+Entity* Scene::InsertEntity(Entity* pEntityToInsert)
 {
   _entities.insert(std::make_pair(pEntityToInsert->GetGuid(), pEntityToInsert));
 
@@ -46,18 +46,22 @@ std::shared_ptr<Entity> Scene::InsertEntity(std::shared_ptr<Entity> pEntityToIns
   return pEntityToInsert;
 }
 
-std::shared_ptr<Entity> Scene::DeleteEntity(std::shared_ptr<Entity> pEntityToDelete)
+bool Scene::DeleteEntity(Entity* pEntityToDelete)
 {
 
-  // If has Colliders, insert them into map as well.
+  // If has Colliders, delete them.
   if (pEntityToDelete->GetBHasColliders())
   {
     DeleteActiveColliders(pEntityToDelete);
   }
-  return pEntityToDelete;
+
+  // Delete it from hash map.
+  _entities.erase(pEntityToDelete->GetGuid());
+
+  return true;
 }
 
-std::shared_ptr<Entity> Scene::InsertActiveColliders(std::shared_ptr<Entity> pEntityToInsert)
+Entity* Scene::InsertActiveColliders(Entity* pEntityToInsert)
 {
   auto entityColliders = pEntityToInsert->GetColliders();
 
@@ -68,7 +72,7 @@ std::shared_ptr<Entity> Scene::InsertActiveColliders(std::shared_ptr<Entity> pEn
   }
   return pEntityToInsert;
 }
-std::shared_ptr<Entity> Scene::DeleteActiveColliders(std::shared_ptr<Entity> entityToDelete)
+Entity* Scene::DeleteActiveColliders(Entity* entityToDelete)
 {
   auto entityColliders = entityToDelete->GetColliders();
 
@@ -81,7 +85,7 @@ std::shared_ptr<Entity> Scene::DeleteActiveColliders(std::shared_ptr<Entity> ent
 }
 
 
-std::shared_ptr<Entity> Scene::InsertDirectionalLight(std::shared_ptr<Entity> entityToInsert)
+Entity* Scene::InsertDirectionalLight(Entity* entityToInsert)
 {
   // TODO: Increase light limit.
   if (_activePointLights.size() >= MAX_DIRECTIONAL_LIGHTS)
@@ -93,13 +97,13 @@ std::shared_ptr<Entity> Scene::InsertDirectionalLight(std::shared_ptr<Entity> en
   return entityToInsert;
 }
 
-std::shared_ptr<Entity> Scene::InsertActiveModel(std::shared_ptr<Entity> entityToInsert)
+Entity* Scene::InsertActiveModel(Entity* entityToInsert)
 {
   _activeModels.insert(std::make_pair(entityToInsert->GetGuid(), entityToInsert));
   return entityToInsert;
 }
 
-std::shared_ptr<Entity> Scene::InsertPointLight(std::shared_ptr<Entity> entityToInsert)
+Entity* Scene::InsertPointLight(Entity* entityToInsert)
 {
   // TODO: Increase light limit.
   if (_activePointLights.size() >= MAX_POINT_LIGHTS)
@@ -111,7 +115,7 @@ std::shared_ptr<Entity> Scene::InsertPointLight(std::shared_ptr<Entity> entityTo
   return entityToInsert;
 }
 
-std::shared_ptr<Entity> Scene::InsertSpotLight(std::shared_ptr<Entity> entityToInsert)
+Entity* Scene::InsertSpotLight(Entity* entityToInsert)
 {
   // TODO: Increase light limit.
   if (_activeSpotLights.size() >= MAX_SPOT_LIGHTS)
@@ -122,30 +126,30 @@ std::shared_ptr<Entity> Scene::InsertSpotLight(std::shared_ptr<Entity> entityToI
   return entityToInsert;
 }
 
-const std::unordered_map<size_t, std::shared_ptr<Entity>> &Scene::GetActiveModelsRefConst() const
+const std::unordered_map<size_t, Entity*>& Scene::GetActiveModelsRefConst() const
 {
   return _activeModels;
 }
-const std::unordered_map<size_t, std::shared_ptr<Collider>> &Scene::GetActiveColliders() const
+const std::unordered_map<size_t, Collider*>& Scene::GetActiveColliders() const
 {
   return _activeColliders;
 }
-const std::unordered_map<size_t, std::shared_ptr<Entity>> &Scene::GetDirectionalLightsMapRefConst() const
+const std::unordered_map<size_t, Entity*>& Scene::GetDirectionalLightsMapRefConst() const
 {
   return _activeDirectionalLights;
 }
-const std::unordered_map<size_t, std::shared_ptr<Entity>> &Scene::GetPointLightsMapRefConst() const
+const std::unordered_map<size_t, Entity*>& Scene::GetPointLightsMapRefConst() const
 {
   return _activePointLights;
 }
 
-const std::unordered_map<size_t, std::shared_ptr<Entity>> &Scene::GetSpotLightsMapRefConst() const
+const std::unordered_map<size_t, Entity*>& Scene::GetSpotLightsMapRefConst() const
 {
   return _activeSpotLights;
 }
 
 
-std::shared_ptr<Camera> Scene::CreateCamera(std::string cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch)
+Camera* Scene::CreateCamera(std::string cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch)
 {
   // TEMP
   // Camera has also input methods
@@ -155,25 +159,24 @@ std::shared_ptr<Camera> Scene::CreateCamera(std::string cameraName, glm::vec3 po
   float turnSpeed = 1.0f;
 
   // Create new Camera instance.
-  std::shared_ptr<Camera> pNewCamera = std::make_shared<Camera>(nullptr, positionVector, startUpDirection, startYaw, startPitch, moveSpeed, turnSpeed);
+  Camera* pNewCamera = (Camera*)_pEntityManager->CreateCamera(cameraName, positionVector, startUpDirection, startYaw, startPitch, moveSpeed, turnSpeed);
 
   pNewCamera->SetEntityName(cameraName);
 
-  InsertEntity(pNewCamera);
   // TODO: Implement properly.
   _pEditorCamera = pNewCamera;
 
-  return pNewCamera;
+  return static_cast<Camera*>(InsertEntity(pNewCamera));
 }
 
-std::shared_ptr<Quad> Scene::CreateQuad(
+Quad* Scene::CreateQuad(
   std::string entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   dfloat width, dfloat height
 )
 {
   // Call EntityManager to create new Quad Entity.
-  std::shared_ptr<Quad> pNewQuad = _pEntityManager->CreateQuad(
+  Quad* pNewQuad = (Quad*)_pEntityManager->CreateQuad(
     entityName,
     positionVector,
     rotationVector,
@@ -181,8 +184,7 @@ std::shared_ptr<Quad> Scene::CreateQuad(
     width, height
   );
 
-  InsertEntity(pNewQuad);
-
+ 
   // TODO: Make dynamic
   (*pNewQuad).SetBIsToRender(true);
 
@@ -191,11 +193,11 @@ std::shared_ptr<Quad> Scene::CreateQuad(
     InsertActiveModel(pNewQuad);
   }
 
-  return pNewQuad;
+  return static_cast<Quad*>(InsertEntity(pNewQuad));
 }
 
 
-std::shared_ptr<Block> Scene::CreateBlock(
+Block* Scene::CreateBlock(
   std::string entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   dfloat width, dfloat height, dfloat length,
@@ -203,7 +205,7 @@ std::shared_ptr<Block> Scene::CreateBlock(
 )
 {
   // Call EntityManager to create new Quad Entity.
-  std::shared_ptr<Block> pNewBlock = _pEntityManager->CreateBlock(
+  Block* pNewBlock = (Block*)_pEntityManager->CreateBlock(
     entityName,
     positionVector,
     rotationVector,
@@ -212,7 +214,6 @@ std::shared_ptr<Block> Scene::CreateBlock(
     bIsStatic
   );
 
-  InsertEntity(pNewBlock);
 
   // TODO: Make dynamic
   (*pNewBlock).SetBIsToRender(true);
@@ -222,18 +223,18 @@ std::shared_ptr<Block> Scene::CreateBlock(
     InsertActiveModel(pNewBlock);
   }
 
-  return pNewBlock;
+  return static_cast<Block*>(InsertEntity(pNewBlock));
 }
 
 
-std::shared_ptr<WorldObject> Scene::CreateStaticModelFromFile(
+WorldObject* Scene::CreateStaticModelFromFile(
   std::string entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   std::string filePath
 )
 {
   // Call EntityManager to create new WorldObject Entity.
-  std::shared_ptr<WorldObject> pNewEntity = _pEntityManager->CreateStaticModelFromFile(
+  WorldObject* pNewEntity = (WorldObject*)_pEntityManager->CreateStaticModelFromFile(
     entityName,
     positionVector,
     rotationVector,
@@ -241,7 +242,6 @@ std::shared_ptr<WorldObject> Scene::CreateStaticModelFromFile(
     filePath
   );
 
-  InsertEntity(pNewEntity);
 
   // TODO: Make dynamic
   (*pNewEntity).SetBIsToRender(true);
@@ -251,10 +251,10 @@ std::shared_ptr<WorldObject> Scene::CreateStaticModelFromFile(
     InsertActiveModel(pNewEntity);
   }
 
-  return pNewEntity;
+  return static_cast<Block*>(InsertEntity(pNewEntity));
 }
 
-std::shared_ptr<DirectionalLight> Scene::CreateDirectionalLight
+DirectionalLight* Scene::CreateDirectionalLight
 (
   std::string entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
@@ -264,8 +264,8 @@ std::shared_ptr<DirectionalLight> Scene::CreateDirectionalLight
 )
 {
 
-  std::shared_ptr<DirectionalLight> pMainLight = std::make_shared<DirectionalLight>(
-    nullptr,
+  DirectionalLight* pMainLight = (DirectionalLight*)_pEntityManager->CreateDirectionalLight(
+    entityName,
     positionVector,          // Position vector
     rotationVector,          // rotation vector
     scaleVector,          // scale vector
@@ -277,22 +277,22 @@ std::shared_ptr<DirectionalLight> Scene::CreateDirectionalLight
 
   pMainLight->SetEntityName(entityName);
 
-  InsertEntity(pMainLight);
+  
   InsertDirectionalLight(pMainLight);
 
-  return pMainLight;
+  return static_cast<DirectionalLight*>(InsertEntity(pMainLight));
   
 }
 
-std::shared_ptr<PointLight> Scene::CreatePointLight(
+PointLight* Scene::CreatePointLight(
   std::string entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, 
   glm::vec3 lightColour, glm::vec3 lightIntensities, glm::vec3 shadowMapSize, 
   glm::vec2 planeDimensions, glm::vec3 coefficients
 )
 {
-  std::shared_ptr<PointLight> pMainLight = std::make_shared<PointLight>(
-    nullptr,
+  PointLight* pMainLight = (PointLight*)_pEntityManager->CreatePointLight(
+    entityName,
     positionVector,          // Position vector
     rotationVector,          // rotation vector
     scaleVector,          // scale vector
@@ -304,14 +304,13 @@ std::shared_ptr<PointLight> Scene::CreatePointLight(
   );
 
   pMainLight->SetEntityName(entityName);
-
-  InsertEntity(pMainLight);
+  
   InsertPointLight(pMainLight);
 
-  return pMainLight;
+  return static_cast<PointLight*>(InsertEntity(pMainLight));
 }
 
-std::shared_ptr<SpotLight> Scene::CreateSpotLight(
+SpotLight* Scene::CreateSpotLight(
   std::string entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, 
   glm::vec3 lightColour, glm::vec3 lightIntensities, glm::vec3 shadowMapSize, 
@@ -319,8 +318,8 @@ std::shared_ptr<SpotLight> Scene::CreateSpotLight(
   dfloat coneAngle
 )
 {
-  std::shared_ptr<SpotLight> pMainLight = std::make_shared<SpotLight>(
-    nullptr,
+  SpotLight* pMainLight = (SpotLight*)_pEntityManager->CreateSpotLight(
+    entityName,
     positionVector,          // Position vector
     rotationVector,          // rotation vector
     scaleVector,          // scale vector
@@ -335,9 +334,8 @@ std::shared_ptr<SpotLight> Scene::CreateSpotLight(
 
   pMainLight->SetEntityName(entityName);
 
-  InsertEntity(pMainLight);
   InsertSpotLight(pMainLight);
 
-  return pMainLight;
+  return static_cast<SpotLight*>(InsertEntity(pMainLight));
 }
 

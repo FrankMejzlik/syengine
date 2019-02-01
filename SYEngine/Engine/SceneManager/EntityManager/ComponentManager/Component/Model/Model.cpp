@@ -3,13 +3,10 @@
 using namespace SYE;
 
 
-Model::Model(std::shared_ptr<Entity> pEntity):
+Model::Model(Entity* pEntity):
   Component(pEntity)
 {
 }
-
-Model::~Model()
-{}
 
 void Model::LoadModelFromFile(const std::string& fileName)
 {
@@ -25,7 +22,7 @@ void Model::LoadModelFromFile(const std::string& fileName)
   LoadMaterials(pScene);
 }
 
-void Model::RenderModel(GLuint ul_modelToWorldMatrix, std::shared_ptr<Entity> pOwner)
+void Model::RenderModel(GLuint ul_modelToWorldMatrix, Entity* pOwner)
 {
 
   glm::mat4 modelToWorldMatrix;

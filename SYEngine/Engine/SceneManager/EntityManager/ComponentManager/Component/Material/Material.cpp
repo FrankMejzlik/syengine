@@ -2,7 +2,7 @@
 
 using namespace SYE;
 
-Material::Material(std::shared_ptr<Entity> pEntity):
+Material::Material(Entity* pEntity):
   Component(pEntity)
 {
   // Add default Texture and Shininess.

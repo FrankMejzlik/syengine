@@ -6,7 +6,7 @@ MeshGenerator::MeshGenerator(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_shared<MeshGenerator>(*this)));
+  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_unique<MeshGenerator>(*this)));
 
   DLog(eLogType::Success, "\t\t\t MeshGenerator instance created.");
 }
@@ -25,7 +25,7 @@ MeshGenerator::~MeshGenerator()
 bool MeshGenerator::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 
@@ -53,7 +53,7 @@ bool MeshGenerator::Terminate()
   return true;
 }
 
-std::shared_ptr<Mesh> MeshGenerator::GenerateMeshBlock(
+std::unique_ptr<Mesh> MeshGenerator::GenerateMeshBlock(
   dfloat width, dfloat height, dfloat length,
   bool bAverageNormals
 )
@@ -132,14 +132,14 @@ std::shared_ptr<Mesh> MeshGenerator::GenerateMeshBlock(
   };
 
   // Mesh
-  std::shared_ptr<Mesh> pBlockMesh = std::make_shared<Mesh>(nullptr);    
+  std::unique_ptr<Mesh> pBlockMesh = std::make_unique<Mesh>(nullptr);
   pBlockMesh->CreateMesh(blockVertices, blockIndices, bAverageNormals);
 
   return pBlockMesh;
 }
 
 
-std::shared_ptr<Mesh>  MeshGenerator::GenerateMeshQuad(
+std::unique_ptr<Mesh>  MeshGenerator::GenerateMeshQuad(
   dfloat width, dfloat height,
   bool bAverageNormals
 )
@@ -165,7 +165,7 @@ std::shared_ptr<Mesh>  MeshGenerator::GenerateMeshQuad(
   };
 
   // Instantiate Mesh instance.
-  std::shared_ptr<Mesh> pBlockMesh = std::make_shared<Mesh>(nullptr);    
+  std::unique_ptr<Mesh> pBlockMesh = std::make_unique<Mesh>(nullptr);
   pBlockMesh->CreateMesh(vertexArray, indexArray, bAverageNormals);
 
   return pBlockMesh;

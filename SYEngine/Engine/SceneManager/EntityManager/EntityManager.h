@@ -9,6 +9,11 @@
 #include "Primitive\Quad.h"
 #include "Primitive\Block.h"
 
+#include "DirectionalLight.h"
+#include "SpotLight.h"
+#include "Camera.h"
+
+
 
 
 
@@ -44,28 +49,59 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  Entity* InsertEntity(std::unique_ptr<Entity>&& pNewEntity);
+  Entity* CreateCamera(std::string cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch, float turnSpeed, float moveSpeed);
 
-  std::shared_ptr<Quad> CreateQuad(
+  Entity* CreateQuad(
     std::string entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height
   );
-  std::shared_ptr<Block> CreateBlock(
+  Entity* CreateBlock(
     std::string entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height, dfloat length,
     bool bIsStatic
   );
 
-  std::shared_ptr<WorldObject> CreateStaticModelFromFile(
+  Entity* CreateStaticModelFromFile(
     std::string entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     std::string filePath
   );
 
+  Entity* CreateDirectionalLight(
+    std::string entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    glm::vec3 lightColour, glm::vec3 lightIntensities,
+    glm::vec3 shadowMapSize,
+    glm::vec3 lightDirection
+  );
+
+  Entity* CreatePointLight(
+    std::string entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    glm::vec3 lightColour,
+    glm::vec3 lightIntensities,
+    glm::vec3 shadowMapSize,
+    glm::vec2 planeDimensions,
+    glm::vec3 coefficients
+  );
+
+  Entity* CreateSpotLight(
+    std::string entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    glm::vec3 lightColour,
+    glm::vec3 lightIntensities,
+    glm::vec3 shadowMapSize,
+    glm::vec2 planeDimensions,
+    glm::vec3 coefficients,
+    glm::vec3 lightDirection,
+    dfloat coneAngle
+  );
 
 private:
-  std::map<std::string, std::shared_ptr<Entity>> _entityList;
+  std::map<size_t, std::unique_ptr<Entity>> _entityList;
 };
 
 }

@@ -2,7 +2,7 @@
 
 using namespace SYE;
 
-Shader::Shader(std::shared_ptr<Entity> pEntity):
+Shader::Shader(Entity* pEntity):
   Component(pEntity),
   _ul_bIsSkeletonAnimated(0),
   shaderID(0), 
@@ -162,7 +162,7 @@ void Shader::SetDirectionalLight(DirectionalLight* dLight)
 }
 
 void Shader::SetPointLights(
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights, 
+  const std::unordered_map<size_t, Entity*>& pointLights,
   unsigned int textureUnit,
   int offset
 )
@@ -174,7 +174,7 @@ void Shader::SetPointLights(
   int i = 0;
   for (auto it : pointLights)
   {
-    std::shared_ptr<PointLight> pointLight = std::static_pointer_cast<PointLight>(it.second);
+    PointLight* pointLight = static_cast<PointLight*>(it.second);
 
     pointLight->UseLight(
       uniformPointLight[i].uniformAmbientIntensity,
@@ -196,7 +196,7 @@ void Shader::SetPointLights(
 }
 
 void Shader::SetSpotLights(
-  const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights, 
+  const std::unordered_map<size_t, Entity*>& spotLights,
   unsigned int textureUnit,
   int offset)
 {
@@ -206,7 +206,7 @@ void Shader::SetSpotLights(
   int i = 0;
   for (auto it : spotLights) {
 
-    std::shared_ptr<SpotLight> spotLight = std::static_pointer_cast<SpotLight>(it.second);
+    SpotLight* spotLight = static_cast<SpotLight*>(it.second);
 
     spotLight->UseLight(
       uniformSpotLight[i].uniformAmbientIntensity,

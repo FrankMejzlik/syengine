@@ -24,7 +24,7 @@ public:
 
   Window() = delete;
 
-  Window(std::shared_ptr<Entity> pEntity, GLsizei windowWidth, GLsizei WindowHeight);
+  Window(Entity* pEntity, GLsizei windowWidth, GLsizei WindowHeight);
   ~Window();
 
   int Initialize();

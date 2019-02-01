@@ -2,7 +2,7 @@
 
 using namespace SYE;
 
-Controller::Controller(std::shared_ptr<Entity> pEntity) :
+Controller::Controller(Entity* pEntity) :
   Component(pEntity)
 {
 

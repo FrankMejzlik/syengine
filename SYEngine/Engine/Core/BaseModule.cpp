@@ -21,9 +21,6 @@ BaseModule::BaseModule(BaseModule &parentModule):
 {}
 
 
-BaseModule::~BaseModule()
-{}
-
 void BaseModule::SetEngineApiPointer(const EngineApi* const pEngineApi)
 {
   _pEngineApi = pEngineApi;

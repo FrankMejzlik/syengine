@@ -8,7 +8,7 @@ SceneManager::SceneManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   
-  _subModules.insert(std::make_pair(ID_ENTITY_MANAGER, std::make_shared<EntityManager>(*this)));
+  _subModules.insert(std::make_pair(ID_ENTITY_MANAGER, std::make_unique<EntityManager>(*this)));
 
   DLog(eLogType::Success, "SceneManager instance created.");
 }
@@ -29,7 +29,7 @@ std::shared_ptr<Scene> SceneManager::CreateScene(std::string sceneName)
 {
   // Construct new scene instance.
   std::shared_ptr<Scene> pNewScene = std::make_shared<Scene>(
-    std::static_pointer_cast<EntityManager>(_subModules.find(ID_ENTITY_MANAGER)->second), 
+    ENTITY_MANAGER, 
     sceneName
   );
 
@@ -239,7 +239,7 @@ bool SceneManager::Initialize()
   // Class specific initialization
 
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 

@@ -31,7 +31,7 @@ class Shader:
 public:
   Shader() = delete;
 
-  Shader(std::shared_ptr<Entity> pEntity);
+  Shader(Entity* pEntity);
   
   void SetIsSkeletonAnimated(int newValue)
   {
@@ -80,12 +80,12 @@ public:
 
   void SetDirectionalLight(DirectionalLight* dLight);
   void SetPointLights(
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights, 
+    const std::unordered_map<size_t, Entity*>& pointLights, 
     unsigned int textureUnit,
     int offset
   );
   void SetSpotLights(
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights, 
+    const std::unordered_map<size_t, Entity*>& spotLights,
     unsigned int textureUnit,
     int offset
   );

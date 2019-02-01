@@ -16,9 +16,13 @@ class Collider :
 public:
   Collider() = delete;
   
-  Collider(std::shared_ptr<Entity> pEntity);
-  Collider(std::shared_ptr<Entity> pEntity, std::shared_ptr<Mesh> mesh,
-    glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, bool bIsStatic, bool bIsSolid);
+  Collider(Entity* pEntity);
+  Collider(
+    Entity* pEntity, 
+    std::unique_ptr<Mesh>&& mesh,
+    glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, 
+    bool bIsStatic, bool bIsSolid
+  );
   virtual ~Collider();
 
   void SetOwnerEntityPosition(dfloat x, dfloat y, dfloat z)
@@ -76,7 +80,7 @@ protected:
   glm::vec3 _absoluteRotation;
   glm::vec3 _absoluteScale;
 
-  std::shared_ptr<Mesh> _pMesh;
+  std::unique_ptr<Mesh> _pMesh;
   bool _bIsStatic;
   bool _bIsSolid;
 

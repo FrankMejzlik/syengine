@@ -3,7 +3,7 @@
 
 
 WorldObject::WorldObject(
-  std::shared_ptr<ComponentManager> pComponentManager,
+  ComponentManager* pComponentManager,
   glm::vec3 positionVector, 
   glm::vec3 rotationVector, 
   glm::vec3 scaleVector,
@@ -15,7 +15,7 @@ WorldObject::WorldObject(
 
 
 WorldObject::WorldObject(
-  std::shared_ptr<ComponentManager> pComponentManager,
+  ComponentManager* pComponentManager,
   glm::vec3 positionVector, 
   glm::vec3 rotationVector, 
   glm::vec3 scaleVector,
@@ -25,9 +25,7 @@ WorldObject::WorldObject(
   WorldEntity(pComponentManager, positionVector, rotationVector, scaleVector),
   _bIsStatic(bIsStatic)
 {
-
-  std::shared_ptr<Entity> pThis = std::make_shared<WorldObject>(*this);
-_pModel = pComponentManager->CreateModelFromFile(pThis, filePath);
+  _pModel = pComponentManager->CreateModelFromFile(this, filePath);
 }
 
 

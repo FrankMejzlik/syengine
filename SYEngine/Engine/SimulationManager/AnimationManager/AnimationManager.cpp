@@ -7,8 +7,8 @@ AnimationManager::AnimationManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
+  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AIManager>(this)));
+  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(this)));
 
   DLog(eLogType::Success, "\t AnimationManager instance created.");
 }
@@ -27,7 +27,7 @@ AnimationManager::~AnimationManager()
 bool AnimationManager::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 

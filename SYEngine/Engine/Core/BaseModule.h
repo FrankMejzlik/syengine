@@ -29,14 +29,15 @@ public:
   BaseModule(int magicNumber);
   // Constructor for other modules.
   BaseModule(BaseModule &parentModule);
-  virtual ~BaseModule();
+
+  virtual ~BaseModule() = default;
 
   void SetEngineApiPointer(const EngineApi* const pEngineApi);
 
 protected:
   BaseModule &_parentModule;
   const EngineApi* _pEngineApi;
-  std::map<int, std::shared_ptr<BaseModule>> _subModules;
+  std::map<int, std::unique_ptr<BaseModule>> _subModules;
 
 };
 

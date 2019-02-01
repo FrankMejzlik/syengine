@@ -14,8 +14,8 @@ class Texture:
 public:
   Texture() = delete;
 
-  Texture(std::shared_ptr<Entity> pEntity);
-  Texture(std::shared_ptr<Entity> pEntity, const char* const fileLocation);
+  Texture(Entity* pEntity);
+  Texture(Entity* pEntity, const char* const fileLocation);
 
   bool LoadTexture();
   void UseTexture();

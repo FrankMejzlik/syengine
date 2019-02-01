@@ -27,8 +27,8 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  std::shared_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
-  std::shared_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
+  std::unique_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
+  std::unique_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
 
 
 private:

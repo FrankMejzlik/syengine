@@ -8,7 +8,7 @@ class WorldObject:
 {
 public:
   WorldObject(
-    std::shared_ptr<ComponentManager> pComponentManager,
+    ComponentManager* pComponentManager,
     glm::vec3 positionVector, 
     glm::vec3 rotationVector, 
     glm::vec3 scaleVector,
@@ -16,7 +16,7 @@ public:
   );
   // Model from file contructor.
   WorldObject(
-    std::shared_ptr<ComponentManager> pComponentManager,
+    ComponentManager* pComponentManager,
     glm::vec3 positionVector,
     glm::vec3 rotationVector,
     glm::vec3 scaleVector,

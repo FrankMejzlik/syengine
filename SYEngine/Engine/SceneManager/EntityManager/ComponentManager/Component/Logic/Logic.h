@@ -9,7 +9,7 @@ class Logic :
 public:
   Logic() = delete;
 
-  Logic(std::shared_ptr<Entity> pEntity);
+  Logic(Entity* pEntity);
   virtual ~Logic();
 };
 

@@ -28,11 +28,11 @@ class Model:
 {
 public:
   Model() = delete;
-  Model(std::shared_ptr<Entity> pEntity);
-  virtual ~Model();
+  Model(Entity* pEntity);
+  virtual ~Model() = default;
 
   virtual void LoadModelFromFile(const std::string& fileName);
-  virtual void RenderModel(GLuint ul_modelToWorldMatrix, std::shared_ptr<Entity> pOwner);
+  virtual void RenderModel(GLuint ul_modelToWorldMatrix, Entity* pOwner);
   virtual void ClearModel();
 
 

@@ -60,7 +60,7 @@ void VertexBoneData::Reset()
 }
 
 /* Init */
-SkeletalModel::SkeletalModel(std::shared_ptr<Entity> pEntity):
+SkeletalModel::SkeletalModel(Entity* pEntity):
   Model(pEntity)
 {
   m_Importer = new Assimp::Importer();

@@ -34,8 +34,6 @@ public:
   void RenderScene(std::shared_ptr<Scene> pScene, std::shared_ptr<Window> pTargetWindow);
 
 private:
-  std::map<int, std::shared_ptr<BaseModule>> _subModules;
-
   void CreateShaders();
 
   std::vector<std::shared_ptr<Shader>> _shaders;
@@ -58,23 +56,23 @@ private:
 
   void DirectionalShadowMapPass
   (
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels,
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& directionalLights
+    const std::unordered_map<size_t, Entity*>& activeModels,
+    const std::unordered_map<size_t, Entity*>& directionalLights
   );
   void OmniShadowMapPass
   (
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels,
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights,
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights
+    const std::unordered_map<size_t, Entity*>& activeModels,
+    const std::unordered_map<size_t, Entity*>& pointLights,
+    const std::unordered_map<size_t, Entity*>& spotLights
   );
 
   void FinalMainRenderPass
   (
     std::shared_ptr<Scene> pScene, 
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& activeModels,
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& directonalLights,
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& pointLights,
-    const std::unordered_map<size_t, std::shared_ptr<Entity>>& spotLights
+    const std::unordered_map<size_t, Entity*>& activeModels,
+    const std::unordered_map<size_t, Entity*>& directonalLights,
+    const std::unordered_map<size_t, Entity*>& pointLights,
+    const std::unordered_map<size_t, Entity*>& spotLights
   );
 
 

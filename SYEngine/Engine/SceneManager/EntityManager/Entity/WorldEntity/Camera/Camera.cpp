@@ -10,7 +10,7 @@ namespace SYE
 {
 
 Camera::Camera(
-  std::shared_ptr<ComponentManager> pComponentManager,
+  ComponentManager* pComponentManager,
   glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch,
   GLfloat startMoveSpeed, GLfloat startTurnSpeed
 ) :

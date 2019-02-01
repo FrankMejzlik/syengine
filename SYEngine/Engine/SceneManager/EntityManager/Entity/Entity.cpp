@@ -5,7 +5,7 @@
 using namespace SYE;
 
 Entity::Entity(
-  std::shared_ptr<ComponentManager> pComponentManager,
+  ComponentManager* pComponentManager,
   glm::vec3 positionVector,
   glm::vec3 rotationVector,
   glm::vec3 scaleVector
@@ -95,17 +95,17 @@ const glm::vec3& Entity::GetScaleVectorRefConst() const
   return _scaleVector;
 }
 
-const std::shared_ptr<ComponentManager> Entity::GetComponentManager() const
+ComponentManager* Entity::GetComponentManager()
 {
   return _pComponentManager;
 }
 
-const std::unordered_map<size_t, std::shared_ptr<Collider>> &Entity::GetColliders() const
+const std::unordered_map<size_t, Collider*> &Entity::GetColliders() const
 {
   return _colliders;
 }
 
-std::shared_ptr<Collider> Entity::AddCollider(std::shared_ptr<Collider> pNewCollider)
+Collider* Entity::AddCollider(Collider* pNewCollider)
 {
   _colliders.insert(std::make_pair(pNewCollider->GetGuid(), pNewCollider));
 
@@ -114,13 +114,13 @@ std::shared_ptr<Collider> Entity::AddCollider(std::shared_ptr<Collider> pNewColl
   return pNewCollider; 
 }
 
-std::shared_ptr<Collider> Entity::DeleteCollider(std::shared_ptr<Collider> pNewCollider)
+bool Entity::DeleteCollider(Collider* pNewCollider)
 {
-  _colliders.erase(pNewCollider->GetGuid());
+  auto result = _colliders.erase(pNewCollider->GetGuid());
 
   if (_colliders.empty())
   {
     _bHasColliders = false;
   }
-  return pNewCollider; 
+  return true; 
 }

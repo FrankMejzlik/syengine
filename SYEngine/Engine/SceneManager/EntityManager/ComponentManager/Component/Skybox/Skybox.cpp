@@ -3,7 +3,7 @@
 using namespace SYE;
 
 
-Skybox::Skybox(std::shared_ptr<Entity> pEntity,std::vector<std::string> faceLocation):
+Skybox::Skybox(Entity* pEntity,std::vector<std::string> faceLocation):
   Component(pEntity)
 {
   // Shader setup

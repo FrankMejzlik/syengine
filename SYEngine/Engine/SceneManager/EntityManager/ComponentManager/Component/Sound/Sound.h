@@ -9,7 +9,7 @@ class Sound:
 {
 public:
   Sound() = delete;
-  Sound(std::shared_ptr<Entity> pEntity);
+  Sound(Entity* pEntity);
   ~Sound();
 };
 

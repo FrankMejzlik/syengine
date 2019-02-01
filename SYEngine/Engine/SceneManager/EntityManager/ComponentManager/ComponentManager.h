@@ -34,15 +34,13 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-
-  std::shared_ptr<TextureManager> GetTextureManager() const { return _pTextureManager;  }
+  TextureManager* GetTextureManager() const { return _pTextureManager;  }
   
+  std::unique_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
+  std::unique_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
 
-  std::shared_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
-  std::shared_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
-
-  std::shared_ptr<Collider> CreateBoxCollider(
-    std::shared_ptr<Entity> pEntity,
+  Component* CreateBoxCollider(
+    Entity* pEntity,
     glm::vec3 position, glm::vec3 rotation, glm::vec3 scale,
     dfloat width,
     dfloat heigt,
@@ -50,19 +48,30 @@ public:
     bool bIsStatic
   );
 
-  std::shared_ptr<Model> CreateModel(
-    std::shared_ptr<Entity> pEntity,
-    std::shared_ptr<Mesh> pQuadMesh,
-    std::shared_ptr<Texture> pTexture = nullptr, 
-    std::shared_ptr<Shininess> pShininess = nullptr
+  Component* CreateModel(
+    Entity* pEntity,
+    std::unique_ptr<Mesh>&& pQuadMesh,
+    std::unique_ptr<Texture>&& pTexture = nullptr,
+    std::unique_ptr<Shininess>&& pShininess = nullptr
   );
 
-  std::shared_ptr<Model> CreateModelFromFile(
-    std::shared_ptr<Entity> pEntity,
+  Component* CreateModelFromFile(
+    Entity* pEntity,
     std::string filePath
   );
 
-  std::shared_ptr<TextureManager> _pTextureManager;
+private:
+  Component* InsertComponent(std::unique_ptr<Component>&& pNewComponent);
+
+
+private:
+
+
+
+  TextureManager* _pTextureManager;
+
+  std::map<size_t, std::unique_ptr<Component>> _components;
+
 };
 
 } // namespace SYE

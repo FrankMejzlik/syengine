@@ -3,7 +3,7 @@
 
 
 Quad::Quad(
-  std::shared_ptr<ComponentManager> pComponentManager,
+  ComponentManager* pComponentManager,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   bool bIsStatic,
   dfloat width, dfloat height
@@ -11,16 +11,15 @@ Quad::Quad(
   WorldObject(pComponentManager, positionVector, rotationVector, scaleVector, bIsStatic)
 {
   // Generate appropriate mesh for this.
-  std::shared_ptr<Mesh> pQuadMesh = pComponentManager->GenerateMeshQuad(width, height);
+  std::unique_ptr<Mesh> pQuadMesh = pComponentManager->GenerateMeshQuad(width, height);
 
 
-  std::shared_ptr<Texture> pTexture = pComponentManager->GetTextureManager()->GetDefaultTexture();
+  std::unique_ptr<Texture> pTexture = pComponentManager->GetTextureManager()->GetDefaultTexture();
 
   // Create new model from this Mesh.
   // No Texture nor Shiniess provided so it will be created with default ones.
-  std::shared_ptr<Entity> pThis = std::make_shared<Quad>(*this);
   
-  _pModel = pComponentManager->CreateModel(pThis, pQuadMesh, pTexture);
+  _pModel = pComponentManager->CreateModel(this, std::move(pQuadMesh), std::move(pTexture));
 
 }
 

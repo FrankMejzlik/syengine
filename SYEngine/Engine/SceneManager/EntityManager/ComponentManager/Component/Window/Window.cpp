@@ -7,7 +7,7 @@
 
 using namespace SYE;
 
-Window::Window(std::shared_ptr<Entity> pEntity, GLsizei windowWidth = 800, GLsizei windowHeight = 600) :
+Window::Window(Entity* pEntity, GLsizei windowWidth = 800, GLsizei windowHeight = 600) :
   Component(pEntity),
   bufferWidth(windowWidth), bufferHeight(windowHeight), xChange(0.0f), yChange(0.0f), mouseFirstMoved(true)
 {

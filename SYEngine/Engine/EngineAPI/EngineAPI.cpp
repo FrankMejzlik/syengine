@@ -34,7 +34,7 @@ EngineApi::~EngineApi()
 bool EngineApi::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 
@@ -76,7 +76,7 @@ void EngineApi::ProcessEngineQueue()
     _engineQueue.pop();
 
     auto data = cmd.GetFloatData();
-    std::shared_ptr<Entity> newEntity;
+    Entity* newEntity;
     std::vector<uint64_t> dataOut;
     std::vector<std::string> stringData;
 

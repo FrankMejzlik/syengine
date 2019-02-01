@@ -2,7 +2,7 @@
 
 using namespace SYE;
 
-Logic::Logic(std::shared_ptr<Entity> pEntity):
+Logic::Logic(Entity* pEntity):
   Component(pEntity)
 {
 

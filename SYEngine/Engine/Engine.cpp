@@ -13,17 +13,17 @@ Engine::Engine(ProcessInstance* pInstance) :
 #if RUN_ENGINE_API
 
   // Insert EngineAPI instance
-  _subModules.insert(std::make_pair(ID_ENGINE_API, std::make_shared<EngineApi>(*this)));
+  _subModules.insert(std::make_pair(ID_ENGINE_API, std::make_unique<EngineApi>(*this)));
   // Set engine pointer to this.
-  SetEngineApiPointer(std::static_pointer_cast<EngineApi>(_subModules.find(ID_ENGINE_API)->second).get());
+  SetEngineApiPointer(static_cast<EngineApi*>(_subModules.find(ID_ENGINE_API)->second.get()));
 
 #endif
 
-  _subModules.insert(std::make_pair(ID_SCENE_MANAGER, std::make_shared<SceneManager>(*this)));
-  _subModules.insert(std::make_pair(ID_INPUT_MANAGER, std::make_shared<InputManager>(*this)));
-  _subModules.insert(std::make_pair(ID_NETWORK_MANAGER, std::make_shared<NetworkManager>(*this)));
-  _subModules.insert(std::make_pair(ID_SIMULATION_MANAGER, std::make_shared<SimulationManager>(*this)));
-  _subModules.insert(std::make_pair(ID_OUTPUT_MANAGER, std::make_shared<OutputManager>(*this)));
+  _subModules.insert(std::make_pair(ID_SCENE_MANAGER, std::make_unique<SceneManager>(*this)));
+  _subModules.insert(std::make_pair(ID_INPUT_MANAGER, std::make_unique<InputManager>(*this)));
+  _subModules.insert(std::make_pair(ID_NETWORK_MANAGER, std::make_unique<NetworkManager>(*this)));
+  _subModules.insert(std::make_pair(ID_SIMULATION_MANAGER, std::make_unique<SimulationManager>(*this)));
+  _subModules.insert(std::make_pair(ID_OUTPUT_MANAGER, std::make_unique<OutputManager>(*this)));
 
   DLog(eLogType::Success, "Engine instance created.");
 }
@@ -41,7 +41,7 @@ Engine::~Engine()
 bool Engine::Initialize()
 {
   // Call initialize on all submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     // Initialize module.
     (*it).second->Initialize();
@@ -175,7 +175,7 @@ bool Engine::Run()
 bool Engine::Terminate()
 {
   // Terminate all modules
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     if (!(*it).second->Terminate())
     {
@@ -192,7 +192,13 @@ bool Engine::Terminate()
   return true;
 }
 
-std::shared_ptr<EngineApi> Engine::GetEngineAPI()
+EngineApi* Engine::GetEngineAPIPtr() const
 {
-  return ENGINE_API;
+  return static_cast<EngineApi*>(_subModules.find(ID_ENGINE_API)->second.get());
 }
+
+SceneManager* Engine::GetSceneManagerPtr() const
+{
+  return static_cast<SceneManager*>(_subModules.find(ID_SCENE_MANAGER)->second.get());
+}
+

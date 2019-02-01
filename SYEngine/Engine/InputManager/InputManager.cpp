@@ -4,8 +4,8 @@ InputManager::InputManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_KEYBOARD_MANAGER, std::make_shared<KeyboardManager>(*this)));
-  _subModules.insert(std::make_pair(ID_MOUSE_MANAGER, std::make_shared<MouseManager>(*this)));
+  _subModules.insert(std::make_pair(ID_KEYBOARD_MANAGER, std::make_unique<KeyboardManager>(*this)));
+  _subModules.insert(std::make_pair(ID_MOUSE_MANAGER, std::make_unique<MouseManager>(*this)));
   
 
   DLog(eLogType::Success, "InputManager instance created.");
@@ -101,7 +101,7 @@ bool InputManager::Initialize()
   // Class specific initialization
 
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 

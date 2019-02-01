@@ -7,7 +7,7 @@ MeshManager::MeshManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_shared<MeshGenerator>(*this)));
+  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_unique<MeshGenerator>(*this)));
 
   DLog(eLogType::Success, "\t\t\t MeshManager instance created.");
 }
@@ -26,7 +26,7 @@ MeshManager::~MeshManager()
 bool MeshManager::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 
@@ -54,18 +54,18 @@ bool MeshManager::Terminate()
   return true;
 }
 
-std::shared_ptr<Mesh> MeshManager::GenerateMeshQuad(dfloat width, dfloat height)
+std::unique_ptr<Mesh> MeshManager::GenerateMeshQuad(dfloat width, dfloat height)
 {
-  std::shared_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshQuad(width, height, false);
+  std::unique_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshQuad(width, height, false);
   
   // TODO store Mesh
 
   return newMesh;
 }
 
-std::shared_ptr<Mesh> MeshManager::GenerateMeshBlock(dfloat width, dfloat height, dfloat length)
+std::unique_ptr<Mesh> MeshManager::GenerateMeshBlock(dfloat width, dfloat height, dfloat length)
 {
-  std::shared_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshBlock(width, height, length, false);
+  std::unique_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshBlock(width, height, length, false);
 
   // TODO store Mesh
 

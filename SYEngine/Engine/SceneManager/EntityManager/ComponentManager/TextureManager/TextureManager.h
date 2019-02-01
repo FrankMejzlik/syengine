@@ -21,10 +21,10 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  std::shared_ptr<Texture> GetDefaultTexture();
+  std::unique_ptr<Texture> GetDefaultTexture() const;
 
 private:
-  std::shared_ptr<Texture> _defaultTexture;
+
   
 };
 

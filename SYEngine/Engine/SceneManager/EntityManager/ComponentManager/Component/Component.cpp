@@ -3,7 +3,7 @@
 using namespace SYE;
 
 
-Component::Component(std::shared_ptr<Entity> pEntity) :
+Component::Component(Entity* pEntity) :
   _pEntity(pEntity)
 {
 }

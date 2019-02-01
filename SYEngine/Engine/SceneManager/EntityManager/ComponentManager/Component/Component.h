@@ -17,12 +17,17 @@ class Component:
 public:
   Component() = delete;
 
-  Component(std::shared_ptr<Entity> pEntity);
+  Component(Entity* pEntity);
   ~Component();
+
+  Entity* GetOwner() const
+  {
+    return _pEntity;
+  };
 
 protected:
   // Pointer to Entity that owns this Component.
-  std::shared_ptr<Entity> _pEntity;
+  Entity* _pEntity;
   // Connected Components.
   std::vector<std::shared_ptr<Component>> _connectedComponents;
 

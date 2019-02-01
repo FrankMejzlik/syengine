@@ -29,13 +29,13 @@ public:
    * shiny: 1.0f, 512
    * dull: 0.3f  4
    */
-  Shininess(std::shared_ptr<Entity> pEntity):
+  Shininess(Entity* pEntity):
     Component(pEntity),
     _specularIntensity(0.3f), _shininessIntensity(4)
   {}
 
   // Parametrized constructor.
-  Shininess(std::shared_ptr<Entity> pEntity, dfloat specularIntensity, dfloat shininessIntensity):
+  Shininess(Entity* pEntity, dfloat specularIntensity, dfloat shininessIntensity):
     Component(pEntity),
     _specularIntensity(specularIntensity), _shininessIntensity(shininessIntensity)
   {}
@@ -69,7 +69,7 @@ public:
   /**
    * Adds default Texture and Shininess.
    */
-  Material(std::shared_ptr<Entity> pEntity);
+  Material(Entity* pEntity);
   ~Material();
 
   /**

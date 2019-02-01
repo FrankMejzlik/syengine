@@ -16,13 +16,16 @@
 
 using namespace SYE;
 
-Texture::Texture(std::shared_ptr<Entity> pEntity):
+Texture::Texture(Entity* pEntity):
   Component(pEntity)
 {
 
 }
 
-Texture::Texture(std::shared_ptr<Entity> pEntity, const char* const fileLocation):
+Texture::Texture(
+  Entity* pEntity, 
+  const char* const fileLocation
+):
   Component(pEntity),
   textureID(0), width(0), height(0), bitDepth(0)
 {

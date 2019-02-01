@@ -104,13 +104,8 @@ public:
   bool Run();
   bool Terminate();
 
-  std::shared_ptr<EngineApi> GetEngineAPI();
-
-
-  std::shared_ptr<SceneManager> GetSceneManager() const
-  {
-    return std::static_pointer_cast<SceneManager>(_subModules.find(ID_SCENE_MANAGER)->second);
-  }
+  EngineApi* GetEngineAPIPtr() const;
+  SceneManager* GetSceneManagerPtr() const;
 
 private:
   // Instance that this Engine is running in.

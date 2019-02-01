@@ -22,7 +22,7 @@ public:
   /**
    * Generates mesh for block.
    */
-  std::shared_ptr<Mesh> GenerateMeshBlock(
+  std::unique_ptr<Mesh> GenerateMeshBlock(
     dfloat width, dfloat height, dfloat length,
     bool bAverageNormals
   );
@@ -30,7 +30,7 @@ public:
   /**
    * Generates mesh for quad.
    */
-  std::shared_ptr<Mesh> GenerateMeshQuad(
+  std::unique_ptr<Mesh> GenerateMeshQuad(
     dfloat width, dfloat height,
     bool bAverageNormals
   );

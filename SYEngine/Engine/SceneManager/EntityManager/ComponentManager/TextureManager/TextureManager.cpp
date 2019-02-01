@@ -6,8 +6,8 @@ TextureManager::TextureManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
+  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AIManager>(this)));
+  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(this)));
 
   // Load texture.
   //_defaultTexture->LoadTextureA();
@@ -29,7 +29,7 @@ TextureManager::~TextureManager()
 bool TextureManager::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 
@@ -58,12 +58,10 @@ bool TextureManager::Terminate()
   return true;
 }
 
-std::shared_ptr<Texture> TextureManager::GetDefaultTexture() 
+std::unique_ptr<Texture> TextureManager::GetDefaultTexture() const
 {
-  if (!_defaultTexture) {
-     _defaultTexture = std::make_shared<Texture>(nullptr, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
-    _defaultTexture->LoadTexture();
-  }
+  std::unique_ptr<Texture> _defaultTexture = std::make_unique<Texture>(nullptr, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+  _defaultTexture->LoadTexture();
 
   return _defaultTexture;
 }

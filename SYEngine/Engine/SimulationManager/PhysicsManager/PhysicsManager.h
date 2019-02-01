@@ -57,7 +57,7 @@ public:
     for (auto && it : colliders)
     {
 
-      std::shared_ptr<Collider> collider = it.second;
+      Collider* collider = it.second;
 
       std::vector<GLfloat> vertices = collider->GetVertices();
       std::vector<unsigned int> indices = collider->GetIndices();
@@ -135,7 +135,7 @@ public:
       
       auto newRb = createRigidBody(mass, transform, trimesh, btVector4(0, 0, 1, 1));
       newRb->setUserIndex(static_cast<int>(collider->GetGuid()));
-      newRb->setUserPointer(collider.get());
+      newRb->setUserPointer(collider);
     }
 
   }

@@ -6,11 +6,11 @@ MaterialManager::MaterialManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_shared<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_shared<LogicManager>(this)));
+  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AIManager>(this)));
+  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(this)));
   
-  //_genericMaterials.insert(std::make_pair(std::string("shiny_material"), std::make_shared<Material>(1.0f, 512)));
-  //_genericMaterials.insert(std::make_pair(std::string("dull_material"), std::make_shared<Material>(0.3f, 4)));
+  //_genericMaterials.insert(std::make_pair(std::string("shiny_material"), std::make_unique<Material>(1.0f, 512)));
+  //_genericMaterials.insert(std::make_pair(std::string("dull_material"), std::make_unique<Material>(0.3f, 4)));
 
   DLog(eLogType::Success, "\t\t\t MaterialManager instance created.");
 }
@@ -29,7 +29,7 @@ MaterialManager::~MaterialManager()
 bool MaterialManager::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::shared_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 
