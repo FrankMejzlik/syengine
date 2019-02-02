@@ -48,14 +48,9 @@ void SpotLight::UseLight(
   glUniform1f(ambientIntensityLocation, _lightIntensities.x);
   glUniform1f(diffuseIntensityLocation, _lightIntensities.y);
 
-  if (spotsAreOn)
-  {
-    glUniform3f(positionLocation, _positionVector.x, _positionVector.y, _positionVector.z);
-  }
-  else
-  {
-    glUniform3f(positionLocation, 1000.0, 1000.0, 1000.0);
-  }
+
+  glUniform3f(positionLocation, _positionVector.x, _positionVector.y, _positionVector.z);
+
   glUniform1f(constantLocation, _constant);
   glUniform1f(linearLocation, _linear);
   glUniform1f(exponentLocation, _exponent);

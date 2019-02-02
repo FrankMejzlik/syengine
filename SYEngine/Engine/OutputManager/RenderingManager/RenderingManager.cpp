@@ -200,7 +200,7 @@ void RenderingManager::OmniShadowMapPass
   // Process PointLights.
   for (auto it : pointLights)
   {
-    SpotLight* light = static_cast<SpotLight*>(it.second);
+    PointLight* light = static_cast<PointLight*>(it.second);
 
     // Setup viewport same as frame buffer
     glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());

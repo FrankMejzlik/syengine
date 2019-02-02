@@ -111,6 +111,7 @@ Entity* EntityManager::CreateBlock(
     true, // Is non-animated.
     width, height, length
     );
+
   // Set name of Entity.
   newEntity->SetEntityName(entityName);
 

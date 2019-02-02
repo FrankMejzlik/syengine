@@ -45,14 +45,7 @@ void PointLight::UseLight(
 {
   glUniform3f(ambientColourLocation, _colourVector.x, _colourVector.y, _colourVector.z);
 
-  if (pointsAreOn)
-  {
-    glUniform3f(positionLocation, _positionVector.x, _positionVector.y, _positionVector.z);
-  }
-  else
-  {
-    glUniform3f(positionLocation, 1000.0, 1000.0, 1000.0);
-  }
+  glUniform3f(positionLocation, _positionVector.x, _positionVector.y, _positionVector.z);
   
   glUniform1f(ambientIntensityLocation, _lightIntensities.x);
   glUniform1f(diffuseIntensityLocation, _lightIntensities.y);

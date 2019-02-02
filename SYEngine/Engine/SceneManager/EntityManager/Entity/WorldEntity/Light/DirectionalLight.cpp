@@ -20,6 +20,9 @@ DirectionalLight::DirectionalLight(
   ),
   _lightDirectionVector(lightDirectionVector)  
 {
+
+  _lightDirectionVector = lightDirectionVector;
+
   // Calculate projection matrix for this light
   // Directional light uses orthogonal projection
   // TODO: Make modifiable values.
