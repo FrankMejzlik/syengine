@@ -3,22 +3,20 @@
 
 using namespace SYE;
 
-Engine::Engine(ProcessInstance* pInstance) :
+Engine::Engine(ProcessInstance* pInstance) noexcept :
   BaseModule(MAGIC_BASE_MODULE_NUMBER), // Identify as root module.
   _pInstance(pInstance) // Save OS instance handle.
 {
-  /*
-    Whatever modules are pushed into _subModules hasp map are loaded and initialized.
-  */
 #if RUN_ENGINE_API
 
-  // Insert EngineAPI instance
+  // Insert EngineAPI instance.
   _subModules.insert(std::make_pair(ID_ENGINE_API, std::make_unique<EngineApi>(*this)));
   // Set engine pointer to this.
   SetEngineApiPointer(static_cast<EngineApi*>(_subModules.find(ID_ENGINE_API)->second.get()));
 
 #endif
 
+  // Instantiate submodules.
   _subModules.insert(std::make_pair(ID_SCENE_MANAGER, std::make_unique<SceneManager>(*this)));
   _subModules.insert(std::make_pair(ID_INPUT_MANAGER, std::make_unique<InputManager>(*this)));
   _subModules.insert(std::make_pair(ID_NETWORK_MANAGER, std::make_unique<NetworkManager>(*this)));
@@ -28,7 +26,7 @@ Engine::Engine(ProcessInstance* pInstance) :
   DLog(eLogType::Success, "Engine instance created.");
 }
 
-Engine::~Engine()
+Engine::~Engine() noexcept
 {
   if (GetModuleState() != eModuleState::Null)
   {
@@ -86,9 +84,7 @@ bool Engine::Run()
 
   dfloat deltaTime = 0.0f;
 
-  bool show_demo_window = true;
-  bool show_another_window = false;
-  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+  
 
   // Main game loop.
   while (_engineContext.GetBShouldRun())
@@ -101,66 +97,17 @@ bool Engine::Run()
     // Save now time for next frame calculation.
     prev = std::chrono::high_resolution_clock::now();
 
-    //DLog(eLogType::Error, "1: %f", deltaTime);
-
 
     glfwPollEvents();
     pScene->GetEditorCamera()->KeyControl(pMainWindow, deltaTime);
     pScene->GetEditorCamera()->MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
     pScene->GetEditorCamera()->MouseKeyControl(pMainWindow->GetMouseKeys(), deltaTime);
 
-    // Start the Dear ImGui frame
-    ImGuiOpenGlWrapperNewFrame();
-    ImGuiWrapper_NewFrame();
-    ImGui::NewFrame();
+    // Do ImGUI stuff.
+    ProcessImGui();
 
-    if (show_demo_window)
-      ImGui::ShowDemoWindow(&show_demo_window);
-
-    {
-      static float f = 0.0f;
-      static int counter = 0;
-
-      ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-      ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-      ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-      ImGui::Checkbox("Another Window", &show_another_window);
-
-      ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-      ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-      if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-        counter++;
-      ImGui::SameLine();
-      ImGui::Text("counter = %d", counter);
-
-      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-      ImGui::End();
-    }
-
-    // 3. Show another simple window.
-    if (show_another_window)
-    {
-      ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-      ImGui::Text("Hello from another window!");
-      if (ImGui::Button("Close Me"))
-        show_another_window = false;
-      ImGui::End();
-    }
-
-
-    // Main game loop pipeline.
-    
-    ENGINE_API->ProcessEngineQueue();
-
-    SCENE_MANAGER->ProcessScene(deltaTime, pScene);
-    INPUT_MANAGER->ProcessScene(deltaTime, pScene);
-    NETWORK_MANAGER->ProcessScene(deltaTime, pScene);
-    LOGIC_MANAGER->ProcessScene(deltaTime, pScene);
-    SIMULATION_MANAGER->ProcessScene(deltaTime, pScene);
-    OUTPUT_MANAGER->ProcessScene(deltaTime, pScene, pMainWindow);
-
+    // Main frame pipeline.
+    ProcessFrame(deltaTime, pScene, pMainWindow);
   }
 
   // Send Command to terminate Editor
@@ -173,6 +120,53 @@ bool Engine::Run()
     return false;
   }
   return true;
+}
+
+void Engine::ProcessImGui()
+{
+  bool show_demo_window = true;
+  bool show_another_window = false;
+  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+  // Start the Dear ImGui frame
+  ImGuiOpenGlWrapperNewFrame();
+  ImGuiWrapper_NewFrame();
+  ImGui::NewFrame();
+
+  if (show_demo_window)
+    ImGui::ShowDemoWindow(&show_demo_window);
+
+  {
+    static float f = 0.0f;
+    static int counter = 0;
+
+    ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+
+    ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+    ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+    ImGui::Checkbox("Another Window", &show_another_window);
+
+    ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+    ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+    if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+      counter++;
+    ImGui::SameLine();
+    ImGui::Text("counter = %d", counter);
+
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::End();
+  }
+
+  // 3. Show another simple window.
+  if (show_another_window)
+  {
+    ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+    ImGui::Text("Hello from another window!");
+    if (ImGui::Button("Close Me"))
+      show_another_window = false;
+    ImGui::End();
+  }
 }
 
 bool Engine::Terminate()
@@ -195,7 +189,27 @@ bool Engine::Terminate()
   return true;
 }
 
-EngineApi* Engine::GetEngineAPIPtr() const
+void Engine::ProcessFrame(dfloat deltaTime, Scene* pScene, Window* pMainWindow)
+{
+  ENGINE_API->ProcessEngineQueue();
+
+  SCENE_MANAGER->ProcessScene(deltaTime, pScene);
+  INPUT_MANAGER->ProcessScene(deltaTime, pScene);
+  NETWORK_MANAGER->ProcessScene(deltaTime, pScene);
+  LOGIC_MANAGER->ProcessScene(deltaTime, pScene);
+  SIMULATION_MANAGER->ProcessScene(deltaTime, pScene);
+  OUTPUT_MANAGER->ProcessScene(deltaTime, pScene, pMainWindow);
+
+  // Process all warnings, errors and critical errors that has occured during this frame and handle them.
+  CheckModuleStates();
+}
+
+void Engine::CheckModuleStates()
+{
+  // TODO: Implement.
+}
+
+EngineApi* Engine::GetEngineApiPtr() const
 {
   return static_cast<EngineApi*>(_subModules.find(ID_ENGINE_API)->second.get());
 }

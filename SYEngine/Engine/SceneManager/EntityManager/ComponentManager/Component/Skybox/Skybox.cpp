@@ -1,3 +1,6 @@
+
+#define STB_IMAGE_IMPLEMENTATION
+
 #include "Skybox.h"
 
 using namespace SYE;

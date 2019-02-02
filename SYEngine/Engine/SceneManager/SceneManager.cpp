@@ -96,12 +96,10 @@ Scene* SceneManager::LoadInitialScene()
 {
   DLog(eLogType::Info, "Loading initial test scene.");
 
+  // Create new Scene instance.
   Scene* pNewScene = CreateScene(std::string("initialScene"));
 
-  // Insert test Entities into scene here.
-
   // Create main camera.
-
   pNewScene->CreateCamera(
     std::string("main_camera"), glm::vec3(10.0f, 10.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), -120.0f, -45.0f
   );
