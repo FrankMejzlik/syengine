@@ -7,7 +7,6 @@
  */
 
 #include <Windows.h>
-#undef APIENTRY
 #include <cstdio>
 #include <exception>
 #include <string>
@@ -16,7 +15,7 @@
 #include "config_engine.h"
 
 #if LOG_DEV
-  #define DLog(type, format, ...)  Logger::GetInstance()->Log(true, type, format, __VA_ARGS__); 
+  #define DLog(type, format, ...)  Logger::GetInstance()->Log(true, type, __FILE__, __LINE__, format, __VA_ARGS__); 
 #else 
   #define DLog(type, format, ...)
 #endif
@@ -49,7 +48,7 @@ public:
   Logger() = delete;
 	static Logger* GetInstance();
 
-	void Log(bool showTimestamp, eLogType logType, const char* format, ...) const;
+	void Log(bool showTimestamp, eLogType logType, std::string_view filename, int lineNumber, const char* format, ...) const;
 
 private:
 	static Logger* _pInstance;

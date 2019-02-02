@@ -12,9 +12,6 @@
 #include <queue>
 #include <map>
 
-
-
-
 // External includes.
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -32,7 +29,6 @@
 #include "macros.h"
 #include "config_engine.h"
 #include "config_world.h"
-
 
 #include "IModuleState.h"
 #include "IErrorLogging.h"
@@ -54,12 +50,6 @@
 
 
 // =============
-
-
-
-
-
-
 
 #include "EngineContext.h"
 #include "GameContext.h"

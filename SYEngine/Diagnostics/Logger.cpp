@@ -23,7 +23,7 @@ Logger* Logger::GetInstance()
 	return Logger::_pInstance;
 }
 
-void Logger::Log(bool showTimestamp, eLogType logType,const char* format, ...) const
+void Logger::Log(bool showTimestamp, eLogType logType, std::string_view filename, int lineNumber, const char* format, ...) const
 {
   // Define output file
   FILE* hOut = stdout;
@@ -68,6 +68,9 @@ void Logger::Log(bool showTimestamp, eLogType logType,const char* format, ...) c
   va_start(ap, format);
   vfprintf(hOut, format, ap);
   va_end(ap);
+
+  printf("| %s:%d", filename.data(), lineNumber);
+
   printf("\n");
 
 	Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::White);

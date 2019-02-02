@@ -161,8 +161,6 @@ bool Engine::Run()
     SIMULATION_MANAGER->ProcessScene(deltaTime, pScene);
     OUTPUT_MANAGER->ProcessScene(deltaTime, pScene, pMainWindow);
 
-
-
   }
 
   // Send Command to terminate Editor
