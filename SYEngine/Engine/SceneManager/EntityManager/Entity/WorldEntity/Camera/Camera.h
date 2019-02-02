@@ -1,13 +1,13 @@
 #pragma once
 
 #include <GL\glew.h>
+#include <GLFW\glfw3.h>
+#undef APIENTRY
 
-#pragma warning(push, 3)
+#pragma warning(push, 1)
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 #pragma warning(pop)
-
-#include <GLFW\glfw3.h>
 
 #include "WorldEntity.h"
 
@@ -34,7 +34,7 @@ public:
   );
   ~Camera();
 
-  void KeyControl(std::shared_ptr<Window> pMainWindow, GLfloat deltaTime);
+  void KeyControl(Window* pMainWindow, GLfloat deltaTime);
 	void MouseControl(GLfloat xChange, GLfloat yChange);
   void MouseKeyControl(bool* keys, GLfloat deltaTime);
 

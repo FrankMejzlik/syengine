@@ -30,8 +30,8 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  void ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene, std::shared_ptr<Window> pTargetWindow);
-  std::shared_ptr<Window> ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height);
+  void ProcessScene(dfloat deltaTime, Scene* pScene, Window* pTargetWindow);
+  Window* ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height);
 
 
 private:

@@ -100,9 +100,6 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\EntityManager.cpp">
       <Filter>Engine\EntityManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Core\Abstract\IComponentState.cpp">
-      <Filter>Engine\Abstract</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Core\Abstract\IErrorLogging.cpp">
       <Filter>Engine\Abstract</Filter>
     </ClCompile>
@@ -318,9 +315,6 @@
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\EntityManager.h">
       <Filter>Engine\EntityManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Core\Abstract\IComponentState.h">
-      <Filter>Engine\Abstract</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Core\Abstract\IErrorLogging.h">
       <Filter>Engine\Abstract</Filter>

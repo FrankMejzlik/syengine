@@ -24,10 +24,10 @@ public:
   virtual bool Terminate() override;
 
 
-  std::shared_ptr<Window> ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height);
+  Window* ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height);
 
 private:
-  std::vector<std::shared_ptr<Window>> _activeWindows;
+  std::vector<std::unique_ptr<Window>> _windows;
 };
 
 }

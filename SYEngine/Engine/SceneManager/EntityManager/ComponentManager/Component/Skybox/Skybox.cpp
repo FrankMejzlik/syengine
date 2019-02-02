@@ -28,19 +28,19 @@ Skybox::Skybox(Entity* pEntity,std::vector<std::string> faceLocation):
     unsigned char* texData = stbi_load(faceLocation[i].c_str(), &width, &height, &bitDepth, 0);
     if (!texData)
     {
-      printf("Failed to find %s\n", faceLocation);
+      printf("Failed to find %s\n", faceLocation[i].c_str());
       return;
     }
 
     glTexImage2D(
-      GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+      static_cast<GLenum>(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i),
       0, // Mipmaps 
-      GL_RGB, // Data fomrat in GPU memory
+      static_cast<GLenum>(GL_RGB), // Data fomrat in GPU memory
       width,
       height,
       0,  // Legacy border
-      GL_RGB, // Type on input
-      GL_UNSIGNED_BYTE,
+      static_cast<GLenum>(GL_RGB), // Type on input
+      static_cast<GLenum>(GL_UNSIGNED_BYTE),
       texData
     );
     stbi_image_free(texData);

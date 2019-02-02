@@ -21,7 +21,7 @@ AudioManager::~AudioManager()
 bool AudioManager::Initialize()
 {
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t AudioManager instance initialized.");
   return true;
 }

@@ -21,7 +21,7 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  void ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene);
+  void ProcessScene(dfloat deltaTime, Scene* pScene);
 
 };
 

@@ -29,9 +29,9 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  std::shared_ptr<Window> ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height);
+  Window* ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height);
 
-  void RenderScene(std::shared_ptr<Scene> pScene, std::shared_ptr<Window> pTargetWindow);
+  void RenderScene(Scene* pScene, Window* pTargetWindow);
 
 private:
   void CreateShaders();
@@ -68,7 +68,7 @@ private:
 
   void FinalMainRenderPass
   (
-    std::shared_ptr<Scene> pScene, 
+    Scene* pScene, 
     const std::unordered_map<size_t, Entity*>& activeModels,
     const std::unordered_map<size_t, Entity*>& directonalLights,
     const std::unordered_map<size_t, Entity*>& pointLights,

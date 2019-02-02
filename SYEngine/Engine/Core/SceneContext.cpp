@@ -6,7 +6,7 @@ using namespace SYE;
 SceneContext::SceneContext()
 {}
 
-SceneContext::SceneContext(std::string sceneName):
+SceneContext::SceneContext(std::string_view sceneName):
   m_sceneName(sceneName)
 {
 

@@ -35,7 +35,7 @@ bool Entity::GetBIsToRender() const
   return _bIsToRender;
 }
 
-void Entity::SetEntityName(std::string name)
+void Entity::SetEntityName(std::string_view name)
 {
   _name = name;
   return;
@@ -116,7 +116,7 @@ Collider* Entity::AddCollider(Collider* pNewCollider)
 
 bool Entity::DeleteCollider(Collider* pNewCollider)
 {
-  auto result = _colliders.erase(pNewCollider->GetGuid());
+  auto result = _colliders.erase(pNewCollider->GetGuid()); result;
 
   if (_colliders.empty())
   {

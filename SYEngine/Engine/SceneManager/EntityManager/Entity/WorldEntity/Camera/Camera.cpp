@@ -36,7 +36,7 @@ Camera::Camera(
 	UpdateFirstPersonMode();
 }
 
-void Camera::KeyControl(std::shared_ptr<Window> pMainWindow, GLfloat deltaTime)
+void Camera::KeyControl(Window* pMainWindow, GLfloat deltaTime)
 {
 
   bool* keys = pMainWindow->GetKeys();
@@ -91,6 +91,8 @@ void Camera::KeyControl(std::shared_ptr<Window> pMainWindow, GLfloat deltaTime)
 
 void Camera::MouseKeyControl(bool* keys, GLfloat deltaTime)
 {
+
+  UNREFERENCED_PARAMETER(deltaTime);
 
   if (keys[GLFW_MOUSE_BUTTON_RIGHT])
   {

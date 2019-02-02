@@ -36,7 +36,7 @@ bool SimulationManager::Initialize()
   #endif
   }
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "SimulationManager instance initialized.");
   return true;
 }
@@ -50,12 +50,12 @@ bool SimulationManager::Terminate()
   return true;
 }
 
-void SimulationManager::InitializePhysicsScene(std::shared_ptr<Scene> pScene)
+void SimulationManager::InitializePhysicsScene(Scene* pScene)
 {
   PHYSICS_MANAGER->InitializePhysicsScene(pScene);
 }
 
-void SimulationManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
+void SimulationManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
 
 // Construct physics scene.

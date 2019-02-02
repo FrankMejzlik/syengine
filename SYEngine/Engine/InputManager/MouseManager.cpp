@@ -36,7 +36,7 @@ bool MouseManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t MouseManager instance initialized.");
   return true;
 }

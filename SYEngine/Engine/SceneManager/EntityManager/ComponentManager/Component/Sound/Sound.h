@@ -5,7 +5,7 @@
 namespace SYE {
 
 class Sound:
-  public IComponentState
+  public Component
 {
 public:
   Sound() = delete;

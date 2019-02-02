@@ -163,15 +163,15 @@ void Shader::SetDirectionalLight(DirectionalLight* dLight)
 
 void Shader::SetPointLights(
   const std::unordered_map<size_t, Entity*>& pointLights,
-  unsigned int textureUnit,
-  int offset
+  size_t textureUnit,
+  size_t offset
 )
 {
   // Set number of point lights to shader.
-  glUniform1i(uniformPointLightCount, pointLights.size());
+  glUniform1i(uniformPointLightCount, static_cast<int>(pointLights.size()));
 
   // Iterate through all point lights and set their uniforms.
-  int i = 0;
+  size_t i = 0;
   for (auto it : pointLights)
   {
     PointLight* pointLight = static_cast<PointLight*>(it.second);
@@ -186,9 +186,9 @@ void Shader::SetPointLights(
       uniformPointLight[i].uniformExponent
     );
 
-    pointLight->GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i );
+    pointLight->GetShadowMap()->Read(static_cast<GLenum>(GL_TEXTURE0 + textureUnit + i));
 
-    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, textureUnit + i);
+    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, static_cast<GLint>(textureUnit + i));
     glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, pointLight->GetFarPlane());
 
     ++i;
@@ -197,13 +197,13 @@ void Shader::SetPointLights(
 
 void Shader::SetSpotLights(
   const std::unordered_map<size_t, Entity*>& spotLights,
-  unsigned int textureUnit,
-  int offset)
+  size_t textureUnit,
+  size_t offset)
 {
 
-  glUniform1i(uniformSpotLightCount, spotLights.size());
+  glUniform1i(uniformSpotLightCount, static_cast<int>(spotLights.size()));
 
-  int i = 0;
+  size_t i = 0;
   for (auto it : spotLights) {
 
     SpotLight* spotLight = static_cast<SpotLight*>(it.second);
@@ -220,9 +220,9 @@ void Shader::SetSpotLights(
       uniformSpotLight[i].uniformEdge
     );
 
-    spotLight->GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i);
+    spotLight->GetShadowMap()->Read(static_cast<GLenum>(GL_TEXTURE0 + textureUnit + i));
     
-    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, textureUnit + i);
+    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, static_cast<GLint>(textureUnit + i));
     glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, spotLight->GetFarPlane());
 
     ++i;

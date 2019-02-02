@@ -38,7 +38,7 @@ bool PhysicsManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t PhysicsManager instance initialized.");
   return true;
 }
@@ -54,14 +54,16 @@ bool PhysicsManager::Terminate()
 }
 
 
-void PhysicsManager::InitializePhysicsScene(std::shared_ptr<Scene> pScene)
+void PhysicsManager::InitializePhysicsScene(Scene* pScene)
 {
   _bulletPhysics.SetScene(pScene);
   _bulletPhysics.initPhysics();
 }
 
-void PhysicsManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
+void PhysicsManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
+  UNREFERENCED_PARAMETER(pScene);
+
 
   _bulletPhysics.stepSimulation(deltaTime);
   _bulletPhysics.syncPhysicsToGraphics();

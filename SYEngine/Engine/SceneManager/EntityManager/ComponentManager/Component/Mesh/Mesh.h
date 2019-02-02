@@ -1,10 +1,12 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <glm/glm.hpp>
-
 #include <vector>
 #include <memory>
+
+#include <GL/glew.h>
+#pragma warning(push, 1)
+#include <GLM/glm.hpp>
+#pragma warning(pop)
 
 #include "Component.h"
 #include "MaterialManager.h"

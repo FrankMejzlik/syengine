@@ -93,7 +93,7 @@ void SkeletalModel::Clear()
 }
 
 
-void SkeletalModel::LoadModelFromFile(const std::string& fileName)
+void SkeletalModel::LoadModelFromFile(std::string_view fileName)
 {
   /* Deletes the previous loaded mesh(if it exists) */
   Clear();
@@ -108,7 +108,7 @@ void SkeletalModel::LoadModelFromFile(const std::string& fileName)
   /* Return value */
   bool ret = false;
 
-  m_pScene = m_Importer->ReadFile(fileName, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
+  m_pScene = m_Importer->ReadFile(fileName.data(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
 
   if (m_pScene)
   {
@@ -117,11 +117,11 @@ void SkeletalModel::LoadModelFromFile(const std::string& fileName)
     m_GlobalInverseTransform = aiMatrix4x4ToGlm(tp1);
     m_GlobalInverseTransform =  glm::inverse(m_GlobalInverseTransform);
 
-    ret = InitFromScene(m_pScene, fileName);
+    ret = InitFromScene(m_pScene, fileName.data());
   }
   else
   {
-    std::cout << "Error parsing : " << fileName << " : " << m_Importer->GetErrorString() << std::endl;
+    std::cout << "Error parsing : " << fileName.data() << " : " << m_Importer->GetErrorString() << std::endl;
   }
 
   /* Make sure the VAO is not changed from the outside */
@@ -351,6 +351,8 @@ bool SkeletalModel::InitMaterials(const aiScene* pScene, const std::string& File
 
 void SkeletalModel::render(GLuint shaderId)
 {
+  UNREFERENCED_PARAMETER(shaderId);
+
   glBindVertexArray(m_VAO);
 
   for (unsigned int i = 0; i < m_Entries.size(); i++) {

@@ -12,9 +12,6 @@
 #include "config_engine.h"
 
 
-#include <cassert>
-
-
 enum class eWindowType
 {
   MAIN_GAME_WINDOW,

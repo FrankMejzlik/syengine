@@ -15,8 +15,12 @@
 
 #include <GLFW/glfw3.h>
 #include <GL\glew.h>
+
+#pragma warning(push, 1)
 #include <glm\glm.hpp>
 #include <glm\gtc\type_ptr.hpp>
+#pragma warning(pop)
+
 
 #include "Component.h"
 
@@ -81,13 +85,13 @@ public:
   void SetDirectionalLight(DirectionalLight* dLight);
   void SetPointLights(
     const std::unordered_map<size_t, Entity*>& pointLights, 
-    unsigned int textureUnit,
-    int offset
+    size_t textureUnit,
+    size_t offset
   );
   void SetSpotLights(
     const std::unordered_map<size_t, Entity*>& spotLights,
-    unsigned int textureUnit,
-    int offset
+    size_t textureUnit,
+    size_t offset
   );
 
   void SetTexture(GLuint textureUnit);
@@ -125,8 +129,8 @@ private:
     GLuint uniformDirection;
   } uniformDirectionalLight;
 
-  GLuint uniformPointLightCount;
-  GLuint uniformSpotLightCount;
+  GLint uniformPointLightCount;
+  GLint uniformSpotLightCount;
 
   struct 
   {

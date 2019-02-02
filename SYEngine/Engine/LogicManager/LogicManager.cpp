@@ -36,7 +36,7 @@ bool LogicManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t LogicManager instance initialized.");
   return true;
 }
@@ -50,5 +50,8 @@ bool LogicManager::Terminate()
   return true;
 }
 
-void LogicManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
-{}
+void LogicManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+{
+  UNREFERENCED_PARAMETER(deltaTime);
+  UNREFERENCED_PARAMETER(pScene);
+}

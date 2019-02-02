@@ -1,8 +1,10 @@
 #pragma once
 
+#include <assert.h>
+
 #include <map>
 #include <string>
-
+#include <string_view>
 
 #include "common.h"
 #include "BaseModule.h"
@@ -18,38 +20,41 @@ namespace SYE
 class SceneManager :
   public BaseModule
 {
+  // Methods.
 public:
-  SceneManager() = delete;
-
-  SceneManager(BaseModule &parentModule);
-  ~SceneManager();
-
   static Scene* GetActiveScene();
-
-
-  /**
-   * Gets Scene instance by its name if exists. Else returns nullptr.
-   */
-  std::shared_ptr<Scene> GetScene(std::string sceneName);
-  std::shared_ptr<Scene> CreateScene(std::string sceneName);
-  std::shared_ptr<Scene> LoadInitialScene();
-
   
+  SceneManager() = delete;
+  SceneManager(BaseModule& parentModule) noexcept;
 
+  ~SceneManager() noexcept;
   
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  void ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene);
+  void ProcessScene(dfloat deltaTime, Scene* pScene);
+
+  /**
+   * Gets Scene instance by its name if exists. Else returns nullptr.
+   */
+  const Scene* GetSceneConstPtr(size_t sceneGuid) const;
+  Scene* GetScenePtr(size_t sceneGuid);
+  Scene* InsertScene(std::unique_ptr<Scene>&& sceneToInsert);
+
+  Scene* CreateScene(std::string_view sceneName);
+  Scene* LoadInitialScene();
 
 
-
-
+  // Attributes.
 private:
+  /** Currently active scene */
   static Scene* _pActiveScene;
 
-  std::map<std::string, std::shared_ptr<Scene>> _scenes;
+  /** Instantiated scenes hashed by GUID. */
+  std::map< size_t, std::unique_ptr<Scene> > _scenes;
 
+protected:
+public:
 };
 
 } // namespace SYE

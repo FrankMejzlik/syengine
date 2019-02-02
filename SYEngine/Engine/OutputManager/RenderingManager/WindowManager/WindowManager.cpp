@@ -39,7 +39,7 @@ bool WindowManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t\t WindowManager instance initialized.");
   return true;
 }
@@ -54,12 +54,18 @@ bool WindowManager::Terminate()
 }
 
 
-std::shared_ptr<Window> WindowManager::ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height)
+Window* WindowManager::ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height)
 {
+  UNREFERENCED_PARAMETER(windowTitle);
+  UNREFERENCED_PARAMETER(height);
+  UNREFERENCED_PARAMETER(width);
+  UNREFERENCED_PARAMETER(windowType);
+
   // Construct new Window instance and push it into vector.
-  _activeWindows.push_back(std::make_shared<Window>(nullptr, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT));
-  // Get new
-  std::shared_ptr<Window> newWindow = _activeWindows.back();
+  _windows.push_back(std::make_unique<Window>(nullptr, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT));
+
+  // Get new window ptr.
+  Window* newWindow = _windows.back().get();
   newWindow->Initialize();
 
   return newWindow;

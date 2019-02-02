@@ -1,6 +1,15 @@
 #pragma once
 
+/**
+ * Implementation of Logger class.
+ *
+ * WARNING: This is Windows specific implementation.
+ */
+
 #include <Windows.h>
+#undef APIENTRY
+#include <cstdio>
+#include <exception>
 #include <string>
 #include <ctime>
 
@@ -44,12 +53,12 @@ public:
 
 private:
 	static Logger* _pInstance;
-  DWORD _PID;
+  unsigned long _PID;
 
   // Console window handle
-  HANDLE _hStdOut;
+  void* _hStdOut;
 
-	Logger(DWORD PID);
+	Logger(unsigned long PID);
 	~Logger();
 
 	bool SetConsoleTextColour(eConsoleTextColour colour);

@@ -36,7 +36,7 @@ bool KeyboardManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t KeyboardManager instance initialized.");
   return true;
 }

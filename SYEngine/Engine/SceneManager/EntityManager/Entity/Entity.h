@@ -4,8 +4,9 @@
 #include <memory>
 #include <map>
 
-
+#pragma warning(push, 1)
 #include <glm/glm.hpp>
+#pragma warning(pop)
 
 #include "common.h"
 #include "IGuidCounted.h"
@@ -48,7 +49,7 @@ public:
   const std::unordered_map<size_t, Collider*> &GetColliders() const;
 
 
-  void SetEntityName(std::string name);
+  void SetEntityName(std::string_view name);
   std::string GetEntityName() const;
   glm::vec3 GetPositionVector() const;
   bool SetPositionVector(const glm::vec3 positionVector);

@@ -3,18 +3,18 @@
 
 using namespace SYE;
 
-Scene::Scene(EntityManager* pEntityManager, std::string sceneName) :
+Scene::Scene(EntityManager* pEntityManager, std::string_view sceneName) :
   _pEntityManager(pEntityManager),
   _sceneContext(sceneName),
   _pEditorCamera(nullptr)
 {
 
-  DLog(eLogType::Success, "Scene with name %s instantiated.", _sceneContext.m_sceneName.c_str());
+  DLog(eLogType::Success, "Scene with name %s instantiated.", _sceneContext.m_sceneName.data());
 }
 
 Scene::~Scene()
 {
-  DLog(eLogType::Success, "Scene with name %s destroyed.", _sceneContext.m_sceneName.c_str());
+  DLog(eLogType::Success, "Scene with name %s destroyed.", _sceneContext.m_sceneName.data());
 }
 
 Camera* Scene::GetEditorCamera() const
@@ -23,7 +23,7 @@ Camera* Scene::GetEditorCamera() const
 }
 
 
-std::string Scene::GetSceneName() const
+std::string_view Scene::GetSceneName() const
 {
   return _sceneContext.m_sceneName;
 }
@@ -149,7 +149,7 @@ const std::unordered_map<size_t, Entity*>& Scene::GetSpotLightsMapRefConst() con
 }
 
 
-Camera* Scene::CreateCamera(std::string cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch)
+Camera* Scene::CreateCamera(std::string_view cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch)
 {
   // TEMP
   // Camera has also input methods
@@ -170,7 +170,7 @@ Camera* Scene::CreateCamera(std::string cameraName, glm::vec3 positionVector, gl
 }
 
 Quad* Scene::CreateQuad(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   dfloat width, dfloat height
 )
@@ -198,7 +198,7 @@ Quad* Scene::CreateQuad(
 
 
 Block* Scene::CreateBlock(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   dfloat width, dfloat height, dfloat length,
   bool bIsStatic
@@ -228,9 +228,9 @@ Block* Scene::CreateBlock(
 
 
 WorldObject* Scene::CreateStaticModelFromFile(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-  std::string filePath
+  std::string_view filePath
 )
 {
   // Call EntityManager to create new WorldObject Entity.
@@ -256,7 +256,7 @@ WorldObject* Scene::CreateStaticModelFromFile(
 
 DirectionalLight* Scene::CreateDirectionalLight
 (
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 lightColour, glm::vec3 lightIntensities, 
   glm::vec3 shadowMapSize,
@@ -285,7 +285,7 @@ DirectionalLight* Scene::CreateDirectionalLight
 }
 
 PointLight* Scene::CreatePointLight(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, 
   glm::vec3 lightColour, glm::vec3 lightIntensities, glm::vec3 shadowMapSize, 
   glm::vec2 planeDimensions, glm::vec3 coefficients
@@ -311,7 +311,7 @@ PointLight* Scene::CreatePointLight(
 }
 
 SpotLight* Scene::CreateSpotLight(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, 
   glm::vec3 lightColour, glm::vec3 lightIntensities, glm::vec3 shadowMapSize, 
   glm::vec2 planeDimensions, glm::vec3 coefficients, glm::vec3 lightDirection, 

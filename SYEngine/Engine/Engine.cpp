@@ -56,7 +56,7 @@ bool Engine::Initialize()
   }
 
   // Set Engine module state to Idle.
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   return true;
 }
 
@@ -69,10 +69,15 @@ bool Engine::Run()
   }
 
   // Create all output channels.
-  std::shared_ptr<Window> pMainWindow = OUTPUT_MANAGER->ConstructWindow(eWindowType::MAIN_GAME_WINDOW, WORLD_GAME_NAME, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
+  Window* pMainWindow = OUTPUT_MANAGER->ConstructWindow(
+    eWindowType::MAIN_GAME_WINDOW, 
+    WORLD_GAME_NAME, 
+    GAME_WINDOW_DEFAULT_WIDTH, 
+    GAME_WINDOW_DEFAULT_HEIGHT
+  );
 
   // Construct initial scene.
-  std::shared_ptr<Scene> pScene = SCENE_MANAGER->LoadInitialScene();
+  Scene* pScene = SCENE_MANAGER->LoadInitialScene();
 
   // Initialize physics.
   SIMULATION_MANAGER->InitializePhysicsScene(pScene);

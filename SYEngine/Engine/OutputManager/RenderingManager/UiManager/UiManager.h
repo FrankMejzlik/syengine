@@ -30,7 +30,7 @@ public:
 
 
   // ImGUI.
-  bool InitializeImGui(std::shared_ptr<Window> pWindow);
+  bool InitializeImGui(Window* pWindow);
   void InitializeImGuiDraw();
   void DrawImGui();
   bool TerminateImGui();

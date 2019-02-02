@@ -43,7 +43,7 @@ bool MaterialManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t\t\t MaterialManager instance initialized.");
   return true;
 }

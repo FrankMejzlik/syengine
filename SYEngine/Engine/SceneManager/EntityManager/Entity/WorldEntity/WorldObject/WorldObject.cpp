@@ -7,10 +7,10 @@ WorldObject::WorldObject(
   glm::vec3 positionVector, 
   glm::vec3 rotationVector, 
   glm::vec3 scaleVector,
-  bool bIsStatic
+  bool isStatic
 ):
   WorldEntity(pComponentManager, positionVector, rotationVector, scaleVector),
-  _bIsStatic(bIsStatic)
+  _isStatic(isStatic)
 {}
 
 
@@ -20,10 +20,10 @@ WorldObject::WorldObject(
   glm::vec3 rotationVector, 
   glm::vec3 scaleVector,
   bool bIsStatic,
-  std::string filePath
+  std::string_view filePath
 ):
   WorldEntity(pComponentManager, positionVector, rotationVector, scaleVector),
-  _bIsStatic(bIsStatic)
+  _isStatic(bIsStatic)
 {
   _pModel = pComponentManager->CreateModelFromFile(this, filePath);
 }

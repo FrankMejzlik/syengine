@@ -15,6 +15,8 @@
 #endif
 
 
+  
+
 
 #define DEG_TO_RAD (3.14159265 / 180.0f)
 
@@ -34,7 +36,7 @@
 #define LOG_PHYSICS_MANAGER_COLLISIONS 0
 
 #define BACK_FACE_CULLING 1
-#define DISABLE_VSYNC 1
+#define DISABLE_VSYNC 0
 
 
 #define CALL_CONVENTION _stdcall
@@ -80,6 +82,9 @@
 
 #define ID_MESH_GENERATOR 74
 
+// Graphics switches.
+#define DISABLE_OMNI_SHADOW_MAPPING 0
+
 
 // Game window settings
 #define GAME_WINDOW_TITLE "SYEngine Game Preview"
@@ -104,10 +109,3 @@
 #define MAX_SPOT_LIGHTS 3
 #define MAX_DIRECTIONAL_LIGHTS 1
 
-enum class eModuleState
-{
-  Null,
-  Working,
-  Idle,
-  Error
-};

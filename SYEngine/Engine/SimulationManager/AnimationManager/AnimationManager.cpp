@@ -41,7 +41,7 @@ bool AnimationManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t AnimationManager instance initialized.");
   return true;
 }

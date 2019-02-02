@@ -48,7 +48,7 @@ bool EngineApi::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "EngineAPI instance initialized.");
   return true;
 }
@@ -64,6 +64,14 @@ bool EngineApi::Terminate()
 
 uint64_t EngineApi::CreateBlock(glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, dfloat width, dfloat height, dfloat length)
 {
+
+  UNREFERENCED_PARAMETER(positionVector);
+  UNREFERENCED_PARAMETER(rotationVector);
+  UNREFERENCED_PARAMETER(scaleVector);
+  UNREFERENCED_PARAMETER(width);
+  UNREFERENCED_PARAMETER(height);
+  UNREFERENCED_PARAMETER(length);
+
   return uint64_t();
 }
 

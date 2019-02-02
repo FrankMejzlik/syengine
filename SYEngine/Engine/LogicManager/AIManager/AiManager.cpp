@@ -35,7 +35,7 @@ bool AiManager::Initialize()
   }
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t AiManager instance initialized.");
   return true;
 }

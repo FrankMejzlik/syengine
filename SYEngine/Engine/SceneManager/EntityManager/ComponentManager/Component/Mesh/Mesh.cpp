@@ -77,15 +77,12 @@ Mesh::Mesh(
 
   glBindVertexArray(0);
 
-  // Mesh is ready to be used
-  SetComponentState(eComponentState::Ready);
 
   return;
 }
 
 Mesh::~Mesh()
 {
-  SetComponentState(eComponentState::Null);
   ClearMesh();
 
 }
@@ -156,9 +153,6 @@ void Mesh::CreateMesh(
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
   glBindVertexArray(0);
-
-  // Mesh is ready to be used
-  SetComponentState(eComponentState::Ready);
 
   return;
 }
@@ -231,8 +225,6 @@ void Mesh::CreateMesh(
 
   glBindVertexArray(0);
 
-  // Mesh is ready to be used
-  SetComponentState(eComponentState::Ready);
 
   return;
 }

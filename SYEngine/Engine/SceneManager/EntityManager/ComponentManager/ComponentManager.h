@@ -28,7 +28,7 @@ class ComponentManager:
 public:
   ComponentManager() = delete;
 
-  ComponentManager(BaseModule &parentModule);
+  ComponentManager(BaseModule& parentModule);
   ~ComponentManager();
 
   virtual bool Initialize() override;
@@ -57,7 +57,7 @@ public:
 
   Component* CreateModelFromFile(
     Entity* pEntity,
-    std::string filePath
+    std::string_view filePath
   );
 
 private:

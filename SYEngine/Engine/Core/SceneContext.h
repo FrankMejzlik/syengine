@@ -10,11 +10,11 @@ class SceneContext
 public:
   SceneContext();
 
-  SceneContext(std::string sceneName);
+  SceneContext(std::string_view sceneName);
    
   ~SceneContext();
   
-  std::string m_sceneName;
+  std::string_view m_sceneName;
 };
 
 }

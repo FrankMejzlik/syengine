@@ -44,7 +44,7 @@ bool TextureManager::Initialize()
   // Class specific initialization
 
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t\t\tTextureManager instance initialized.");
   return true;
 }

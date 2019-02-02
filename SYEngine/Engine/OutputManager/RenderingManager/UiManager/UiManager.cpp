@@ -39,7 +39,7 @@ bool UiManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t\t UiManager instance initialized.");
   return true;
 }
@@ -54,7 +54,7 @@ bool UiManager::Terminate()
   return true;
 }
 
-bool UiManager::InitializeImGui(std::shared_ptr<Window> pWindow)
+bool UiManager::InitializeImGui(Window* pWindow)
 {
   // Decide GL+GLSL versions
 #if __APPLE__

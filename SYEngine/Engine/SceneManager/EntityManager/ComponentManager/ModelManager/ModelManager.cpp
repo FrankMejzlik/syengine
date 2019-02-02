@@ -37,7 +37,7 @@ bool ModelManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t\t\t ModelManager instance initialized.");
   return true;
 }
@@ -79,7 +79,7 @@ std::unique_ptr<Model> ModelManager::CreateModel(Entity* pEntity, std::unique_pt
 }
 
 
-std::unique_ptr<Model> ModelManager::CreateModelFromFile(Entity* pEntity, std::string filePath)
+std::unique_ptr<Model> ModelManager::CreateModelFromFile(Entity* pEntity, std::string_view filePath)
 {
   std::unique_ptr<Model> pNewModel = std::make_unique<Model>(pEntity);
 

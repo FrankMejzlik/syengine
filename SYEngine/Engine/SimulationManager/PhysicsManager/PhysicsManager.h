@@ -5,13 +5,16 @@
 #include "Scene.h"
 
 // Include Bullet3 headers.
-#include "btBulletDynamicsCommon.h"
-#include "btBulletCollisionCommon.h"
+#pragma warning (push, 0)
+  #include "btBulletDynamicsCommon.h"
+  #include "btBulletCollisionCommon.h"
 
-#include "LinearMath/btVector3.h"
-#include "LinearMath/btAlignedObjectArray.h"
+  #include "LinearMath/btVector3.h"
+  #include "LinearMath/btAlignedObjectArray.h"
 
-#include "bullet3parts/CommonRigidBodyBase.h"
+  #include "bullet3parts/CommonRigidBodyBase.h"
+#pragma warning(pop)
+
 
 using namespace SYE;
 
@@ -35,15 +38,21 @@ public:
 
   static bool EntityCollisionCallback(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
   {
+    index1; 
+    colObj1Wrap;
+    index0;
+    colObj0Wrap;
+    cp;
+
     DLog(eLogType::Info, "collision on objs %d, %d", partId0, partId1);
     return true;
   }
 
-  void SetScene(std::shared_ptr<Scene> pScene)
+  void SetScene(Scene* pScene)
   {
     _pScene = pScene;
   }
-  std::shared_ptr<Scene> _pScene;
+  Scene* _pScene;
 
   
 
@@ -153,11 +162,11 @@ public:
     for (int i = 0; i < numManifolds; i++)
     {
       btPersistentManifold* contactManifold = m_dynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
-      const btCollisionObject* obA = contactManifold->getBody0();
-      const btCollisionObject* obB = contactManifold->getBody1();
+      const btCollisionObject* obA = contactManifold->getBody0(); obA;
+      const btCollisionObject* obB = contactManifold->getBody1(); obB;
 
-      Collider* obAPtr = static_cast<Collider*>(obA->getUserPointer());
-      Collider* obBPtr = static_cast<Collider*>(obB->getUserPointer());
+      Collider* obAPtr = static_cast<Collider*>(obA->getUserPointer()); obAPtr;
+      Collider* obBPtr = static_cast<Collider*>(obB->getUserPointer()); obBPtr;
 
 #if LOG_PHYSICS_MANAGER_COLLISIONS
       DLog(eLogType::Info, "Collision between objects with IDs: %d, %d", obA->getUserIndex(), obB->getUserIndex());
@@ -168,12 +177,12 @@ public:
         btManifoldPoint& pt = contactManifold->getContactPoint(j);
         if (pt.getDistance()<0.f)
         {
-          const btVector3& ptA = pt.getPositionWorldOnA();
+          const btVector3& ptA = pt.getPositionWorldOnA(); ptA;
 
 
 
-          const btVector3& ptB = pt.getPositionWorldOnB();
-          const btVector3& normalOnB = pt.m_normalWorldOnB;
+          const btVector3& ptB = pt.getPositionWorldOnB(); ptB;
+          const btVector3& normalOnB = pt.m_normalWorldOnB; normalOnB;
 
 #if LOG_PHYSICS_MANAGER_COLLISIONS
           DLog(eLogType::Info, "contact %d:", j);
@@ -197,7 +206,7 @@ public:
       {
 
         btCollisionObject* colObj = rbWorld->getCollisionObjectArray()[i];
-        btCollisionShape* collisionShape = colObj->getCollisionShape();
+        btCollisionShape* collisionShape = colObj->getCollisionShape(); collisionShape;
 
 
         btVector3 pos = colObj->getWorldTransform().getOrigin();
@@ -230,9 +239,9 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  void InitializePhysicsScene(std::shared_ptr<Scene> pScene);
+  void InitializePhysicsScene(Scene* pScene);
 
-  void ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene);
+  void ProcessScene(dfloat deltaTime, Scene* pScene);
 
 
 private:

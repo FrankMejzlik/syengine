@@ -49,29 +49,29 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  Entity* InsertEntity(std::unique_ptr<Entity>&& pNewEntity);
-  Entity* CreateCamera(std::string cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch, float turnSpeed, float moveSpeed);
+  
+  Entity* CreateCamera(std::string_view cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch, float turnSpeed, float moveSpeed);
 
   Entity* CreateQuad(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height
   );
   Entity* CreateBlock(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height, dfloat length,
     bool bIsStatic
   );
 
   Entity* CreateStaticModelFromFile(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-    std::string filePath
+    std::string_view filePath
   );
 
   Entity* CreateDirectionalLight(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour, glm::vec3 lightIntensities,
     glm::vec3 shadowMapSize,
@@ -79,7 +79,7 @@ public:
   );
 
   Entity* CreatePointLight(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour,
     glm::vec3 lightIntensities,
@@ -89,7 +89,7 @@ public:
   );
 
   Entity* CreateSpotLight(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour,
     glm::vec3 lightIntensities,
@@ -99,6 +99,11 @@ public:
     glm::vec3 lightDirection,
     dfloat coneAngle
   );
+
+protected:
+private:
+  Entity* InsertEntity(std::unique_ptr<Entity>&& pNewEntity);
+
 
 private:
   std::map<size_t, std::unique_ptr<Entity>> _entityList;

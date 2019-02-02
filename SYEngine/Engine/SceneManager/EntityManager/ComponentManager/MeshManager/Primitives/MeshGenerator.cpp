@@ -39,7 +39,7 @@ bool MeshGenerator::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t\t\t MeshGenerator instance initialized.");
   return true;
 }

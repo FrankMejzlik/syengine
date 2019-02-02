@@ -42,7 +42,7 @@ bool ComponentManager::Initialize()
   #endif
   }
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "ComponentManager instance initialized.");
   return true;
 }
@@ -102,7 +102,7 @@ Component* ComponentManager::CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&
 
 Component* ComponentManager::CreateModelFromFile(
   Entity* pEntity,
-  std::string filePath
+  std::string_view filePath
 )
 {
   std::unique_ptr<Component> newComponent = MODEL_MANAGER->CreateModelFromFile(pEntity, filePath);

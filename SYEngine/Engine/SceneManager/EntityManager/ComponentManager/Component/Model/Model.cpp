@@ -8,13 +8,13 @@ Model::Model(Entity* pEntity):
 {
 }
 
-void Model::LoadModelFromFile(const std::string& fileName)
+void Model::LoadModelFromFile(std::string_view fileName)
 {
   Assimp::Importer importer;
-  const aiScene* pScene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
+  const aiScene* pScene = importer.ReadFile(fileName.data(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
   if (!pScene)
   {
-    printf("Model (%s) failed to load: %s\n", fileName.c_str(), importer.GetErrorString());
+    printf("Model (%s) failed to load: %s\n", fileName.data(), importer.GetErrorString());
     return;
   }
 
@@ -118,8 +118,10 @@ void Model::LoadNode(aiNode * node, const aiScene * scene)
   }
 }
 
-void Model::LoadMesh(aiMesh * mesh, const aiScene * scene)
+void Model::LoadMesh(aiMesh* mesh, const aiScene* scene)
 {
+  UNREFERENCED_PARAMETER(scene);
+
   std::vector<GLfloat> vertices;
   std::vector<unsigned int> indices;
 
@@ -176,7 +178,7 @@ void Model::LoadMaterials(const aiScene * scene)
       if (material->GetTexture(aiTextureType_DIFFUSE, 0, &path) == AI_SUCCESS)
       {
         // If models were exported with absolute values, get just last \ part
-        int idx = std::string(path.data).rfind("\\");
+        size_t idx = std::string(path.data).rfind("\\");
         std::string filename = std::string(path.data).substr(idx + 1);
 
         std::string texPath = std::string(CONCATENATE_LITERALS(PATH_TEXTURES, "/")) + filename;
@@ -186,7 +188,7 @@ void Model::LoadMaterials(const aiScene * scene)
 
         if (!_textureList[i]->LoadTexture())
         {
-          printf("Failed to load texture at: %s\n", texPath); 
+          printf("Failed to load texture at: %s\n", texPath.c_str()); 
           //delete _textureList[i];
           _textureList[i] = nullptr;
 

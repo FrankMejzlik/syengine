@@ -40,7 +40,7 @@ bool MeshManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t\t\t MeshManager instance initialized.");
   return true;
 }

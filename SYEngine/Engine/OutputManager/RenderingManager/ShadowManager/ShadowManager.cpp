@@ -40,7 +40,7 @@ bool ShadowManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t\t ShadowManager instance initialized.");
   return true;
 }

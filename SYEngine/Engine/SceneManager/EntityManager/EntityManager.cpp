@@ -39,7 +39,7 @@ bool EntityManager::Initialize()
   #endif
   }
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t EntityManager instance initialized.");
   return true;
 }
@@ -54,7 +54,13 @@ bool EntityManager::Terminate()
 }
 
 
-Entity* EntityManager::CreateCamera(std::string cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch, float turnSpeed, float moveSpeed)
+Entity* EntityManager::CreateCamera(
+  std::string_view cameraName, 
+  glm::vec3 positionVector, 
+  glm::vec3 startUpDirection, 
+  float startYaw, float startPitch, 
+  float turnSpeed, float moveSpeed
+)
 {
   // Instantiate new Quad instance.
   std::unique_ptr<Camera> newEntity = std::make_unique<Camera>(
@@ -78,7 +84,7 @@ Entity* EntityManager::InsertEntity(std::unique_ptr<Entity>&& pNewEntity)
 }
 
 Entity* EntityManager::CreateQuad(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   dfloat width, dfloat height
 )
@@ -98,7 +104,7 @@ Entity* EntityManager::CreateQuad(
 }
 
 Entity* EntityManager::CreateBlock(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   dfloat width, dfloat height, dfloat length,
   bool bIsStatic
@@ -130,9 +136,9 @@ Entity* EntityManager::CreateBlock(
 }
 
 Entity* EntityManager::CreateStaticModelFromFile(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-  std::string filePath
+  std::string_view filePath
 )
 {
   // Instantiate new Block instance.
@@ -149,7 +155,7 @@ Entity* EntityManager::CreateStaticModelFromFile(
 }
 
 Entity* EntityManager::CreateDirectionalLight(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 lightColour, glm::vec3 lightIntensities,
   glm::vec3 shadowMapSize,
@@ -170,7 +176,7 @@ Entity* EntityManager::CreateDirectionalLight(
 }
 
 Entity* EntityManager::CreatePointLight(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 lightColour,
   glm::vec3 lightIntensities,
@@ -193,7 +199,7 @@ Entity* EntityManager::CreatePointLight(
 }
 
 Entity* EntityManager::CreateSpotLight(
-  std::string entityName,
+  std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 lightColour,
   glm::vec3 lightIntensities,

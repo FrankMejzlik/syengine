@@ -24,6 +24,9 @@ InputManager::~InputManager()
 
 void InputManager::HandleKeys(GLFWwindow* window, int key, int code, int action, int mode)
 {
+  UNREFERENCED_PARAMETER(mode);
+  UNREFERENCED_PARAMETER(code);
+
   Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
   // Handle pushdowns and pushups
@@ -57,6 +60,9 @@ void InputManager::HandleKeys(GLFWwindow* window, int key, int code, int action,
 
 void InputManager::HandleMouseKeys(GLFWwindow* window, int button, int action, int mode)
 {
+  UNREFERENCED_PARAMETER(mode);
+  UNREFERENCED_PARAMETER(action);
+
   Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
   if (button >= 0 && button < 1024)
@@ -113,7 +119,7 @@ bool InputManager::Initialize()
   #endif
   }
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "InputManager instance initialized.");
   return true;
 }
@@ -127,9 +133,9 @@ bool InputManager::Terminate()
   return true;
 }
 
-void InputManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
+void InputManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
 
-
-
+  UNREFERENCED_PARAMETER(deltaTime);
+  UNREFERENCED_PARAMETER(pScene);
 }

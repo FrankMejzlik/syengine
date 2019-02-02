@@ -38,7 +38,7 @@ bool OutputManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "OutputManager instance initialized.");
   return true;
 }
@@ -53,12 +53,14 @@ bool OutputManager::Terminate()
 }
 
 
-void OutputManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene, std::shared_ptr<Window> pTargetWindow)
+void OutputManager::ProcessScene(dfloat deltaTime, Scene* pScene, Window* pTargetWindow)
 {
+  UNREFERENCED_PARAMETER(deltaTime);
+
   RENDERING_MANAGER->RenderScene(pScene, pTargetWindow);
 }
 
-std::shared_ptr<Window> OutputManager::ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height)
+Window* OutputManager::ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height)
 {
   return RENDERING_MANAGER->ConstructWindow(windowType, windowTitle, width, height);
 }

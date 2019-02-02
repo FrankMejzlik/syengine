@@ -1,6 +1,8 @@
 #pragma once
 
+#pragma warning(push, 1)
 #include <GLM/glm.hpp>
+#pragma warning(pop)
 
 #include "common.h"
 #include "Component.h"

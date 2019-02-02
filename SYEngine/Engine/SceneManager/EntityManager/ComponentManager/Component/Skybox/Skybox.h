@@ -4,9 +4,13 @@
 #include <string>
 
 #include <GL\glew.h>
+
+#pragma warning(push, 1)
 #include <glm\glm.hpp>
 #include <glm\gtc\type_ptr.hpp>
 #include <glm\gtc\matrix_transform.hpp>
+#include "stb_image.h"
+#pragma warning(pop)
 
 #include "CommonValues.h"
 #include "Mesh.h"

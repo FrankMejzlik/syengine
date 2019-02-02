@@ -44,7 +44,7 @@ bool RenderingManager::Initialize()
 
   //
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t RenderingManager instance initialized.");
   return true;
 }
@@ -58,10 +58,11 @@ bool RenderingManager::Terminate()
   return true;
 }
 
-std::shared_ptr<Window> RenderingManager::ConstructWindow(eWindowType windowType, std::string windowTitle, size_t width, size_t height)
+Window* RenderingManager::ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height)
 {
   // Create new Window instance.
-  std::shared_ptr<Window> pNewWindow = WINDOW_MANAGER->ConstructWindow(windowType, windowTitle, width, height);
+  Window* pNewWindow = WINDOW_MANAGER->ConstructWindow(windowType, windowTitle, width, height);
+
   // Create and compile shaders.
   CreateShaders();
 
@@ -71,7 +72,7 @@ std::shared_ptr<Window> RenderingManager::ConstructWindow(eWindowType windowType
   return pNewWindow;
 }
 
-void RenderingManager::RenderScene(std::shared_ptr<Scene> pScene, std::shared_ptr<Window> pTargetWindow)
+void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 {
   if (!_perspectiveProjectionMatrixInitialized)
   {
@@ -96,7 +97,10 @@ void RenderingManager::RenderScene(std::shared_ptr<Scene> pScene, std::shared_pt
   DirectionalShadowMapPass(pScene->GetActiveModelsRefConst(), pScene->GetDirectionalLightsMapRefConst());
 
   // Calculat e point light shadow maps
+#if !DISABLE_OMNI_SHADOW_MAPPING
   OmniShadowMapPass(pScene->GetActiveModelsRefConst(), pScene->GetPointLightsMapRefConst(), pScene->GetSpotLightsMapRefConst());
+#endif
+  
 
   // Initialize ImGUI draw.
   UI_MANAGER->InitializeImGuiDraw();
@@ -169,16 +173,17 @@ void RenderingManager::DirectionalShadowMapPass
 
 
     // Give it correctly calculated lightTransform matrix
-    _shaders[1]->SetDirectionalLightTransform(&light->CalculateLightTransform());
+    auto lightTransform = light->CalculateLightTransform();
+    _shaders[1]->SetDirectionalLightTransform(&lightTransform);
 
     //_shaders[1]->Validate();
     // Render objects in scene with their own shaders
 
-    for (auto it : activeModels)
+    for (auto modelPair : activeModels)
     {
       Model* model;
-      model = static_cast<Model*>(it.second->GetModel());
-      model->RenderModel(uniformModel, it.second);
+      model = static_cast<Model*>(modelPair.second->GetModel());
+      model->RenderModel(uniformModel, modelPair.second);
 
     }
   }
@@ -195,6 +200,8 @@ void RenderingManager::OmniShadowMapPass
   const std::unordered_map<size_t, Entity*>& spotLights
 )
 {
+
+
   _shaders[2]->UseShader();
 
   // Process PointLights.
@@ -227,10 +234,10 @@ void RenderingManager::OmniShadowMapPass
 
     // Render objects in scene with their own shaders
 
-    for (auto it : activeModels)
+    for (auto modelPair : activeModels)
     {
-      Model* model = static_cast<Model*>(it.second->GetModel());
-      model->RenderModel(uniformModel, it.second);
+      Model* model = static_cast<Model*>(modelPair.second->GetModel());
+      model->RenderModel(uniformModel, modelPair.second);
 
     }
   }
@@ -265,11 +272,11 @@ void RenderingManager::OmniShadowMapPass
 
     // Render objects in scene with their own shaders
 
-    for (auto it : activeModels)
+    for (auto modelPair : activeModels)
     {
       Model* model;
-      model = static_cast<Model*>(it.second->GetModel());
-      model->RenderModel(uniformModel, it.second);
+      model = static_cast<Model*>(modelPair.second->GetModel());
+      model->RenderModel(uniformModel, modelPair.second);
 
     }
   }
@@ -281,7 +288,7 @@ void RenderingManager::OmniShadowMapPass
 
 void RenderingManager::FinalMainRenderPass
 (
-  std::shared_ptr<Scene> pScene, 
+  Scene* pScene, 
   const std::unordered_map<size_t, Entity*>& activeModels, 
   const std::unordered_map<size_t, Entity*>& directionalLights,
   const std::unordered_map<size_t, Entity*>& pointLights,
@@ -315,16 +322,17 @@ void RenderingManager::FinalMainRenderPass
   );
 
   // Get counts of lights.
-  int pointLightCount = pointLights.size();
-  int spotLightCount = spotLights.size();
+  size_t pointLightCount = pointLights.size();
+  size_t spotLightCount = spotLights.size(); spotLightCount;
 
 
   // Set up all lights to scene.
   _shaders[0]->SetDirectionalLight(mainLight);
-  _shaders[0]->SetPointLights(pointLights, 3, 0); // Offset 0.
+  _shaders[0]->SetPointLights(pointLights, 3, 0ULL); // Offset 0.
   _shaders[0]->SetSpotLights(spotLights, 3 + pointLightCount, pointLightCount); // Offset by number of point lights.
 
-  _shaders[0]->SetDirectionalLightTransform(&mainLight->CalculateLightTransform());
+  auto lightTranforms = mainLight->CalculateLightTransform();
+  _shaders[0]->SetDirectionalLightTransform(&lightTranforms);
 
   // Set main object texture slot to 1.
   _shaders[0]->SetTexture(1);

@@ -1,7 +1,5 @@
 
 
-#include <cstdio>
-#include <exception>
 
 #include "Logger.h"
 
@@ -76,7 +74,7 @@ void Logger::Log(bool showTimestamp, eLogType logType,const char* format, ...) c
 }
 
 
-Logger::Logger(DWORD PID):
+Logger::Logger(unsigned long PID):
   _PID(PID), 
   _hStdOut(GetStdHandle(STD_OUTPUT_HANDLE))
 {

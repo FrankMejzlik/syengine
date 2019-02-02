@@ -35,7 +35,7 @@ bool NetworkManager::Initialize()
 
   // Class specific initialization
 
-  SetModuleState(eModuleState::Idle);
+  SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "NetworkManager instance initialized.");
   return true;
 }
@@ -50,5 +50,8 @@ bool NetworkManager::Terminate()
   return true;
 }
 
-void NetworkManager::ProcessScene(dfloat deltaTime, std::shared_ptr<Scene> pScene)
-{}
+void NetworkManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+{
+  UNREFERENCED_PARAMETER(deltaTime);
+  UNREFERENCED_PARAMETER(pScene);
+}

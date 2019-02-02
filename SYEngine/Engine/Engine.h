@@ -13,19 +13,19 @@
 #include <map>
 
 
-#include "TimeManager.h"
+
 
 // External includes.
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#undef APIENTRY
 
-#pragma warning(push, 3)
+#pragma warning(push, 1)
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #pragma warning(pop)
 
-//#include "stb_image.h"
 #include <assimp/Importer.hpp>
 
 // Project includes.
@@ -33,10 +33,12 @@
 #include "config_engine.h"
 #include "config_world.h"
 
+
 #include "IModuleState.h"
 #include "IErrorLogging.h"
 
 #include "Logger.h"
+#include "TimeManager.h"
 #include "Command.h"
 #include "Skybox.h"
 #include "Mesh.h"

@@ -3,7 +3,12 @@
 #include <memory>
 
 #include <GL/glew.h>
+
+#pragma warning(push, 1)
 #include <glm/gtc/matrix_transform.hpp>
+#pragma warning(pop)
+
+
 
 #include "ShadowMap.h"
 #include "WorldEntity.h"
@@ -59,7 +64,7 @@ protected:
   glm::vec3 _lightIntensities;
   // Dimensions of shadow map
   // x: width y: height z: unused
-  glm::vec3 _shadowDimensions;
+  glm::ivec3 _shadowDimensions;
   // Projection matrix for computing shadow map
   glm::mat4 _lightProjectionMatrix;
   // Matrix to transform world to window space from POV of light

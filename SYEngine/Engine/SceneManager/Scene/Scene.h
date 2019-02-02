@@ -4,9 +4,9 @@
 #include <string>
 #include <unordered_map>
 
-
+#pragma warning(push, 1)
 #include <glm/glm.hpp>
-
+#pragma warning(pop)
 
 #include "common.h"
 #include "IGuidCounted.h"
@@ -40,41 +40,41 @@ class Scene:
 public:
   Scene() = delete;
 
-  Scene(EntityManager* pEntityManager, std::string sceneName);
+  Scene(EntityManager* pEntityManager, std::string_view sceneName);
   ~Scene();
 
   Camera* GetEditorCamera() const;
-  std::string GetSceneName() const;
+  std::string_view GetSceneName() const;
   size_t GetSceneNumberOfEntities() const;
 
   // Shortcut for create Entity, add components: camera, controller
   Camera* CreateCamera(
-    std::string entityName, 
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch
   );
 
   // Shortcut for create Entity, add components: camera, controller, texture
   Quad* CreateQuad(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height
   );
 
   Block* CreateBlock(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height, dfloat length,
     bool bIsStatic = true
   );
 
   WorldObject* CreateStaticModelFromFile(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-    std::string filePath
+    std::string_view filePath
   );
   
   DirectionalLight* CreateDirectionalLight(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour, glm::vec3 lightIntensities, 
     glm::vec3 shadowMapSize,
@@ -82,7 +82,7 @@ public:
   );
 
   PointLight* CreatePointLight(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour,
     glm::vec3 lightIntensities,
@@ -92,7 +92,7 @@ public:
   );
 
   SpotLight* CreateSpotLight(
-    std::string entityName,
+    std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour,
     glm::vec3 lightIntensities,

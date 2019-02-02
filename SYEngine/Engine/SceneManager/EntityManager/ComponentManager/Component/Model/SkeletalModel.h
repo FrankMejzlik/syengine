@@ -13,9 +13,12 @@
 #include <map>
 #include <iostream>
 
+#pragma warning(push, 1)
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#pragma warning(pop)
+
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -88,7 +91,7 @@ public:
   /**
    * Loads skeleton model from specified file.
    */
-  virtual void LoadModelFromFile(const std::string& fileName) override;
+  virtual void LoadModelFromFile(std::string_view fileName) override;
 
   void render(GLuint shaderId);
 
