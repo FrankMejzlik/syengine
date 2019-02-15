@@ -53,6 +53,24 @@ bool EntityManager::Terminate()
   return true;
 }
 
+Entity* EntityManager::CreateEntity()
+{
+  // Instantiate new Entity
+  std::unique_ptr<Entity> newEntity = std::make_unique<Entity>(COMPONENT_MANAGER);
+
+  return InsertEntity(std::move(newEntity));
+}
+
+
+
+Entity* EntityManager::InsertEntity(std::unique_ptr<Entity>&& pNewEntity)
+{
+  auto result = _entityList.insert(std::make_pair(pNewEntity->GetGuid(), std::move(pNewEntity)));
+
+  return result.first->second.get();
+}
+
+// vvv obsolate
 
 Entity* EntityManager::CreateCamera(
   std::string_view cameraName, 
@@ -63,7 +81,7 @@ Entity* EntityManager::CreateCamera(
 )
 {
   // Instantiate new Quad instance.
-  std::unique_ptr<Camera> newEntity = std::make_unique<Camera>(
+  std::unique_ptr<_Camera> newEntity = std::make_unique<_Camera>(
     COMPONENT_MANAGER,
     positionVector, startUpDirection, startYaw, startPitch,
     turnSpeed, moveSpeed
@@ -76,12 +94,7 @@ Entity* EntityManager::CreateCamera(
   return InsertEntity(std::move(newEntity));
 }
 
-Entity* EntityManager::InsertEntity(std::unique_ptr<Entity>&& pNewEntity)
-{
-  auto result = _entityList.insert(std::make_pair(pNewEntity->GetGuid(), std::move(pNewEntity)));
 
-  return result.first->second.get();
-}
 
 Entity* EntityManager::CreateQuad(
   std::string_view entityName,

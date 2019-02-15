@@ -42,7 +42,7 @@ public:
   Scene(EntityManager* pEntityManager, std::string_view sceneName) noexcept;
   ~Scene() noexcept;
 
-  Camera* GetEditorCamera() const;
+  _Camera* GetEditorCamera() const;
   std::string_view GetSceneName() const;
   size_t GetSceneNumberOfEntities() const;
 
@@ -55,7 +55,7 @@ public:
 
 
   // Shortcut for create Entity, add components: camera, controller
-  Camera* CreateCamera(
+  _Camera* CreateCamera(
     std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch
   );
@@ -114,7 +114,7 @@ private:
   // EntityManager instance dedicated for this Scene instance.
   EntityManager* _pEntityManager;
   // Pointer to default Engine Editor camera instance.
-  Camera* _pEditorCamera;
+  _Camera* _pEditorCamera;
  
   // Map of all entities in this Scene.
   std::unordered_map<size_t, Entity*> _entities;

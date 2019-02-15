@@ -5,11 +5,18 @@
 using namespace SYE;
 
 Entity::Entity(
+  ComponentManager* pComponentManager
+) noexcept :
+  _pComponentManager(pComponentManager)
+{}
+
+#if !NEW_SSSEC_IMPLEMENTED
+Entity::Entity(
   ComponentManager* pComponentManager,
   glm::vec3 positionVector,
   glm::vec3 rotationVector,
   glm::vec3 scaleVector
-):
+) noexcept :
   _pComponentManager(pComponentManager),
   _positionVector(positionVector),
   _rotationVector(rotationVector),
@@ -19,6 +26,7 @@ Entity::Entity(
 {
 
 }
+#endif
 
 Entity::~Entity() 
 {

@@ -49,6 +49,21 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  /**
+   * Create empty new Entity instance
+   *
+   * New Entity instance is created. Entity is then
+   * capable of attaching PRIMARY Components to itself.
+   *
+   * Entity can be either of type WORLD or SCREEN.
+   *
+   * @see   class Entity
+   * @see   class ComponentManager
+   * @see   class Component
+   */
+  Entity* CreateEntity();
+
+  // vvv Obsolate vvv 
   
   Entity* CreateCamera(std::string_view cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch, float turnSpeed, float moveSpeed);
 
@@ -99,6 +114,8 @@ public:
     glm::vec3 lightDirection,
     dfloat coneAngle
   );
+
+  // ^^^ Obsolate ^^^
 
 protected:
 private:

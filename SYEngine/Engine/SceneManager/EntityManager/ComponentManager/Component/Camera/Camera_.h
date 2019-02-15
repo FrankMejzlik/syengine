@@ -15,24 +15,24 @@
 namespace SYE 
 {
 class Window;
-enum class _eCameraModes
+enum class eCameraModes
 {
   FIRST_PERSON_MODE, 
   EDITOR_MODE
 };
 
-class _Camera:
+class Camera:
   public WorldEntity
 {
 public:
-	_Camera() = delete;
+	Camera() = delete;
 
-	_Camera(
+	Camera(
     ComponentManager* pComponentManager,
     glm::vec3 startPosition,
     glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed
   );
-  ~_Camera();
+  ~Camera();
 
   void KeyControl(Window* pMainWindow, GLfloat deltaTime);
 	void MouseControl(GLfloat xChange, GLfloat yChange);
@@ -46,7 +46,7 @@ public:
 	
 
 private:
-  _eCameraModes _eCameraMode;
+  eCameraModes _eCameraMode;
 
 	glm::vec3 position;
 	glm::vec3 front;

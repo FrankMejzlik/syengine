@@ -133,7 +133,8 @@ Scene* SceneManager::LoadInitialScene()
 
 
   auto block0 = pNewScene->CreateBlock(
-    std::string("floor1"), glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+    std::string("floor1"), 
+    glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     100.0f, 2.0f, 100.0f,
     true // Is  static
   );

@@ -14,6 +14,9 @@
   #define TARGET_WINDOWS 1
 #endif
 
+// If restructuring to Scene/ScreenScene->Entity->Component complete.
+#define NEW_SSSEC_IMPLEMENTED 0
+
 // If using double precision floating point types in whole project
 #define USE_DOUBLES 0
 
@@ -76,9 +79,10 @@
 
 // SimulationManager
 #define ID_AI_MANAGER 71
+
 #define ID_LOGIC_MANAGER 72
 #define ID_PHYSICS_MANAGER 73
-
+#define ID_SCRIPT_MANAGER 74
 
 #define ID_MESH_GENERATOR 74
 

@@ -3,6 +3,9 @@
 #include "BaseModule.h"
 #include "Scene.h"
 
+#include "AiManager.h"
+#include "ScriptManager.h"
+
 
 namespace SYE
 {

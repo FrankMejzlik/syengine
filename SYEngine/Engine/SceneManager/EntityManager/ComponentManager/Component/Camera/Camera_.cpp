@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include "Camera_.h"
 
 #include <iostream>
 
@@ -9,7 +9,7 @@ using namespace SYE;
 namespace SYE 
 {
 
-_Camera::_Camera(
+Camera::Camera(
   ComponentManager* pComponentManager,
   glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch,
   GLfloat startMoveSpeed, GLfloat startTurnSpeed
@@ -27,7 +27,7 @@ _Camera::_Camera(
   front(glm::vec3(0.0f, 0.0f, -1.0f)),
   _moveSpeed(startMoveSpeed),
   _firstPersonTurnSpeed(startTurnSpeed),
-  _eCameraMode(_eCameraModes::FIRST_PERSON_MODE),
+  _eCameraMode(eCameraModes::FIRST_PERSON_MODE),
   _bIsDragingOn(false),
   _editorModeTurnSpeed(0.05f),
   _inverseYaw(0.0f),
@@ -36,7 +36,7 @@ _Camera::_Camera(
 	UpdateFirstPersonMode();
 }
 
-void _Camera::KeyControl(Window* pMainWindow, GLfloat deltaTime)
+void Camera::KeyControl(Window* pMainWindow, GLfloat deltaTime)
 {
 
   bool* keys = pMainWindow->GetKeys();
@@ -45,13 +45,13 @@ void _Camera::KeyControl(Window* pMainWindow, GLfloat deltaTime)
 
   if (keys[GLFW_KEY_K])
   {
-    _eCameraMode = _eCameraModes::EDITOR_MODE;
+    _eCameraMode = eCameraModes::EDITOR_MODE;
     pMainWindow->ShowCursor();
   }
 
   if (keys[GLFW_KEY_L])
   {
-    _eCameraMode = _eCameraModes::FIRST_PERSON_MODE;
+    _eCameraMode = eCameraModes::FIRST_PERSON_MODE;
     pMainWindow->HideCursor();
   }
 
@@ -89,7 +89,7 @@ void _Camera::KeyControl(Window* pMainWindow, GLfloat deltaTime)
 
 }
 
-void _Camera::MouseKeyControl(bool* keys, GLfloat deltaTime)
+void Camera::MouseKeyControl(bool* keys, GLfloat deltaTime)
 {
 
   UNREFERENCED_PARAMETER(deltaTime);
@@ -108,7 +108,7 @@ void _Camera::MouseKeyControl(bool* keys, GLfloat deltaTime)
 }
 
 
-void _Camera::MouseControl(GLfloat xChange, GLfloat yChange)
+void Camera::MouseControl(GLfloat xChange, GLfloat yChange)
 {
     _mouseXChange = xChange;
     _mouseYChange = yChange;
@@ -136,7 +136,7 @@ void _Camera::MouseControl(GLfloat xChange, GLfloat yChange)
 
     
     //DLog(eLogType::Info, "editorModeChangeX: %f, editorModeChangeY: %f", xChange, yChange);
-    if (_bIsDragingOn && _eCameraMode == _eCameraModes::EDITOR_MODE)
+    if (_bIsDragingOn && _eCameraMode == eCameraModes::EDITOR_MODE)
     {
 
       _inverseYaw -= editorModeChangeX;
@@ -157,28 +157,28 @@ void _Camera::MouseControl(GLfloat xChange, GLfloat yChange)
       //DLog(eLogType::Info, "invPitch: %f, invYaw: %f", _inversePitch, _inverseYaw);
 
     }
-    else if ( _eCameraMode == _eCameraModes::FIRST_PERSON_MODE)
+    else if ( _eCameraMode == eCameraModes::FIRST_PERSON_MODE)
     {
       UpdateFirstPersonMode();
     }
 }
 
-glm::mat4 _Camera::CalculateViewMatrix()
+glm::mat4 Camera::CalculateViewMatrix()
 {
 	return glm::lookAt(position, position + front, up);
 }
 
-glm::vec3 _Camera::GetCameraPosition()
+glm::vec3 Camera::GetCameraPosition()
 {
   return position;
 }
 
-glm::vec3 _Camera::GetCameraDirection()
+glm::vec3 Camera::GetCameraDirection()
 {
   return glm::normalize(front);
 }
 
-void _Camera::UpdateEditorMode()
+void Camera::UpdateEditorMode()
 {
   front.x = cos(glm::radians(_inverseYaw)) * cos(glm::radians(_inversePitch));
   front.y = sin(glm::radians(_inversePitch));
@@ -189,7 +189,7 @@ void _Camera::UpdateEditorMode()
   up = glm::normalize(glm::cross(right, front));
 }
 
-void _Camera::UpdateFirstPersonMode()
+void Camera::UpdateFirstPersonMode()
 {
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
@@ -201,7 +201,7 @@ void _Camera::UpdateFirstPersonMode()
 }
 
 
-_Camera::~_Camera()
+Camera::~Camera()
 {
 }
 

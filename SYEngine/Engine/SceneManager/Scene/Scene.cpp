@@ -16,7 +16,7 @@ Scene::~Scene() noexcept
   DLog(eLogType::Success, "Scene with name %s destroyed.", _sceneContext.m_sceneName.data());
 }
 
-Camera* Scene::GetEditorCamera() const
+_Camera* Scene::GetEditorCamera() const
 {
   return _pEditorCamera;
 }
@@ -148,7 +148,7 @@ const std::unordered_map<size_t, Entity*>& Scene::GetSpotLightsMapRefConst() con
 }
 
 
-Camera* Scene::CreateCamera(std::string_view cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch)
+_Camera* Scene::CreateCamera(std::string_view cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch)
 {
   // TEMP
   // Camera has also input methods
@@ -158,14 +158,14 @@ Camera* Scene::CreateCamera(std::string_view cameraName, glm::vec3 positionVecto
   float turnSpeed = 1.0f;
 
   // Create new Camera instance.
-  Camera* pNewCamera = (Camera*)_pEntityManager->CreateCamera(cameraName, positionVector, startUpDirection, startYaw, startPitch, moveSpeed, turnSpeed);
+  _Camera* pNewCamera = (_Camera*)_pEntityManager->CreateCamera(cameraName, positionVector, startUpDirection, startYaw, startPitch, moveSpeed, turnSpeed);
 
   pNewCamera->SetEntityName(cameraName);
 
   // TODO: Implement properly.
   _pEditorCamera = pNewCamera;
 
-  return static_cast<Camera*>(InsertEntity(pNewCamera));
+  return static_cast<_Camera*>(InsertEntity(pNewCamera));
 }
 
 Quad* Scene::CreateQuad(

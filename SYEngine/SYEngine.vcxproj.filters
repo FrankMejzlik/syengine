@@ -203,6 +203,10 @@
     <ClCompile Include="external\x64\imgui\1.66\src\imgui_demo.cpp" />
     <ClCompile Include="external\x64\imgui\1.66\src\imgui_draw.cpp" />
     <ClCompile Include="external\x64\imgui\1.66\src\imgui_widgets.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform\Transform.cpp" />
+    <ClCompile Include="Engine\Core\MathLibrary.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera\Camera_.cpp" />
+    <ClCompile Include="Engine\LogicManager\ScriptManager\ScriptManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -424,6 +428,10 @@
     <ClInclude Include="external\imgui\imstb_rectpack.h" />
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform\Transform.h" />
+    <ClInclude Include="Engine\Core\MathLibrary.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera\Camera_.h" />
+    <ClInclude Include="Engine\LogicManager\ScriptManager\ScriptManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">
