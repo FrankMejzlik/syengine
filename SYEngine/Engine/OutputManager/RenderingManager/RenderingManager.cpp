@@ -342,7 +342,7 @@ void RenderingManager::FinalMainRenderPass
   for (auto it : activeModels)
   {
     Model* pModel = (Model*)it.second->GetModel();
-    pModel->RenderModel(uniformModel, pModel->GetOwner());
+    pModel->RenderModel(uniformModel, pModel->GetOwnerEntityPtr());
   }
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

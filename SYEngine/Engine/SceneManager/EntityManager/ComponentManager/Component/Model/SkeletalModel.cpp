@@ -334,7 +334,7 @@ bool SkeletalModel::InitMaterials(const aiScene* pScene, const std::string& File
 
         std::string FullPath = Dir + "/" + p;
 
-        _textures[i] = new Texture(_pEntity, FullPath.c_str());
+        _textures[i] = new Texture(_pOwnerEntity, FullPath.c_str());
 
         if (!_textures[i]->LoadTexture())
         {

@@ -10,7 +10,7 @@ Skybox::Skybox(Entity* pEntity,std::vector<std::string> faceLocation):
   Component(pEntity)
 {
   // Shader setup
-  skyShader = new Shader();
+  skyShader = new Shader(nullptr);
   skyShader->CreateFromFiles(
     "shaders/skybox.vert", 
     "shaders/skybox.frag"
@@ -89,7 +89,7 @@ Skybox::Skybox(Entity* pEntity,std::vector<std::string> faceLocation):
     1.0f, -1.0f, 1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f
   };
 
-  skyMesh = new Mesh(_pEntity);
+  skyMesh = new Mesh(_pOwnerEntity);
   skyMesh->CreateMesh(skyboxVertices, skyboxIndices);
 }
 

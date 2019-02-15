@@ -29,11 +29,11 @@ bool ShadowMap::Init(unsigned int width, unsigned int height)
   glDrawBuffer(GL_NONE);
   glReadBuffer(GL_NONE);
 
-  GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+  GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
-  if (Status != GL_FRAMEBUFFER_COMPLETE)
+  if (status != GL_FRAMEBUFFER_COMPLETE)
   {
-    printf("Framebuffer error: %s\n", Status);
+    printf("Framebuffer error: %d\n", static_cast<int>(status));
     return false;
   }
   return true;

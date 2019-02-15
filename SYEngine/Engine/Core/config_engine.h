@@ -14,8 +14,8 @@
   #define TARGET_WINDOWS 1
 #endif
 
-
-  
+// If using double precision floating point types in whole project
+#define USE_DOUBLES 0
 
 
 #define DEG_TO_RAD (3.14159265 / 180.0f)

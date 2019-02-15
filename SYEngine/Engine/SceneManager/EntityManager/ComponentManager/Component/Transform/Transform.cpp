@@ -2,10 +2,10 @@
 
 using namespace SYE;
 
-Transform::Transform(Entity* pOwnerEntity) :
+Transform::Transform(Entity* pOwnerEntity) noexcept:
   Component(pOwnerEntity)
 {}
 
 
-Transform::~Transform()
+Transform::~Transform() noexcept
 {}

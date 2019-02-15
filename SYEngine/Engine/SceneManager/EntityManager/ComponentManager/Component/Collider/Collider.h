@@ -29,12 +29,12 @@ public:
 
   void SetOwnerEntityPosition(dfloat x, dfloat y, dfloat z)
   {
-    _pEntity->SetPositionVector(glm::vec3(x, y, z));
+    _pOwnerEntity->SetPositionVector(glm::vec3(x, y, z));
   }
 
   void SetOwnerEntityRotation(dfloat rotX, dfloat rotY, dfloat rotZ)
   {
-    _pEntity->SetRotationVector(glm::vec3(rotX, rotY, rotZ));
+    _pOwnerEntity->SetRotationVector(glm::vec3(rotX, rotY, rotZ));
   }
 
   const std::vector<unsigned int>& GetIndices()

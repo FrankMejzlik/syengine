@@ -15,7 +15,7 @@ Material::~Material()
 
 size_t Material::AddTexture(std::string filePathToTexture)
 {
-  Texture newTexture(_pEntity, filePathToTexture.c_str());
+  Texture newTexture(_pOwnerEntity, filePathToTexture.c_str());
   newTexture.LoadTexture();
   _textures.push_back(newTexture);
 
@@ -24,7 +24,7 @@ size_t Material::AddTexture(std::string filePathToTexture)
 
 size_t Material::AddShininess(dfloat specularIntensity, dfloat shininessIntensity)
 {
-  _shininesses.push_back(Shininess(_pEntity, specularIntensity, shininessIntensity));
+  _shininesses.push_back(Shininess(_pOwnerEntity, specularIntensity, shininessIntensity));
   
   return _shininesses.size() - 1;
 }

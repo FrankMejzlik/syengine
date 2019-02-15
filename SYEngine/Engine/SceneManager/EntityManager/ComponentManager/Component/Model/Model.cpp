@@ -155,7 +155,7 @@ void Model::LoadMesh(aiMesh* mesh, const aiScene* scene)
     }
   }
 
-  std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>(_pEntity);
+  std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>(_pOwnerEntity);
   pNewMesh->CreateMesh(vertices, indices, true);
   _meshList.push_back(pNewMesh);
 
@@ -184,7 +184,7 @@ void Model::LoadMaterials(const aiScene * scene)
         std::string texPath = std::string(CONCATENATE_LITERALS(PATH_TEXTURES, "/")) + filename;
 
         //_textureList[i] = new Texture(texPath.c_str());
-        _textureList[i] = std::make_shared<Texture>(_pEntity, texPath.c_str());
+        _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, texPath.c_str());
 
         if (!_textureList[i]->LoadTexture())
         {
@@ -201,7 +201,7 @@ void Model::LoadMaterials(const aiScene * scene)
     {
       // Load default texture.
       //_textureList[i] = new Texture(CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
-      _textureList[i] = std::make_shared<Texture>(_pEntity, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+      _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
       _textureList[i]->LoadTexture();
     }
   }

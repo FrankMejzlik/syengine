@@ -4,11 +4,11 @@
 using namespace SYE;
 
 Command::Command(eCommandType type):
-  _commandType(type), _stringData(), _intData(0), _floatData(0.0f)
+  _commandType(type), _stringData(), _intData(0), _floatData(1, 0.0f)
 {}
 
 Command::Command(eCommandType type, std::vector<std::string> stringData) :
-  _commandType(type), _stringData(stringData), _intData(0), _floatData(0.0f)
+  _commandType(type), _stringData(stringData), _intData(0), _floatData(1, 0.0f)
 {
 }
 
@@ -19,7 +19,7 @@ Command::Command(eCommandType type, std::vector<float> _floatData, std::vector<s
 }
 
 Command::Command(eCommandType type, std::vector<uint64_t> _intData):
-  _commandType(type), _intData(_intData), _stringData(), _floatData(0.0f)
+  _commandType(type), _intData(_intData), _stringData(), _floatData(1, 0.0f)
 {}
 
 Command::Command(eCommandType type, std::vector<float> _floatData) :

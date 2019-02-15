@@ -36,7 +36,7 @@ bool OmniShadowMap::Init(unsigned int width, unsigned int height)
   for (size_t i = 0; i < 6; ++i)
   {
     glTexImage2D(
-      GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0,
+      static_cast<GLenum>(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i), 0,
       GL_DEPTH_COMPONENT, shadowWidth, shadowHeight,
       0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr
     );
