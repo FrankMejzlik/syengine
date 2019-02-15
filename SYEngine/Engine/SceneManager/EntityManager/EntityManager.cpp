@@ -53,19 +53,19 @@ bool EntityManager::Terminate()
   return true;
 }
 
-Entity* EntityManager::CreateEntity()
+Entity* EntityManager::CreateEntity(Scene* pOwnerScene)
 {
   // Instantiate new Entity
-  std::unique_ptr<Entity> newEntity = std::make_unique<Entity>(COMPONENT_MANAGER);
+  std::unique_ptr<Entity> newEntity = std::make_unique<Entity>(pOwnerScene, COMPONENT_MANAGER);
 
   return InsertEntity(std::move(newEntity));
 }
 
-
+#if !NEW_SSSEC_IMPLEMENTED
 
 Entity* EntityManager::InsertEntity(std::unique_ptr<Entity>&& pNewEntity)
 {
-  auto result = _entityList.insert(std::make_pair(pNewEntity->GetGuid(), std::move(pNewEntity)));
+  auto result = _entities.insert(std::make_pair(pNewEntity->GetGuid(), std::move(pNewEntity)));
 
   return result.first->second.get();
 }
@@ -175,7 +175,7 @@ Entity* EntityManager::CreateDirectionalLight(
   glm::vec3 lightDirection
 )
 {
-  std::unique_ptr<DirectionalLight> newEntity = std::make_unique<DirectionalLight>(
+  std::unique_ptr<_DirectionalLight> newEntity = std::make_unique<_DirectionalLight>(
     COMPONENT_MANAGER,
     positionVector, rotationVector, scaleVector,
     lightColour, lightIntensities,
@@ -198,7 +198,7 @@ Entity* EntityManager::CreatePointLight(
   glm::vec3 coefficients
 )
 {
-  std::unique_ptr<PointLight> newEntity = std::make_unique<PointLight>(
+  std::unique_ptr<_PointLight> newEntity = std::make_unique<_PointLight>(
     COMPONENT_MANAGER,
     positionVector, rotationVector, scaleVector,
     lightColour, lightIntensities,
@@ -223,7 +223,7 @@ Entity* EntityManager::CreateSpotLight(
   dfloat coneAngle
 )
 {
-  std::unique_ptr<SpotLight> newEntity = std::make_unique<SpotLight>(
+  std::unique_ptr<_SpotLight> newEntity = std::make_unique<_SpotLight>(
     COMPONENT_MANAGER,
     positionVector, rotationVector, scaleVector,
     lightColour, lightIntensities,
@@ -236,3 +236,5 @@ Entity* EntityManager::CreateSpotLight(
 
   return InsertEntity(std::move(newEntity));
 }
+
+#endif

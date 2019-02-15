@@ -11,6 +11,8 @@
 #include "CommonGraphicsAppInterface.h"
 #include "CommonWindowInterface.h"
 
+#include "Collider.h"
+
 struct CommonRigidBodyBase : public CommonExampleInterface
 {
 	//keep the collision shapes, for deletion/cleanup

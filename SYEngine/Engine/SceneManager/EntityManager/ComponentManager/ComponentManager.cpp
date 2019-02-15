@@ -1,6 +1,19 @@
 
 #include "ComponentManager.h"
 
+// Component submodules
+#include "ControllerManager.h"
+#include "MaterialManager.h"
+#include "MeshManager.h"
+#include "ModelManager.h"
+#include "SkyboxManager.h"
+#include "TextureManager.h"
+#include "BlockCollider.h"
+
+// Components
+#include "Mesh.h"
+#include "Model.h"
+
 using namespace SYE; 
 
 ComponentManager::ComponentManager(BaseModule &parentModule):
@@ -69,13 +82,6 @@ std::unique_ptr<Mesh> ComponentManager::GenerateMeshBlock(dfloat width, dfloat h
   std::unique_ptr<Mesh> newComponent = MESH_MANAGER->GenerateMeshBlock(width, height,length);
 
   return newComponent;
-}
-
-Component* ComponentManager::InsertComponent(std::unique_ptr<Component>&& pNewComponent)
-{
-  auto result = _components.insert(std::make_pair(pNewComponent->GetGuid(), std::move(pNewComponent)));
-
-  return result.first->second.get();
 }
 
 Component* ComponentManager::CreateBoxCollider(

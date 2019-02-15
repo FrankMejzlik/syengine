@@ -1,9 +1,9 @@
 
-#include "DirectionalLight.h"
+#include "DirectionalLight_.h"
 
 using namespace SYE;
 
-_DirectionalLight::_DirectionalLight(
+DirectionalLight::DirectionalLight(
   ComponentManager* pComponentManager,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 colourVector,
@@ -11,7 +11,7 @@ _DirectionalLight::_DirectionalLight(
   glm::vec3 shadowDimensions,
   glm::vec3 lightDirectionVector
 ) : 
-  _Light(
+  Light(
     pComponentManager,
     positionVector, rotationVector, scaleVector,
     colourVector,
@@ -29,7 +29,7 @@ _DirectionalLight::_DirectionalLight(
   _lightProjectionMatrix = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, 0.1f, 100.0f);
 }
 
-void _DirectionalLight::UseLight(
+void DirectionalLight::UseLight(
   GLuint ambientIntensityLocation,
   GLuint ambientColourLocation,
   GLuint diffuseIntensityLocation,
@@ -43,11 +43,11 @@ void _DirectionalLight::UseLight(
   glUniform1f(diffuseIntensityLocation, _lightIntensities.y);
 }
 
-glm::mat4 _DirectionalLight::CalculateLightTransform()
+glm::mat4 DirectionalLight::CalculateLightTransform()
 {
   return _lightProjectionMatrix * glm::lookAt(-_lightDirectionVector, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
-_DirectionalLight::~_DirectionalLight()
+DirectionalLight::~DirectionalLight()
 {}
 

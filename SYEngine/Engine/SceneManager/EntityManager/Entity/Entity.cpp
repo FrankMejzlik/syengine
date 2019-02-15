@@ -1,16 +1,40 @@
 #include "Entity.h"
-#include "Collider/Collider.h"
+#include "Collider.h"
 
 
 using namespace SYE;
 
-Entity::Entity(
-  ComponentManager* pComponentManager
-) noexcept :
-  _pComponentManager(pComponentManager)
+Entity::Entity(Scene* pOwnerScene, ComponentManager* pComponentManager) noexcept :
+  _pParent(nullptr),
+  _pOwnerScene(pOwnerScene),
+  _pComponentManager(pComponentManager),
+  _type(Entity::eType::WORLD)
 {}
 
+Entity::~Entity() 
+{}
+
+Entity::eType Entity::SetType(eType newValue)
+{
+  Entity::eType oldType = _type;
+  _type = newValue;
+
+  return oldType;
+}
+
+Entity::eType Entity::GetType() const
+{
+  return _type;
+}
+
+ComponentManager* Entity::GetComponentManagerPtr()
+{
+  return _pComponentManager;
+}
+
+
 #if !NEW_SSSEC_IMPLEMENTED
+
 Entity::Entity(
   ComponentManager* pComponentManager,
   glm::vec3 positionVector,
@@ -23,12 +47,6 @@ Entity::Entity(
   _scaleVector(scaleVector),
   _bIsToRender(false),
   _bHasColliders(false)
-{
-
-}
-#endif
-
-Entity::~Entity() 
 {
 
 }
@@ -103,10 +121,7 @@ const glm::vec3& Entity::GetScaleVectorRefConst() const
   return _scaleVector;
 }
 
-ComponentManager* Entity::GetComponentManager()
-{
-  return _pComponentManager;
-}
+
 
 const std::unordered_map<size_t, Collider*> &Entity::GetColliders() const
 {
@@ -132,3 +147,7 @@ bool Entity::DeleteCollider(Collider* pNewCollider)
   }
   return true; 
 }
+
+
+
+#endif

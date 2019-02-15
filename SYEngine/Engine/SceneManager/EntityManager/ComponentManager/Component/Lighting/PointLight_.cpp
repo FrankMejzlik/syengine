@@ -1,9 +1,9 @@
-#include "PointLight.h"
+#include "PointLight_.h"
 
 using namespace SYE;
 
 
-_PointLight::_PointLight(
+PointLight::PointLight(
   ComponentManager* pComponentManager,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 colourVector,
@@ -12,7 +12,7 @@ _PointLight::_PointLight(
   glm::vec2 planeDimensions,
   glm::vec3 coefficients
 ) :
-  _Light(
+  Light(
     pComponentManager,
     positionVector, rotationVector, scaleVector,
     colourVector,
@@ -30,10 +30,10 @@ _PointLight::_PointLight(
   _pShadowMap->Init(_shadowDimensions.x, _shadowDimensions.y);
 }
 
-_PointLight::~_PointLight()
+PointLight::~PointLight()
 {}
 
-void _PointLight::UseLight(
+void PointLight::UseLight(
   GLuint ambientIntensityLocation, 
   GLuint ambientColourLocation, 
   GLuint diffuseIntensityLocation, 
@@ -55,7 +55,7 @@ void _PointLight::UseLight(
   glUniform1f(exponentLocation, _exponent);
 }
 
-std::vector<glm::mat4> _PointLight::GetOmniLightModelToWorldMatrices()
+std::vector<glm::mat4> PointLight::GetOmniLightModelToWorldMatrices()
 {
   std::vector<glm::mat4> lightMatrices;
 
@@ -74,12 +74,12 @@ std::vector<glm::mat4> _PointLight::GetOmniLightModelToWorldMatrices()
   return lightMatrices;
 }
 
-glm::vec3 _PointLight::GetPosition()
+glm::vec3 PointLight::GetPosition()
 {
   return _positionVector;
 }
 
-GLfloat _PointLight::GetFarPlane()
+GLfloat PointLight::GetFarPlane()
 {
   return _farPlane;
 }

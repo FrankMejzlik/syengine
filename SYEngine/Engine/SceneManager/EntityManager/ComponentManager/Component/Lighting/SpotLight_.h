@@ -1,19 +1,19 @@
 #pragma once
 
 
-#include "PointLight.h"
+#include "PointLight_.h"
 
 using namespace SYE;
 
 namespace SYE 
 {
 
-class _SpotLight :
-  public _PointLight
+class SpotLight :
+  public PointLight
 {
 public:
-  _SpotLight() = delete;
-  _SpotLight(
+  SpotLight() = delete;
+  SpotLight(
     ComponentManager* pComponentManager,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 colourVector,
@@ -24,7 +24,7 @@ public:
     glm::vec3 lightDirection,
     GLfloat coneAngle
   );
-  ~_SpotLight();
+  ~SpotLight();
 
   void UseLight(
     GLuint ambientIntensityLocation,

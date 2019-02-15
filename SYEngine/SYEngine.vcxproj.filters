@@ -117,34 +117,11 @@
     </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Quad.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Controller\Controller.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.cpp">
       <Filter>Engine\ComponentManager\Component\Logic</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Material\Material.cpp">
-      <Filter>Engine\ComponentManager\Component\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Mesh\Mesh.cpp">
-      <Filter>Engine\ComponentManager\Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\Model.cpp">
-      <Filter>Engine\ComponentManager\Component\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Shader\Shader.cpp">
-      <Filter>Engine\ComponentManager\Component\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Skybox\Skybox.cpp">
-      <Filter>Engine\ComponentManager\Component\Skybox</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Sound\Sound.cpp">
       <Filter>Engine\ComponentManager\Component\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Texture\Texture.cpp">
-      <Filter>Engine\ComponentManager\Component\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window\Window.cpp">
-      <Filter>Engine\ComponentManager\Component\Window</Filter>
     </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Component.cpp">
       <Filter>Engine\ComponentManager\Component</Filter>
@@ -178,8 +155,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Core\Abstract\IGuidCounted.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\Collider.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\BlockCollider.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp">
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
@@ -203,10 +178,41 @@
     <ClCompile Include="external\x64\imgui\1.66\src\imgui_demo.cpp" />
     <ClCompile Include="external\x64\imgui\1.66\src\imgui_draw.cpp" />
     <ClCompile Include="external\x64\imgui\1.66\src\imgui_widgets.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform\Transform.cpp" />
     <ClCompile Include="Engine\Core\MathLibrary.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera\Camera_.cpp" />
     <ClCompile Include="Engine\LogicManager\ScriptManager\ScriptManager.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\Collider.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Rigidbody.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Model.cpp">
+      <Filter>Engine\ComponentManager\Component\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\SkeletalModel.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.cpp">
+      <Filter>Engine\ComponentManager\Component\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.cpp">
+      <Filter>Engine\ComponentManager\Component\Skybox</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Texture.cpp">
+      <Filter>Engine\ComponentManager\Component\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window.cpp">
+      <Filter>Engine\ComponentManager\Component\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Mesh\Mesh.cpp">
+      <Filter>Engine\ComponentManager\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material.cpp">
+      <Filter>Engine\ComponentManager\Component\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera_.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\Light_.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\PointLight_.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\DirectionalLight_.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\SpotLight_.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\MeshRenderer.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Rigidbody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -342,34 +348,11 @@
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Quad.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Controller\Controller.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.h">
       <Filter>Engine\ComponentManager\Component\Logic</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Material\Material.h">
-      <Filter>Engine\ComponentManager\Component\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Mesh\Mesh.h">
-      <Filter>Engine\ComponentManager\Component\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\Model.h">
-      <Filter>Engine\ComponentManager\Component\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Shader\Shader.h">
-      <Filter>Engine\ComponentManager\Component\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Skybox\Skybox.h">
-      <Filter>Engine\ComponentManager\Component\Skybox</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Sound\Sound.h">
       <Filter>Engine\ComponentManager\Component\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Texture\Texture.h">
-      <Filter>Engine\ComponentManager\Component\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window\Window.h">
-      <Filter>Engine\ComponentManager\Component\Window</Filter>
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Component.h">
       <Filter>Engine\ComponentManager\Component</Filter>
@@ -404,8 +387,6 @@
     <ClInclude Include="Engine\Core\typedefs.h" />
     <ClInclude Include="Engine\Core\Abstract\IGuidCounted.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\Collider.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Collider\BlockCollider.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h">
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
@@ -428,10 +409,41 @@
     <ClInclude Include="external\imgui\imstb_rectpack.h" />
     <ClInclude Include="external\imgui\imstb_textedit.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform\Transform.h" />
     <ClInclude Include="Engine\Core\MathLibrary.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera\Camera_.h" />
     <ClInclude Include="Engine\LogicManager\ScriptManager\ScriptManager.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\Collider.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Rigidbody.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Model.h">
+      <Filter>Engine\ComponentManager\Component\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\SkeletalModel.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.h">
+      <Filter>Engine\ComponentManager\Component\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.h">
+      <Filter>Engine\ComponentManager\Component\Skybox</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Texture.h">
+      <Filter>Engine\ComponentManager\Component\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window.h">
+      <Filter>Engine\ComponentManager\Component\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Mesh\Mesh.h">
+      <Filter>Engine\ComponentManager\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material.h">
+      <Filter>Engine\ComponentManager\Component\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera_.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\Light_.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\PointLight_.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\DirectionalLight_.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\SpotLight_.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\MeshRenderer.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Rigidbody.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

@@ -1,9 +1,9 @@
-#include "Light.h"
+#include "Light_.h"
 
 using namespace SYE;
 
 
-_Light::_Light(
+Light::Light(
   ComponentManager* pComponentManager,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 colourVector,
@@ -23,12 +23,12 @@ _Light::_Light(
   );
 }
 
-_Light::~_Light()
+Light::~Light()
 {
   _pShadowMap.reset();
 }
 
-std::shared_ptr<ShadowMap> _Light::GetShadowMap() const
+std::shared_ptr<ShadowMap> Light::GetShadowMap() const
 { 
   return _pShadowMap; 
 }

@@ -14,7 +14,7 @@ BlockCollider::BlockCollider(
   bool bIsStatic, bool bIsSolid
 ): 
     Collider(pEntity, 
-      std::move(pEntity->GetComponentManager()->GenerateMeshBlock(a, b, c)),
+      std::move(pEntity->GetComponentManagerPtr()->GenerateMeshBlock(a, b, c)),
       position, rotation, scale, bIsStatic, bIsSolid)
 
 {

@@ -3,24 +3,25 @@
 #include <map>
 #include <memory>
 
+#pragma warning(push, 1)
+#include <glm/glm.hpp>
+#pragma warning(pop)
+
 #include "common.h"
 #include "BaseModule.h"
 
-// Component managers.
-#include "ControllerManager.h"
-#include "MaterialManager.h"
-#include "MeshManager.h"
-#include "ModelManager.h"
-#include "SkyboxManager.h"
-#include "TextureManager.h"
-#include "Collider/BlockCollider.h"
-
-// Components.
-#include "Mesh.h"
-#include "Model.h"
-
 namespace SYE 
 {
+
+class Component;
+class Entity;
+
+#if !NEW_SSSEC_IMPLEMENTED
+class TextureManager;
+class Mesh;
+class Texture;
+class Shininess;
+#endif
 
 class ComponentManager:
     public BaseModule
@@ -34,8 +35,33 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  TextureManager* GetTextureManager() const { return _pTextureManager;  }
+  template <typename ComponentType>
+  ComponentType* CreateComponent(Entity* pOwnerEntity)
+  {
+    // Instantiate new Component
+    return InsertComponent<ComponentType>(std::make_unique<ComponentType>(pOwnerEntity));
+  }
+ 
+
+private:
+  template <typename ComponentType>
+  ComponentType* InsertComponent(std::unique_ptr<ComponentType>&& pNewComponent)
+  {
+    auto result = _components.insert(std::make_pair(pNewComponent->GetGuid(), std::move(pNewComponent)));
+
+    return static_cast<ComponentType*>(result.first->second.get());
+  }
+
+
+private:
+  /** Owner list of all components that exist */
+  std::map<size_t, std::unique_ptr<Component>> _components;
+
+#if !NEW_SSSEC_IMPLEMENTED
+
   
+
+public:
   std::unique_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
   std::unique_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
 
@@ -60,18 +86,12 @@ public:
     std::string_view filePath
   );
 
-private:
-  Component* InsertComponent(std::unique_ptr<Component>&& pNewComponent);
 
-
-private:
-
-
+  TextureManager* GetTextureManager() const { return _pTextureManager;  }
 
   TextureManager* _pTextureManager;
 
-  std::map<size_t, std::unique_ptr<Component>> _components;
-
+#endif
 };
 
 } // namespace SYE

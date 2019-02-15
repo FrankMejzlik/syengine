@@ -82,7 +82,7 @@ public:
   GLuint GetOmniLightPosLocation();
   GLuint GetFarPlaneLocation();
 
-  void SetDirectionalLight(DirectionalLight* dLight);
+  void SetDirectionalLight(_DirectionalLight* dLight);
   void SetPointLights(
     const std::unordered_map<size_t, Entity*>& pointLights, 
     size_t textureUnit,

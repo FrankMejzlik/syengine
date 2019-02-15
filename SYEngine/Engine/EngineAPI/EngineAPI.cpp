@@ -92,7 +92,7 @@ void EngineApi::ProcessEngineQueue()
     {
     case eCommandType::CreateBlock:
 
-      newEntity = SceneManager::GetActiveScene()->CreateBlock(
+      newEntity = SceneManager::GetActiveScene()->_CreateBlock(
         "editorBlock",
         glm::vec3(data[0], data[1], data[2]),
         glm::vec3(data[3], data[4], data[5]),

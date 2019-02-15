@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "Light.h"
+#include "Light_.h"
 #include "OmniShadowMap.h"
 
 using namespace SYE;
@@ -10,12 +10,12 @@ using namespace SYE;
 namespace SYE 
 {
 
-class _PointLight :
-  public _Light
+class PointLight :
+  public Light
 {
 public:
-  _PointLight() = delete;
-  _PointLight(
+  PointLight() = delete;
+  PointLight(
     ComponentManager* pComponentManager,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 colourVector,
@@ -24,7 +24,7 @@ public:
     glm::vec2 planeDimensions,
     glm::vec3 coefficients
   );
-  virtual ~_PointLight();
+  virtual ~PointLight();
 
   virtual void UseLight(
     GLuint ambientIntensityLocation,

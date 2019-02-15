@@ -2,7 +2,7 @@
 
 #include "common.h"
 #include "BaseModule.h"
-//#include "Scene.h"
+
 #include "ComponentManager.h"
 #include "Entity.h"
 
@@ -14,9 +14,7 @@
 #include "Camera.h"
 
 
-
-
-
+#if !NEW_SSSEC_IMPLEMENTED
 enum class eEntityType
 {
   ENTITY,
@@ -32,10 +30,14 @@ enum class eEntityType
           QUAD
       
 };
+#endif
 
 using namespace SYE;
 
-namespace SYE {
+namespace SYE 
+{
+
+class Scene;
 
 class EntityManager :
   public BaseModule
@@ -56,16 +58,29 @@ public:
    * capable of attaching PRIMARY Components to itself.
    *
    * Entity can be either of type WORLD or SCREEN.
+   * @param   Scene*    Pointer to Scene instance that will own this Entity.
+   * @return  Entity*   Observer pointer to new Entity instance.
    *
    * @see   class Entity
    * @see   class ComponentManager
    * @see   class Component
    */
-  Entity* CreateEntity();
+  Entity* CreateEntity(Scene* pOwnerScene);
 
-  // vvv Obsolate vvv 
-  
-  Entity* CreateCamera(std::string_view cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch, float turnSpeed, float moveSpeed);
+
+protected:
+private:
+  Entity* InsertEntity(std::unique_ptr<Entity>&& pNewEntity);
+
+
+private:
+  std::map<size_t, std::unique_ptr<Entity>> _entities;
+
+
+#if !NEW_SSSEC_IMPLEMENTED
+
+public:
+    Entity* CreateCamera(std::string_view cameraName, glm::vec3 positionVector, glm::vec3 startUpDirection, float startYaw, float startPitch, float turnSpeed, float moveSpeed);
 
   Entity* CreateQuad(
     std::string_view entityName,
@@ -115,15 +130,8 @@ public:
     dfloat coneAngle
   );
 
-  // ^^^ Obsolate ^^^
+#endif
 
-protected:
-private:
-  Entity* InsertEntity(std::unique_ptr<Entity>&& pNewEntity);
-
-
-private:
-  std::map<size_t, std::unique_ptr<Entity>> _entityList;
 };
 
 }

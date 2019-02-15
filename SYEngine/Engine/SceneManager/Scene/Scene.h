@@ -10,10 +10,12 @@
 
 #include "common.h"
 #include "IGuidCounted.h"
+#include "SceneContext.h"
 
 #include "EntityManager.h"
 #include "Entity.h"
-#include "SceneContext.h"
+
+
 
 // temp
 #include "DirectionalLight.h"
@@ -27,8 +29,8 @@
 namespace SYE
 {
 
-class DirectionalLight;
-class PointLight;
+class _DirectionalLight;
+class _PointLight;
 class Collider;
 
 /**
@@ -37,16 +39,78 @@ class Collider;
 class Scene:
   public IGuidCounted
 {
+  // Methods
 public:
   Scene() = delete;
   Scene(EntityManager* pEntityManager, std::string_view sceneName) noexcept;
   ~Scene() noexcept;
 
+  Entity* InsertEntity(Entity* pEntityToInsert);
+  bool DeleteEntity(Entity* pEntityToDelete);
+
+  Entity* CreateBlock(
+    std::string_view entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    dfloat width, dfloat height, dfloat length,
+    bool isStatic = true
+  );
+
+
   _Camera* GetEditorCamera() const;
   std::string_view GetSceneName() const;
   size_t GetSceneNumberOfEntities() const;
 
-  Block* CreateBlock(
+  
+
+  const std::unordered_map<size_t, Entity*> &GetActiveModelsRefConst() const;
+  const std::unordered_map<size_t, Collider*> &GetActiveColliders() const;
+  const std::unordered_map<size_t, Entity*> &GetDirectionalLightsMapRefConst() const;
+  const std::unordered_map<size_t, Entity*> &GetPointLightsMapRefConst() const;
+  const std::unordered_map<size_t, Entity*> &GetSpotLightsMapRefConst() const;
+
+
+  // Attributes
+private:
+  SceneContext _sceneContext;
+  /** EntityManager instance dedicated for this Scene instance */
+  EntityManager* _pEntityManager;
+  /** Pointer to default Engine Editor camera instance */
+  _Camera* _pEditorCamera;
+ 
+  // Map of all entities in this Scene.
+  std::unordered_map<size_t, Entity*> _entities;
+
+  
+#if !NEW_SSSEC_IMPLEMENTED
+public:
+
+  // Map of all Entities that have something to render out.
+  std::unordered_map<size_t, Entity*> _activeModels;
+  // Map of all active DirectionalLights.
+  std::unordered_map<size_t, Entity*> _activeDirectionalLights;
+  // Map of all active SpotLights.
+  std::unordered_map<size_t, Entity*> _activePointLights;
+  // Map of all active SpotLights.
+  std::unordered_map<size_t, Entity*> _activeSpotLights;
+  std::unordered_map<size_t, Collider*> _activeColliders;
+  // Map of all Entities that have RigidBodies.
+  std::unordered_map<size_t, Entity*> _activeWithRigidBodies;
+
+  // Global Entity inserter.
+  Entity* InsertEntity_(Entity* pEntityToInsert);
+  bool DeleteEntity_(Entity* pEntityToDelete);
+
+  Entity* InsertActiveColliders(Entity* entityToDelete);
+  Entity* DeleteActiveColliders(Entity* entityToDelete);
+
+  // Models to be rendered inserter.
+  Entity* InsertActiveModel(Entity* entityToInsert);
+  // Light insertors.
+  Entity* InsertDirectionalLight(Entity* entityToInsert);
+  Entity* InsertPointLight(Entity* entityToInsert);
+  Entity* InsertSpotLight(Entity* entityToInsert);
+
+  Block* _CreateBlock(
     std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height, dfloat length,
@@ -72,8 +136,8 @@ public:
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     std::string_view filePath
   );
-  
-  DirectionalLight* CreateDirectionalLight(
+
+  _DirectionalLight* CreateDirectionalLight(
     std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour, glm::vec3 lightIntensities, 
@@ -81,7 +145,7 @@ public:
     glm::vec3 lightDirection
   );
 
-  PointLight* CreatePointLight(
+  _PointLight* CreatePointLight(
     std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour,
@@ -91,7 +155,7 @@ public:
     glm::vec3 coefficients
   );
 
-  SpotLight* CreateSpotLight(
+  _SpotLight* CreateSpotLight(
     std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour,
@@ -103,47 +167,8 @@ public:
     dfloat coneAngle
   );
 
-  const std::unordered_map<size_t, Entity*> &GetActiveModelsRefConst() const;
-  const std::unordered_map<size_t, Collider*> &GetActiveColliders() const;
-  const std::unordered_map<size_t, Entity*> &GetDirectionalLightsMapRefConst() const;
-  const std::unordered_map<size_t, Entity*> &GetPointLightsMapRefConst() const;
-  const std::unordered_map<size_t, Entity*> &GetSpotLightsMapRefConst() const;
+#endif
 
-private:
-  SceneContext _sceneContext;
-  // EntityManager instance dedicated for this Scene instance.
-  EntityManager* _pEntityManager;
-  // Pointer to default Engine Editor camera instance.
-  _Camera* _pEditorCamera;
- 
-  // Map of all entities in this Scene.
-  std::unordered_map<size_t, Entity*> _entities;
-
-  // Map of all Entities that have something to render out.
-  std::unordered_map<size_t, Entity*> _activeModels;
-  // Map of all active DirectionalLights.
-  std::unordered_map<size_t, Entity*> _activeDirectionalLights;
-  // Map of all active SpotLights.
-  std::unordered_map<size_t, Entity*> _activePointLights;
-  // Map of all active SpotLights.
-  std::unordered_map<size_t, Entity*> _activeSpotLights;
-  std::unordered_map<size_t, Collider*> _activeColliders;
-  // Map of all Entities that have RigidBodies.
-  std::unordered_map<size_t, Entity*> _activeWithRigidBodies;
-
-  // Global Entity inserter.
-  Entity* InsertEntity(Entity* pEntityToInsert);
-  bool DeleteEntity(Entity* pEntityToDelete);
-  
-  Entity* InsertActiveColliders(Entity* entityToDelete);
-  Entity* DeleteActiveColliders(Entity* entityToDelete);
-  
-  // Models to be rendered inserter.
-  Entity* InsertActiveModel(Entity* entityToInsert);
-  // Light insertors.
-  Entity* InsertDirectionalLight(Entity* entityToInsert);
-  Entity* InsertPointLight(Entity* entityToInsert);
-  Entity* InsertSpotLight(Entity* entityToInsert);
 };
 
 } // namespace SYE

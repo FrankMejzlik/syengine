@@ -1,9 +1,9 @@
-#include "SpotLight.h"
+#include "SpotLight_.h"
 
 using namespace SYE;
 
 
-_SpotLight::_SpotLight(
+SpotLight::SpotLight(
   ComponentManager* pComponentManager,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   glm::vec3 colourVector,
@@ -14,7 +14,7 @@ _SpotLight::_SpotLight(
   glm::vec3 lightDirection,
   GLfloat coneAngle
 ):
-  _PointLight(
+  PointLight(
     pComponentManager,
     positionVector, rotationVector, scaleVector,
     colourVector,
@@ -29,10 +29,10 @@ _SpotLight::_SpotLight(
 {}
 
 
-_SpotLight::~_SpotLight()
+SpotLight::~SpotLight()
 {}
 
-void _SpotLight::UseLight(
+void SpotLight::UseLight(
   GLuint ambientIntensityLocation, 
   GLuint ambientColourLocation, 
   GLuint diffuseIntensityLocation, 
@@ -59,7 +59,7 @@ void _SpotLight::UseLight(
   glUniform1f(edgeLocation, _processedConeAngle);
 }
 
-void _SpotLight::SetFlash(glm::vec3 pos, glm::vec3 dir)
+void SpotLight::SetFlash(glm::vec3 pos, glm::vec3 dir)
 {
   _positionVector = pos;
   _lightDirection = dir;

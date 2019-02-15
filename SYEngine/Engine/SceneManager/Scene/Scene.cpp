@@ -1,6 +1,10 @@
 
 #include "Scene.h"
 
+#include "MeshRenderer.h"
+#include "Rigidbody.h"
+#include "BlockCollider.h"
+
 using namespace SYE;
 
 Scene::Scene(EntityManager* pEntityManager, std::string_view sceneName) noexcept :
@@ -47,7 +51,6 @@ Entity* Scene::InsertEntity(Entity* pEntityToInsert)
 
 bool Scene::DeleteEntity(Entity* pEntityToDelete)
 {
-
   // If has Colliders, delete them.
   if (pEntityToDelete->GetBHasColliders())
   {
@@ -59,6 +62,69 @@ bool Scene::DeleteEntity(Entity* pEntityToDelete)
 
   return true;
 }
+Entity* Scene::CreateBlock(
+  std::string_view entityName,
+  glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+  dfloat width, dfloat height, dfloat length,
+  bool isStatic
+)
+{
+  UNREFERENCED_PARAMETER(entityName);
+  UNREFERENCED_PARAMETER(positionVector);
+  UNREFERENCED_PARAMETER(rotationVector);
+  UNREFERENCED_PARAMETER(scaleVector);
+  UNREFERENCED_PARAMETER(height);
+  UNREFERENCED_PARAMETER(width);
+  UNREFERENCED_PARAMETER(length);
+  UNREFERENCED_PARAMETER(isStatic);
+
+  // Call EntityManager to create new Quad Entity.
+  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+
+  // Add MeshRenderer Component
+  MeshRenderer* pMeshRenderer = pNewEntity->AddComponent<MeshRenderer>();
+  pMeshRenderer;
+
+  // Add BlockCollider Component
+  BlockCollider* pBlockCollider = pNewEntity->AddComponent<BlockCollider>();
+  pBlockCollider;
+
+  // Add Rigigbody Component
+  Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();
+  pRigidBody;
+
+  return InsertEntity_(pNewEntity);
+}
+
+#if !NEW_SSSEC_IMPLEMENTED
+
+Entity* Scene::InsertEntity_(Entity* pEntityToInsert)
+{
+  _entities.insert(std::make_pair(pEntityToInsert->GetGuid(), pEntityToInsert));
+
+  // If has Colliders, insert them into map as well.
+  if (pEntityToInsert->GetBHasColliders())
+  {
+    InsertActiveColliders(pEntityToInsert);
+  }
+
+  return pEntityToInsert;
+}
+
+bool Scene::DeleteEntity_(Entity* pEntityToDelete)
+{
+  // If has Colliders, delete them.
+  if (pEntityToDelete->GetBHasColliders())
+  {
+    DeleteActiveColliders(pEntityToDelete);
+  }
+
+  // Delete it from hash map.
+  _entities.erase(pEntityToDelete->GetGuid());
+
+  return true;
+}
+
 
 Entity* Scene::InsertActiveColliders(Entity* pEntityToInsert)
 {
@@ -165,7 +231,7 @@ _Camera* Scene::CreateCamera(std::string_view cameraName, glm::vec3 positionVect
   // TODO: Implement properly.
   _pEditorCamera = pNewCamera;
 
-  return static_cast<_Camera*>(InsertEntity(pNewCamera));
+  return static_cast<_Camera*>(InsertEntity_(pNewCamera));
 }
 
 Quad* Scene::CreateQuad(
@@ -183,7 +249,7 @@ Quad* Scene::CreateQuad(
     width, height
   );
 
- 
+
   // TODO: Make dynamic
   (*pNewQuad).SetBIsToRender(true);
 
@@ -192,11 +258,12 @@ Quad* Scene::CreateQuad(
     InsertActiveModel(pNewQuad);
   }
 
-  return static_cast<Quad*>(InsertEntity(pNewQuad));
+  return static_cast<Quad*>(InsertEntity_(pNewQuad));
 }
 
 
-Block* Scene::CreateBlock(
+
+Block* Scene::_CreateBlock(
   std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
   dfloat width, dfloat height, dfloat length,
@@ -222,7 +289,7 @@ Block* Scene::CreateBlock(
     InsertActiveModel(pNewBlock);
   }
 
-  return static_cast<Block*>(InsertEntity(pNewBlock));
+  return static_cast<Block*>(InsertEntity_(pNewBlock));
 }
 
 
@@ -250,10 +317,10 @@ WorldObject* Scene::CreateStaticModelFromFile(
     InsertActiveModel(pNewEntity);
   }
 
-  return static_cast<Block*>(InsertEntity(pNewEntity));
+  return static_cast<Block*>(InsertEntity_(pNewEntity));
 }
 
-DirectionalLight* Scene::CreateDirectionalLight
+_DirectionalLight* Scene::CreateDirectionalLight
 (
   std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
@@ -263,7 +330,7 @@ DirectionalLight* Scene::CreateDirectionalLight
 )
 {
 
-  DirectionalLight* pMainLight = (DirectionalLight*)_pEntityManager->CreateDirectionalLight(
+  _DirectionalLight* pMainLight = (_DirectionalLight*)_pEntityManager->CreateDirectionalLight(
     entityName,
     positionVector,          // Position vector
     rotationVector,          // rotation vector
@@ -279,18 +346,18 @@ DirectionalLight* Scene::CreateDirectionalLight
   
   InsertDirectionalLight(pMainLight);
 
-  return static_cast<DirectionalLight*>(InsertEntity(pMainLight));
+  return static_cast<_DirectionalLight*>(InsertEntity_(pMainLight));
   
 }
 
-PointLight* Scene::CreatePointLight(
+_PointLight* Scene::CreatePointLight(
   std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, 
   glm::vec3 lightColour, glm::vec3 lightIntensities, glm::vec3 shadowMapSize, 
   glm::vec2 planeDimensions, glm::vec3 coefficients
 )
 {
-  PointLight* pMainLight = (PointLight*)_pEntityManager->CreatePointLight(
+  _PointLight* pMainLight = (_PointLight*)_pEntityManager->CreatePointLight(
     entityName,
     positionVector,          // Position vector
     rotationVector,          // rotation vector
@@ -306,10 +373,10 @@ PointLight* Scene::CreatePointLight(
   
   InsertPointLight(pMainLight);
 
-  return static_cast<PointLight*>(InsertEntity(pMainLight));
+  return static_cast<_PointLight*>(InsertEntity_(pMainLight));
 }
 
-SpotLight* Scene::CreateSpotLight(
+_SpotLight* Scene::CreateSpotLight(
   std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, 
   glm::vec3 lightColour, glm::vec3 lightIntensities, glm::vec3 shadowMapSize, 
@@ -317,7 +384,7 @@ SpotLight* Scene::CreateSpotLight(
   dfloat coneAngle
 )
 {
-  SpotLight* pMainLight = (SpotLight*)_pEntityManager->CreateSpotLight(
+  _SpotLight* pMainLight = (_SpotLight*)_pEntityManager->CreateSpotLight(
     entityName,
     positionVector,          // Position vector
     rotationVector,          // rotation vector
@@ -335,6 +402,7 @@ SpotLight* Scene::CreateSpotLight(
 
   InsertSpotLight(pMainLight);
 
-  return static_cast<SpotLight*>(InsertEntity(pMainLight));
+  return static_cast<_SpotLight*>(InsertEntity_(pMainLight));
 }
 
+#endif

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Light.h"
+#include "Light_.h"
 
 using namespace SYE;
 
@@ -10,12 +10,12 @@ namespace SYE
 /**
  * Light that is in infinite distance. It has direction.
  */
-class _DirectionalLight :
-  public _Light
+class DirectionalLight :
+  public Light
 {
 public:
-  _DirectionalLight() = delete;
-  _DirectionalLight(
+  DirectionalLight() = delete;
+  DirectionalLight(
     ComponentManager* pComponentManager,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 colourVector,
@@ -23,7 +23,7 @@ public:
     glm::vec3 shadowDimensions,
     glm::vec3 lightDirectionVector
   );
-  virtual ~_DirectionalLight();
+  virtual ~DirectionalLight();
 
   void UseLight(
     GLuint ambientIntensityLocation, 

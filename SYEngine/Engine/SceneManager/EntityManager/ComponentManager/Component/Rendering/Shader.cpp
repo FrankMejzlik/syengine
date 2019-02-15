@@ -144,7 +144,7 @@ GLuint Shader::GetFarPlaneLocation()
   return uniformFarPlane;
 }
 
-void Shader::SetDirectionalLight(DirectionalLight* dLight)
+void Shader::SetDirectionalLight(_DirectionalLight* dLight)
 {
   dLight->UseLight(
     uniformDirectionalLight.uniformAmbientIntensity,
@@ -174,7 +174,7 @@ void Shader::SetPointLights(
   size_t i = 0;
   for (auto it : pointLights)
   {
-    PointLight* pointLight = static_cast<PointLight*>(it.second);
+    _PointLight* pointLight = static_cast<_PointLight*>(it.second);
 
     pointLight->UseLight(
       uniformPointLight[i].uniformAmbientIntensity,
@@ -206,7 +206,7 @@ void Shader::SetSpotLights(
   size_t i = 0;
   for (auto it : spotLights) {
 
-    SpotLight* spotLight = static_cast<SpotLight*>(it.second);
+    _SpotLight* spotLight = static_cast<_SpotLight*>(it.second);
 
     spotLight->UseLight(
       uniformSpotLight[i].uniformAmbientIntensity,

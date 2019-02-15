@@ -18,20 +18,20 @@ using namespace SYE;
 namespace SYE 
 {
 
-class _Light:
+class Light:
   public WorldEntity
 {
 public:
-  _Light() = delete;
+  Light() = delete;
 
-  _Light(
+  Light(
     ComponentManager* pComponentManager,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 colourVector,
     glm::vec3 lightIntensities,
     glm::vec3 shadowDimensions
   );
-  virtual ~_Light();
+  virtual ~Light();
 
   std::shared_ptr<ShadowMap> GetShadowMap() const;
 

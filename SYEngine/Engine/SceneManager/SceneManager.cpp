@@ -132,20 +132,28 @@ Scene* SceneManager::LoadInitialScene()
   ); */
 
 
-  auto block0 = pNewScene->CreateBlock(
+  auto block00 = pNewScene->_CreateBlock(
+    std::string("floor1"), 
+    glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
+    100.0f, 2.0f, 100.0f,
+    true // Is  static
+  );
+  block00;
+
+  auto block0 = pNewScene->_CreateBlock(
     std::string("floor1"), 
     glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     100.0f, 2.0f, 100.0f,
     true // Is  static
   );
 
-  auto block1 = pNewScene->CreateBlock(
+  auto block1 = pNewScene->_CreateBlock(
     std::string("block1"), glm::vec3(3.0f, 3.0f, 3.1f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
     true // Is not static
   );
 
-  auto block2 = pNewScene->CreateBlock(
+  auto block2 = pNewScene->_CreateBlock(
     std::string("block2"), glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
     false // Is not static

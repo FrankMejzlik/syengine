@@ -157,7 +157,7 @@ void RenderingManager::DirectionalShadowMapPass
 
   for (auto it : directionalLights)
   {
-    DirectionalLight* light = static_cast<DirectionalLight*>(it.second);
+    _DirectionalLight* light = static_cast<_DirectionalLight*>(it.second);
 
     // Setup viewport same as frame buffer
     glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
@@ -207,7 +207,7 @@ void RenderingManager::OmniShadowMapPass
   // Process PointLights.
   for (auto it : pointLights)
   {
-    PointLight* light = static_cast<PointLight*>(it.second);
+    _PointLight* light = static_cast<_PointLight*>(it.second);
 
     // Setup viewport same as frame buffer
     glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
@@ -245,7 +245,7 @@ void RenderingManager::OmniShadowMapPass
   // Process SpotLights.
   for (auto it : spotLights)
   {
-    SpotLight* light = static_cast<SpotLight*>(it.second);
+    _SpotLight* light = static_cast<_SpotLight*>(it.second);
 
     // Setup viewport same as frame buffer
     glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
@@ -295,7 +295,7 @@ void RenderingManager::FinalMainRenderPass
   const std::unordered_map<size_t, Entity*>& spotLights
 )
 {
-  DirectionalLight* mainLight = static_cast<DirectionalLight*>(directionalLights.begin()->second);
+  _DirectionalLight* mainLight = static_cast<_DirectionalLight*>(directionalLights.begin()->second);
 
   // Set correct viewport, just to be sure
   glViewport(0, 0, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);

@@ -17,6 +17,7 @@ class Collider;
 class ComponentManager;
 class Component;
 class Model;
+class Scene;
 
 
 /**
@@ -27,19 +28,59 @@ class Model;
 class Entity:
   public IGuidCounted
 {
+  // Structures
+public:
+  /**
+   * Types of Entities
+   *
+   * WORLD is Entity placed in 3D Scenes.
+   * SCREEN is Entity placed in 2D UiLayers.
+   */
+  enum eType
+  {
+    WORLD,
+    SCREEN
+  };
+
 public:
   Entity() = delete;
 
-  Entity(ComponentManager* pComponentManager) noexcept;
+  Entity(Scene* pOwnerScene, ComponentManager* pComponentManager) noexcept;
 
   virtual ~Entity();
 
+  ComponentManager* GetComponentManagerPtr();
+  eType SetType(eType newValue);
+  eType GetType() const;
+
+
+  void AddChild(Entity* pNewChild);
+
+  template <typename ComponentType>
+  ComponentType* AddComponent()
+  {
+    return _pComponentManager->CreateComponent<ComponentType>(this);
+  }
   
-  ComponentManager* GetComponentManager();
 
 
 protected:
+  /** Pointer to ComponentManager that is dedicated for this Entity. */
   ComponentManager* _pComponentManager;
+  Scene* _pOwnerScene;
+
+  /** Type of this Entity. */
+  eType _type;
+
+  /** 
+   * Parent Entity 
+   *
+   * If 'nullptr' then this has no parent.
+   */
+  Entity* _pParent;
+
+  /** Child Entities */
+  std::map<size_t, Entity*> _children;
 
   /** List of all components on this Entity */
   std::map<size_t, Component*> _components;
