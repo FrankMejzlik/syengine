@@ -3,16 +3,15 @@
 
 using namespace SYE;
 
-Scene::Scene(EntityManager* pEntityManager, std::string_view sceneName) :
+Scene::Scene(EntityManager* pEntityManager, std::string_view sceneName) noexcept :
   _pEntityManager(pEntityManager),
   _sceneContext(sceneName),
   _pEditorCamera(nullptr)
 {
-
   DLog(eLogType::Success, "Scene with name %s instantiated.", _sceneContext.m_sceneName.data());
 }
 
-Scene::~Scene()
+Scene::~Scene() noexcept
 {
   DLog(eLogType::Success, "Scene with name %s destroyed.", _sceneContext.m_sceneName.data());
 }

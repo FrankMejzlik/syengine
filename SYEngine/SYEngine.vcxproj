@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -175,6 +175,7 @@
     <ClCompile Include="Engine\Core\Abstract\IGuidCounted.cpp" />
     <ClCompile Include="Engine\Core\BaseModule.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform\Transform.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\ControllerManager\ControllerManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\ComponentManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Component.cpp" />
@@ -248,6 +249,7 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\Ui.cpp" />
+    <ClCompile Include="Engine\Core\MathLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.h" />
@@ -260,6 +262,7 @@
     <ClInclude Include="Engine\Core\typedefs.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Model\SkeletalModel.h" />
     <ClInclude Include="Engine\Core\config_world.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform\Transform.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\ControllerManager\ControllerManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\ComponentManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Component.h" />
@@ -337,6 +340,7 @@
     <ClInclude Include="Engine\Core\Abstract\IGuidCounted.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\Ui.h" />
+    <ClInclude Include="Engine\Core\MathLibrary.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\shaders\directional_shadow_map.frag" />

@@ -15,22 +15,23 @@ class Component:
 {
 public:
   Component() = delete;
+  Component(Entity* pOwnerEntity) noexcept;
+  virtual ~Component() noexcept = default;
 
-  Component(Entity* pEntity);
-  ~Component();
+  Entity* GetOwnerEntityPtr() const;
+  Entity* SetOwnerEntityPtr(Entity* newOwnerPtr);
 
-  Entity* GetOwner() const
-  {
-    return _pEntity;
-  };
+  bool GetIsPrimary() const;
+  bool SetIsPrimary(bool newValue);
+
 
 protected:
-  // Pointer to Entity that owns this Component.
-  Entity* _pEntity;
+  /** Pointer to Entity that owns this Component. */
+  Entity* _pOwnerEntity;
 
-  // Connected Components.
-  std::vector<std::shared_ptr<Component>> _connectedComponents;
-
+  /** If this Component can be directly placed on Entity. */
+  bool _isPrimary;
+  
 };
 
 }

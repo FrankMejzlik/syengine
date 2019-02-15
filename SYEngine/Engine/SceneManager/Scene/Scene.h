@@ -39,13 +39,20 @@ class Scene:
 {
 public:
   Scene() = delete;
-
-  Scene(EntityManager* pEntityManager, std::string_view sceneName);
-  ~Scene();
+  Scene(EntityManager* pEntityManager, std::string_view sceneName) noexcept;
+  ~Scene() noexcept;
 
   Camera* GetEditorCamera() const;
   std::string_view GetSceneName() const;
   size_t GetSceneNumberOfEntities() const;
+
+  Block* CreateBlock(
+    std::string_view entityName,
+    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    dfloat width, dfloat height, dfloat length,
+    bool bIsStatic = true
+  );
+
 
   // Shortcut for create Entity, add components: camera, controller
   Camera* CreateCamera(
@@ -58,13 +65,6 @@ public:
     std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     dfloat width, dfloat height
-  );
-
-  Block* CreateBlock(
-    std::string_view entityName,
-    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-    dfloat width, dfloat height, dfloat length,
-    bool bIsStatic = true
   );
 
   WorldObject* CreateStaticModelFromFile(

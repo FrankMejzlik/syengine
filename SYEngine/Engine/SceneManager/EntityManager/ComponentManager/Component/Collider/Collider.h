@@ -89,12 +89,12 @@ protected:
 
   void RecalculateAbsolutePosition()
   {
-    _absolutePosition = _pEntity->GetPositionVectorRefConst() + _position;
+    _absolutePosition = _pOwnerEntity->GetPositionVectorRefConst() + _position;
   }
 
   void RecalculateAbsoluteRotation()
   {
-    _absoluteRotation = _pEntity->GetRotationVectorRefConst() + _rotation;
+    _absoluteRotation = _pOwnerEntity->GetRotationVectorRefConst() + _rotation;
   }
 
 };
