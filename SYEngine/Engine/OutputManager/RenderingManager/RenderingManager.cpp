@@ -5,6 +5,7 @@
 #include "DirectionalLight_.h"
 #include "SpotLight_.h"
 #include "MeshRenderer.h"
+#include "Transform.h"
 
 using namespace SYE;
 
@@ -156,15 +157,17 @@ void RenderingManager::CreateShaders()
   const char* gODLShader = "shaders/omni_shadow_map.geom";
   const char* fODLShader = "shaders/omni_shadow_map.frag";
 
-  std::shared_ptr<Shader> pMainShader = std::make_shared<Shader>(nullptr, _subModules);
+  
+
+  std::shared_ptr<Shader> pMainShader = std::make_shared<Shader>(nullptr, _subModules, _fake);
   pMainShader->CreateFromFiles(vShader, fShader);
   _shaders.push_back(pMainShader);
 
-  std::shared_ptr<Shader> pDLShader = std::make_shared<Shader>(nullptr, _subModules);
+  std::shared_ptr<Shader> pDLShader = std::make_shared<Shader>(nullptr, _subModules, _fake);
   pDLShader->CreateFromFiles(vDLShader, fDLShader);
   _shaders.push_back(pDLShader);
 
-  std::shared_ptr<Shader> pODLShader = std::make_shared<Shader>(nullptr, _subModules);
+  std::shared_ptr<Shader> pODLShader = std::make_shared<Shader>(nullptr, _subModules, _fake);
   pODLShader->CreateFromFiles(vODLShader, gODLShader, fODLShader);
   _shaders.push_back(pODLShader);
 
@@ -242,8 +245,10 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     GLuint uniformFarPlanex = _shaders[2]->GetFarPlaneLocation();
     GLuint ul_modelx = _shaders[2]->GetModelLocation();
 
+    const Vector3f& pos = light->GetPositionConstRef();
+
     // Bind to shader position of light in the World coordinates
-    glUniform3f(uniformOmniLightPosx, light->GetPosition().GetX(), light->GetPosition().GetY(), light->GetPosition().GetZ());
+    glUniform3f(uniformOmniLightPosx, pos.GetX(), pos.GetY(), pos.GetZ());
     glUniform1f(uniformFarPlanex, light->GetFarPlane());
 
     // Bind to shader 6 direction transofrm light metrices
@@ -281,8 +286,10 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     uniformOmniLightPos = _shaders[2]->GetOmniLightPosLocation();
     uniformFarPlane = _shaders[2]->GetFarPlaneLocation();
 
+    const Vector3f& pos = light->GetPositionConstRef();
+
     // Bind to shader position of light in the World coordinates
-    glUniform3f(uniformOmniLightPos, light->GetPosition().GetX(), light->GetPosition().GetY(), light->GetPosition().GetZ());
+    glUniform3f(uniformOmniLightPos, pos.GetX(), pos.GetY(), pos.GetZ());
     glUniform1f(uniformFarPlane, light->GetFarPlane());
 
     // Bind to shader 6 direction transofrm light metrices

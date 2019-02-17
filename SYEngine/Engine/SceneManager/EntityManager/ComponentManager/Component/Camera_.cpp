@@ -11,9 +11,9 @@ using namespace SYE;
 namespace SYE 
 {
 
-Camera::Camera(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept:
+Camera::Camera(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept:
   Component(
-    pOwnerEntity, subModulesConstRef,
+    pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     true, true,
     CAMERA
   ),
@@ -35,6 +35,19 @@ Camera::Camera(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseMo
   Update();
 }
 
+void Camera::Refresh()
+{
+  /**
+   * Update all quick refs to sibling Components
+   */
+
+  // Update Transform quick ref
+  if (!_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].empty())
+  {
+    _pTransform = static_cast<Transform*>(_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].begin()->second);
+  }
+  
+}
 
 void Camera::KeyControl(Window* pMainWindow, dfloat deltaTime)
 {
@@ -162,7 +175,7 @@ glm::mat4 Camera::CalculateViewMatrix()
 
 Vector3f Camera::GetCameraPosition() const
 {
-  return _pOwnerEntity->GetTransform()->GetPosition();
+  return _pTransform->GetPosition();
 }
 
 Vector3f Camera::GetCameraDirection() const

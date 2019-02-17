@@ -14,9 +14,9 @@ using namespace SYE;
 
 Texture::Texture(
   Entity* pEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
 ) noexcept:
-  Component(pEntity,subModulesConstRef, false) 
+  Component(pEntity,subModulesConstRef, primaryComponentSlots, false) 
 {
   _type = eType::TEXTURE;
 }
@@ -99,9 +99,10 @@ void Texture::ClearTexture()
 
 Texture::Texture(
   Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
   const char* const fileLocation
 ):
-  Component(pEntity, subModulesConstRef, false),
+  Component(pEntity, subModulesConstRef, primaryComponentSlots, false),
   textureID(0), width(0), height(0), bitDepth(0)
 {
   strcpy_s(this->fileLocation, 1024, fileLocation);

@@ -32,8 +32,13 @@ public:
   // Methods
 public:
 	Camera() = delete;
-	Camera(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
+	Camera(
+    Entity* pOwnerEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
+  ) noexcept;
 
+  virtual void Refresh();
 
   void SetWorldUpDirection(Vector3f worldUp) { _worldUp = worldUp; }
   void SetYaw(dfloat yaw) { _yaw = yaw; }
@@ -60,7 +65,7 @@ protected:
   void UpdateFirstPersonMode();
 	
 
-private:
+protected:
   eCameraModes _mode;
 
   Vector3f _frontDirection;
@@ -83,6 +88,9 @@ private:
 
   bool _isDragingOn;
 
+private:
+  // Quick refs
+  Transform* _pTransform;
 
 };
 

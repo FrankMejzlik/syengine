@@ -60,8 +60,8 @@ void VertexBoneData::Reset()
 }
 
 /* Init */
-SkeletalModel::SkeletalModel(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef):
-  Model(pOwnerEntity, subModulesConstRef)
+SkeletalModel::SkeletalModel(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots):
+  Model(pOwnerEntity, subModulesConstRef, primaryComponentSlots)
 {
   m_Importer = new Assimp::Importer();
 
@@ -336,7 +336,7 @@ bool SkeletalModel::InitMaterials(const aiScene* pScene, const std::string& File
 
         std::string FullPath = Dir + "/" + p;
 
-        _textures[i] = new Texture(_pOwnerEntity, _subModules, FullPath.c_str());
+        _textures[i] = new Texture(_pOwnerEntity, _subModules, _primaryComponentSlots, FullPath.c_str());
 
         if (!_textures[i]->LoadTexture())
         {

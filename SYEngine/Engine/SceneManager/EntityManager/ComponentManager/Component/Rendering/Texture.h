@@ -17,7 +17,7 @@ class Texture:
 {
 public:
   Texture() = delete;
-  Texture(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
+  Texture(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept;
 
   
   bool LoadTexture(std::string_view texturePathFile);
@@ -33,7 +33,7 @@ private:
 
 #if !NEW_SSSEC_IMPLEMENTED
 public:
-  Texture(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, const char* const fileLocation);
+  Texture(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots, const char* const fileLocation);
   bool LoadTexture();
 
   char fileLocation[1024];

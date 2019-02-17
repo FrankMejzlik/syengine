@@ -7,14 +7,15 @@
 using namespace SYE;
 
 
-SpotLight::SpotLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept :
-  PointLight(pOwnerEntity, subModulesConstRef)
+SpotLight::SpotLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept :
+  PointLight(pOwnerEntity, subModulesConstRef, primaryComponentSlots)
 {
   _type = eType::SPOT_LIGHT;
 }
 
 SpotLight::~SpotLight() noexcept
 {}
+
 
 
 void SpotLight::SetConeAngle(dfloat angle)
@@ -41,7 +42,7 @@ void SpotLight::UseLight(
   GLuint edgeLocation
 )
 {
-  Vector3f pos = _pOwnerEntity->GetTransform()->GetPosition();
+  Vector3f pos = _pTransform->GetPosition();
 
   glUniform3f(ambientColourLocation, _colourVector.x, _colourVector.y, _colourVector.z);
   glUniform1f(ambientIntensityLocation, _lightIntensities.x);

@@ -23,7 +23,7 @@ class Mesh:
 {
 public:
   Mesh() = delete;
-  Mesh(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
+  Mesh(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept;
   ~Mesh() noexcept;
 
 
@@ -88,7 +88,7 @@ public:
   );
 
   Mesh(
-    Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
+    Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
     std::vector<GLfloat> vertices, 
     std::vector<unsigned int> indices, 
     bool calculateAverageNormals = false

@@ -59,6 +59,8 @@ private:
   GLuint uniformFarPlane = 0;
 
 
+ 
+
 #if !NEW_SSSEC_IMPLEMENTED
 
   void _DirectionalShadowMapPass

@@ -96,7 +96,7 @@ Component* ComponentManager::CreateBoxCollider(
 )
 {
   return InsertComponent(std::make_unique<BlockCollider>(
-    pEntity, _subModules,
+    pEntity, _subModules, _fake,
     position, rotation, scale,
     width, heigt, length,
     bIsStatic, true

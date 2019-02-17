@@ -38,4 +38,3 @@ constexpr size_t gSingletonSlots[] = { COMPONENT_SLOT_SINGLETONS };
 
 /** MeshRenderers */
 #define COMPONENT_MESH_RENDERER_SLOT 9
-

@@ -40,7 +40,7 @@ public:
   ComponentType* CreateComponent(Entity* pOwnerEntity)
   {
     // Instantiate new Component
-    return InsertComponent<ComponentType>(std::make_unique<ComponentType>(pOwnerEntity, _subModules));
+    return InsertComponent<ComponentType>(std::make_unique<ComponentType>(pOwnerEntity, _subModules, pOwnerEntity->GetPrimaryComponentSlotsRef()));
   }
 
   /** 

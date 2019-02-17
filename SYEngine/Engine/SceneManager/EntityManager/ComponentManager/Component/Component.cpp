@@ -8,7 +8,7 @@ using namespace SYE;
 
 
 Component::Component(
-  Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
+  Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
   bool isPrimary, bool isActive,
   eSlotIndex slotIndex
 ) noexcept :
@@ -18,7 +18,8 @@ Component::Component(
   _isActive(isActive),
   _isDefault(true),
   _slotIndex(slotIndex),
-  _type(eType::COMPONENT)
+  _type(eType::COMPONENT),
+  _primaryComponentSlots(primaryComponentSlots)
 {
   // Get pointer to ComponentManager that Components can use.
   if (_pOwnerEntity)
@@ -26,6 +27,11 @@ Component::Component(
     _pComponentManager = pOwnerEntity->GetComponentManagerPtr();
   }
 
+}
+
+void Component::Refresh()
+{
+  // Update all quick refs to sibling Components
 }
 
 Entity* Component::GetOwnerEntityPtr() const

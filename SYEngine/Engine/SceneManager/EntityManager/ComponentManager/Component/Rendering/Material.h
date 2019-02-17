@@ -29,16 +29,23 @@ public:
    * shiny: 1.0f, 512
    * dull: 0.3f  4
    */
-  _Shininess(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef):
-    Component(pEntity, subModulesConstRef, false),
+  _Shininess(
+    Entity* pEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
+    ):
+    Component(pEntity, subModulesConstRef, primaryComponentSlots, false),
     _specularIntensity(0.3f), _shininessIntensity(4)
   {}
 
   // Parametrized constructor.
   _Shininess(
-    Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    dfloat specularIntensity, dfloat shininessIntensity):
-    Component(pEntity, subModulesConstRef, false),
+    Entity* pEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    dfloat specularIntensity, dfloat shininessIntensity
+  ):
+    Component(pEntity, subModulesConstRef, primaryComponentSlots, false),
     _specularIntensity(specularIntensity), _shininessIntensity(shininessIntensity)
   {}
 
@@ -71,7 +78,7 @@ public:
   /**
    * Adds default Texture and Shininess.
    */
-  _Material(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef);
+  _Material(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots);
   ~_Material();
 
   /**

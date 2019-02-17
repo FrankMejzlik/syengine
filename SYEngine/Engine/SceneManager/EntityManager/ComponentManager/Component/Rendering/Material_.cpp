@@ -4,8 +4,8 @@
 
 using namespace SYE;
 
-Material::Material(Entity* _pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef):
-  Component(_pOwnerEntity, subModulesConstRef, false)
+Material::Material(Entity* _pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots):
+  Component(_pOwnerEntity, subModulesConstRef, primaryComponentSlots, false)
 {
   _type = eType::MATERIAL;
 }

@@ -53,7 +53,7 @@ bool ModelManager::Terminate()
 
 std::unique_ptr<Model> ModelManager::CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&& pQuadMesh, std::unique_ptr<Texture>&& pTexture, std::unique_ptr<_Shininess>&& pShininess)
 {
-  std::unique_ptr<Model> newModel = std::make_unique<Model>(pEntity, _subModules);
+  std::unique_ptr<Model> newModel = std::make_unique<Model>(pEntity, _subModules, _fake);
 
   // Add Mesh, Texture and Shininess to model
   size_t meshIndex = newModel->AddMesh(std::move(pQuadMesh));
@@ -81,7 +81,7 @@ std::unique_ptr<Model> ModelManager::CreateModel(Entity* pEntity, std::unique_pt
 
 std::unique_ptr<Model> ModelManager::CreateModelFromFile(Entity* pEntity, std::string_view filePath)
 {
-  std::unique_ptr<Model> pNewModel = std::make_unique<Model>(pEntity, _subModules);
+  std::unique_ptr<Model> pNewModel = std::make_unique<Model>(pEntity, _subModules, _fake);
 
   pNewModel->LoadModelFromFile(filePath);
 

@@ -34,9 +34,10 @@ public:
    */
   Shininess(
     Entity* pEntity, 
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
   ):
-    Component(pEntity, subModulesConstRef, false),
+    Component(pEntity, subModulesConstRef, primaryComponentSlots, false),
     _specularIntensity(0.3f), _shininessIntensity(4)
   {}
 
@@ -66,7 +67,7 @@ class Material:
 {
 public:
   Material() = delete;
-  Material(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef);
+  Material(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots);
   ~Material();
 
 

@@ -59,14 +59,13 @@ public:
   eType SetType(eType newValue);
   eType GetType() const;
 
-  Transform* GetTransform() const { return _pTransform; };
-  void SetTransform(Transform* newValue) { _pTransform = newValue; };
-
   Entity* SetParent(Entity* newValue);
   Entity* GetParentPtr() const;
   void AddChild(Entity* pNewChild);
   void RemoveChild(Entity* pNewChild);
   const std::map<size_t, Entity*> GetChildren() const;
+
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& GetPrimaryComponentSlotsRef() { return _primaryComponentSlots; }
 
   template <typename ComponentType>
   ComponentType* AddComponent()
@@ -85,6 +84,9 @@ public:
 
     // If attached, enlist it in active components in scene in order to be processed
     _pOwnerScene->EnlistComponent(pNewComponent);
+
+    // Trigger refress on all Components
+    RefreshComponents();
 
     return pNewComponent;
   }
@@ -150,7 +152,11 @@ public:
     return static_cast<ComponentType*>(&(*(result.first->second)));
   }
 
+protected:
+  void RefreshComponents();
 
+
+  // Attributes
 protected:
   
 
@@ -170,9 +176,6 @@ protected:
 
   /** Child Entities */
   std::map<size_t, Entity*> _children;
-
-  /** Pointer to transform Component, if not present 'nullptr' */
-  Transform* _pTransform;
 
   /** 
    * Table of active primary Components on this Entity 

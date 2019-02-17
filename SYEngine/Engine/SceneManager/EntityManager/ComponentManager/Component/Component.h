@@ -67,11 +67,13 @@ public:
 public:
   Component() = delete;
   Component(
-    Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
+    Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
     bool isPrimary = true, bool isActive = true,
     eSlotIndex slotIndex = UNDEFINED 
   ) noexcept;
   virtual ~Component() noexcept = default;
+
+  virtual void Refresh();
 
   Entity* GetOwnerEntityPtr() const;
   Entity* SetOwnerEntityPtr(Entity* newOwnerPtr);
@@ -111,7 +113,17 @@ protected:
 
   /** ComponentManager submodules that every Component can use */
   const std::map< int, std::unique_ptr<BaseModule> >& _subModules;
+
+  /** 
+   * Reference to table of active primary Components on owning Entity 
+   *
+   * Indices of slots are configured at config_components.h.
+   * Some slots are singletons, e.g. there can be only one light source per Component.
+   */
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& _primaryComponentSlots;
   
+private:
+
 };
 
 }

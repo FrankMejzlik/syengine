@@ -3,8 +3,8 @@
 using namespace SYE;
 
 
-Model::Model(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef):
-  Component(pOwnerEntity, subModulesConstRef)
+Model::Model(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots):
+  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots)
 {
   _type = eType::MODEL;
 }
@@ -156,7 +156,7 @@ void Model::LoadMesh(aiMesh* mesh, const aiScene* scene)
     }
   }
 
-  std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>(_pOwnerEntity, _subModules);
+  std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>(_pOwnerEntity, _subModules, _primaryComponentSlots);
   pNewMesh->CreateMesh(vertices, indices, true);
   _meshList.push_back(pNewMesh);
 
@@ -185,7 +185,7 @@ void Model::LoadMaterials(const aiScene * scene)
         std::string texPath = std::string(CONCATENATE_LITERALS(PATH_TEXTURES, "/")) + filename;
 
         //_textureList[i] = new Texture(texPath.c_str());
-        _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, _subModules, texPath.c_str());
+        _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, _subModules, _primaryComponentSlots, texPath.c_str());
 
         if (!_textureList[i]->LoadTexture())
         {
@@ -202,7 +202,7 @@ void Model::LoadMaterials(const aiScene * scene)
     {
       // Load default texture.
       //_textureList[i] = new Texture(CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
-      _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, _subModules, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+      _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, _subModules, _primaryComponentSlots, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
       _textureList[i]->LoadTexture();
     }
   }

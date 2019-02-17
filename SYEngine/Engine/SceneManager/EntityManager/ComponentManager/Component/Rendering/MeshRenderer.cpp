@@ -13,9 +13,10 @@
 
 using namespace SYE;
 
-SYE::MeshRenderer::MeshRenderer(Entity * pOwnerEntity, const std::map<int, std::unique_ptr<BaseModule>>& subModulesConstRef) :
+SYE::MeshRenderer::MeshRenderer(Entity * pOwnerEntity, const std::map<int, std::unique_ptr<BaseModule>>& subModulesConstRef,
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) :
   Component(
-    pOwnerEntity, subModulesConstRef,
+    pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     true, true,
     MESH_RENDERER
   )
@@ -26,6 +27,20 @@ SYE::MeshRenderer::MeshRenderer(Entity * pOwnerEntity, const std::map<int, std::
 MeshRenderer::~MeshRenderer()
 {}
 
+void MeshRenderer::Refresh()
+{
+  /**
+  * Update all quick refs to sibling Components
+  */
+
+  // Update Transform quick ref
+  if (!_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].empty())
+  {
+    _pTransform = static_cast<Transform*>(_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].begin()->second);
+  }
+
+}
+
 void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation) const
 {
   // TODO: Abstract matrices out in MathLibrary.h
@@ -33,11 +48,11 @@ void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntens
   // Prepare Model->World transform matrix
   glm::mat4 modelToWorldMatrix;
   modelToWorldMatrix = std::move(glm::mat4(1.0f));
-  modelToWorldMatrix = glm::translate(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetPosition().GetData());
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
-  modelToWorldMatrix = glm::scale(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetScale().GetData());
+  modelToWorldMatrix = glm::translate(modelToWorldMatrix, _pTransform->GetPosition().GetData());
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
+  modelToWorldMatrix = glm::scale(modelToWorldMatrix, _pTransform->GetScale().GetData());
 
   glUniformMatrix4fv(ul_modelToWorldMatrix, 1, GL_FALSE, glm::value_ptr(modelToWorldMatrix));
 
@@ -61,11 +76,11 @@ void MeshRenderer::RenderForLight(GLuint ul_modelToWorldMatrix) const
   // Prepare Model->World transform matrix
   glm::mat4 modelToWorldMatrix;
   modelToWorldMatrix = std::move(glm::mat4(1.0f));
-  modelToWorldMatrix = glm::translate(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetPosition().GetData());
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
-  modelToWorldMatrix = glm::scale(modelToWorldMatrix, _pOwnerEntity->GetTransform()->GetScale().GetData());
+  modelToWorldMatrix = glm::translate(modelToWorldMatrix, _pTransform->GetPosition().GetData());
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
+  modelToWorldMatrix = glm::scale(modelToWorldMatrix, _pTransform->GetScale().GetData());
 
   glUniformMatrix4fv(ul_modelToWorldMatrix, 1, GL_FALSE, glm::value_ptr(modelToWorldMatrix));
 

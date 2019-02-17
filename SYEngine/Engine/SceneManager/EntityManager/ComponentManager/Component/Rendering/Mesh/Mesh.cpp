@@ -6,9 +6,9 @@ using namespace SYE;
 
 Mesh::Mesh(
   Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
 ) noexcept :
-  Component(pOwnerEntity, subModulesConstRef, false)
+  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false)
 {
   _type = eType::MESH;
 }
@@ -311,12 +311,12 @@ void Mesh::CreateMesh(
 
 
 Mesh::Mesh(
-  Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
+  Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
   std::vector<GLfloat> vertices, 
   std::vector<unsigned int> indices, 
   bool calculateAverageNormals
 ):
-  Component(pOwnerEntity, subModulesConstRef, false),
+  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false),
   _vertices_(vertices), _indices_(indices),
   _vertexCount(static_cast<GLsizei>(vertices.size())), 
   _indexCount(static_cast<GLsizei>(indices.size()))

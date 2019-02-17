@@ -6,7 +6,6 @@ using namespace SYE;
 
 Entity::Entity(Scene* pOwnerScene, ComponentManager* pComponentManager) noexcept :
   _pParent(nullptr),
-  _pTransform(nullptr),
   _pOwnerScene(pOwnerScene),
   _pComponentManager(pComponentManager),
   _type(Entity::eType::WORLD)
@@ -59,6 +58,14 @@ void Entity::RemoveChild(Entity* pNewChild)
 const std::map<size_t, Entity*> Entity::GetChildren() const 
 { 
   return _children; 
+}
+
+void Entity::RefreshComponents()
+{
+  for (auto&& component : _components)
+  {
+    component.second->Refresh();
+  }
 }
 
 #if !NEW_SSSEC_IMPLEMENTED

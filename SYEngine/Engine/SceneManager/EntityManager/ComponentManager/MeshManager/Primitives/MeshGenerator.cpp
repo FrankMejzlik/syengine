@@ -240,7 +240,7 @@ std::unique_ptr<Mesh> MeshGenerator::GenerateMeshBlock(
   };
 
   // Mesh
-  std::unique_ptr<Mesh> pBlockMesh = std::make_unique<Mesh>(nullptr, _subModules);
+  std::unique_ptr<Mesh> pBlockMesh = std::make_unique<Mesh>(nullptr, _subModules, _fake);
   pBlockMesh->CreateMesh(blockVertices, blockIndices, bAverageNormals);
 
   return pBlockMesh;
@@ -273,7 +273,7 @@ std::unique_ptr<Mesh>  MeshGenerator::GenerateMeshQuad(
   };
 
   // Instantiate Mesh instance.
-  std::unique_ptr<Mesh> pBlockMesh = std::make_unique<Mesh>(nullptr, _subModules);
+  std::unique_ptr<Mesh> pBlockMesh = std::make_unique<Mesh>(nullptr, _subModules, _fake);
   pBlockMesh->CreateMesh(vertexArray, indexArray, bAverageNormals);
 
   return pBlockMesh;

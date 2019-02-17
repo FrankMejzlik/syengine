@@ -1,11 +1,11 @@
 #include "Light_.h"
-
+#include "Transform.h"
 using namespace SYE;
 
 
-Light::Light(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept :
+Light::Light(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept :
   Component(
-    pOwnerEntity, subModulesConstRef,
+    pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     true, true,
     UNDEFINED
   ),
@@ -17,6 +17,25 @@ Light::Light(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModu
 Light::~Light() noexcept
 {
   _pShadowMap.reset();
+}
+
+void Light::Refresh()
+{
+  /**
+  * Update all quick refs to sibling Components
+  */
+
+  // Update Transform quick ref
+  if (!_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].empty())
+  {
+    _pTransform = static_cast<Transform*>(_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].begin()->second);
+  }
+
+}
+
+const Vector3f& Light::GetPositionConstRef() const 
+{ 
+  return _pTransform->GetPositionConstRef(); 
 }
 
 glm::vec3 Light::GetColour() const

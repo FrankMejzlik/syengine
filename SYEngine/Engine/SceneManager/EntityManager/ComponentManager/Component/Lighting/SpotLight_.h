@@ -12,7 +12,7 @@ class SpotLight :
 {
 public:
   SpotLight() = delete;
-  SpotLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
+  SpotLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept;
   ~SpotLight() noexcept;
 
   void SetConeAngle(dfloat angle);

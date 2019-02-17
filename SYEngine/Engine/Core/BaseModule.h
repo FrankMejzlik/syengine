@@ -4,9 +4,11 @@
 
 #include <map>
 #include <memory>
+#include <array>
 
 
 #include "common.h"
+#include "config_components.h"
 #include "IModuleState.h"
 #include "IErrorLogging.h"
 #include "IUsesEngineAPI.h"
@@ -15,6 +17,8 @@
 
 namespace SYE
 {
+
+class Component;
 
 // Forward declarations.
 class EngineApi;
@@ -38,6 +42,9 @@ protected:
   BaseModule &_parentModule;
   const EngineApi* _pEngineApi;
   std::map<int, std::unique_ptr<BaseModule>> _subModules;
+
+  // Just for ability to constrict Component before removing last bits of old architecture
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> _fake;
 
 };
 

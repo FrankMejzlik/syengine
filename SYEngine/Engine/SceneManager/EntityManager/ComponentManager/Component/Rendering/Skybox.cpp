@@ -6,13 +6,13 @@
 using namespace SYE;
 
 
-Skybox::Skybox(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::vector<std::string> faceLocation):
-  Component(pOwnerEntity, subModulesConstRef, false)
+Skybox::Skybox(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots, std::vector<std::string> faceLocation):
+  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false)
 {
   _type = eType::SKYBOX;
 
   // Shader setup
-  skyShader = new Shader(nullptr, subModulesConstRef);
+  skyShader = new Shader(nullptr, subModulesConstRef, primaryComponentSlots);
   skyShader->CreateFromFiles(
     "shaders/skybox.vert", 
     "shaders/skybox.frag"
@@ -91,7 +91,7 @@ Skybox::Skybox(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseMo
     1.0f, -1.0f, 1.0f,		0.0f, 0.0f,		0.0f, 0.0f, 0.0f
   };
 
-  skyMesh = new Mesh(_pOwnerEntity, _subModules);
+  skyMesh = new Mesh(_pOwnerEntity, _subModules, primaryComponentSlots);
   skyMesh->CreateMesh(skyboxVertices, skyboxIndices);
 }
 
