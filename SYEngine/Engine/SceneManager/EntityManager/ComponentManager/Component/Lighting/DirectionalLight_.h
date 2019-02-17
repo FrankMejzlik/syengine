@@ -15,16 +15,12 @@ class DirectionalLight :
 {
 public:
   DirectionalLight() = delete;
-  DirectionalLight(
-    ComponentManager* pComponentManager,
-    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-    glm::vec3 colourVector,
-    glm::vec3 lightIntensities,
-    glm::vec3 shadowDimensions,
-    glm::vec3 lightDirectionVector
-  );
-  virtual ~DirectionalLight();
-
+  DirectionalLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
+  virtual ~DirectionalLight() noexcept;
+  
+  glm::vec3 GetLightDirection() const { return _lightDirectionVector; };
+  void SetLightDirection(glm::vec3 lightDirection) { _lightDirectionVector = lightDirection; };
+  
   void UseLight(
     GLuint ambientIntensityLocation, 
     GLuint ambientColourLocation,
@@ -33,7 +29,7 @@ public:
   );
 
   // Calculates matrix to transform world to "POV of this light"
-  glm::mat4 CalculateLightTransform();
+  glm::mat4 CalculateLightTransformMatrix();
 
 protected:
   // Direction of light

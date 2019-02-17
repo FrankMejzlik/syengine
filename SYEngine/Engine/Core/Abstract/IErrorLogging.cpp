@@ -11,7 +11,7 @@ IErrorLogging::IErrorLogging()
 IErrorLogging::~IErrorLogging()
 {}
 
-void IErrorLogging::PushEngineError(eEngineError type, size_t lineNumber, std::string filePath, std::string shortDescription, std::string longDescription)
+void IErrorLogging::PushEngineError(eEngineError type, std::string filePath, size_t lineNumber, std::string shortDescription, std::string longDescription)
 {
   _engineErrorQueue.push(EngineError(type, lineNumber, filePath, shortDescription, longDescription));
   return;

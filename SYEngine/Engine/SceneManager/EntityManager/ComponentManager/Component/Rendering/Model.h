@@ -31,7 +31,7 @@ class Model:
 {
 public:
   Model() = delete;
-  Model(Entity* pEntity);
+  Model(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef);
   virtual ~Model() = default;
 
   virtual void LoadModelFromFile(std::string_view fileName);
@@ -41,7 +41,7 @@ public:
 
   size_t AddMesh(std::shared_ptr<Mesh> pNewMesh);
   size_t AddTexture(std::shared_ptr<Texture> pNewTexture);
-  size_t AddShininess(std::shared_ptr<Shininess> pNewShininess);
+  size_t AddShininess(std::shared_ptr<_Shininess> pNewShininess);
 
   void SetMeshIndexToTexture(size_t meshIndex, size_t textureIndex);
   void SetMeshIndexToShininess(size_t meshIndex, size_t shininessIndex);
@@ -49,7 +49,7 @@ public:
 protected: 
   std::vector<std::shared_ptr<Mesh>> _meshList;
   std::vector<std::shared_ptr<Texture>> _textureList;
-  std::vector<std::shared_ptr<Shininess>> _shininesList;
+  std::vector<std::shared_ptr<_Shininess>> _shininesList;
   std::vector<size_t> _meshToTexture;
   // TODO!: Shininess not applied to render.
   std::vector<size_t> _meshToShininess;

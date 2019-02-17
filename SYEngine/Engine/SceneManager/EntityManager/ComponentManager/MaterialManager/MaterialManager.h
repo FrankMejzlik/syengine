@@ -24,11 +24,11 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  std::shared_ptr<Material> GetDefaultMaterial() const;
+  std::shared_ptr<_Material> GetDefaultMaterial() const;
 
 
 private:
-  std::map<std::string, std::shared_ptr<Material>> _genericMaterials;
+  std::map<std::string, std::shared_ptr<_Material>> _genericMaterials;
 };
 
 }

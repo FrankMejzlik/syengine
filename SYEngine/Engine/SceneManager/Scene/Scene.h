@@ -15,6 +15,7 @@
 #include "EntityManager.h"
 #include "Entity.h"
 
+#include "MathLibrary.h"
 
 
 // temp
@@ -48,10 +49,22 @@ public:
   Entity* InsertEntity(Entity* pEntityToInsert);
   bool DeleteEntity(Entity* pEntityToDelete);
 
+  Entity* CreateQuad(
+    Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+    dfloat width, dfloat height,
+    bool isStatic
+  );
+
   Entity* CreateBlock(
-    std::string_view entityName,
-    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+    Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     dfloat width, dfloat height, dfloat length,
+    bool isStatic = true
+  );
+
+  Entity* CreateDirectionalLight(
+    Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+    Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
+    Vector3f direction,
     bool isStatic = true
   );
 
@@ -59,15 +72,16 @@ public:
   _Camera* GetEditorCamera() const;
   std::string_view GetSceneName() const;
   size_t GetSceneNumberOfEntities() const;
+  std::unordered_map<size_t, Entity*> GetEntitiesRef()
+  {
+    return _entities;
+  }
 
-  
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> GetActiveComponentsBySlotsRef() { return _activeComponentBySlots; }
 
-  const std::unordered_map<size_t, Entity*> &GetActiveModelsRefConst() const;
-  const std::unordered_map<size_t, Collider*> &GetActiveColliders() const;
-  const std::unordered_map<size_t, Entity*> &GetDirectionalLightsMapRefConst() const;
-  const std::unordered_map<size_t, Entity*> &GetPointLightsMapRefConst() const;
-  const std::unordered_map<size_t, Entity*> &GetSpotLightsMapRefConst() const;
-
+  size_t MapTypeToSlot(size_t type);
+  void EnlistComponent(Component* pNewComponent);
+  void DelistComponent(Component* pNewComponent);
 
   // Attributes
 private:
@@ -80,9 +94,25 @@ private:
   // Map of all entities in this Scene.
   std::unordered_map<size_t, Entity*> _entities;
 
+  /** 
+  * Table of active primary Components on this Entity 
+  *
+  * Indices of slots are configured at config_components.h.
+  * Some slots are singletons, e.g. there can be only one light source per Component.
+  */
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> _activeComponentBySlots;
+
   
 #if !NEW_SSSEC_IMPLEMENTED
 public:
+
+
+  const std::unordered_map<size_t, Entity*> &GetActiveModelsRefConst() const;
+  const std::unordered_map<size_t, Collider*> &GetActiveColliders() const;
+  const std::unordered_map<size_t, Entity*> &GetDirectionalLightsMapRefConst() const;
+  const std::unordered_map<size_t, Entity*> &GetPointLightsMapRefConst() const;
+  const std::unordered_map<size_t, Entity*> &GetSpotLightsMapRefConst() const;
+
 
   // Map of all Entities that have something to render out.
   std::unordered_map<size_t, Entity*> _activeModels;
@@ -137,7 +167,7 @@ public:
     std::string_view filePath
   );
 
-  _DirectionalLight* CreateDirectionalLight(
+  _DirectionalLight* _CreateDirectionalLight(
     std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour, glm::vec3 lightIntensities, 

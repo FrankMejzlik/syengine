@@ -3,9 +3,10 @@
 using namespace SYE;
 
 
-Model::Model(Entity* pEntity):
-  Component(pEntity)
+Model::Model(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef):
+  Component(pOwnerEntity, subModulesConstRef)
 {
+  _type = eType::MODEL;
 }
 
 void Model::LoadModelFromFile(std::string_view fileName)
@@ -86,7 +87,7 @@ size_t Model::AddTexture(std::shared_ptr<Texture> pNewTexture)
   return _textureList.size() - 1;
 }
 
-size_t Model::AddShininess(std::shared_ptr<Shininess> pNewShininess)
+size_t Model::AddShininess(std::shared_ptr<_Shininess> pNewShininess)
 {
   _shininesList.push_back(pNewShininess);
 
@@ -155,7 +156,7 @@ void Model::LoadMesh(aiMesh* mesh, const aiScene* scene)
     }
   }
 
-  std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>(_pOwnerEntity);
+  std::shared_ptr<Mesh> pNewMesh = std::make_shared<Mesh>(_pOwnerEntity, _subModules);
   pNewMesh->CreateMesh(vertices, indices, true);
   _meshList.push_back(pNewMesh);
 
@@ -184,7 +185,7 @@ void Model::LoadMaterials(const aiScene * scene)
         std::string texPath = std::string(CONCATENATE_LITERALS(PATH_TEXTURES, "/")) + filename;
 
         //_textureList[i] = new Texture(texPath.c_str());
-        _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, texPath.c_str());
+        _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, _subModules, texPath.c_str());
 
         if (!_textureList[i]->LoadTexture())
         {
@@ -201,7 +202,7 @@ void Model::LoadMaterials(const aiScene * scene)
     {
       // Load default texture.
       //_textureList[i] = new Texture(CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
-      _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+      _textureList[i] = std::make_shared<Texture>(_pOwnerEntity, _subModules, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
       _textureList[i]->LoadTexture();
     }
   }

@@ -33,6 +33,8 @@ Camera::Camera(
   _inverseYaw(0.0f),
   _inversePitch(0.0f)
 {
+  //_type = eType::CAMERA;
+
 	UpdateFirstPersonMode();
 }
 

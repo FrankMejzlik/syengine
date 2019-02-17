@@ -85,7 +85,7 @@ class SkeletalModel :
 public:
   SkeletalModel() = delete;
 
-  SkeletalModel(Entity* pEntity);
+  SkeletalModel(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef);
   ~SkeletalModel();
 
   /**

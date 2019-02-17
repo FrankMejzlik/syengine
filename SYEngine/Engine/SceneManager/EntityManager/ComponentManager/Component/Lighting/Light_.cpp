@@ -3,32 +3,60 @@
 using namespace SYE;
 
 
-Light::Light(
-  ComponentManager* pComponentManager,
-  glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-  glm::vec3 colourVector,
-  glm::vec3 lightIntensities,
-  glm::vec3 shadowDimensions
-) :
-  WorldEntity(pComponentManager, positionVector, rotationVector, scaleVector),
-  _colourVector(colourVector), 
-  _lightIntensities(lightIntensities), 
-  _shadowDimensions(shadowDimensions),
-  _pShadowMap(std::make_shared<ShadowMap>())
+Light::Light(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept :
+  Component(
+    pOwnerEntity, subModulesConstRef,
+    true, true,
+    UNDEFINED
+  ),
+  _pShadowMap(std::move(std::make_unique<ShadowMap>()))
 {
-  // Initialize shadow map
-  _pShadowMap->Init(
-    static_cast<unsigned int>(_shadowDimensions.x), 
-    static_cast<unsigned int>(_shadowDimensions.y)
-  );
+  _type = eType::LIGHT;
 }
 
-Light::~Light()
+Light::~Light() noexcept
 {
   _pShadowMap.reset();
 }
 
-std::shared_ptr<ShadowMap> Light::GetShadowMap() const
+glm::vec3 Light::GetColour() const
+{
+  return _colourVector;
+}
+
+void Light::SetColour(glm::vec3 colourVector)
+{
+  _colourVector = colourVector;
+}
+
+glm::vec3 Light::GetIntensities() const
+{
+  return _lightIntensities;
+}
+
+void Light::SetInensities(glm::vec3 lightIntensities)
+{
+  _lightIntensities = lightIntensities;
+}
+
+
+glm::ivec3 Light::GetShadowDimensions() const
+{
+  return _shadowDimensions;
+}
+
+void Light::SetShadowDimensions(glm::ivec3 shadowDimensions)
+{
+  _shadowDimensions = shadowDimensions;
+
+  // Initialize shadow map
+  _pShadowMap->Init(
+    static_cast<unsigned int>(_shadowDimensions.x),
+    static_cast<unsigned int>(_shadowDimensions.y)
+  );
+}
+
+ShadowMap* Light::GetShadowMap() const
 { 
-  return _pShadowMap; 
+  return _pShadowMap.get(); 
 }

@@ -12,12 +12,21 @@ class MeshGenerator:
 {
 public:
   MeshGenerator() = delete;
-
-  MeshGenerator(BaseModule &parentModule);
-  ~MeshGenerator();
+  MeshGenerator(BaseModule& parentModule) noexcept;
+  ~MeshGenerator() noexcept;
 
   virtual bool Initialize() override;
   virtual bool Terminate() override;
+
+
+  std::pair< std::vector<dfloat>, std::vector<unsigned int> > GenerateBlockVerticesIndices(
+    dfloat width, dfloat height, dfloat length
+  );
+  std::pair< std::vector<dfloat>, std::vector<unsigned int> > GenerateQuadVerticesIndices(
+    dfloat width, dfloat height
+  );
+
+#if !NEW_SSSEC_IMPLEMENTED
 
   /**
    * Generates mesh for block.
@@ -34,6 +43,8 @@ public:
     dfloat width, dfloat height,
     bool bAverageNormals
   );
+
+#endif
 };
 
 }

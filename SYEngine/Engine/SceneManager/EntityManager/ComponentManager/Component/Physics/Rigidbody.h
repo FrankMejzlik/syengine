@@ -11,7 +11,7 @@ class Rigidbody:
 {
 public:
   Rigidbody() = delete;
-  Rigidbody(Entity* pOwnerEntity) noexcept;
+  Rigidbody(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
   ~Rigidbody() noexcept;
 
 

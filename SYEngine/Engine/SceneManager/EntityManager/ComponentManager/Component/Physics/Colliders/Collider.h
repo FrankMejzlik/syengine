@@ -18,9 +18,9 @@ class Collider :
 public:
   Collider() = delete;
   
-  Collider(Entity* pEntity);
+  Collider(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef);
   Collider(
-    Entity* pEntity, 
+    Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
     std::unique_ptr<Mesh>&& mesh,
     glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, 
     bool bIsStatic, bool bIsSolid

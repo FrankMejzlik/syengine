@@ -2,34 +2,37 @@
 
 using namespace SYE;
 
-Material::Material(Entity* pEntity):
-  Component(pEntity)
+_Material::_Material(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef):
+  Component(pEntity, subModulesConstRef, false)
 {
   // Add default Texture and Shininess.
-  _textures.push_back(Texture(pEntity));
-  _shininesses.push_back(Shininess(pEntity));
+  // TODO: Allocate those properly.
+  _textures.push_back(Texture(pEntity, subModulesConstRef));
+  _shininesses.push_back(_Shininess(pEntity, subModulesConstRef));
+
+  _type = eType::MATERIAL;
 }
 
-Material::~Material()
+_Material::~_Material()
 {}
 
-size_t Material::AddTexture(std::string filePathToTexture)
+size_t _Material::AddTexture(std::string filePathToTexture)
 {
-  Texture newTexture(_pOwnerEntity, filePathToTexture.c_str());
+  Texture newTexture(_pOwnerEntity, _subModules, filePathToTexture.c_str());
   newTexture.LoadTexture();
   _textures.push_back(newTexture);
 
   return _textures.size() - 1;
 }
 
-size_t Material::AddShininess(dfloat specularIntensity, dfloat shininessIntensity)
+size_t _Material::AddShininess(dfloat specularIntensity, dfloat shininessIntensity)
 {
-  _shininesses.push_back(Shininess(_pOwnerEntity, specularIntensity, shininessIntensity));
+  _shininesses.push_back(_Shininess(_pOwnerEntity, _subModules, specularIntensity, shininessIntensity));
   
   return _shininesses.size() - 1;
 }
 
-void Material::UseMaterial(
+void _Material::UseMaterial(
   GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation,
   unsigned int textureIndex, unsigned int shininessIndex
 )

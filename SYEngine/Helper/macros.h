@@ -51,3 +51,8 @@
 
 #define MESH_GENERATOR static_cast<MeshGenerator*>(_subModules[ID_MESH_GENERATOR].get())
 
+
+/**
+ * Constant shortcuts.
+ */
+#define CONST_MESH_GENERATOR static_cast<MeshGenerator*>(_subModules.find(ID_MESH_GENERATOR)->second.get())

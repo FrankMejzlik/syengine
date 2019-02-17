@@ -62,7 +62,7 @@ Window* WindowManager::ConstructWindow(eWindowType windowType, std::string_view 
   UNREFERENCED_PARAMETER(windowType);
 
   // Construct new Window instance and push it into vector.
-  _windows.push_back(std::make_unique<Window>(nullptr, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT));
+  _windows.push_back(std::make_unique<Window>(GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT));
 
   // Get new window ptr.
   Window* newWindow = _windows.back().get();

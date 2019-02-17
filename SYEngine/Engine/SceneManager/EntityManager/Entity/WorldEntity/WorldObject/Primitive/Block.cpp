@@ -14,7 +14,7 @@ Block::Block(
   std::unique_ptr<Mesh> pBlockMesh = pComponentManager->GenerateMeshBlock(width, height, length);
 
 
-  std::unique_ptr<Texture> pTexture = pComponentManager->GetTextureManager()->GetDefaultTexture();
+  std::unique_ptr<Texture> pTexture = pComponentManager->GetTextureManager()->CreateDefaultTexture();
 
   // Create new model from this Mesh.
   // No Texture nor Shiniess provided so it will be created with default ones.

@@ -1,36 +1,26 @@
 #include "SpotLight_.h"
 
+#include "Component.h"
+#include "Entity.h"
+#include "Transform.h"
+
 using namespace SYE;
 
 
-SpotLight::SpotLight(
-  ComponentManager* pComponentManager,
-  glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-  glm::vec3 colourVector,
-  glm::vec3 lightIntensities,
-  glm::vec3 shadowDimensions,
-  glm::vec2 planeDimensions,
-  glm::vec3 coefficients,
-  glm::vec3 lightDirection,
-  GLfloat coneAngle
-):
-  PointLight(
-    pComponentManager,
-    positionVector, rotationVector, scaleVector,
-    colourVector,
-    lightIntensities,
-    shadowDimensions,
-    planeDimensions,
-    coefficients
-  ),
-  _lightDirection(glm::normalize(lightDirection)),
-  _coneAngle(coneAngle),
-  _processedConeAngle(cosf(glm::radians(coneAngle)))
+SpotLight::SpotLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept :
+  PointLight(pOwnerEntity, subModulesConstRef)
+{}
+
+SpotLight::~SpotLight() noexcept
 {}
 
 
-SpotLight::~SpotLight()
-{}
+void SpotLight::SetConeAngle(dfloat angle)
+{
+  _coneAngle = angle;
+  _processedConeAngle = cosf(glm::radians(_coneAngle));
+}
+
 
 void SpotLight::UseLight(
   GLuint ambientIntensityLocation, 
@@ -44,25 +34,21 @@ void SpotLight::UseLight(
   GLuint edgeLocation
 )
 {
+  Vector3f pos = _pOwnerEntity->GetTransform()->GetPosition();
+
   glUniform3f(ambientColourLocation, _colourVector.x, _colourVector.y, _colourVector.z);
   glUniform1f(ambientIntensityLocation, _lightIntensities.x);
   glUniform1f(diffuseIntensityLocation, _lightIntensities.y);
 
 
-  glUniform3f(positionLocation, _positionVector.x, _positionVector.y, _positionVector.z);
+  glUniform3f(positionLocation, pos.GetX(), pos.GetY(), pos.GetZ());
 
   glUniform1f(constantLocation, _constant);
   glUniform1f(linearLocation, _linear);
   glUniform1f(exponentLocation, _exponent);
 
-  glUniform3f(directionLocation, _lightDirection.x, _lightDirection.y, _lightDirection.z);
+  glUniform3f(directionLocation, pos.GetX(), pos.GetY(), pos.GetZ());
   glUniform1f(edgeLocation, _processedConeAngle);
 }
 
-void SpotLight::SetFlash(glm::vec3 pos, glm::vec3 dir)
-{
-  _positionVector = pos;
-  _lightDirection = dir;
-  return;
-}
 

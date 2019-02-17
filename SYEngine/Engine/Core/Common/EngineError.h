@@ -7,11 +7,24 @@ namespace SYE {
 
 /**
  * All possible error types in engine.
+ *
+ * 1 - 99     -> Critical errors -> Will terminate as soon as possible.
+ * 100 - 499  -> Errors -> Will try to handle them.
+ * 500 - 999  -> Warnings -> Notify user and try to solve them.
+ * 1000+      -> Warnings to event that are supposed to happen
+ *                e.g. Attaching duplicate Components, ...
  */
 enum class eEngineError
 {
   Null = 0,
-  UnableToSetupMainModuleChannels = 1
+  UnableToSetupMainModuleChannels = 1,
+
+
+  UnableToLoadTextureFromFile = 500,
+
+  AttachingMultipleSingletonSlotComponents = 1000,
+  DuplicateComponentOnEntity = 1001,
+  OutOfRangeIndices = 1002
 };
 
 class EngineError

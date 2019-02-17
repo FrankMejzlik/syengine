@@ -33,6 +33,10 @@ public:
 
   void RenderScene(Scene* pScene, Window* pTargetWindow);
 
+  void DirectionalShadowMapPass(Scene* pScene);
+  void OmniShadowMapPass(Scene* pScene);
+  void FinalMainRenderPass(Scene* pScene);
+
 private:
   void CreateShaders();
 
@@ -46,7 +50,7 @@ private:
 
   GLuint uf_bIsSkeletonAnimated = 0;
   GLuint uniformProjection = 0;
-  GLuint uniformModel = 0;
+  GLuint ul_model = 0;
   GLuint uniformView = 0;
   GLuint uniformSpecularIntensity = 0;
   GLuint uniformShininess = 0;
@@ -54,19 +58,22 @@ private:
   GLuint uniformOmniLightPos = 0;
   GLuint uniformFarPlane = 0;
 
-  void DirectionalShadowMapPass
+
+#if !NEW_SSSEC_IMPLEMENTED
+
+  void _DirectionalShadowMapPass
   (
     const std::unordered_map<size_t, Entity*>& activeModels,
     const std::unordered_map<size_t, Entity*>& directionalLights
   );
-  void OmniShadowMapPass
+  void _OmniShadowMapPass
   (
     const std::unordered_map<size_t, Entity*>& activeModels,
     const std::unordered_map<size_t, Entity*>& pointLights,
     const std::unordered_map<size_t, Entity*>& spotLights
   );
 
-  void FinalMainRenderPass
+  void _FinalMainRenderPass
   (
     Scene* pScene, 
     const std::unordered_map<size_t, Entity*>& activeModels,
@@ -76,7 +83,7 @@ private:
   );
 
 
-
+#endif
 };
 
 }

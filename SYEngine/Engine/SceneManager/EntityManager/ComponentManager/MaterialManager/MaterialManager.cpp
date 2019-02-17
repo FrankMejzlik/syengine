@@ -57,7 +57,7 @@ bool MaterialManager::Terminate()
   return true;
 }
 
-std::shared_ptr<Material> MaterialManager::GetDefaultMaterial() const
+std::shared_ptr<_Material> MaterialManager::GetDefaultMaterial() const
 {
   return _genericMaterials.find(std::string("shiny_material"))->second;
 }

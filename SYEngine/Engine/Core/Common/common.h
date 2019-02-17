@@ -9,6 +9,7 @@
 #include "macros.h"
 #include "Logger.h"
 #include "typedefs.h"
+#include "assert.h"
 #include "config_engine.h"
 
 

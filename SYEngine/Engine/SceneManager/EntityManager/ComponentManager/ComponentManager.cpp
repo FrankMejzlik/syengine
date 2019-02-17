@@ -23,6 +23,7 @@ ComponentManager::ComponentManager(BaseModule &parentModule):
   _subModules.insert(std::make_pair(ID_CONTROLLER_MANAGER, std::make_unique<ControllerManager>(*this)));
   _subModules.insert(std::make_pair(ID_MATERIAL_MANAGER, std::make_unique<MaterialManager>(*this)));
   _subModules.insert(std::make_pair(ID_MESH_MANAGER, std::make_unique<MeshManager>(*this)));
+  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_unique<MeshGenerator>(*this)));
   _subModules.insert(std::make_pair(ID_MODEL_MANAGER, std::make_unique<ModelManager>(*this)));
   _subModules.insert(std::make_pair(ID_SKYBOX_MANAGER, std::make_unique<SkyboxManager>(*this)));
   _subModules.insert(std::make_pair(ID_TEXTURE_MANAGER, std::make_unique<TextureManager>(*this)));
@@ -69,6 +70,9 @@ bool ComponentManager::Terminate()
   return true;
 }
 
+
+#if !NEW_SSSEC_IMPLEMENTED
+
 std::unique_ptr<Mesh> ComponentManager::GenerateMeshQuad(dfloat width, dfloat height)
 {
   std::unique_ptr<Mesh> newComponent = MESH_MANAGER->GenerateMeshQuad(width, height);
@@ -92,7 +96,7 @@ Component* ComponentManager::CreateBoxCollider(
 )
 {
   return InsertComponent(std::make_unique<BlockCollider>(
-    pEntity,
+    pEntity, _subModules,
     position, rotation, scale,
     width, heigt, length,
     bIsStatic, true
@@ -100,7 +104,7 @@ Component* ComponentManager::CreateBoxCollider(
 }
 
 
-Component* ComponentManager::CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&& pQuadMesh, std::unique_ptr<Texture>&& pTexture, std::unique_ptr<Shininess>&& pShininess)
+Component* ComponentManager::CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&& pQuadMesh, std::unique_ptr<Texture>&& pTexture, std::unique_ptr<_Shininess>&& pShininess)
 {
   std::unique_ptr<Component> newComponent = MODEL_MANAGER->CreateModel(pEntity, std::move(pQuadMesh), std::move(pTexture), std::move(pShininess));
   return InsertComponent(std::move(newComponent));
@@ -114,3 +118,5 @@ Component* ComponentManager::CreateModelFromFile(
   std::unique_ptr<Component> newComponent = MODEL_MANAGER->CreateModelFromFile(pEntity, filePath);
   return InsertComponent(std::move(newComponent));
 }
+
+#endif

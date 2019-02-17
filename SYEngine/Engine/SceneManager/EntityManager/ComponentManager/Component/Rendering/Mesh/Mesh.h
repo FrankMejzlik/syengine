@@ -16,63 +16,84 @@ namespace SYE
 {
 
 class Texture;
-class Material;
+class _Material;
 
 class Mesh:
   public Component
 {
 public:
   Mesh() = delete;
+  Mesh(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
+  ~Mesh() noexcept;
 
-  Mesh(Entity* pEntity);
 
-  Mesh(
-    Entity* pEntity,
-    std::vector<GLfloat> vertices, 
-    std::vector<unsigned int> indices, 
+  virtual void CreateMesh_(
+    std::vector<dfloat> vertices, std::vector<unsigned int> indices, 
     bool calculateAverageNormals = false
   );
-  ~Mesh();
 
-  const std::vector<unsigned int>& GetIndices()
-  {
-    return _indices;
-  }
-
-  const std::vector<GLfloat>& GetVertices()
-  {
-    return _vertices;
-  }
-
-  virtual void CreateMesh(
-    std::vector<GLfloat> vertices, std::vector<unsigned int> indices, 
-    bool calculateAverageNormals = false
-  );
-  virtual void CreateMesh(
-    std::vector<GLfloat> vertices, std::vector<unsigned int> indices, 
-    std::shared_ptr<Texture> pTexture, std::shared_ptr<Material> pMaterial, 
-    bool calculateAverageNormals = false
-  );
   virtual void RenderMesh();
   virtual void ClearMesh();
 
+  void MakeBlock(dfloat width, dfloat height, dfloat length);
+  void MakeQuad(dfloat width, dfloat height);
+  void MakeSphere(dfloat radius, size_t numSlices, size_t numStacks);
+  void MakeTriangle(dfloat a, dfloat b, dfloat c);
+
+  bool CalculateAverageNormals(std::vector<dfloat>& vertices, std::vector<unsigned int>& indices);
+
+  const std::vector<unsigned int>& GetIndices_() const { return _indices; }
+
+  const std::vector<dfloat>& GetVertices_() const { return _vertices; }
+
 protected:
-  std::vector<GLfloat> _vertices;
+  std::vector<dfloat> _vertices;
   std::vector<unsigned int> _indices;
-  std::shared_ptr<Texture> _pTexture;
-  std::shared_ptr<Material> _pMaterial;
   
   GLuint _VAO, _VBO, _IBO;
   GLsizei _indexCount;
   GLsizei _vertexCount;
 
-  // Number of values representing one vertex
+  /** Number of values representing one vertex */
   unsigned int vLength = 8;
-  // Offset to first normal value
+  /** Offset to first normal vector value */
   unsigned int normalOffset = 5;
 
-  bool CalculateAverageNormals(std::vector<GLfloat>& vertices, std::vector<unsigned int>& indices);
+  
 
+
+
+#if !NEW_SSSEC_IMPLEMENTED
+
+public:
+
+  bool _CalculateAverageNormals(std::vector<GLfloat>& vertices, std::vector<unsigned int>& indices);
+
+  const std::vector<unsigned int>& GetIndices()
+  {
+    return _indices_;
+  }
+
+  const std::vector<GLfloat>& GetVertices()
+  {
+    return _vertices_;
+  }
+
+  std::vector<GLfloat> _vertices_;
+  std::vector<unsigned int> _indices_;
+
+  virtual void CreateMesh(
+    std::vector<GLfloat> vertices, std::vector<unsigned int> indices, 
+    bool calculateAverageNormals = false
+  );
+
+  Mesh(
+    Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
+    std::vector<GLfloat> vertices, 
+    std::vector<unsigned int> indices, 
+    bool calculateAverageNormals = false
+  );
+#endif
 };
 
 }

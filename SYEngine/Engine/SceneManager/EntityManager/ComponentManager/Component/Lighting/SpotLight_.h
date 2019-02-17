@@ -13,18 +13,10 @@ class SpotLight :
 {
 public:
   SpotLight() = delete;
-  SpotLight(
-    ComponentManager* pComponentManager,
-    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-    glm::vec3 colourVector,
-    glm::vec3 lightIntensities,
-    glm::vec3 shadowDimensions,
-    glm::vec2 planeDimensions,
-    glm::vec3 coefficients,
-    glm::vec3 lightDirection,
-    GLfloat coneAngle
-  );
-  ~SpotLight();
+  SpotLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
+  ~SpotLight() noexcept;
+
+  void SetConeAngle(dfloat angle);
 
   void UseLight(
     GLuint ambientIntensityLocation,
@@ -38,11 +30,8 @@ public:
     GLuint edgeLocation
   );
 
-  void SetFlash(glm::vec3 pos, glm::vec3 dir);
 
 private:
-  glm::vec3 _lightDirection;
-
   GLfloat _coneAngle, _processedConeAngle;
 };
 

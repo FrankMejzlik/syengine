@@ -21,7 +21,7 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  std::unique_ptr<Texture> GetDefaultTexture() const;
+  std::unique_ptr<Texture> CreateDefaultTexture() const;
 
 private:
 

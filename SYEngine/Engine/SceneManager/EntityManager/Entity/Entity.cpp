@@ -6,6 +6,7 @@ using namespace SYE;
 
 Entity::Entity(Scene* pOwnerScene, ComponentManager* pComponentManager) noexcept :
   _pParent(nullptr),
+  _pTransform(nullptr),
   _pOwnerScene(pOwnerScene),
   _pComponentManager(pComponentManager),
   _type(Entity::eType::WORLD)
@@ -13,6 +14,11 @@ Entity::Entity(Scene* pOwnerScene, ComponentManager* pComponentManager) noexcept
 
 Entity::~Entity() 
 {}
+
+ComponentManager* Entity::GetComponentManagerPtr()
+{
+  return _pComponentManager;
+}
 
 Entity::eType Entity::SetType(eType newValue)
 {
@@ -27,11 +33,33 @@ Entity::eType Entity::GetType() const
   return _type;
 }
 
-ComponentManager* Entity::GetComponentManagerPtr()
+Entity* Entity::SetParent(Entity* newValue)
 {
-  return _pComponentManager;
+  Entity* oldParent = _pParent;
+   _pParent = newValue;
+
+  return oldParent;
 }
 
+Entity* Entity::GetParentPtr() const 
+{ 
+  return _pParent; 
+}
+
+void Entity::AddChild(Entity* pNewChild)
+{
+  _children.insert(std::pair(pNewChild->GetGuid(), pNewChild));
+}
+
+void Entity::RemoveChild(Entity* pNewChild)
+{
+  _children.erase(pNewChild->GetGuid());
+}
+
+const std::map<size_t, Entity*> Entity::GetChildren() const 
+{ 
+  return _children; 
+}
 
 #if !NEW_SSSEC_IMPLEMENTED
 

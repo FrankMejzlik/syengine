@@ -197,9 +197,6 @@
       <Filter>Engine\ComponentManager\Component\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window.cpp">
-      <Filter>Engine\ComponentManager\Component\Window</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Mesh\Mesh.cpp">
       <Filter>Engine\ComponentManager\Component\Mesh</Filter>
     </ClCompile>
@@ -212,7 +209,11 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\DirectionalLight_.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\SpotLight_.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\MeshRenderer.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Rigidbody.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsMaterial.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material_.cpp" />
+    <ClCompile Include="Engine\OutputManager\Window.cpp">
+      <Filter>Engine\ComponentManager\Component\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -428,9 +429,6 @@
       <Filter>Engine\ComponentManager\Component\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window.h">
-      <Filter>Engine\ComponentManager\Component\Window</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Mesh\Mesh.h">
       <Filter>Engine\ComponentManager\Component\Mesh</Filter>
     </ClInclude>
@@ -444,6 +442,12 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\SpotLight_.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\MeshRenderer.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Rigidbody.h" />
+    <ClInclude Include="Engine\Core\config_components.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsMaterial.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material_.h" />
+    <ClInclude Include="Engine\OutputManager\Window.h">
+      <Filter>Engine\ComponentManager\Component\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

@@ -13,8 +13,7 @@
 namespace SYE 
 {
 
-class Window:
-  public Component
+class Window
 {
   friend class InputManager;
 
@@ -24,7 +23,7 @@ public:
 
   Window() = delete;
 
-  Window(Entity* pEntity, GLsizei windowWidth, GLsizei WindowHeight);
+  Window(GLsizei windowWidth, GLsizei WindowHeight);
   ~Window();
 
   int Initialize();

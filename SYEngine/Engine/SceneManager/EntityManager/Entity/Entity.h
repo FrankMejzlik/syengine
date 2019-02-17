@@ -3,21 +3,26 @@
 #include <unordered_map>
 #include <memory>
 #include <map>
+#include <array>
 
 #pragma warning(push, 1)
 #include <glm/glm.hpp>
 #pragma warning(pop)
 
+#include "config_components.h"
 #include "common.h"
 #include "IGuidCounted.h"
+
+#include "ComponentManager.h"
 
 namespace SYE 
 {
 class Collider;
-class ComponentManager;
+
 class Component;
 class Model;
 class Scene;
+class Transform;
 
 
 /**
@@ -26,7 +31,7 @@ class Scene;
  * Every Entity MUST have pointer to it's ComponentManager instance.
  */
 class Entity:
-  public IGuidCounted
+  public IGuidCounted, public IErrorLogging
 {
   // Structures
 public:
@@ -42,6 +47,7 @@ public:
     SCREEN
   };
 
+
 public:
   Entity() = delete;
 
@@ -53,18 +59,101 @@ public:
   eType SetType(eType newValue);
   eType GetType() const;
 
+  Transform* GetTransform() const { return _pTransform; };
+  void SetTransform(Transform* newValue) { _pTransform = newValue; };
 
+  Entity* SetParent(Entity* newValue);
+  Entity* GetParentPtr() const;
   void AddChild(Entity* pNewChild);
+  void RemoveChild(Entity* pNewChild);
+  const std::map<size_t, Entity*> GetChildren() const;
 
   template <typename ComponentType>
   ComponentType* AddComponent()
   {
-    return _pComponentManager->CreateComponent<ComponentType>(this);
+    ComponentType* pNewComponent = _pComponentManager->CreateComponent<ComponentType>(this);
+    
+    // Try to attach it to this Entity
+    ComponentType* resultPtr = AttachComponent<ComponentType>(pNewComponent);
+    
+    // If cannot attach to this Component
+    if (resultPtr == nullptr)
+    {
+      // Destroy it
+      _pComponentManager->RemoveComponent(pNewComponent);
+    }
+
+    // If attached, enlist it in active components in scene in order to be processed
+    _pOwnerScene->EnlistComponent(pNewComponent);
+
+    return pNewComponent;
   }
-  
+
+  template <typename ComponentType>
+  ComponentType* AttachComponent(ComponentType* pNewComponent)
+  {
+    size_t slotIndex = pNewComponent->GetSlotIndex();
+    bool isSingletonSlot = false;
+
+    // Check if is singleton slot Component
+    for (size_t i = 0; i < COMPONENT_SLOT_SINGLETONS_COUNT; ++i)
+    {
+      if (slotIndex == gSingletonSlots[i])
+      {
+        isSingletonSlot = true;
+      }
+    }
+
+    // If singleton slot.
+    if (isSingletonSlot)
+    {
+      // If there is some Component already
+      if (_primaryComponentSlots[slotIndex].size() > 0)
+      {
+        PUSH_EDITOR_ERROR(
+          eEngineError::AttachingMultipleSingletonSlotComponents,
+          "Entity " + std::to_string(this->GetGuid()) + " cannot have more of " + std::to_string(slotIndex) + "slot index Components.", 
+          ""
+        );
+
+        return nullptr;
+      }
+    }
+
+    bool isDuplicate = false;
+    auto newPair = std::make_pair(pNewComponent->GetGuid(), pNewComponent);
+
+    // Try inserting it in its place to correct slot index
+    auto result = _primaryComponentSlots[slotIndex].insert(newPair);
+    if (result.second == false)
+    {
+      isDuplicate = true;
+    }
+
+    // Insert it into list of all Components that this Entity owns
+    result = _components.insert(newPair);
+    if (result.second == false)
+    {
+      isDuplicate = true;
+    }
+
+    // If was duplicate in some list, something is not right
+    if (isDuplicate)
+    {
+      PUSH_EDITOR_ERROR(
+        eEngineError::DuplicateComponentOnEntity,
+        "Entity " + std::to_string(this->GetGuid()) + " already has Component with ID " + std::to_string(pNewComponent->GetGuid()),
+        ""
+      );
+    } 
+
+    return static_cast<ComponentType*>(&(*(result.first->second)));
+  }
 
 
 protected:
+  
+
   /** Pointer to ComponentManager that is dedicated for this Entity. */
   ComponentManager* _pComponentManager;
   Scene* _pOwnerScene;
@@ -82,49 +171,20 @@ protected:
   /** Child Entities */
   std::map<size_t, Entity*> _children;
 
+  /** Pointer to transform Component, if not present 'nullptr' */
+  Transform* _pTransform;
+
+  /** 
+   * Table of active primary Components on this Entity 
+   *
+   * Indices of slots are configured at config_components.h.
+   * Some slots are singletons, e.g. there can be only one light source per Component.
+   */
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> _primaryComponentSlots;
+
   /** List of all components on this Entity */
   std::map<size_t, Component*> _components;
-
-  /** Components that should be processed by SceneManager */
-  std::map<size_t, Component*> _sceneManagerComponents;
-
-  /** Components that should be processed by EntityManager */
-  std::map<size_t, Component*> _entityManagerComponents;
-
-  /** Components that should be processed by InputManager */
-  std::map<size_t, Component*> _inputManagerComponents;
-
-  /** Components that should be processed by KeyboardManager */
-  std::map<size_t, Component*> _keyboardManagerComponents;
-
-  /** Components that should be processed by MouseManager */
-  std::map<size_t, Component*> _mouseManagerComponents;
-
-  /** Components that should be processed by NetworkManager */
-  std::map<size_t, Component*> _networkManagerComponents;
-
-  /** Components that should be processed by LogicManager */
-  std::map<size_t, Component*> _logicManagerComponents;
-
-  /** Components that should be processed by ScriptManager */
-  std::map<size_t, Component*> _scriptComponents;
-
-  /** Components that should be processed by AiManager */
-  std::map<size_t, Component*> _aiManagerComponents;
-
-  /** Components that should be processed by SimulationManager */
-  std::map<size_t, Component*> _simulationManagerComponents;
-
-  /** Components that should be processed by PhysicsManager */
-  std::map<size_t, Component*> _physicsManagerComponents;
-
-  /** Components that should be processed by OutputManager */
-  std::map<size_t, Component*> _outputManagerComponents;
-
-  /** Components that should be processed by RenderingManager */
-  std::map<size_t, Component*> _renderingManagerComponents;
-
-
+  
 #if !NEW_SSSEC_IMPLEMENTED
 public:
 

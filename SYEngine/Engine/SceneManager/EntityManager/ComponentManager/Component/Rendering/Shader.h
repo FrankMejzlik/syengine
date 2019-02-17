@@ -9,9 +9,17 @@
 #include <iostream>
 #include <fstream>
 
+#if !NEW_SSSEC_IMPLEMENTED
+
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "DirectionalLight.h"
+
+#endif
+
+#include "PointLight_.h"
+#include "SpotLight_.h"
+#include "DirectionalLight_.h"
 
 #include <GLFW/glfw3.h>
 #include <GL\glew.h>
@@ -35,8 +43,21 @@ class Shader:
 public:
   Shader() = delete;
 
-  Shader(Entity* pEntity);
+  Shader(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef);
   
+
+  void SetDirectionalLight(DirectionalLight* dLight);
+  void SetPointLights(
+    const std::map<size_t, Component*>& pointLights,
+    size_t textureUnit,
+    size_t offset
+  );
+  void SetSpotLights(
+    const std::map<size_t, Component*>& spotLights,
+    size_t textureUnit,
+    size_t offset
+  );
+
   void SetIsSkeletonAnimated(int newValue)
   {
     // Set to skeleton animated model.
@@ -82,17 +103,21 @@ public:
   GLuint GetOmniLightPosLocation();
   GLuint GetFarPlaneLocation();
 
-  void SetDirectionalLight(_DirectionalLight* dLight);
-  void SetPointLights(
+
+#if !NEW_SSSEC_IMPLEMENTED
+
+  void _SetDirectionalLight(_DirectionalLight* dLight);
+  void _SetPointLights(
     const std::unordered_map<size_t, Entity*>& pointLights, 
     size_t textureUnit,
     size_t offset
   );
-  void SetSpotLights(
+  void _SetSpotLights(
     const std::unordered_map<size_t, Entity*>& spotLights,
     size_t textureUnit,
     size_t offset
   );
+#endif
 
   void SetTexture(GLuint textureUnit);
   void SetDirectionalShadowMap(GLuint textureUnit);

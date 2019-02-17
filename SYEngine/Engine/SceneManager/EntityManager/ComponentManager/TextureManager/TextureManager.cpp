@@ -5,10 +5,6 @@ using namespace SYE;
 TextureManager::TextureManager(BaseModule &parentModule):
   BaseModule(parentModule)
 {
-  // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(this)));
-
   // Load texture.
   //_defaultTexture->LoadTextureA();
 
@@ -58,9 +54,9 @@ bool TextureManager::Terminate()
   return true;
 }
 
-std::unique_ptr<Texture> TextureManager::GetDefaultTexture() const
+std::unique_ptr<Texture> TextureManager::CreateDefaultTexture() const
 {
-  std::unique_ptr<Texture> _defaultTexture = std::make_unique<Texture>(nullptr, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
+  std::unique_ptr<Texture> _defaultTexture = std::make_unique<Texture>(nullptr, _subModules, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
   _defaultTexture->LoadTexture();
 
   return _defaultTexture;

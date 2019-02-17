@@ -1,9 +1,11 @@
 #include "Shader.h"
 
+#include "Component.h"
+
 using namespace SYE;
 
-Shader::Shader(Entity* pEntity):
-  Component(pEntity),
+Shader::Shader(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef):
+  Component(pOwnerEntity, subModulesConstRef, false),
   _ul_bIsSkeletonAnimated(0),
   shaderID(0), 
   uniformModel(0), 
@@ -11,7 +13,9 @@ Shader::Shader(Entity* pEntity):
 
   pointLightCount(0),
   spotLightCount(0)
-{}
+{
+  _type = eType::SHADER;
+}
 
 GLuint Shader::GetShaderID()
 {
@@ -144,91 +148,6 @@ GLuint Shader::GetFarPlaneLocation()
   return uniformFarPlane;
 }
 
-void Shader::SetDirectionalLight(_DirectionalLight* dLight)
-{
-  dLight->UseLight(
-    uniformDirectionalLight.uniformAmbientIntensity,
-    uniformDirectionalLight.uniformColour,
-    uniformDirectionalLight.uniformDiffuseIntensity,
-    uniformDirectionalLight.uniformDirection
-  );
-
-  // Texture 1 is used for actual texture of mesh
-  dLight->GetShadowMap()->Read(GL_TEXTURE2);
-
-  // Set DirectionalShadowMap taxture unit to slot 2.
-  glUniform1i(uniformDirectionalShadowMap, 2);
-
-}
-
-void Shader::SetPointLights(
-  const std::unordered_map<size_t, Entity*>& pointLights,
-  size_t textureUnit,
-  size_t offset
-)
-{
-  // Set number of point lights to shader.
-  glUniform1i(uniformPointLightCount, static_cast<int>(pointLights.size()));
-
-  // Iterate through all point lights and set their uniforms.
-  size_t i = 0;
-  for (auto it : pointLights)
-  {
-    _PointLight* pointLight = static_cast<_PointLight*>(it.second);
-
-    pointLight->UseLight(
-      uniformPointLight[i].uniformAmbientIntensity,
-      uniformPointLight[i].uniformColour,
-      uniformPointLight[i].uniformDiffuseIntensity,
-      uniformPointLight[i].uniformPosition,
-      uniformPointLight[i].uniformConstant,
-      uniformPointLight[i].uniformLinear,
-      uniformPointLight[i].uniformExponent
-    );
-
-    pointLight->GetShadowMap()->Read(static_cast<GLenum>(GL_TEXTURE0 + textureUnit + i));
-
-    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, static_cast<GLint>(textureUnit + i));
-    glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, pointLight->GetFarPlane());
-
-    ++i;
-  } 
-}
-
-void Shader::SetSpotLights(
-  const std::unordered_map<size_t, Entity*>& spotLights,
-  size_t textureUnit,
-  size_t offset)
-{
-
-  glUniform1i(uniformSpotLightCount, static_cast<int>(spotLights.size()));
-
-  size_t i = 0;
-  for (auto it : spotLights) {
-
-    _SpotLight* spotLight = static_cast<_SpotLight*>(it.second);
-
-    spotLight->UseLight(
-      uniformSpotLight[i].uniformAmbientIntensity,
-      uniformSpotLight[i].uniformColour,
-      uniformSpotLight[i].uniformDiffuseIntensity,
-      uniformSpotLight[i].uniformPosition,
-      uniformSpotLight[i].uniformDirection,
-      uniformSpotLight[i].uniformConstant,
-      uniformSpotLight[i].uniformLinear,
-      uniformSpotLight[i].uniformExponent,
-      uniformSpotLight[i].uniformEdge
-    );
-
-    spotLight->GetShadowMap()->Read(static_cast<GLenum>(GL_TEXTURE0 + textureUnit + i));
-    
-    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, static_cast<GLint>(textureUnit + i));
-    glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, spotLight->GetFarPlane());
-
-    ++i;
-  }
-}
-
 void Shader::UseShader()
 {
   glUseProgram(shaderID);
@@ -280,6 +199,93 @@ void Shader::CompileShader(const char* vertexCode,const char* geometryCode, cons
 
   CompileProgram();
 }
+
+
+void Shader::SetDirectionalLight(DirectionalLight* dLight)
+{
+  dLight->UseLight(
+    uniformDirectionalLight.uniformAmbientIntensity,
+    uniformDirectionalLight.uniformColour,
+    uniformDirectionalLight.uniformDiffuseIntensity,
+    uniformDirectionalLight.uniformDirection
+  );
+
+  // Texture 1 is used for actual texture of mesh
+  dLight->GetShadowMap()->Read(GL_TEXTURE2);
+
+  // Set DirectionalShadowMap taxture unit to slot 2.
+  glUniform1i(uniformDirectionalShadowMap, 2);
+
+}
+
+void Shader::SetPointLights(
+  const std::map<size_t, Component*>& pointLights,
+  size_t textureUnit,
+  size_t offset
+)
+{
+  // Set number of point lights to shader.
+  glUniform1i(uniformPointLightCount, static_cast<int>(pointLights.size()));
+
+  // Iterate through all point lights and set their uniforms.
+  size_t i = 0;
+  for (auto it : pointLights)
+  {
+    PointLight* pointLight = static_cast<PointLight*>(it.second);
+
+    pointLight->UseLight(
+      uniformPointLight[i].uniformAmbientIntensity,
+      uniformPointLight[i].uniformColour,
+      uniformPointLight[i].uniformDiffuseIntensity,
+      uniformPointLight[i].uniformPosition,
+      uniformPointLight[i].uniformConstant,
+      uniformPointLight[i].uniformLinear,
+      uniformPointLight[i].uniformExponent
+    );
+
+    pointLight->GetShadowMap()->Read(static_cast<GLenum>(GL_TEXTURE0 + textureUnit + i));
+
+    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, static_cast<GLint>(textureUnit + i));
+    glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, pointLight->GetFarPlane());
+
+    ++i;
+  } 
+}
+
+void Shader::SetSpotLights(
+  const std::map<size_t, Component*>& spotLights,
+  size_t textureUnit,
+  size_t offset)
+{
+
+  glUniform1i(uniformSpotLightCount, static_cast<int>(spotLights.size()));
+
+  size_t i = 0;
+  for (auto it : spotLights) {
+
+    SpotLight* spotLight = static_cast<SpotLight*>(it.second);
+
+    spotLight->UseLight(
+      uniformSpotLight[i].uniformAmbientIntensity,
+      uniformSpotLight[i].uniformColour,
+      uniformSpotLight[i].uniformDiffuseIntensity,
+      uniformSpotLight[i].uniformPosition,
+      uniformSpotLight[i].uniformDirection,
+      uniformSpotLight[i].uniformConstant,
+      uniformSpotLight[i].uniformLinear,
+      uniformSpotLight[i].uniformExponent,
+      uniformSpotLight[i].uniformEdge
+    );
+
+    spotLight->GetShadowMap()->Read(static_cast<GLenum>(GL_TEXTURE0 + textureUnit + i));
+
+    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, static_cast<GLint>(textureUnit + i));
+    glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, spotLight->GetFarPlane());
+
+    ++i;
+  }
+}
+
 
 
 void Shader::CompileProgram()
@@ -444,3 +450,94 @@ void Shader::SetOmniLightMatrices(std::vector<glm::mat4> lightMatrices)
     glUniformMatrix4fv(uniformLightMatrices[i], 1, GL_FALSE, glm::value_ptr(lightMatrices[i]));
   }
 }
+
+
+
+#if !NEW_SSSEC_IMPLEMENTED
+
+void Shader::_SetDirectionalLight(_DirectionalLight* dLight)
+{
+  dLight->UseLight(
+    uniformDirectionalLight.uniformAmbientIntensity,
+    uniformDirectionalLight.uniformColour,
+    uniformDirectionalLight.uniformDiffuseIntensity,
+    uniformDirectionalLight.uniformDirection
+  );
+
+  // Texture 1 is used for actual texture of mesh
+  dLight->GetShadowMap()->Read(GL_TEXTURE2);
+
+  // Set DirectionalShadowMap taxture unit to slot 2.
+  glUniform1i(uniformDirectionalShadowMap, 2);
+
+}
+
+void Shader::_SetPointLights(
+  const std::unordered_map<size_t, Entity*>& pointLights,
+  size_t textureUnit,
+  size_t offset
+)
+{
+  // Set number of point lights to shader.
+  glUniform1i(uniformPointLightCount, static_cast<int>(pointLights.size()));
+
+  // Iterate through all point lights and set their uniforms.
+  size_t i = 0;
+  for (auto it : pointLights)
+  {
+    _PointLight* pointLight = static_cast<_PointLight*>(it.second);
+
+    pointLight->UseLight(
+      uniformPointLight[i].uniformAmbientIntensity,
+      uniformPointLight[i].uniformColour,
+      uniformPointLight[i].uniformDiffuseIntensity,
+      uniformPointLight[i].uniformPosition,
+      uniformPointLight[i].uniformConstant,
+      uniformPointLight[i].uniformLinear,
+      uniformPointLight[i].uniformExponent
+    );
+
+    pointLight->GetShadowMap()->Read(static_cast<GLenum>(GL_TEXTURE0 + textureUnit + i));
+
+    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, static_cast<GLint>(textureUnit + i));
+    glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, pointLight->GetFarPlane());
+
+    ++i;
+  } 
+}
+
+void Shader::_SetSpotLights(
+  const std::unordered_map<size_t, Entity*>& spotLights,
+  size_t textureUnit,
+  size_t offset)
+{
+
+  glUniform1i(uniformSpotLightCount, static_cast<int>(spotLights.size()));
+
+  size_t i = 0;
+  for (auto it : spotLights) {
+
+    _SpotLight* spotLight = static_cast<_SpotLight*>(it.second);
+
+    spotLight->UseLight(
+      uniformSpotLight[i].uniformAmbientIntensity,
+      uniformSpotLight[i].uniformColour,
+      uniformSpotLight[i].uniformDiffuseIntensity,
+      uniformSpotLight[i].uniformPosition,
+      uniformSpotLight[i].uniformDirection,
+      uniformSpotLight[i].uniformConstant,
+      uniformSpotLight[i].uniformLinear,
+      uniformSpotLight[i].uniformExponent,
+      uniformSpotLight[i].uniformEdge
+    );
+
+    spotLight->GetShadowMap()->Read(static_cast<GLenum>(GL_TEXTURE0 + textureUnit + i));
+
+    glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, static_cast<GLint>(textureUnit + i));
+    glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, spotLight->GetFarPlane());
+
+    ++i;
+  }
+}
+
+#endif

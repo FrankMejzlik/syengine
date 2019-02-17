@@ -180,7 +180,9 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\Collider.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IGuidCounted.cpp" />
     <ClCompile Include="Engine\Core\BaseModule.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsMaterial.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\MeshRenderer.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material_.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\SkeletalModel.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Rigidbody.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform.cpp" />
@@ -206,7 +208,7 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Texture.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window.cpp" />
+    <ClCompile Include="Engine\OutputManager\Window.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Camera\Camera.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\DirectionalLight.cpp" />
@@ -259,6 +261,7 @@
     <ClCompile Include="Engine\Core\MathLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Core\config_components.h" />
     <ClInclude Include="Engine\LogicManager\ScriptManager\ScriptManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.h" />
@@ -273,7 +276,9 @@
     <ClInclude Include="Engine\Core\BaseModule.h" />
     <ClInclude Include="Engine\Core\Abstract\IModule.h" />
     <ClInclude Include="Engine\Core\typedefs.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsMaterial.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\MeshRenderer.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material_.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Rigidbody.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\SkeletalModel.h" />
     <ClInclude Include="Engine\Core\config_world.h" />
@@ -300,7 +305,7 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Texture.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Window.h" />
+    <ClInclude Include="Engine\OutputManager\Window.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Camera\Camera.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\DirectionalLight.h" />

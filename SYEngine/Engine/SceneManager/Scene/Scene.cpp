@@ -1,9 +1,15 @@
 
 #include "Scene.h"
 
+#include "Transform.h"
 #include "MeshRenderer.h"
 #include "Rigidbody.h"
 #include "BlockCollider.h"
+#include "Texture.h"
+#include "Material_.h"
+#include "DirectionalLight_.h"
+#include "PointLight_.h"
+#include "SpotLight_.h"
 
 using namespace SYE;
 
@@ -62,14 +68,55 @@ bool Scene::DeleteEntity(Entity* pEntityToDelete)
 
   return true;
 }
+
+Entity* Scene::CreateQuad(
+  Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+  dfloat width, dfloat height,
+  bool isStatic
+)
+{ 
+
+  UNREFERENCED_PARAMETER(positionVector);
+  UNREFERENCED_PARAMETER(rotationVector);
+  UNREFERENCED_PARAMETER(scaleVector);
+  UNREFERENCED_PARAMETER(height);
+  UNREFERENCED_PARAMETER(width);
+  UNREFERENCED_PARAMETER(isStatic);
+
+  // Call EntityManager to create new Quad Entity.
+  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+
+  // Add Transform Component
+  Transform* pTransform = pNewEntity->AddComponent<Transform>();
+  pTransform->SetPosition(positionVector);
+  pTransform->SetRotation(rotationVector);
+  pTransform->SetScale(scaleVector);
+
+  // Add MeshRenderer Component
+  MeshRenderer* pMeshRenderer = pNewEntity->AddComponent<MeshRenderer>();
+  {
+    Mesh* pMesh = pMeshRenderer->AddMesh();
+    {
+      pMesh->ClearMesh();
+      pMesh->MakeQuad(width, height);
+    }
+    Material* pMaterial = pMeshRenderer->AddMaterial();
+    pMaterial;
+
+    pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
+  }
+
+  return InsertEntity_(pNewEntity);
+}
+
+
 Entity* Scene::CreateBlock(
-  std::string_view entityName,
-  glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
+  Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   dfloat width, dfloat height, dfloat length,
   bool isStatic
 )
-{
-  UNREFERENCED_PARAMETER(entityName);
+{ 
+
   UNREFERENCED_PARAMETER(positionVector);
   UNREFERENCED_PARAMETER(rotationVector);
   UNREFERENCED_PARAMETER(scaleVector);
@@ -80,11 +127,27 @@ Entity* Scene::CreateBlock(
 
   // Call EntityManager to create new Quad Entity.
   Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+  
+  // Add Transform Component
+  Transform* pTransform = pNewEntity->AddComponent<Transform>();
+  pTransform->SetPosition(positionVector);
+  pTransform->SetRotation(rotationVector);
+  pTransform->SetScale(scaleVector);
 
   // Add MeshRenderer Component
   MeshRenderer* pMeshRenderer = pNewEntity->AddComponent<MeshRenderer>();
-  pMeshRenderer;
+  {
+    Mesh* pMesh = pMeshRenderer->AddMesh();
+    {
+      pMesh->ClearMesh();
+      pMesh->MakeBlock(width, height, length);
+    }
+    Material* pMaterial = pMeshRenderer->AddMaterial();
+    pMaterial;
 
+    pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
+  }
+ 
   // Add BlockCollider Component
   BlockCollider* pBlockCollider = pNewEntity->AddComponent<BlockCollider>();
   pBlockCollider;
@@ -94,6 +157,110 @@ Entity* Scene::CreateBlock(
   pRigidBody;
 
   return InsertEntity_(pNewEntity);
+}
+
+
+Entity* Scene::CreateDirectionalLight(
+  Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+  Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
+  Vector3f direction,
+  bool isStatic
+)
+{
+  UNREFERENCED_PARAMETER(isStatic);
+
+  // Create new Entity
+  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+
+  // Add Transform Component
+  Transform* pTransform = pNewEntity->AddComponent<Transform>();
+  pTransform->SetPosition(positionVector);
+  pTransform->SetRotation(rotationVector);
+  pTransform->SetScale(scaleVector);
+
+  // Add DirectionalLight Component
+  DirectionalLight* pLight = pNewEntity->AddComponent<DirectionalLight>();
+  pLight->SetColour(colour.GetData());
+  pLight->SetInensities(intensities.GetData());
+  pLight->SetShadowDimensions(shadowDimensions.GetData());
+  pLight->SetLightDirection(direction.GetData());
+
+  
+  return InsertEntity_(pNewEntity);
+}
+
+size_t Scene::MapTypeToSlot(size_t type)
+{
+  // Choose where to put this specific type
+  switch (static_cast<Component::eType>(type))
+  {
+  case Component::eType::TRANSFORM:
+    return COMPONENT_TRANSFORM_SLOT;
+    break;
+
+  case Component::eType::DIRECTIONAL_LIGHT:
+    return COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT;
+    break;
+
+  case Component::eType::POINT_LIGHT:
+    return COMPONENT_POINT_LIGHT_SOURCE_SLOT;
+    break;
+
+  case Component::eType::SPOT_LIGHT:
+    return COMPONENT_SPOT_LIGHT_SOURCE_SLOT;
+    break;
+
+  case Component::eType::SCRIPT:
+    return COMPONENT_SCRIPT_SLOT;
+    break;
+
+  case Component::eType::CAMERA:
+    return COMPONENT_CAMERA_SLOT;
+    break;
+
+  case Component::eType::RIGIDBODY:
+  case Component::eType::SOFTBODY:
+    return COMPONENT_PHYSICS_BODY_SLOT;
+    break;
+
+  case Component::eType::BLOCK_COLLIDER:
+  case Component::eType::SPHERE_COLLIDER:
+  case Component::eType::MESH_COLLIDER:
+    return COMPONENT_PHYSICS_COLLIDER_SLOT;
+    break;
+
+  case Component::eType::MESH_RENDERER:
+    return COMPONENT_MESH_RENDERER_SLOT;
+    break;
+
+  default:
+    return 0;
+    break;
+  }
+}
+
+void Scene::EnlistComponent(Component* pNewComponent)
+{
+  // Get type
+  size_t type = pNewComponent->GetType();
+
+  // Map type to slot
+  size_t slotIndex = MapTypeToSlot(type);
+
+  // Insert it there
+  _activeComponentBySlots[slotIndex].insert(std::make_pair(pNewComponent->GetGuid(), pNewComponent));
+}
+
+void Scene::DelistComponent(Component* pNewComponent)
+{
+  // Get type
+  size_t type = pNewComponent->GetType();
+
+  // Map type to slot
+  size_t slotIndex = MapTypeToSlot(type);
+
+  // Insert it there
+  _activeComponentBySlots[slotIndex].erase(pNewComponent->GetGuid());
 }
 
 #if !NEW_SSSEC_IMPLEMENTED
@@ -320,7 +487,7 @@ WorldObject* Scene::CreateStaticModelFromFile(
   return static_cast<Block*>(InsertEntity_(pNewEntity));
 }
 
-_DirectionalLight* Scene::CreateDirectionalLight
+_DirectionalLight* Scene::_CreateDirectionalLight
 (
   std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,

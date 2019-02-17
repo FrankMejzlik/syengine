@@ -19,43 +19,29 @@ namespace SYE
 {
 
 class Light:
-  public WorldEntity
+  public Component
 {
 public:
   Light() = delete;
+  Light(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
+  virtual ~Light() noexcept;
 
-  Light(
-    ComponentManager* pComponentManager,
-    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-    glm::vec3 colourVector,
-    glm::vec3 lightIntensities,
-    glm::vec3 shadowDimensions
-  );
-  virtual ~Light();
+  glm::vec3 GetColour() const;
+  virtual void SetColour(glm::vec3 colourVector);
+  glm::vec3 GetIntensities() const;
+  virtual void SetInensities(glm::vec3 lightIntensities);
+  glm::ivec3 GetShadowDimensions() const;
+  virtual void SetShadowDimensions(glm::ivec3 shadowDimensions);
 
-  std::shared_ptr<ShadowMap> GetShadowMap() const;
+  ShadowMap* GetShadowMap() const;
 
- 
-  // TODO: eliminate
-  void TogglePoint()
-  {
-    pointsAreOn = !pointsAreOn;
-  }
-
-  void ToggleSpot()
-  {
-    spotsAreOn = !spotsAreOn;
-  }
-  bool pointsAreOn;
-  bool spotsAreOn;
-  // TODO: eliminate
 
 protected:
   // Computed shadow map for this light
-  std::shared_ptr<ShadowMap> _pShadowMap;
+  std::unique_ptr<ShadowMap> _pShadowMap;
 
   // TODO: Make static/dynamic
-  bool IsStatic;
+  bool _isStatic;
 
   // Colour of light
   glm::vec3 _colourVector;

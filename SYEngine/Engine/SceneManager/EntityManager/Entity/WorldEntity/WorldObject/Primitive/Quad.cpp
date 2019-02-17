@@ -14,7 +14,7 @@ Quad::Quad(
   std::unique_ptr<Mesh> pQuadMesh = pComponentManager->GenerateMeshQuad(width, height);
 
 
-  std::unique_ptr<Texture> pTexture = pComponentManager->GetTextureManager()->GetDefaultTexture();
+  std::unique_ptr<Texture> pTexture = pComponentManager->GetTextureManager()->CreateDefaultTexture();
 
   // Create new model from this Mesh.
   // No Texture nor Shiniess provided so it will be created with default ones.

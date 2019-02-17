@@ -9,7 +9,7 @@ class Sound:
 {
 public:
   Sound() = delete;
-  Sound(Entity* pEntity);
+  Sound(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef);
   ~Sound();
 };
 

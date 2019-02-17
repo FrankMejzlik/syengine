@@ -4,6 +4,7 @@
 
 #include "Light_.h"
 #include "OmniShadowMap.h"
+#include "MathLibrary.h"
 
 using namespace SYE;
 
@@ -15,16 +16,13 @@ class PointLight :
 {
 public:
   PointLight() = delete;
-  PointLight(
-    ComponentManager* pComponentManager,
-    glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-    glm::vec3 colourVector,
-    glm::vec3 lightIntensities,
-    glm::vec3 shadowDimensions,
-    glm::vec2 planeDimensions,
-    glm::vec3 coefficients
-  );
-  virtual ~PointLight();
+  PointLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
+  virtual ~PointLight() noexcept;
+  
+
+  void SetShadowDimensions(glm::ivec3 shadowDimensions, dfloat nearPlane, dfloat farPlane);
+  void SetCoeficients(dfloat constant, dfloat linear, dfloat exponent);
+  
 
   virtual void UseLight(
     GLuint ambientIntensityLocation,
@@ -36,9 +34,10 @@ public:
     GLuint exponentLocation
   );
 
+  Vector3f GetPosition() const;
+
   std::vector<glm::mat4> GetOmniLightModelToWorldMatrices();
 
-  glm::vec3 GetPosition();
   GLfloat GetFarPlane();
 
 protected:

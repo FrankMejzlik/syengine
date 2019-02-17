@@ -18,25 +18,27 @@ namespace SYE
  * Used in: 
  * @see   class Material
  */
-class Shininess:
+class _Shininess:
   public Component
 {
 public:
-  Shininess() = delete;
+  _Shininess() = delete;
 
   /**
    * Default constructor.
    * shiny: 1.0f, 512
    * dull: 0.3f  4
    */
-  Shininess(Entity* pEntity):
-    Component(pEntity),
+  _Shininess(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef):
+    Component(pEntity, subModulesConstRef, false),
     _specularIntensity(0.3f), _shininessIntensity(4)
   {}
 
   // Parametrized constructor.
-  Shininess(Entity* pEntity, dfloat specularIntensity, dfloat shininessIntensity):
-    Component(pEntity),
+  _Shininess(
+    Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    dfloat specularIntensity, dfloat shininessIntensity):
+    Component(pEntity, subModulesConstRef, false),
     _specularIntensity(specularIntensity), _shininessIntensity(shininessIntensity)
   {}
 
@@ -60,17 +62,17 @@ private:
  * @see   class Texture
  * @see   class Shininess
  */
-class Material:
+class _Material:
   public Component
 {
 public:
-  Material() = delete;
+  _Material() = delete;
 
   /**
    * Adds default Texture and Shininess.
    */
-  Material(Entity* pEntity);
-  ~Material();
+  _Material(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef);
+  ~_Material();
 
   /**
    * Adds Texture to this Material component and returns index of it.
@@ -91,7 +93,9 @@ public:
 protected:
   // List of textures of this material
   std::vector<Texture> _textures;
-  std::vector<Shininess> _shininesses;
+  std::vector<_Shininess> _shininesses;
+  // TODO: Implement shader per material
+  //std::vector<Shader*> _shaders;
 
  };
 

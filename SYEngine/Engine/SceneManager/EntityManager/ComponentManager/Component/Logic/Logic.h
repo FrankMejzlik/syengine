@@ -9,7 +9,7 @@ class Logic :
 public:
   Logic() = delete;
 
-  Logic(Entity* pEntity);
+  Logic(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef);
   virtual ~Logic();
 };
 

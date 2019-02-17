@@ -29,6 +29,14 @@ public:
   Vector3(Vector3<VectorType, ElementType>&& other) = default;
   ~Vector3() noexcept = default;
 
+  ElementType GetX() const { return _vector.x; }
+  ElementType GetY() const { return _vector.y; }
+  ElementType GetZ() const { return _vector.z; }
+
+  const VectorType& GetData() const { return _vector; }
+
+  Vector3<VectorType, ElementType>& operator=(const Vector3<VectorType, ElementType>& other) = default;
+  Vector3<VectorType, ElementType>& operator=(Vector3<VectorType, ElementType>&& other) = default;
 
 
   // Attributes

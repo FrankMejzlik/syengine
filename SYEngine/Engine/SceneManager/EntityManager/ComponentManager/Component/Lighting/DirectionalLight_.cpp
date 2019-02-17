@@ -3,31 +3,19 @@
 
 using namespace SYE;
 
-DirectionalLight::DirectionalLight(
-  ComponentManager* pComponentManager,
-  glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-  glm::vec3 colourVector,
-  glm::vec3 lightIntensities,
-  glm::vec3 shadowDimensions,
-  glm::vec3 lightDirectionVector
-) : 
-  Light(
-    pComponentManager,
-    positionVector, rotationVector, scaleVector,
-    colourVector,
-    lightIntensities,
-    shadowDimensions
-  ),
-  _lightDirectionVector(lightDirectionVector)  
+DirectionalLight::DirectionalLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept :
+  Light(pOwnerEntity, subModulesConstRef) 
 {
-
-  _lightDirectionVector = lightDirectionVector;
-
   // Calculate projection matrix for this light
   // Directional light uses orthogonal projection
   // TODO: Make modifiable values.
   _lightProjectionMatrix = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, 0.1f, 100.0f);
+  _type = eType::DIRECTIONAL_LIGHT;
+
 }
+
+DirectionalLight::~DirectionalLight() noexcept
+{}
 
 void DirectionalLight::UseLight(
   GLuint ambientIntensityLocation,
@@ -43,11 +31,9 @@ void DirectionalLight::UseLight(
   glUniform1f(diffuseIntensityLocation, _lightIntensities.y);
 }
 
-glm::mat4 DirectionalLight::CalculateLightTransform()
+glm::mat4 DirectionalLight::CalculateLightTransformMatrix()
 {
   return _lightProjectionMatrix * glm::lookAt(-_lightDirectionVector, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
-DirectionalLight::~DirectionalLight()
-{}
 

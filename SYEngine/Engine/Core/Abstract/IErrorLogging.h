@@ -2,6 +2,9 @@
 
 #include "EngineError.h"
 
+#define PUSH_ENGINE_ERROR(type, shortDesc, longDesc)  PushEngineError(type, __FILE__, __LINE__, shortDesc, longDesc) 
+#define PUSH_EDITOR_ERROR(type, shortDesc, longDesc)  PushEngineError(type, __FILE__, __LINE__, shortDesc, longDesc) 
+
 using namespace SYE;
 
 namespace SYE {
@@ -12,7 +15,11 @@ public:
   IErrorLogging();
   virtual ~IErrorLogging();
 
-  void PushEngineError(eEngineError type, size_t lineNumber, std::string filePath, std::string shortDescription = "", std::string longDescription = "");
+  void PushEngineError(
+    eEngineError type, 
+    std::string filePath, size_t lineNumber, 
+    std::string shortDescription = "", std::string longDescription = ""
+  );
   EngineError GetLastError();
   EngineError GetNextError();
   EngineError PopNextError();

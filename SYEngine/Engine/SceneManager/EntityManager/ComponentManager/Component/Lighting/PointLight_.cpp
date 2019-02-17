@@ -1,37 +1,48 @@
 #include "PointLight_.h"
 
+#include "Component.h"
+#include "Entity.h"
+#include "Transform.h"
+
 using namespace SYE;
 
 
-PointLight::PointLight(
-  ComponentManager* pComponentManager,
-  glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
-  glm::vec3 colourVector,
-  glm::vec3 lightIntensities,
-  glm::vec3 shadowDimensions,
-  glm::vec2 planeDimensions,
-  glm::vec3 coefficients
-) :
-  Light(
-    pComponentManager,
-    positionVector, rotationVector, scaleVector,
-    colourVector,
-    lightIntensities,
-    shadowDimensions
-  ),
-  _constant(coefficients.x), _linear(coefficients.y), _exponent(coefficients.z),
-  _nearPlane(planeDimensions.x), _farPlane(planeDimensions.y)
+PointLight::PointLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept:
+  Light(pOwnerEntity, subModulesConstRef)
 {
-  _pShadowMap = std::make_shared<OmniShadowMap>(OmniShadowMap());
+  _pShadowMap = std::make_unique<OmniShadowMap>();
+  _type = eType::POINT_LIGHT;
+}
+
+PointLight::~PointLight() noexcept
+{}
+
+
+void PointLight::SetShadowDimensions(glm::ivec3 shadowDimensions, dfloat nearPlane, dfloat farPlane)
+{
+  _shadowDimensions = shadowDimensions;
 
   float aspect = (float)_shadowDimensions.x / (float)_shadowDimensions.y;
   _lightProjectionMatrix = glm::perspective(glm::radians(90.0f), aspect, _nearPlane, _farPlane);
 
   _pShadowMap->Init(_shadowDimensions.x, _shadowDimensions.y);
+
+  _nearPlane = nearPlane;
+  _farPlane = farPlane;
 }
 
-PointLight::~PointLight()
-{}
+
+void PointLight::SetCoeficients(dfloat constant, dfloat linear, dfloat exponent)
+{
+  _constant = constant;
+  _linear = linear;
+  _exponent = exponent;
+}
+
+Vector3f PointLight::GetPosition() const 
+{ 
+  return _pOwnerEntity->GetTransform()->GetPosition(); 
+}
 
 void PointLight::UseLight(
   GLuint ambientIntensityLocation, 
@@ -43,9 +54,11 @@ void PointLight::UseLight(
   GLuint exponentLocation
 )
 {
+  Vector3f pos = _pOwnerEntity->GetTransform()->GetPosition();
+
   glUniform3f(ambientColourLocation, _colourVector.x, _colourVector.y, _colourVector.z);
 
-  glUniform3f(positionLocation, _positionVector.x, _positionVector.y, _positionVector.z);
+  glUniform3f(positionLocation, pos.GetX(), pos.GetY(), pos.GetZ());
   
   glUniform1f(ambientIntensityLocation, _lightIntensities.x);
   glUniform1f(diffuseIntensityLocation, _lightIntensities.y);
@@ -59,25 +72,23 @@ std::vector<glm::mat4> PointLight::GetOmniLightModelToWorldMatrices()
 {
   std::vector<glm::mat4> lightMatrices;
 
+  glm::vec3 pos = _pOwnerEntity->GetTransform()->GetPosition().GetData();
+
   // +x, -x
-  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(_positionVector, _positionVector + glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
-  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(_positionVector, _positionVector + glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(pos, pos + glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(pos, pos + glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
     
   // +y, -y
-  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(_positionVector, _positionVector + glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)));
-  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(_positionVector, _positionVector + glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
+  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(pos, pos + glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)));
+  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(pos, pos + glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
 
   // +z, -z
-  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(_positionVector, _positionVector + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
-  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(_positionVector, _positionVector + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(pos, pos + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+  lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(pos, pos + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
   
   return lightMatrices;
 }
 
-glm::vec3 PointLight::GetPosition()
-{
-  return _positionVector;
-}
 
 GLfloat PointLight::GetFarPlane()
 {

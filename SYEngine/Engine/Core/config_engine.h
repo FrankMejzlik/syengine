@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 /**
  * Platform detection
  */
@@ -20,6 +22,7 @@
 // If using double precision floating point types in whole project
 #define USE_DOUBLES 0
 
+#define SIZE_T_ERROR_VALUE SIZE_MAX
 
 #define DEG_TO_RAD (3.14159265 / 180.0f)
 
@@ -106,6 +109,7 @@
 // Paths
 #define PATH_TEXTURES "resource/textures"
 #define FILENAME_DEFAULT_TEXTURE "/plain.png"
+#define FILEPATH_DEFAULT_TEXTURE "resource/textures/plain.png"
 
 
 // Scene light limits.
