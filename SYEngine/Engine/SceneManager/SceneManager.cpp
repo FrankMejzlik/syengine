@@ -104,74 +104,20 @@ Scene* SceneManager::LoadInitialScene()
     std::string("main_camera"), glm::vec3(10.0f, 10.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), -120.0f, -45.0f
   );
 
-  /*pNewScene->CreateQuad(
-    std::string("main_floor"), glm::vec3(0.0f, -0.0f, -0.0f), glm::vec3(90.0f * DEG_TO_RAD, 00.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
-    10.0f, 10.0f
-  );
-  pNewScene->CreateQuad(
-    std::string("main_floor"), glm::vec3(0.0f, -0.0f, -0.0f), glm::vec3(-90.0f * DEG_TO_RAD, 00.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
-    10.0f, 10.0f
-  );
-
-  pNewScene->CreateQuad(
-    std::string("main_floor"), glm::vec3(0.0f, -0.0f, 0.0f), glm::vec3(0.0f, 90.0f * DEG_TO_RAD, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
-    10.0f, 10.0f
-  );
-  pNewScene->CreateQuad(
-    std::string("main_floor"), glm::vec3(0.0f, -0.0f, 0.0f), glm::vec3(0.0f, -90.0f * DEG_TO_RAD, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f),
-    10.0f, 10.0f
-  );
-
-  pNewScene->CreateQuad(
-    std::string("main_floor"), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 90.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
-    10.0f, 10.0f
-  );
-  pNewScene->CreateQuad(
-    std::string("main_floor"), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(180.0f * DEG_TO_RAD, 0.0f, -90.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
-    10.0f, 10.0f
-  ); */
-
-
-  auto block00 = pNewScene->CreateBlock(
+  pNewScene->CreateBlock(
     Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 10.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
     true // Is  static
   );
-  block00;
 
-  auto block0000 = pNewScene->CreateQuad(
+  pNewScene->CreateQuad(
     Vector3f(0.0f, -10.0f, 0.0f), Vector3f(90.0f* (float)DEG_TO_RAD, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     20.0f, 20.0f, 
     true // Is  static
   );
-  block0000;
-
-  //pNewScene->CreateQuad(
-  //  Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 45.0f* (float)DEG_TO_RAD, 0.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  20.0f, 20.0f, 
-  //  true // Is  static
-  //);
-
-  //pNewScene->CreateQuad(
-  //  Vector3f(0.0f, 0.0f, 0.0f), Vector3f(45.0f* (float)DEG_TO_RAD, 45.0f* (float)DEG_TO_RAD, 0.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  20.0f, 20.0f, 
-  //  true // Is  static
-  //);
-
-  //pNewScene->CreateQuad(
-  //  Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f* (float)DEG_TO_RAD, 45.0f* (float)DEG_TO_RAD, 45.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  20.0f, 20.0f, 
-  //  true // Is  static
-  //);
-
-  //pNewScene->CreateQuad(
-  //  Vector3f(0.0f, 0.0f, 0.0f), Vector3f(45.0f* (float)DEG_TO_RAD, 45.0f* (float)DEG_TO_RAD, 45.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  20.0f, 20.0f, 
-  //  true // Is  static
-  //);
-  
-
-  auto block000 = pNewScene->CreateDirectionalLight(
+    
+  // Create DirectionalLight
+  pNewScene->CreateDirectionalLight(
     Vector3f(0.0f, 0.0f, 0.0f),          // Position vector
     Vector3f(0.0f, 0.0f, 0.0f),          // rotation vector
     Vector3f(1.0f, 1.0f, 1.0f),          // scale vector
@@ -180,22 +126,22 @@ Scene* SceneManager::LoadInitialScene()
     Vector3f(0.1f, 0.5f, 0.1f),          // Intensities
     Vector3u(2048, 2048, 0),    // Shadow dimensions
     Vector3f(10.0f, -10.0f, 10.0f)
-  ); block000;
+  ); 
 
-  //// Create  PointLight.
-  //pNewScene->CreatePointLight(
-  //  Vector3f(5.0f, -5.0f, 5.0f),       // Position vector
-  //  Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
-  //  Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
+  // Create PointLight
+  pNewScene->CreatePointLight(
+    Vector3f(5.0f, -5.0f, 5.0f),       // Position vector
+    Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
+    Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
 
-  //  Vector3f(1.0f, 0.0f, 0.0f),        // Colour vector
-  //  Vector3f(0.0f, 1.0f, 0.0f),        // Intensities
-  //  Vector3u(2048, 2048, 0),            // Shadow dimensions
-  //  0.01f, 100.0f,                     // Plane dimensions
-  //  Vector3f(0.01f, 0.06f, 0.02f)      // Coefficients
-  //);
+    Vector3f(1.0f, 0.0f, 0.0f),        // Colour vector
+    Vector3f(0.0f, 1.0f, 0.0f),        // Intensities
+    Vector3u(2048, 2048, 0),            // Shadow dimensions
+    0.01f, 100.0f,                     // Plane dimensions
+    Vector3f(0.01f, 0.06f, 0.02f)      // Coefficients
+  );
 
-  // Create  SpotLight.
+  // Create SpotLight
   pNewScene->CreateSpotLight(
     Vector3f(-6.0f, -4.0f, -6.0f),       // Position vector
     Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
@@ -211,30 +157,7 @@ Scene* SceneManager::LoadInitialScene()
     20.0f                                // Cone angle (degrees)
   );
 
-
-  //auto block0 = pNewScene->_CreateBlock(
-  //  std::string("floor1"), 
-  //  glm::vec3(0.0f, -10.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
-  //  100.0f, 2.0f, 100.0f,
-  //  true // Is  static
-  //);
-
-  //auto block1 = pNewScene->_CreateBlock(
-  //  std::string("block1"), glm::vec3(3.0f, 3.0f, 3.1f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
-  //  2.0f, 2.0f, 2.0f,
-  //  true // Is not static
-  //);
-
-  //auto block2 = pNewScene->_CreateBlock(
-  //  std::string("block2"), glm::vec3(3.0f, 3.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.0f, 1.0f, 1.0f),
-  //  2.0f, 2.0f, 2.0f,
-  //  false // Is not static
-  //);
-
-  //block0;
-  //block1;
-  //block2;
-
+  
   /*pNewScene->CreateStaticModelFromFile(
     "terrain",
     glm::vec3(-00.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.1f, 1.1f, 1.1f),
@@ -246,97 +169,6 @@ Scene* SceneManager::LoadInitialScene()
     glm::vec3(-6.0f, 6.0f, 4.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(.1f, .1f, 0.1f),
     "Resource/panFazulka.DAE"
   );*/
-
-
-  // Create main DirectionalLight.
-  //pNewScene->_CreateDirectionalLight(
-  //  "main_light",
-  //  glm::vec3(0.0f, 0.0f, 0.0f),          // Position vector
-  //  glm::vec3(0.0f, 0.0f, 0.0f),          // rotation vector
-  //  glm::vec3(1.0f, 1.0f, 1.0f),          // scale vector
-
-  //  glm::vec3(1.0f, 1.0f, 1.0f),          // Colour vector
-  //  glm::vec3(0.1f, 0.5f, 0.0f),          // Intensities
-  //  glm::vec3(2048.0f, 2048.0f, 0.0f),    // Shadow dimensions
-  //  glm::vec3(10.0f, -10.0f, 10.0f)
-  //);
-
-  //// Create  PointLight.
-  //pNewScene->CreatePointLight(
-  //  "point_light_001",
-  //  glm::vec3(1.0f, 2.0f, -5.0f),       // Position vector
-  //  glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-  //  glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-  //  glm::vec3(1.0f, 0.0f, 0.0f),        // Colour vector
-  //  glm::vec3(0.3f, 1.0f, 0.0f),        // Intensities
-  //  glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-  //  glm::vec2(0.01f, 100.0f),           // Plane dimensions
-  //  glm::vec3(0.01f, 0.06f, 0.02f)      // Coefficients
-  //);
-
-  //// Create  PointLight.
-  //pNewScene->CreatePointLight(
-  //  "point_light_001",
-  //  glm::vec3(-6.0f, 2.0f, 0.0f),       // Position vector
-  //  glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-  //  glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-  //  glm::vec3(0.0f, 1.0f, 0.0f),        // Colour vector
-  //  glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-  //  glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-  //  glm::vec2(0.01f, 100.0f),           // Plane dimensions
-  //  glm::vec3(0.08f, 0.06f, 0.04f)      // Coefficients
-  //);
-
-  //// Create  PointLight.
-  //pNewScene->CreatePointLight(
-  //  "point_light_001",
-  //  glm::vec3(0.0f, 2.0f, 6.0f),       // Position vector
-  //  glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-  //  glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-  //  glm::vec3(0.0f, 0.0f, 1.0f),        // Colour vector
-  //  glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-  //  glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-  //  glm::vec2(0.01f, 100.0f),           // Plane dimensions
-  //  glm::vec3(0.08f, 0.06f, 0.04f)      // Coefficients
-  //);
-
-  //// Create  SpotLight.
-  //pNewScene->CreateSpotLight(
-  //  "spot_light_001",
-  //  glm::vec3(8.0f, 9.0f, 9.0f),       // Position vector
-  //  glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-  //  glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-  //  glm::vec3(0.0f, 1.0f, 1.0f),        // Colour vector
-  //  glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-  //  glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-  //  glm::vec2(0.01f, 100.0f),           // Plane dimensions
-  //  glm::vec3(0.04f, 0.03f, 0.01f),      // Coefficients
-
-  //  glm::vec3(-1.0f, -1.0f, -1.0f),      // Light direction
-  //  20.0f                                // Cone angle (degrees)
-  //);
-
-  //// Create  SpotLight.
-  //pNewScene->CreateSpotLight(
-  //  "spot_light_001",
-  //  glm::vec3(-6.0f, 6.0f, -6.0f),       // Position vector
-  //  glm::vec3(0.0f, 0.0f, 0.0f),        // rotation vector
-  //  glm::vec3(1.0f, 1.0f, 1.0f),        // scale vector
-
-  //  glm::vec3(1.0f, 1.0f, 0.0f),        // Colour vector
-  //  glm::vec3(0.0f, 1.0f, 0.0f),        // Intensities
-  //  glm::vec3(2048.0f, 2048.0f, 0.0f),  // Shadow dimensions
-  //  glm::vec2(0.01f, 100.0f),           // Plane dimensions
-  //  glm::vec3(0.08f, 0.06f, 0.04f),      // Coefficients
-
-  //  glm::vec3(1.0f, -1.0f, 1.0f),      // Light direction
-  //  20.0f                                // Cone angle (degrees)
-  //);
-
 
   _pActiveScene = pNewScene;
 

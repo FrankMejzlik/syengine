@@ -608,7 +608,7 @@ _PointLight* Scene::_CreatePointLight(
   return static_cast<_PointLight*>(InsertEntity_(pMainLight));
 }
 
-_SpotLight* Scene::CreateSpotLight(
+_SpotLight* Scene::_CreateSpotLight(
   std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, 
   glm::vec3 lightColour, glm::vec3 lightIntensities, glm::vec3 shadowMapSize, 

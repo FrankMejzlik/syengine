@@ -121,7 +121,7 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 //    pScene->GetPointLightsMapRefConst(), 
 //    pScene->GetSpotLightsMapRefConst()
 //  );
-//
+
 #endif
 
   // Calculate directional light shadow maps
@@ -277,13 +277,13 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     glClear(GL_DEPTH_BUFFER_BIT);
 
     // Get handle to model uniform in shader
-    GLuint uniformOmniLightPosx = _shaders[2]->GetOmniLightPosLocation();
-    GLuint uniformFarPlanex = _shaders[2]->GetFarPlaneLocation();
-    GLuint ul_modelx = _shaders[2]->GetModelLocation();
+    ul_model = _shaders[2]->GetModelLocation();
+    uniformOmniLightPos = _shaders[2]->GetOmniLightPosLocation();
+    uniformFarPlane = _shaders[2]->GetFarPlaneLocation();
 
     // Bind to shader position of light in the World coordinates
-    glUniform3f(uniformOmniLightPosx, light->GetPosition().GetX(), light->GetPosition().GetY(), light->GetPosition().GetZ());
-    glUniform1f(uniformFarPlanex, light->GetFarPlane());
+    glUniform3f(uniformOmniLightPos, light->GetPosition().GetX(), light->GetPosition().GetY(), light->GetPosition().GetZ());
+    glUniform1f(uniformFarPlane, light->GetFarPlane());
 
     // Bind to shader 6 direction transofrm light metrices
     _shaders[2]->SetOmniLightMatrices(light->GetOmniLightModelToWorldMatrices());
@@ -295,7 +295,7 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     {
       MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
 
-      mashRenderer->RenderForLight(ul_modelx);
+      mashRenderer->RenderForLight(ul_model);
     }
   }
 

@@ -203,7 +203,7 @@ public:
     glm::vec3 coefficients
   );
 
-  _SpotLight* CreateSpotLight(
+  _SpotLight* _CreateSpotLight(
     std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour,

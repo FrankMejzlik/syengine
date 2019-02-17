@@ -21,6 +21,9 @@ PointLight::~PointLight() noexcept
 void PointLight::SetShadowDimensions(glm::ivec3 shadowDimensions, dfloat nearPlane, dfloat farPlane)
 {
   _shadowDimensions = shadowDimensions;
+  _nearPlane = nearPlane;
+  _farPlane = farPlane;
+
 
   float aspect = (float)_shadowDimensions.x / (float)_shadowDimensions.y;
   _lightProjectionMatrix = glm::perspective(glm::radians(90.0f), aspect, _nearPlane, _farPlane);
