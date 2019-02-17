@@ -32,11 +32,11 @@ void PointLight::SetShadowDimensions(glm::ivec3 shadowDimensions, dfloat nearPla
 }
 
 
-void PointLight::SetCoeficients(dfloat constant, dfloat linear, dfloat exponent)
+void PointLight::SetCoeficients(Vector3f coefficients)
 {
-  _constant = constant;
-  _linear = linear;
-  _exponent = exponent;
+  _constant = coefficients.GetX();
+  _linear = coefficients.GetY();
+  _exponent = coefficients.GetZ();
 }
 
 Vector3f PointLight::GetPosition() const 

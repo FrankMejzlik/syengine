@@ -133,42 +133,42 @@ Scene* SceneManager::LoadInitialScene()
 
 
   auto block00 = pNewScene->CreateBlock(
-    Vector3f(0.0f, -10.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 10.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
     true // Is  static
   );
   block00;
 
   auto block0000 = pNewScene->CreateQuad(
-    Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    Vector3f(0.0f, -10.0f, 0.0f), Vector3f(90.0f* (float)DEG_TO_RAD, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     20.0f, 20.0f, 
     true // Is  static
   );
   block0000;
 
-  pNewScene->CreateQuad(
-    Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 45.0f* (float)DEG_TO_RAD, 0.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    20.0f, 20.0f, 
-    true // Is  static
-  );
+  //pNewScene->CreateQuad(
+  //  Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 45.0f* (float)DEG_TO_RAD, 0.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  20.0f, 20.0f, 
+  //  true // Is  static
+  //);
 
-  pNewScene->CreateQuad(
-    Vector3f(0.0f, 0.0f, 0.0f), Vector3f(45.0f* (float)DEG_TO_RAD, 45.0f* (float)DEG_TO_RAD, 0.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    20.0f, 20.0f, 
-    true // Is  static
-  );
+  //pNewScene->CreateQuad(
+  //  Vector3f(0.0f, 0.0f, 0.0f), Vector3f(45.0f* (float)DEG_TO_RAD, 45.0f* (float)DEG_TO_RAD, 0.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  20.0f, 20.0f, 
+  //  true // Is  static
+  //);
 
-  pNewScene->CreateQuad(
-    Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f* (float)DEG_TO_RAD, 45.0f* (float)DEG_TO_RAD, 45.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    20.0f, 20.0f, 
-    true // Is  static
-  );
+  //pNewScene->CreateQuad(
+  //  Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f* (float)DEG_TO_RAD, 45.0f* (float)DEG_TO_RAD, 45.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  20.0f, 20.0f, 
+  //  true // Is  static
+  //);
 
-  pNewScene->CreateQuad(
-    Vector3f(0.0f, 0.0f, 0.0f), Vector3f(45.0f* (float)DEG_TO_RAD, 45.0f* (float)DEG_TO_RAD, 45.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    20.0f, 20.0f, 
-    true // Is  static
-  );
+  //pNewScene->CreateQuad(
+  //  Vector3f(0.0f, 0.0f, 0.0f), Vector3f(45.0f* (float)DEG_TO_RAD, 45.0f* (float)DEG_TO_RAD, 45.0f * (float)DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  20.0f, 20.0f, 
+  //  true // Is  static
+  //);
   
 
   auto block000 = pNewScene->CreateDirectionalLight(
@@ -181,6 +181,35 @@ Scene* SceneManager::LoadInitialScene()
     Vector3u(2048, 2048, 0),    // Shadow dimensions
     Vector3f(10.0f, -10.0f, 10.0f)
   ); block000;
+
+  //// Create  PointLight.
+  //pNewScene->CreatePointLight(
+  //  Vector3f(5.0f, -5.0f, 5.0f),       // Position vector
+  //  Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
+  //  Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
+
+  //  Vector3f(1.0f, 0.0f, 0.0f),        // Colour vector
+  //  Vector3f(0.0f, 1.0f, 0.0f),        // Intensities
+  //  Vector3u(2048, 2048, 0),            // Shadow dimensions
+  //  0.01f, 100.0f,                     // Plane dimensions
+  //  Vector3f(0.01f, 0.06f, 0.02f)      // Coefficients
+  //);
+
+  // Create  SpotLight.
+  pNewScene->CreateSpotLight(
+    Vector3f(-6.0f, -4.0f, -6.0f),       // Position vector
+    Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
+    Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
+
+    Vector3f(0.0f, 0.0f, 1.0f),        // Colour vector
+    Vector3f(0.0f, 1.0f, 0.0f),        // Intensities
+    Vector3u(2048, 2048, 0),  // Shadow dimensions
+    0.01f, 100.0f,           // Plane dimensions
+    Vector3f(0.01f, 0.06f, 0.02f),      // Coefficients
+
+    Vector3f(1.0f, -1.0f, 1.0f),      // Light direction
+    20.0f                                // Cone angle (degrees)
+  );
 
 
   //auto block0 = pNewScene->_CreateBlock(

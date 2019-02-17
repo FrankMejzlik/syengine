@@ -9,7 +9,7 @@
 #pragma warning(pop)
 
 
-
+#include "MathLibrary.h"
 #include "ShadowMap.h"
 #include "WorldEntity.h"
 

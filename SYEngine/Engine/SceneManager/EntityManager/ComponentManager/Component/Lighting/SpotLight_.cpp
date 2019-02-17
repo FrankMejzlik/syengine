@@ -9,7 +9,9 @@ using namespace SYE;
 
 SpotLight::SpotLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept :
   PointLight(pOwnerEntity, subModulesConstRef)
-{}
+{
+  _type = eType::SPOT_LIGHT;
+}
 
 SpotLight::~SpotLight() noexcept
 {}
@@ -19,6 +21,11 @@ void SpotLight::SetConeAngle(dfloat angle)
 {
   _coneAngle = angle;
   _processedConeAngle = cosf(glm::radians(_coneAngle));
+}
+
+void SpotLight::SetLightDirection(Vector3f direction)
+{
+  _lightDirection = glm::normalize(direction.GetData());
 }
 
 
@@ -47,7 +54,7 @@ void SpotLight::UseLight(
   glUniform1f(linearLocation, _linear);
   glUniform1f(exponentLocation, _exponent);
 
-  glUniform3f(directionLocation, pos.GetX(), pos.GetY(), pos.GetZ());
+  glUniform3f(directionLocation, _lightDirection.x, _lightDirection.y, _lightDirection.z);
   glUniform1f(edgeLocation, _processedConeAngle);
 }
 

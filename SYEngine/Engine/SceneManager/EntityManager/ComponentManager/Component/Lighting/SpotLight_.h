@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "PointLight_.h"
 
 using namespace SYE;
@@ -17,6 +16,10 @@ public:
   ~SpotLight() noexcept;
 
   void SetConeAngle(dfloat angle);
+  void SetLightDirection(Vector3f direction);
+
+
+  
 
   void UseLight(
     GLuint ambientIntensityLocation,
@@ -33,6 +36,8 @@ public:
 
 private:
   GLfloat _coneAngle, _processedConeAngle;
+  glm::vec3 _lightDirection;
+
 };
 
 }

@@ -68,6 +68,24 @@ public:
     bool isStatic = true
   );
 
+  Entity* CreatePointLight(
+    Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+    Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
+    dfloat nearPlane, dfloat farPlane,
+    Vector3f coefficients,
+    bool isStatic = true
+  );
+
+  Entity* CreateSpotLight(
+    Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+    Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
+    dfloat nearPlane, dfloat farPlane,
+    Vector3f coefficients,
+    Vector3f direction,
+    dfloat coneAngle,
+    bool isStatic = true
+  );
+
 
   _Camera* GetEditorCamera() const;
   std::string_view GetSceneName() const;
@@ -76,7 +94,7 @@ public:
   {
     return _entities;
   }
-
+  /** Active Components categorized to important slots based on what module needs to acces them. */
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> GetActiveComponentsBySlotsRef() { return _activeComponentBySlots; }
 
   size_t MapTypeToSlot(size_t type);
@@ -175,7 +193,7 @@ public:
     glm::vec3 lightDirection
   );
 
-  _PointLight* CreatePointLight(
+  _PointLight* _CreatePointLight(
     std::string_view entityName,
     glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector,
     glm::vec3 lightColour,

@@ -189,6 +189,71 @@ Entity* Scene::CreateDirectionalLight(
   return InsertEntity_(pNewEntity);
 }
 
+Entity* Scene::CreatePointLight(
+  Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+  Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
+  dfloat nearPlane, dfloat farPlane,
+  Vector3f coefficients,
+  bool isStatic
+)
+{
+  UNREFERENCED_PARAMETER(isStatic);
+
+  // Create new Entity
+  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+
+  // Add Transform Component
+  Transform* pTransform = pNewEntity->AddComponent<Transform>();
+  pTransform->SetPosition(positionVector);
+  pTransform->SetRotation(rotationVector);
+  pTransform->SetScale(scaleVector);
+
+  // Add DirectionalLight Component
+  PointLight* pLight = pNewEntity->AddComponent<PointLight>();
+  pLight->SetColour(colour.GetData());
+  pLight->SetInensities(intensities.GetData());
+  pLight->SetShadowDimensions(shadowDimensions.GetData(), nearPlane, farPlane);
+  pLight->SetCoeficients(coefficients);
+
+
+  return InsertEntity_(pNewEntity);
+}
+
+
+Entity* Scene::CreateSpotLight(
+  Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+  Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
+  dfloat nearPlane, dfloat farPlane,
+  Vector3f coefficients,
+  Vector3f direction,
+  dfloat coneAngle,
+  bool isStatic
+)
+{
+  UNREFERENCED_PARAMETER(isStatic);
+
+  // Create new Entity
+  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+
+  // Add Transform Component
+  Transform* pTransform = pNewEntity->AddComponent<Transform>();
+  pTransform->SetPosition(positionVector);
+  pTransform->SetRotation(rotationVector);
+  pTransform->SetScale(scaleVector);
+
+  // Add DirectionalLight Component
+  SpotLight* pLight = pNewEntity->AddComponent<SpotLight>();
+  pLight->SetColour(colour.GetData());
+  pLight->SetInensities(intensities.GetData());
+  pLight->SetShadowDimensions(shadowDimensions.GetData(), nearPlane, farPlane);
+  pLight->SetCoeficients(coefficients);
+  pLight->SetLightDirection(direction);
+  pLight->SetConeAngle(coneAngle);
+
+
+  return InsertEntity_(pNewEntity);
+}
+
 size_t Scene::MapTypeToSlot(size_t type)
 {
   // Choose where to put this specific type
@@ -517,7 +582,7 @@ _DirectionalLight* Scene::_CreateDirectionalLight
   
 }
 
-_PointLight* Scene::CreatePointLight(
+_PointLight* Scene::_CreatePointLight(
   std::string_view entityName,
   glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, 
   glm::vec3 lightColour, glm::vec3 lightIntensities, glm::vec3 shadowMapSize, 

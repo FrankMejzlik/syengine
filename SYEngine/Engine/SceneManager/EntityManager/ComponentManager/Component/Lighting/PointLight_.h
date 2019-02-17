@@ -21,7 +21,7 @@ public:
   
 
   void SetShadowDimensions(glm::ivec3 shadowDimensions, dfloat nearPlane, dfloat farPlane);
-  void SetCoeficients(dfloat constant, dfloat linear, dfloat exponent);
+  void SetCoeficients(Vector3f coefficients);
   
 
   virtual void UseLight(
