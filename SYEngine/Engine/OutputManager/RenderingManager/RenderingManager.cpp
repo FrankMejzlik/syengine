@@ -241,8 +241,6 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     GLuint uniformOmniLightPosx = _shaders[2]->GetOmniLightPosLocation();
     GLuint uniformFarPlanex = _shaders[2]->GetFarPlaneLocation();
     GLuint ul_modelx = _shaders[2]->GetModelLocation();
-    GLuint ul_specularIntensityx = _shaders[2]->GetSpecularIntensityLocation();
-    GLuint ul_shininessx = _shaders[2]->GetShininessLocation();
 
     // Bind to shader position of light in the World coordinates
     glUniform3f(uniformOmniLightPosx, light->GetPosition().GetX(), light->GetPosition().GetY(), light->GetPosition().GetZ());
@@ -258,7 +256,7 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     {
       MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
 
-      mashRenderer->Render(ul_modelx, ul_specularIntensityx, ul_shininessx);
+      mashRenderer->RenderForLight(ul_modelx);
     }
   }
 
@@ -282,8 +280,6 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     GLuint uniformOmniLightPosx = _shaders[2]->GetOmniLightPosLocation();
     GLuint uniformFarPlanex = _shaders[2]->GetFarPlaneLocation();
     GLuint ul_modelx = _shaders[2]->GetModelLocation();
-    GLuint ul_specularIntensityx = _shaders[2]->GetSpecularIntensityLocation();
-    GLuint ul_shininessx = _shaders[2]->GetShininessLocation();
 
     // Bind to shader position of light in the World coordinates
     glUniform3f(uniformOmniLightPosx, light->GetPosition().GetX(), light->GetPosition().GetY(), light->GetPosition().GetZ());
@@ -299,7 +295,7 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     {
       MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
 
-      mashRenderer->Render(ul_modelx, ul_specularIntensityx, ul_shininessx);
+      mashRenderer->RenderForLight(ul_modelx);
     }
   }
 

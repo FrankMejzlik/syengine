@@ -24,6 +24,7 @@ public:
   ~MeshRenderer();
 
   void Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation) const;
+  void RenderForLight(GLuint ul_modelToWorldMatrix) const;
 
   /**
    * Attaches default Mesh to this MeshRender
