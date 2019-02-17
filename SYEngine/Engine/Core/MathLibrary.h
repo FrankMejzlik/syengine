@@ -27,16 +27,50 @@ public:
   {}
   Vector3(const Vector3<VectorType, ElementType>& other) = default;
   Vector3(Vector3<VectorType, ElementType>&& other) = default;
+  Vector3(const glm::vec3& other) :
+    _vector(other)
+  {}
+  Vector3(glm::vec3&& other) :
+    _vector(std::move(other))
+  {}
   ~Vector3() noexcept = default;
 
   ElementType GetX() const { return _vector.x; }
   ElementType GetY() const { return _vector.y; }
   ElementType GetZ() const { return _vector.z; }
 
+  void SetX(ElementType x) { _vector.x = x; };
+  void SetY(ElementType y) { _vector.y = y; };
+  void SetZ(ElementType z) { _vector.z = z; };
+
   const VectorType& GetData() const { return _vector; }
+
 
   Vector3<VectorType, ElementType>& operator=(const Vector3<VectorType, ElementType>& other) = default;
   Vector3<VectorType, ElementType>& operator=(Vector3<VectorType, ElementType>&& other) = default;
+  Vector3<VectorType, ElementType> operator*(ElementType other) const
+  {
+    return Vector3<VectorType, ElementType>(_vector * other);
+  }
+
+  Vector3<VectorType, ElementType> operator+(const Vector3<VectorType, ElementType>& other) const
+  {
+    return Vector3<VectorType, ElementType>(_vector + other.GetData());
+  }
+
+  Vector3<VectorType, ElementType> operator+=(const Vector3<VectorType, ElementType>& other) const
+  {
+    return Vector3<VectorType, ElementType>(_vector + other.GetData());
+  }
+
+  Vector3<VectorType, ElementType> operator-(const Vector3<VectorType, ElementType>& other) const
+  {
+    return Vector3<VectorType, ElementType>(_vector - other.GetData());
+  }
+  Vector3<VectorType, ElementType> operator-=(const Vector3<VectorType, ElementType>& other) const
+  {
+    return Vector3<VectorType, ElementType>(_vector - other.GetData());
+  }
 
 
   // Attributes
@@ -50,6 +84,23 @@ private:
 
 };
 
+template <typename VectorType, typename ElementType>
+Vector3<VectorType, ElementType> Normalize(const Vector3<VectorType, ElementType>& first)
+{
+  return Vector3<VectorType, ElementType>(glm::normalize(first.GetData()));
+}
+
+template <typename VectorType, typename ElementType>
+Vector3<VectorType, ElementType> Cross(const Vector3<VectorType, ElementType>& first, const Vector3<VectorType, ElementType>& second)
+{
+  return Vector3<VectorType, ElementType>(glm::cross(first.GetData(), second.GetData()));
+}
+
+template <typename ElementType>
+ElementType ToRadians(ElementType first)
+{
+  return glm::radians(first);
+}
 
 /**
 * Typedefs

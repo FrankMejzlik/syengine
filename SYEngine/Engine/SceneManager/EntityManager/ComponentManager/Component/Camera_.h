@@ -15,62 +15,75 @@
 namespace SYE 
 {
 class Window;
-enum class eCameraModes
-{
-  FIRST_PERSON_MODE, 
-  EDITOR_MODE
-};
+
 
 class Camera:
-  public WorldEntity
+  public Component
 {
+  // Structures
+public:
+  enum class eCameraModes
+  {
+    FIRST_PERSON_MODE, 
+    EDITOR_MODE
+  };
+
+
+  // Methods
 public:
 	Camera() = delete;
+	Camera(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef) noexcept;
 
-	Camera(
-    ComponentManager* pComponentManager,
-    glm::vec3 startPosition,
-    glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed
-  );
-  ~Camera();
 
-  void KeyControl(Window* pMainWindow, GLfloat deltaTime);
-	void MouseControl(GLfloat xChange, GLfloat yChange);
-  void MouseKeyControl(bool* keys, GLfloat deltaTime);
+  void SetWorldUpDirection(Vector3f worldUp) { _worldUp = worldUp; }
+  void SetYaw(dfloat yaw) { _yaw = yaw; }
+  void SetPitch(dfloat pitch) { _pitch = pitch; }
+  void SetCameraMode(eCameraModes mode) { _mode = mode; }
+  void SetMoveSpeed(dfloat moveSpeed) { _moveSpeed = moveSpeed; }
+  void SetIsDraggingOn(bool isDraggingOn) { _isDragingOn = isDraggingOn; }
+  void SetTurnSpeed(dfloat turnSpeed) { _firstPersonTurnSpeed = turnSpeed; }
+
+  // TODO: Implement propperly Input in InputManager
+  void KeyControl(Window* pMainWindow, dfloat deltaTime);
+	void MouseControl(dfloat xChange, dfloat yChange);
+  void MouseKeyControl(bool* keys, dfloat deltaTime);
 
 	glm::mat4 CalculateViewMatrix();
 
-  glm::vec3 GetCameraPosition();
-  glm::vec3 GetCameraDirection();
+  Vector3f GetCameraPosition() const;
+  Vector3f GetCameraDirection() const;
 
+protected:
+
+  void Update();
+  void UpdateEditorMode();
+  void UpdateFirstPersonMode();
 	
 
 private:
-  eCameraModes _eCameraMode;
+  eCameraModes _mode;
 
-	glm::vec3 position;
-	glm::vec3 front;
-	glm::vec3 up;
-	glm::vec3 right;
-	glm::vec3 worldUp;
+  Vector3f _frontDirection;
+  Vector3f _up;
+  Vector3f _right;
+  Vector3f _worldUp;
 
   dfloat _mouseXChange;
   dfloat _mouseYChange;
 
-	GLfloat yaw;
-	GLfloat pitch;
+	dfloat _yaw;
+	dfloat _pitch;
   dfloat _inverseYaw;
   dfloat _inversePitch;
 
 
-	GLfloat _moveSpeed;
-	GLfloat _firstPersonTurnSpeed;
+	dfloat _moveSpeed;
+	dfloat _firstPersonTurnSpeed;
   dfloat _editorModeTurnSpeed;
 
-  bool _bIsDragingOn;
+  bool _isDragingOn;
 
-  void UpdateEditorMode();
-	void UpdateFirstPersonMode();
+
 };
 
 }

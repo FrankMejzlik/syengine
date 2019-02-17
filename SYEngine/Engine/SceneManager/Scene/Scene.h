@@ -17,22 +17,25 @@
 
 #include "MathLibrary.h"
 
-
+#if !NEW_SSSEC_IMPLEMENTED
 // temp
 #include "DirectionalLight.h"
 #include "SpotLight.h"
+
 
 // Entities.
 #include "Camera.h"
 #include "Quad.h"
 #include "Block.h"
+#endif
 
 namespace SYE
 {
-
+#if !NEW_SSSEC_IMPLEMENTED
 class _DirectionalLight;
 class _PointLight;
 class Collider;
+#endif
 
 /**
  * Every Scene MUST have it's EntityController to call to.
@@ -48,6 +51,12 @@ public:
 
   Entity* InsertEntity(Entity* pEntityToInsert);
   bool DeleteEntity(Entity* pEntityToDelete);
+
+  Entity* CreateCamera(
+    Vector3f positionVector, 
+    Vector3f startUpDirection, 
+    float startYaw, float startPitch
+  );
 
   Entity* CreateQuad(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,

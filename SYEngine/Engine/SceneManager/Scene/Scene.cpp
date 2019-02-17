@@ -69,18 +69,26 @@ bool Scene::DeleteEntity(Entity* pEntityToDelete)
   return true;
 }
 
+Entity* Scene::CreateCamera(
+  Vector3f positionVector, 
+  Vector3f startUpDirection, 
+  float startYaw, float startPitch
+)
+{
+  UNREFERENCED_PARAMETER(positionVector);
+  UNREFERENCED_PARAMETER(startUpDirection);
+  UNREFERENCED_PARAMETER(startYaw);
+  UNREFERENCED_PARAMETER(startPitch);
+
+  return nullptr;
+}
+
 Entity* Scene::CreateQuad(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   dfloat width, dfloat height,
   bool isStatic
 )
 { 
-
-  UNREFERENCED_PARAMETER(positionVector);
-  UNREFERENCED_PARAMETER(rotationVector);
-  UNREFERENCED_PARAMETER(scaleVector);
-  UNREFERENCED_PARAMETER(height);
-  UNREFERENCED_PARAMETER(width);
   UNREFERENCED_PARAMETER(isStatic);
 
   // Call EntityManager to create new Quad Entity.
@@ -116,13 +124,6 @@ Entity* Scene::CreateBlock(
   bool isStatic
 )
 { 
-
-  UNREFERENCED_PARAMETER(positionVector);
-  UNREFERENCED_PARAMETER(rotationVector);
-  UNREFERENCED_PARAMETER(scaleVector);
-  UNREFERENCED_PARAMETER(height);
-  UNREFERENCED_PARAMETER(width);
-  UNREFERENCED_PARAMETER(length);
   UNREFERENCED_PARAMETER(isStatic);
 
   // Call EntityManager to create new Quad Entity.

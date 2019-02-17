@@ -8,6 +8,7 @@
 #include "IGuidCounted.h"
 #include "IErrorLogging.h"
 #include "BaseModule.h"
+#include "MathLibrary.h"
 
 
 namespace SYE
