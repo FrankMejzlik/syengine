@@ -203,7 +203,6 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material.cpp">
       <Filter>Engine\ComponentManager\Component\Material</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera_.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\Light_.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\PointLight_.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\DirectionalLight_.cpp" />
@@ -214,6 +213,7 @@
     <ClCompile Include="Engine\OutputManager\Window.cpp">
       <Filter>Engine\ComponentManager\Component\Window</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera_.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">

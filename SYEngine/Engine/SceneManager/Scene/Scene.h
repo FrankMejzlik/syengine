@@ -54,8 +54,7 @@ public:
 
   Entity* CreateCamera(
     Vector3f positionVector, 
-    Vector3f startUpDirection, 
-    float startYaw, float startPitch
+    Vector3f startUpDirection, dfloat startYaw, dfloat startPitch
   );
 
   Entity* CreateQuad(
