@@ -34,8 +34,11 @@ namespace SYE
 #if !NEW_SSSEC_IMPLEMENTED
 class _DirectionalLight;
 class _PointLight;
+class Camera;
 class Collider;
 #endif
+
+class InputManager;
 
 /**
  * Every Scene MUST have it's EntityController to call to.
@@ -54,7 +57,8 @@ public:
 
   Entity* CreateCamera(
     Vector3f positionVector, 
-    Vector3f startUpDirection, dfloat startYaw, dfloat startPitch
+    Vector3f startUpDirection, dfloat startYaw, dfloat startPitch,
+    bool isEditor = false
   );
 
   Entity* CreateQuad(
@@ -94,8 +98,9 @@ public:
     bool isStatic = true
   );
 
+  void SetInputManagerPtr(InputManager* pInputManager) { _pInputManager = pInputManager; }
 
-  _Camera* GetEditorCamera() const;
+  Camera* GetEditorCamera() const;
   std::string_view GetSceneName() const;
   size_t GetSceneNumberOfEntities() const;
   std::unordered_map<size_t, Entity*> GetEntitiesRef()
@@ -114,8 +119,11 @@ private:
   SceneContext _sceneContext;
   /** EntityManager instance dedicated for this Scene instance */
   EntityManager* _pEntityManager;
+  /** Pointer to servicing InputManager for this Scene */
+  InputManager* _pInputManager;
+
   /** Pointer to default Engine Editor camera instance */
-  _Camera* _pEditorCamera;
+  Camera* _pEditorCamera;
  
   // Map of all entities in this Scene.
   std::unordered_map<size_t, Entity*> _entities;

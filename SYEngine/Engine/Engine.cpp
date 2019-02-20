@@ -1,6 +1,8 @@
 
 #include "Engine.h"
 
+#include "Camera_.h"
+
 using namespace SYE;
 
 Engine::Engine(ProcessInstance* pInstance) noexcept :
@@ -77,14 +79,15 @@ bool Engine::Run()
   // Construct initial scene.
   Scene* pScene = SCENE_MANAGER->LoadInitialScene();
 
+  // Set Scene's InputManager
+  pScene->SetInputManagerPtr(INPUT_MANAGER);
+
   // Initialize physics.
   SIMULATION_MANAGER->InitializePhysicsScene(pScene);
 
   auto prev = std::chrono::high_resolution_clock::now();
 
   dfloat deltaTime = 0.0f;
-
-  
 
   // Main game loop.
   while (_engineContext.GetBShouldRun())
@@ -98,10 +101,12 @@ bool Engine::Run()
     prev = std::chrono::high_resolution_clock::now();
 
 
-    glfwPollEvents();
+  #if !INPUT_MANAGER_REFACTORED
     pScene->GetEditorCamera()->KeyControl(pMainWindow, deltaTime);
     pScene->GetEditorCamera()->MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
     pScene->GetEditorCamera()->MouseKeyControl(pMainWindow->GetMouseKeys(), deltaTime);
+  #endif
+
 
     // Do ImGUI stuff.
     ProcessImGui();

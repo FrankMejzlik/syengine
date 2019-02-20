@@ -10,6 +10,7 @@
 #include "DirectionalLight_.h"
 #include "PointLight_.h"
 #include "SpotLight_.h"
+#include "Camera_.h"
 
 using namespace SYE;
 
@@ -26,7 +27,7 @@ Scene::~Scene() noexcept
   DLog(eLogType::Success, "Scene with name %s destroyed.", _sceneContext.m_sceneName.data());
 }
 
-_Camera* Scene::GetEditorCamera() const
+Camera* Scene::GetEditorCamera() const
 {
   return _pEditorCamera;
 }
@@ -71,7 +72,8 @@ bool Scene::DeleteEntity(Entity* pEntityToDelete)
 
 Entity* Scene::CreateCamera(
   Vector3f positionVector, 
-  Vector3f startUpDirection, dfloat startYaw, dfloat startPitch
+  Vector3f startUpDirection, dfloat startYaw, dfloat startPitch,
+  bool isEditor
 )
 {
   UNREFERENCED_PARAMETER(positionVector);
@@ -85,6 +87,17 @@ Entity* Scene::CreateCamera(
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
   pTransform->SetPosition(positionVector);
+
+  // Add Camera Component
+  Camera* pCamera = pNewEntity->AddComponent<Camera>();
+  if (isEditor)
+  {
+    pCamera->SetCameraMode(Camera::eCameraModes::EDITOR_CAMERA);
+
+    // TODO: Remove this
+    _pEditorCamera = pCamera;
+  }
+  
 
 
   return nullptr;
@@ -469,7 +482,7 @@ _Camera* Scene::CreateCamera(std::string_view cameraName, glm::vec3 positionVect
   pNewCamera->SetEntityName(cameraName);
 
   // TODO: Implement properly.
-  _pEditorCamera = pNewCamera;
+  //_pEditorCamera = pNewCamera;
 
   return static_cast<_Camera*>(InsertEntity_(pNewCamera));
 }

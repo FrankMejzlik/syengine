@@ -6,6 +6,7 @@
 #include "SpotLight_.h"
 #include "MeshRenderer.h"
 #include "Transform.h"
+#include "Camera_.h"
 
 using namespace SYE;
 
@@ -346,9 +347,9 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(_perspectiveProjectionMatrix));
   glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->CalculateViewMatrix()));
   glUniform3f(uniformEyePosition, 
-    pScene->GetEditorCamera()->GetCameraPosition().x, 
-    pScene->GetEditorCamera()->GetCameraPosition().y, 
-    pScene->GetEditorCamera()->GetCameraPosition().z
+    pScene->GetEditorCamera()->GetCameraPosition().GetX(), 
+    pScene->GetEditorCamera()->GetCameraPosition().GetY(), 
+    pScene->GetEditorCamera()->GetCameraPosition().GetZ()
   );
 
   // Get counts of lights.
@@ -559,9 +560,9 @@ void RenderingManager::_FinalMainRenderPass
   glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(_perspectiveProjectionMatrix));
   glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->CalculateViewMatrix()));
   glUniform3f(uniformEyePosition, 
-    pScene->GetEditorCamera()->GetCameraPosition().x, 
-    pScene->GetEditorCamera()->GetCameraPosition().y, 
-    pScene->GetEditorCamera()->GetCameraPosition().z
+    pScene->GetEditorCamera()->GetCameraPosition().GetX(), 
+    pScene->GetEditorCamera()->GetCameraPosition().GetY(), 
+    pScene->GetEditorCamera()->GetCameraPosition().GetZ()
   );
 
   // Get counts of lights.

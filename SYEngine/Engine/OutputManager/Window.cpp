@@ -95,9 +95,9 @@ Window::~Window()
 void Window::CreateCallbacks()
 {
   // When key is pressed in main window call HhadleKeys
-  glfwSetKeyCallback(mainWindow, InputManager::HandleKeys);
-  glfwSetMouseButtonCallback(mainWindow, InputManager::HandleMouseKeys);
-  glfwSetCursorPosCallback(mainWindow, InputManager::HandleMouse);
+  glfwSetKeyCallback(mainWindow, InputManager::ProcessKeys);
+  glfwSetMouseButtonCallback(mainWindow, InputManager::ProcessMouseKeys);
+  glfwSetCursorPosCallback(mainWindow, InputManager::ProcessMouse);
 }
 GLfloat Window::GetXChange()
 {

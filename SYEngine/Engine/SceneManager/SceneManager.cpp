@@ -1,6 +1,7 @@
 
 #include "SceneManager.h"
 
+#include "Camera_.h"
 
 Scene* SceneManager::_pActiveScene = nullptr;
 
@@ -100,8 +101,15 @@ Scene* SceneManager::LoadInitialScene()
   Scene* pNewScene = CreateScene(std::string("initialScene"));
 
   // Create main camera.
-  pNewScene->CreateCamera(
+  /*pNewScene->CreateCamera(
     std::string("main_camera"), glm::vec3(10.0f, 10.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), -120.0f, -45.0f
+  );*/
+
+  pNewScene->CreateCamera(
+    Vector3f(10.0f, 10.0f, 10.0f),
+    Vector3f(0.0f, 1.0f, 0.0f),
+    -120.0f, -45.0f,
+    true
   );
 
   pNewScene->CreateBlock(
@@ -124,7 +132,7 @@ Scene* SceneManager::LoadInitialScene()
 
     Vector3f(1.0f, 1.0f, 1.0f),          // Colour vector
     Vector3f(0.1f, 0.5f, 0.1f),          // Intensities
-    Vector3u(2048, 2048, 0),    // Shadow dimensions
+    Vector3u(2048, 2048, 0),              // Shadow dimensions
     Vector3f(10.0f, -10.0f, 10.0f)
   ); 
 

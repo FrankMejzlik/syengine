@@ -11,7 +11,11 @@ using namespace SYE;
 namespace SYE 
 {
 
-Camera::Camera(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept:
+Camera::Camera(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
+) noexcept:
   Component(
     pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     true, true,
@@ -23,7 +27,7 @@ Camera::Camera(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseMo
   _frontDirection(Vector3f(0.0f, 0.0f, -1.0f)),
   _moveSpeed(5.0f),
   _firstPersonTurnSpeed(1.0),
-  _mode(eCameraModes::FIRST_PERSON_MODE),
+  _mode(eCameraModes::NORMAL),
   _isDragingOn(false),
   _editorModeTurnSpeed(0.05f),
   _inverseYaw(0.0f),
@@ -59,13 +63,13 @@ void Camera::KeyControl(Window* pMainWindow, dfloat deltaTime)
 
   if (keys[GLFW_KEY_K])
   {
-    _mode = eCameraModes::EDITOR_MODE;
+    _mode = eCameraModes::EDITOR_CAMERA;
     pMainWindow->ShowCursor();
   }
 
   if (keys[GLFW_KEY_L])
   {
-    _mode = eCameraModes::FIRST_PERSON_MODE;
+    _mode = eCameraModes::NORMAL;
     pMainWindow->HideCursor();
   }
 
@@ -87,7 +91,7 @@ void Camera::KeyControl(Window* pMainWindow, dfloat deltaTime)
 
 	if (keys[GLFW_KEY_D])
 	{
-		position += _right * deltaSpeed;
+		position = position + _right * deltaSpeed;
 	}
 
   if (keys[GLFW_KEY_SPACE] && !keys[GLFW_KEY_LEFT_SHIFT])
@@ -100,7 +104,8 @@ void Camera::KeyControl(Window* pMainWindow, dfloat deltaTime)
     position = position - (_up * deltaSpeed);
   }
 
-
+  // Update position in Transform Component
+  _pTransform->SetPosition(position);
 }
 
 void Camera::MouseKeyControl(bool* keys, dfloat deltaTime)
@@ -143,7 +148,7 @@ void Camera::MouseControl(dfloat xChange, dfloat yChange)
       _pitch = -89.0f;
     }
 
-    if (_isDragingOn && _mode == eCameraModes::EDITOR_MODE)
+    if (_isDragingOn && _mode == eCameraModes::EDITOR_CAMERA)
     {
       _inverseYaw -= editorModeChangeX;
       _inversePitch -= editorModeChangeY;
@@ -160,7 +165,7 @@ void Camera::MouseControl(dfloat xChange, dfloat yChange)
 
       UpdateEditorMode();
     }
-    else if ( _mode == eCameraModes::FIRST_PERSON_MODE)
+    else
     {
       UpdateFirstPersonMode();
     }
@@ -185,7 +190,7 @@ Vector3f Camera::GetCameraDirection() const
 
 void Camera::Update()
 {
-  if (_mode == eCameraModes::FIRST_PERSON_MODE)
+  if (_mode == eCameraModes::NORMAL)
   {
     UpdateFirstPersonMode();
   }

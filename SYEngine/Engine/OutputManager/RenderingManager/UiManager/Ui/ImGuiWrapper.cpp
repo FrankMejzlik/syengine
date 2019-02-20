@@ -79,11 +79,11 @@ void ImGuiWrapper_CharCallback(GLFWwindow*, unsigned int c)
 
 void ImGuiWrapper_InstallCallbacks(GLFWwindow* window)
 {
-    glfwSetMouseButtonCallback(window, InputManager::HandleMouseKeys);
+    glfwSetMouseButtonCallback(window, InputManager::ProcessMouseKeys);
     glfwSetScrollCallback(window, ImGuiWrapper_ScrollCallback);
     glfwSetCharCallback(window, ImGuiWrapper_CharCallback);
 
-    glfwSetKeyCallback(window, InputManager::HandleKeys);
+    glfwSetKeyCallback(window, InputManager::ProcessKeys);
 }
 
 static bool ImGuiWrapper_Init(GLFWwindow* window, bool install_callbacks, GlfwClientApi client_api)

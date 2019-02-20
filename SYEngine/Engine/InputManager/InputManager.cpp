@@ -1,6 +1,23 @@
+
 #include "InputManager.h"
+
 #include "Window.h"
-InputManager::InputManager(BaseModule &parentModule):
+
+// Statics
+std::vector<size_t> InputManager::_keyboardKeysPressed = std::vector<size_t>();
+std::vector<size_t> InputManager::_mouseKeysPressed = std::vector<size_t>();
+std::array<bool, NUM_KEYBOARD_KEYS> InputManager::_keyboardKeysDown = std::array<bool, NUM_KEYBOARD_KEYS>();
+std::array<bool, NUM_MOUSE_KEYS> InputManager::_mouseKeysDown = std::array<bool, NUM_MOUSE_KEYS>();
+std::vector<size_t> InputManager::_keyboardKeysReleased = std::vector<size_t>();
+std::vector<size_t> InputManager::_mouseKeysReleased = std::vector<size_t>();
+
+dfloat InputManager::_currX = 0.0f;
+dfloat InputManager::_currY = 0.0f;
+dfloat InputManager::_deltaX = 0.0f;
+dfloat InputManager::_deltaY = 0.0f;
+bool InputManager::_mouseFirstMoved = false;
+
+InputManager::InputManager(BaseModule &parentModule) noexcept:
   BaseModule(parentModule)
 {
   // Instantiate submodules into map container
@@ -11,7 +28,7 @@ InputManager::InputManager(BaseModule &parentModule):
   DLog(eLogType::Success, "InputManager instance created.");
 }
 
-InputManager::~InputManager()
+InputManager::~InputManager() noexcept
 {
   // If instance not terminated, do so
   if (GetModuleState() != eModuleState::Null)
@@ -22,12 +39,12 @@ InputManager::~InputManager()
   DLog(eLogType::Success, "InputManager instance destroyed.");
 }
 
-void InputManager::HandleKeys(GLFWwindow* window, int key, int code, int action, int mode)
+void InputManager::ProcessKeys(GLFWwindow* window, int key, int code, int action, int mode)
 {
   UNREFERENCED_PARAMETER(mode);
   UNREFERENCED_PARAMETER(code);
 
-  Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+  Window* pWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
   // Handle pushdowns and pushups
   if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -37,56 +54,86 @@ void InputManager::HandleKeys(GLFWwindow* window, int key, int code, int action,
 
   if (key == GLFW_KEY_T && action == GLFW_PRESS)
   {
-    theWindow->ShowCursor();
+    pWindow->ShowCursor();
   }
 
   if (key == GLFW_KEY_G && action == GLFW_PRESS)
   {
-    theWindow->HideCursor();
+    pWindow->HideCursor();
   }
 
   if (key >= 0 && key < 1024)
   {
     if (action == GLFW_PRESS)
     {
-      theWindow->keys[key] = true;
+    #if !INPUT_MANAGER_REFACTORED
+      pWindow->keys[key] = true;
+    #endif
+
+      // Set this key to not pressed
+      _keyboardKeysDown[key] = true;
+      // Set it as this frame PRESSED key
+      _keyboardKeysPressed.push_back(key);
     }
     else if (action == GLFW_RELEASE)
     {
-      theWindow->keys[key] = false;
+    #if !INPUT_MANAGER_REFACTORED
+      pWindow->keys[key] = false;
+    #endif
+
+      // Set this key to not pressed
+      _keyboardKeysDown[key] = false;
+      // Set it as this frame RELEASE key
+      _keyboardKeysReleased.push_back(key);
     }
   }
 }
 
-void InputManager::HandleMouseKeys(GLFWwindow* window, int button, int action, int mode)
+void InputManager::ProcessMouseKeys(GLFWwindow* window, int button, int action, int mode)
 {
   UNREFERENCED_PARAMETER(mode);
   UNREFERENCED_PARAMETER(action);
 
-  Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+  Window* pWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
   if (button >= 0 && button < 1024)
   {
     if (action == GLFW_PRESS)
     {
-      theWindow->_mouseKeys[button] = true;
+    #if !INPUT_MANAGER_REFACTORED
+      pWindow->_mouseKeys[button] = true;
+    #endif
+
+      // Set this key to not pressed
+      _mouseKeysDown[button] = true;
+      // Set it as this frame PRESSED key
+      _mouseKeysPressed.push_back(button);
     }
     else if (action == GLFW_RELEASE)
     {
-      theWindow->_mouseKeys[button] = false;
+    #if !INPUT_MANAGER_REFACTORED
+      pWindow->_mouseKeys[button] = false;
+    #endif
+
+      // Set this key to not pressed
+      _mouseKeysDown[button] = false;
+      // Set it as this frame RELEASE key
+      _mouseKeysReleased.push_back(button);
     }
   }
 }
 
-void InputManager::HandleMouse(GLFWwindow* window, double xPos, double yPos)
+void InputManager::ProcessMouse(GLFWwindow* window, double xPos, double yPos)
 {
   Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
+#if !INPUT_MANAGER_REFACTORED
   if (theWindow->mouseFirstMoved)
   {
     theWindow->lastX = static_cast<GLfloat>(xPos);
     theWindow->lastY = static_cast<GLfloat>(yPos);
     theWindow->mouseFirstMoved = false;
+  
   }
 
   theWindow->xChange = static_cast<GLfloat>(xPos - theWindow->lastX);
@@ -94,10 +141,24 @@ void InputManager::HandleMouse(GLFWwindow* window, double xPos, double yPos)
 
   theWindow->lastX = static_cast<GLfloat>(xPos);
   theWindow->lastY = static_cast<GLfloat>(yPos);
+#endif
+  
+  // If this is first mouse movement
+  if (_mouseFirstMoved)
+  {
+    // To prevent first move look jump
+    _currX = static_cast<dfloat>(xPos);
+    _currY = static_cast<dfloat>(yPos);
+    _mouseFirstMoved = false;
   }
-  //printf("x: %.f6f, y: %.6f\n", theWindow->xChange, theWindow->yChange);
 
+  _deltaX = static_cast<dfloat>(xPos - _currX);
+  _deltaY = static_cast<dfloat>(_currY - yPos);
 
+  _currX = static_cast<dfloat>(xPos);
+  _currY = static_cast<dfloat>(yPos);
+
+  }
 
 bool InputManager::Initialize()
 {
@@ -135,7 +196,104 @@ bool InputManager::Terminate()
 
 void InputManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
-
   UNREFERENCED_PARAMETER(deltaTime);
   UNREFERENCED_PARAMETER(pScene);
+
+  // Clear all key buffers before processing this frame's input
+  FlushKeyBuffers();
+
+  /*
+    Process all pending events
+
+    This calls all registered input callbacks.
+  */
+  glfwPollEvents();
+  
+}
+
+
+bool InputManager::IsKeyboardKeyDown(size_t keyIndex) const
+{
+  // Check if is out of bound
+  if (keyIndex < 0 && keyIndex >= NUM_KEYBOARD_KEYS)
+  {
+    return false;
+  }
+
+  return _keyboardKeysDown[keyIndex];
+}
+
+bool InputManager::IsMouseKeyDown(size_t keyIndex) const
+{
+  // Check if is out of bound
+  if (keyIndex < 0 && keyIndex >= NUM_MOUSE_KEYS)
+  {
+    return false;
+  }
+
+  return _mouseKeysDown[keyIndex];
+}
+
+bool InputManager::IsOnKeyboardKeyDown(size_t keyIndex) const
+{
+  // Iterate through this frame pressed keys
+  for (auto&& keyCode : _keyboardKeysPressed)
+  {
+    if (keyCode == keyIndex)
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool InputManager::IsOnKeyboardMouseDown(size_t keyIndex) const
+{
+  // Iterate through this frame pressed mouse keys
+  for (auto&& keyCode : _mouseKeysPressed)
+  {
+    if (keyCode == keyIndex)
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool InputManager::IsOnKeyboardKeyUp(size_t keyIndex) const
+{
+  // Iterate through this frame released keys
+  for (auto&& keyCode : _keyboardKeysReleased)
+  {
+    if (keyCode == keyIndex)
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+bool InputManager::IsOnKeyboardMouseUp(size_t keyIndex) const
+{
+  // Iterate through this frame released keys
+  for (auto&& keyCode : _mouseKeysReleased)
+  {
+    if (keyCode == keyIndex)
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+void InputManager::FlushKeyBuffers()
+{
+  // Reset all of them
+  _keyboardKeysPressed.clear();
+  _mouseKeysPressed.clear();
+  _keyboardKeysReleased.clear();
+  _mouseKeysReleased.clear();
 }

@@ -9,6 +9,7 @@
 #include <glm\gtc\matrix_transform.hpp>
 #pragma warning(pop)
 
+#include "common.h"
 #include "WorldEntity.h"
 
 
@@ -24,8 +25,8 @@ class Camera:
 public:
   enum class eCameraModes
   {
-    FIRST_PERSON_MODE, 
-    EDITOR_MODE
+    NORMAL, 
+    EDITOR_CAMERA
   };
 
 
@@ -48,10 +49,14 @@ public:
   void SetIsDraggingOn(bool isDraggingOn) { _isDragingOn = isDraggingOn; }
   void SetTurnSpeed(dfloat turnSpeed) { _firstPersonTurnSpeed = turnSpeed; }
 
+#if !INPUT_MANAGER_REFACTORED
+
   // TODO: Implement propperly Input in InputManager
   void KeyControl(Window* pMainWindow, dfloat deltaTime);
 	void MouseControl(dfloat xChange, dfloat yChange);
   void MouseKeyControl(bool* keys, dfloat deltaTime);
+
+#endif
 
 	glm::mat4 CalculateViewMatrix();
 
