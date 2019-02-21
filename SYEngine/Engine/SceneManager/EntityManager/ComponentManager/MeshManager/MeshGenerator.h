@@ -26,25 +26,6 @@ public:
     dfloat width, dfloat height
   );
 
-#if !NEW_SSSEC_IMPLEMENTED
-
-  /**
-   * Generates mesh for block.
-   */
-  std::unique_ptr<Mesh> GenerateMeshBlock(
-    dfloat width, dfloat height, dfloat length,
-    bool bAverageNormals
-  );
-
-  /**
-   * Generates mesh for quad.
-   */
-  std::unique_ptr<Mesh> GenerateMeshQuad(
-    dfloat width, dfloat height,
-    bool bAverageNormals
-  );
-
-#endif
 };
 
 }

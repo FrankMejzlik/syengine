@@ -77,71 +77,64 @@ uint64_t EngineApi::CreateBlock(glm::vec3 positionVector, glm::vec3 rotationVect
 
 void EngineApi::ProcessEngineQueue()
 {
-  while (!_engineQueue.empty())
-  {
-
-    Command cmd(_engineQueue.front());
-    _engineQueue.pop();
-
-    auto data = cmd.GetFloatData();
-    Entity* newEntity;
-    std::vector<uint64_t> dataOut;
-    std::vector<std::string> stringData;
-
-    switch (cmd.GetType())  
-    {
-    case eCommandType::CreateBlock:
-
-      newEntity = SceneManager::GetActiveScene()->_CreateBlock(
-        "editorBlock",
-        glm::vec3(data[0], data[1], data[2]),
-        glm::vec3(data[3], data[4], data[5]),
-        glm::vec3(data[6], data[7], data[8]),
-        data[9], data[10], data[11]
-      );
-
-      dataOut.push_back(newEntity->GetGuid());
-      PushEditorCommand<uint64_t>(eCommandType::CreatedObjectId, dataOut);
-      
-      break;
-
-    case eCommandType::CreateSphere:
-      //static_cast<Engine&>(_parentModule).HandleCommandCreateSphere(cmd.GetFloatData());
-      break;
-
-    case eCommandType::CreatePointLight:
-
-      break;
-
-    case eCommandType::CreateStaticModelFromFile:
-      stringData = cmd.GetStringData();
-      newEntity = SceneManager::GetActiveScene()->CreateStaticModelFromFile(
-        "staticModel",
-        glm::vec3(data[0], data[1], data[2]),
-        glm::vec3(data[3], data[4], data[5]),
-        glm::vec3(data[6], data[7], data[8]),
-        stringData[0]
-      );
-
-      dataOut.push_back(newEntity->GetGuid());
-      PushEditorCommand<uint64_t>(eCommandType::CreatedObjectId, dataOut);
-      break;
-
-    case eCommandType::CreateSpotLight:
-
-
-      break;
-
-    case eCommandType::DeleteObjectId:
-      //static_cast<Engine&>(_parentModule).HandleCommandDeleteObjectId(cmd.GetIntData());
-      break;
-
-    case eCommandType::Terminate:
-    
-      break;
-    }
-
-  }
+//  while (!_engineQueue.empty())
+//  {
+//
+//    Command cmd(_engineQueue.front());
+//    _engineQueue.pop();
+//
+//    auto data = cmd.GetFloatData();
+//    Entity* newEntity;
+//    std::vector<uint64_t> dataOut;
+//    std::vector<std::string> stringData;
+//
+//    switch (cmd.GetType())  
+//    {
+//    case eCommandType::CreateBlock:
+//
+//      dataOut.push_back(newEntity->GetGuid());
+//      PushEditorCommand<uint64_t>(eCommandType::CreatedObjectId, dataOut);
+//      
+//      break;
+//
+//    case eCommandType::CreateSphere:
+//      //static_cast<Engine&>(_parentModule).HandleCommandCreateSphere(cmd.GetFloatData());
+//      break;
+//
+//    case eCommandType::CreatePointLight:
+//
+//      break;
+//
+//    case eCommandType::CreateStaticModelFromFile:
+//      stringData = cmd.GetStringData();
+//
+//      /*newEntity = SceneManager::GetActiveScene()->CreateStaticModelFromFile(
+//        "staticModel",
+//        glm::vec3(data[0], data[1], data[2]),
+//        glm::vec3(data[3], data[4], data[5]),
+//        glm::vec3(data[6], data[7], data[8]),
+//        stringData[0]
+//      );
+//*/
+//      dataOut.push_back(newEntity->GetGuid());
+//      PushEditorCommand<uint64_t>(eCommandType::CreatedObjectId, dataOut);
+//      break;
+//
+//    case eCommandType::CreateSpotLight:
+//
+//
+//      break;
+//
+//    case eCommandType::DeleteObjectId:
+//      //static_cast<Engine&>(_parentModule).HandleCommandDeleteObjectId(cmd.GetIntData());
+//      break;
+//
+//    case eCommandType::Terminate:
+//    
+//      break;
+//    }
+//
+//  }
 }
 
 std::queue<Command>* EngineApi::GetEditorCommandQueue()

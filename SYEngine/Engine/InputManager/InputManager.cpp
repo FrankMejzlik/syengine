@@ -69,9 +69,6 @@ void InputManager::ProcessKeys(GLFWwindow* window, int key, int code, int action
   {
     if (action == GLFW_PRESS)
     {
-    #if !INPUT_MANAGER_REFACTORED
-      pWindow->keys[key] = true;
-    #endif
 
       // Set this key to not pressed
       _keyboardKeysDown[key] = true;
@@ -80,10 +77,6 @@ void InputManager::ProcessKeys(GLFWwindow* window, int key, int code, int action
     }
     else if (action == GLFW_RELEASE)
     {
-    #if !INPUT_MANAGER_REFACTORED
-      pWindow->keys[key] = false;
-    #endif
-
       // Set this key to not pressed
       _keyboardKeysDown[key] = false;
       // Set it as this frame RELEASE key
@@ -107,10 +100,6 @@ void InputManager::ProcessMouseKeys(GLFWwindow* window, int button, int action, 
   {
     if (action == GLFW_PRESS)
     {
-    #if !INPUT_MANAGER_REFACTORED
-      pWindow->_mouseKeys[button] = true;
-    #endif
-
       // Set this key to not pressed
       _mouseKeysDown[button] = true;
       // Set it as this frame PRESSED key
@@ -118,11 +107,7 @@ void InputManager::ProcessMouseKeys(GLFWwindow* window, int button, int action, 
     }
     else if (action == GLFW_RELEASE)
     {
-    #if !INPUT_MANAGER_REFACTORED
-      pWindow->_mouseKeys[button] = false;
-    #endif
-
-      // Set this key to not pressed
+       // Set this key to not pressed
       _mouseKeysDown[button] = false;
       // Set it as this frame RELEASE key
       _mouseKeysReleased.push_back(button);
@@ -134,26 +119,6 @@ void InputManager::ProcessMouse(GLFWwindow* window, double xPos, double yPos)
 {
   UNREFERENCED_PARAMETER(window);
 
-#if !INPUT_MANAGER_REFACTORED
-  Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
-
-#endif
-#if !INPUT_MANAGER_REFACTORED
-  if (theWindow->mouseFirstMoved)
-  {
-    theWindow->lastX = static_cast<GLfloat>(xPos);
-    theWindow->lastY = static_cast<GLfloat>(yPos);
-    theWindow->mouseFirstMoved = false;
-  
-  }
-
-  theWindow->xChange = static_cast<GLfloat>(xPos - theWindow->lastX);
-  theWindow->yChange = static_cast<GLfloat>(theWindow->lastY - yPos);
-
-  theWindow->lastX = static_cast<GLfloat>(xPos);
-  theWindow->lastY = static_cast<GLfloat>(yPos);
-#endif
-  
   // If this is first mouse movement
   if (_mouseFirstMoved)
   {

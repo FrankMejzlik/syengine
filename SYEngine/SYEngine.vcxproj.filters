@@ -76,24 +76,6 @@
       <Filter>Engine\RenderingManager\AnimationManager</Filter>
     </ClCompile>
     <ClCompile Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Camera\Camera.cpp">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\DirectionalLight.cpp">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\Light.cpp">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\PointLight.cpp">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\SpotLight.cpp">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldEntity.cpp">
-      <Filter>Engine\EntityManager\Entity\WorldEntity</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\Entity.cpp">
       <Filter>Engine\EntityManager\Entity</Filter>
     </ClCompile>
@@ -115,8 +97,6 @@
     <ClCompile Include="Engine\Core\Common\TimeManager.cpp">
       <Filter>Engine\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Quad.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.cpp">
       <Filter>Engine\ComponentManager\Component\Logic</Filter>
     </ClCompile>
@@ -128,12 +108,6 @@
     </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MaterialManager\MaterialManager.cpp">
       <Filter>Engine\RenderingManager\MaterialManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\Primitives\MeshGenerator.cpp">
-      <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\Primitives\PrimitiveMeshGenerator.cpp">
-      <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
     </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshManager.cpp">
       <Filter>Engine\RenderingManager\MeshManager</Filter>
@@ -154,7 +128,6 @@
       <Filter>Engine\InputManager</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Core\Abstract\IGuidCounted.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp">
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
@@ -200,9 +173,6 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Mesh\Mesh.cpp">
       <Filter>Engine\ComponentManager\Component\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material.cpp">
-      <Filter>Engine\ComponentManager\Component\Material</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\Light_.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\PointLight_.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\DirectionalLight_.cpp" />
@@ -216,6 +186,9 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera_.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\ScriptHander.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Script.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshGenerator.cpp">
+      <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -305,24 +278,6 @@
       <Filter>Engine\RenderingManager\AnimationManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Camera\Camera.h">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\DirectionalLight.h">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\Light.h">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\PointLight.h">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\Light\SpotLight.h">
-      <Filter>Engine\EntityManager\Entity\WorldEntity\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldEntity.h">
-      <Filter>Engine\EntityManager\Entity\WorldEntity</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\Entity\Entity.h">
       <Filter>Engine\EntityManager\Entity</Filter>
     </ClInclude>
@@ -349,8 +304,6 @@
     <ClInclude Include="Engine\Core\Common\TimeManager.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Quad.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\WorldObject.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.h">
       <Filter>Engine\ComponentManager\Component\Logic</Filter>
     </ClInclude>
@@ -362,12 +315,6 @@
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MaterialManager\MaterialManager.h">
       <Filter>Engine\RenderingManager\MaterialManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\Primitives\MeshGenerator.h">
-      <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\Primitives\PrimitiveMeshGenerator.h">
-      <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshManager.h">
       <Filter>Engine\RenderingManager\MeshManager</Filter>
@@ -389,7 +336,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Core\typedefs.h" />
     <ClInclude Include="Engine\Core\Abstract\IGuidCounted.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\Entity\WorldEntity\WorldObject\Primitive\Block.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h">
       <Filter>Engine\RenderingManager\ShadowManager</Filter>
@@ -434,9 +380,6 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Mesh\Mesh.h">
       <Filter>Engine\ComponentManager\Component\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material.h">
-      <Filter>Engine\ComponentManager\Component\Material</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Camera_.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\Light_.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\PointLight_.h" />
@@ -454,6 +397,9 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Script.h" />
     <ClInclude Include="scripts\FirstPersonCameraController.h" />
     <ClInclude Include="scripts\script_includes.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshGenerator.h">
+      <Filter>Engine\RenderingManager\MeshManager\Primitives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

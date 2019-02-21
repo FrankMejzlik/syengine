@@ -28,9 +28,6 @@ ComponentManager::ComponentManager(BaseModule &parentModule):
   _subModules.insert(std::make_pair(ID_SKYBOX_MANAGER, std::make_unique<SkyboxManager>(*this)));
   _subModules.insert(std::make_pair(ID_TEXTURE_MANAGER, std::make_unique<TextureManager>(*this)));
 
-
-  _pTextureManager = TEXTURE_MANAGER;
-
   DLog(eLogType::Success, "\t\tComponentManager instance created.");
 }
 
@@ -69,54 +66,3 @@ bool ComponentManager::Terminate()
   DLog(eLogType::Success, "ComponentManager instance terminated.");
   return true;
 }
-
-
-#if !NEW_SSSEC_IMPLEMENTED
-
-std::unique_ptr<Mesh> ComponentManager::GenerateMeshQuad(dfloat width, dfloat height)
-{
-  std::unique_ptr<Mesh> newComponent = MESH_MANAGER->GenerateMeshQuad(width, height);
-
-  return newComponent;
-
-}
-
-std::unique_ptr<Mesh> ComponentManager::GenerateMeshBlock(dfloat width, dfloat height, dfloat length)
-{
-  std::unique_ptr<Mesh> newComponent = MESH_MANAGER->GenerateMeshBlock(width, height,length);
-
-  return newComponent;
-}
-
-Component* ComponentManager::CreateBoxCollider(
-  Entity* pEntity,
-  glm::vec3 position, glm::vec3 rotation, glm::vec3 scale,
-  dfloat width, dfloat heigt, dfloat length,
-  bool bIsStatic
-)
-{
-  return InsertComponent(std::make_unique<BlockCollider>(
-    pEntity, _subModules, _fake,
-    position, rotation, scale,
-    width, heigt, length,
-    bIsStatic, true
-    ));
-}
-
-
-Component* ComponentManager::CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&& pQuadMesh, std::unique_ptr<Texture>&& pTexture, std::unique_ptr<_Shininess>&& pShininess)
-{
-  std::unique_ptr<Component> newComponent = MODEL_MANAGER->CreateModel(pEntity, std::move(pQuadMesh), std::move(pTexture), std::move(pShininess));
-  return InsertComponent(std::move(newComponent));
-}
-
-Component* ComponentManager::CreateModelFromFile(
-  Entity* pEntity,
-  std::string_view filePath
-)
-{
-  std::unique_ptr<Component> newComponent = MODEL_MANAGER->CreateModelFromFile(pEntity, filePath);
-  return InsertComponent(std::move(newComponent));
-}
-
-#endif

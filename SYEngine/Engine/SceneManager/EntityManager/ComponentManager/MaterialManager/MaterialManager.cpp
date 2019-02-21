@@ -56,8 +56,3 @@ bool MaterialManager::Terminate()
   DLog(eLogType::Success, "\t\t\t MaterialManager instance terminated.");
   return true;
 }
-
-std::shared_ptr<_Material> MaterialManager::GetDefaultMaterial() const
-{
-  return _genericMaterials.find(std::string("shiny_material"))->second;
-}

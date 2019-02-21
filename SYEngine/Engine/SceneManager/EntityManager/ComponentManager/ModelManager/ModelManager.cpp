@@ -50,40 +50,40 @@ bool ModelManager::Terminate()
   DLog(eLogType::Success, "\t\t\t ModelManager instance terminated.");
   return true;
 }
-
-std::unique_ptr<Model> ModelManager::CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&& pQuadMesh, std::unique_ptr<Texture>&& pTexture, std::unique_ptr<_Shininess>&& pShininess)
-{
-  std::unique_ptr<Model> newModel = std::make_unique<Model>(pEntity, _subModules, _fake);
-
-  // Add Mesh, Texture and Shininess to model
-  size_t meshIndex = newModel->AddMesh(std::move(pQuadMesh));
-  size_t textureIndex = 0;
-  size_t shininessIndex = 0;
-
-  // If texture provided.
-  if (pTexture)
-  {
-    textureIndex = newModel->AddTexture(std::move(pTexture));
-  }
-  newModel->SetMeshIndexToShininess(meshIndex, shininessIndex);
-
-  // If shininess provided.
-  if (pShininess)
-  {
-    shininessIndex = newModel->AddShininess(std::move(pShininess));
-  }
-  newModel->SetMeshIndexToShininess(meshIndex, shininessIndex);
-
-  
-  return newModel;
-}
-
-
-std::unique_ptr<Model> ModelManager::CreateModelFromFile(Entity* pEntity, std::string_view filePath)
-{
-  std::unique_ptr<Model> pNewModel = std::make_unique<Model>(pEntity, _subModules, _fake);
-
-  pNewModel->LoadModelFromFile(filePath);
-
-  return pNewModel;
-}
+//
+//std::unique_ptr<Model> ModelManager::CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&& pQuadMesh, std::unique_ptr<Texture>&& pTexture, std::unique_ptr<_Shininess>&& pShininess)
+//{
+//  std::unique_ptr<Model> newModel = std::make_unique<Model>(pEntity, _subModules, _fake);
+//
+//  // Add Mesh, Texture and Shininess to model
+//  size_t meshIndex = newModel->AddMesh(std::move(pQuadMesh));
+//  size_t textureIndex = 0;
+//  size_t shininessIndex = 0;
+//
+//  // If texture provided.
+//  if (pTexture)
+//  {
+//    textureIndex = newModel->AddTexture(std::move(pTexture));
+//  }
+//  newModel->SetMeshIndexToShininess(meshIndex, shininessIndex);
+//
+//  // If shininess provided.
+//  if (pShininess)
+//  {
+//    shininessIndex = newModel->AddShininess(std::move(pShininess));
+//  }
+//  newModel->SetMeshIndexToShininess(meshIndex, shininessIndex);
+//
+//  
+//  return newModel;
+//}
+//
+//
+//std::unique_ptr<Model> ModelManager::CreateModelFromFile(Entity* pEntity, std::string_view filePath)
+//{
+//  std::unique_ptr<Model> pNewModel = std::make_unique<Model>(pEntity, _subModules, _fake);
+//
+//  pNewModel->LoadModelFromFile(filePath);
+//
+//  return pNewModel;
+//}

@@ -105,14 +105,6 @@ bool Engine::Run()
     // Save now time for next frame calculation.
     prev = std::chrono::high_resolution_clock::now();
 
-
-  #if !INPUT_MANAGER_REFACTORED
-    pScene->GetEditorCamera()->KeyControl(pMainWindow, deltaTime);
-    pScene->GetEditorCamera()->MouseControl(pMainWindow->GetXChange(), pMainWindow->GetYChange());
-    pScene->GetEditorCamera()->MouseKeyControl(pMainWindow->GetMouseKeys(), deltaTime);
-  #endif
-
-
     // Do ImGUI stuff.
     ProcessImGui();
 

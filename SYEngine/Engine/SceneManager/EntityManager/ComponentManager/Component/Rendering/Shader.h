@@ -9,14 +9,6 @@
 #include <iostream>
 #include <fstream>
 
-#if !NEW_SSSEC_IMPLEMENTED
-
-#include "PointLight.h"
-#include "SpotLight.h"
-#include "DirectionalLight.h"
-
-#endif
-
 #include "PointLight_.h"
 #include "SpotLight_.h"
 #include "DirectionalLight_.h"
@@ -102,22 +94,6 @@ public:
 
   GLuint GetOmniLightPosLocation();
   GLuint GetFarPlaneLocation();
-
-
-#if !NEW_SSSEC_IMPLEMENTED
-
-  void _SetDirectionalLight(_DirectionalLight* dLight);
-  void _SetPointLights(
-    const std::unordered_map<size_t, Entity*>& pointLights, 
-    size_t textureUnit,
-    size_t offset
-  );
-  void _SetSpotLights(
-    const std::unordered_map<size_t, Entity*>& spotLights,
-    size_t textureUnit,
-    size_t offset
-  );
-#endif
 
   void SetTexture(GLuint textureUnit);
   void SetDirectionalShadowMap(GLuint textureUnit);

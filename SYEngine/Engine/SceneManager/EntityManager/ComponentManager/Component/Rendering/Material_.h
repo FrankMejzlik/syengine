@@ -90,14 +90,6 @@ public:
     unsigned int textureIndex
   );
 
-#if !NEW_SSSEC_IMPLEMENTED
-  // TODO!: Abstract this out 
-  void UseMaterial(
-    GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation,
-    unsigned int textureIndex, unsigned int shininessIndex
-  );
-#endif
-
 protected:
   // List of textures of this material
   std::vector<Texture*> _textures;

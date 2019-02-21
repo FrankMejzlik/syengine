@@ -8,15 +8,18 @@
 #include <glm/gtc/matrix_transform.hpp>
 #pragma warning(pop)
 
-
+#include "common.h"
 #include "MathLibrary.h"
+#include "Component.h"
 #include "ShadowMap.h"
-#include "WorldEntity.h"
+
 
 using namespace SYE;
 
 namespace SYE 
 {
+
+class Transform;
 
 class Light:
   public Component

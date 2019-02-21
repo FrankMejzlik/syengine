@@ -135,21 +135,3 @@ void Material::AddTextureToShaderIndex(size_t textureIndex, size_t shaderIndex)
 
   DLog(eLogType::Warning, "%s", "NOT IMPMLEMENTED!");
 }
-
-#if !NEW_SSSEC_IMPLEMENTED
-
-void Material::UseMaterial(
-  GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation,
-  unsigned int textureIndex, unsigned int shininessIndex
-)
-{
-  // Apply texture.
-  _textures[textureIndex]->UseTexture();
-
-  // Appply Shininess.
-  glUniform1f(ul_specularIntensityLocation, _shininesses[shininessIndex]->GetSpecularIntensity());
-  glUniform1f(ul_shininessIntensitLocation, _shininesses[shininessIndex]->GetShininessIntensity());
-
-}
-
-#endif

@@ -10,19 +10,13 @@
 #include "common.h"
 #include "BaseModule.h"
 #include "Component.h"
+#include "Entity.h"
 
 namespace SYE 
 {
 
 class Component;
-class Entity;
 
-#if !NEW_SSSEC_IMPLEMENTED
-class TextureManager;
-class Mesh;
-class Texture;
-class _Shininess;
-#endif
 
 class ComponentManager:
     public BaseModule
@@ -79,42 +73,6 @@ private:
 private:
   /** Owner list of all components that exist */
   std::map<size_t, std::unique_ptr<Component>> _components;
-
-#if !NEW_SSSEC_IMPLEMENTED
-
-  
-
-public:
-  std::unique_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
-  std::unique_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
-
-  Component* CreateBoxCollider(
-    Entity* pEntity,
-    glm::vec3 position, glm::vec3 rotation, glm::vec3 scale,
-    dfloat width,
-    dfloat heigt,
-    dfloat length,
-    bool bIsStatic
-  );
-
-  Component* CreateModel(
-    Entity* pEntity,
-    std::unique_ptr<Mesh>&& pQuadMesh,
-    std::unique_ptr<Texture>&& pTexture = nullptr,
-    std::unique_ptr<_Shininess>&& pShininess = nullptr
-  );
-
-  Component* CreateModelFromFile(
-    Entity* pEntity,
-    std::string_view filePath
-  );
-
-
-  TextureManager* GetTextureManager() const { return _pTextureManager;  }
-
-  TextureManager* _pTextureManager;
-
-#endif
 };
 
 } // namespace SYE

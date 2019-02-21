@@ -58,34 +58,6 @@ private:
   GLuint uniformOmniLightPos = 0;
   GLuint uniformFarPlane = 0;
 
-
- 
-
-#if !NEW_SSSEC_IMPLEMENTED
-
-  void _DirectionalShadowMapPass
-  (
-    const std::unordered_map<size_t, Entity*>& activeModels,
-    const std::unordered_map<size_t, Entity*>& directionalLights
-  );
-  void _OmniShadowMapPass
-  (
-    const std::unordered_map<size_t, Entity*>& activeModels,
-    const std::unordered_map<size_t, Entity*>& pointLights,
-    const std::unordered_map<size_t, Entity*>& spotLights
-  );
-
-  void _FinalMainRenderPass
-  (
-    Scene* pScene, 
-    const std::unordered_map<size_t, Entity*>& activeModels,
-    const std::unordered_map<size_t, Entity*>& directonalLights,
-    const std::unordered_map<size_t, Entity*>& pointLights,
-    const std::unordered_map<size_t, Entity*>& spotLights
-  );
-
-
-#endif
 };
 
 }

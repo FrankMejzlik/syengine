@@ -59,41 +59,7 @@ protected:
   /** Offset to first normal vector value */
   unsigned int normalOffset = 5;
 
-  
-
-
-
-#if !NEW_SSSEC_IMPLEMENTED
-
-public:
-
-  bool _CalculateAverageNormals(std::vector<GLfloat>& vertices, std::vector<unsigned int>& indices);
-
-  const std::vector<unsigned int>& GetIndices()
-  {
-    return _indices_;
-  }
-
-  const std::vector<GLfloat>& GetVertices()
-  {
-    return _vertices_;
-  }
-
-  std::vector<GLfloat> _vertices_;
-  std::vector<unsigned int> _indices_;
-
-  virtual void CreateMesh(
-    std::vector<GLfloat> vertices, std::vector<unsigned int> indices, 
-    bool calculateAverageNormals = false
-  );
-
-  Mesh(
-    Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
-    std::vector<GLfloat> vertices, 
-    std::vector<unsigned int> indices, 
-    bool calculateAverageNormals = false
-  );
-#endif
+ 
 };
 
 }

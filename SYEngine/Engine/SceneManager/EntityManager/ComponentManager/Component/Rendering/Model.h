@@ -41,7 +41,6 @@ public:
 
   size_t AddMesh(std::shared_ptr<Mesh> pNewMesh);
   size_t AddTexture(std::shared_ptr<Texture> pNewTexture);
-  size_t AddShininess(std::shared_ptr<_Shininess> pNewShininess);
 
   void SetMeshIndexToTexture(size_t meshIndex, size_t textureIndex);
   void SetMeshIndexToShininess(size_t meshIndex, size_t shininessIndex);
@@ -49,7 +48,6 @@ public:
 protected: 
   std::vector<std::shared_ptr<Mesh>> _meshList;
   std::vector<std::shared_ptr<Texture>> _textureList;
-  std::vector<std::shared_ptr<_Shininess>> _shininesList;
   std::vector<size_t> _meshToTexture;
   // TODO!: Shininess not applied to render.
   std::vector<size_t> _meshToShininess;

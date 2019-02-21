@@ -12,6 +12,8 @@
 
 using namespace SYE;
 
+struct GLFWwindow;
+
 namespace SYE 
 {
 

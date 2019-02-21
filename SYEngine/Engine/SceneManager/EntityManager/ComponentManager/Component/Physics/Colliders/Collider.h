@@ -29,22 +29,28 @@ public:
 
   void SetOwnerEntityPosition(dfloat x, dfloat y, dfloat z)
   {
-    _pOwnerEntity->SetPositionVector(glm::vec3(x, y, z));
+    UNREFERENCED_PARAMETER(x);
+    UNREFERENCED_PARAMETER(y);
+    UNREFERENCED_PARAMETER(z);
+    //_pOwnerEntity->SetPositionVector(glm::vec3(x, y, z));
   }
 
   void SetOwnerEntityRotation(dfloat rotX, dfloat rotY, dfloat rotZ)
   {
-    _pOwnerEntity->SetRotationVector(glm::vec3(rotX, rotY, rotZ));
+    UNREFERENCED_PARAMETER(rotX);
+    UNREFERENCED_PARAMETER(rotY);
+    UNREFERENCED_PARAMETER(rotZ);
+    //_pOwnerEntity->SetRotationVector(glm::vec3(rotX, rotY, rotZ));
   }
 
   const std::vector<unsigned int>& GetIndices()
   {
-    return _pMesh->GetIndices();
+    return _pMesh->GetIndices_();
   }
 
   const std::vector<GLfloat>& GetVertices()
   {
-    return _pMesh->GetVertices();;
+    return _pMesh->GetVertices_();
   }
 
   const glm::vec3& GetAbsolutePositionConstRef() const
@@ -89,12 +95,12 @@ protected:
 
   void RecalculateAbsolutePosition()
   {
-    _absolutePosition = _pOwnerEntity->GetPositionVectorRefConst() + _position;
+    //_absolutePosition = _pOwnerEntity->GetPositionVectorRefConst() + _position;
   }
 
   void RecalculateAbsoluteRotation()
   {
-    _absoluteRotation = _pOwnerEntity->GetRotationVectorRefConst() + _rotation;
+    //_absoluteRotation = _pOwnerEntity->GetRotationVectorRefConst() + _rotation;
   }
 
 };

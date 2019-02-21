@@ -21,8 +21,8 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  std::unique_ptr<Model> CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&& pQuadMesh, std::unique_ptr<Texture>&& pTexture, std::unique_ptr<_Shininess>&& pShininess);
-  std::unique_ptr<Model> CreateModelFromFile(Entity* pEntity, std::string_view filePath);
+  //std::unique_ptr<Model> CreateModel(Entity* pEntity, std::unique_ptr<Mesh>&& pQuadMesh, std::unique_ptr<Texture>&& pTexture, std::unique_ptr<_Shininess>&& pShininess);
+  //std::unique_ptr<Model> CreateModelFromFile(Entity* pEntity, std::string_view filePath);
 
 
 private:

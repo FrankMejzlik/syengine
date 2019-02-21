@@ -59,93 +59,93 @@ public:
   virtual void initPhysics()
   {
 
-    auto colliders = _pScene->GetActiveColliders();
-
-    createEmptyDynamicsWorld();
-
-    for (auto && it : colliders)
-    {
-
-      Collider* collider = it.second;
-
-      std::vector<GLfloat> vertices = collider->GetVertices();
-      std::vector<unsigned int> indices = collider->GetIndices();
-
-      size_t count = indices.size();
-
-      btTriangleMesh* mesh = new btTriangleMesh();
-
-#if LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION
-
-      DLog(eLogType::Info, "Constructing mesh for Bullet3");
-#endif
-      for (int i = 0; i < count; i = i + 3)
-      {
-#if LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION
-        DLog(eLogType::Info, "triangle %d:", i / 3);
-        DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i] * 8], vertices[indices[i] * 8 + 1], vertices[indices[i] * 8 + 2]);
-        DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i + 1] * 8], vertices[indices[i + 1] * 8 + 1], vertices[indices[i + 1] * 8 + 2]);
-        DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i + 2] * 8], vertices[indices[i + 2] * 8 + 1], vertices[indices[i + 2] * 8 + 2]);
-#endif
-
-        mesh->addTriangle(
-          btVector3(
-            vertices[indices[i] * 8], 
-            vertices[indices[i] * 8 + 1], 
-            vertices[indices[i] * 8 + 2]
-          ),
-          btVector3(
-            vertices[indices[i + 1] * 8],
-            vertices[indices[i + 1] * 8 + 1],
-            vertices[indices[i + 1] * 8 + 2]
-          ),
-          btVector3(
-            vertices[indices[i + 2] * 8],
-            vertices[indices[i + 2] * 8 + 1],
-            vertices[indices[i + 2] * 8 + 2]
-          ),
-          true
-        );
-      }
-
-#if LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION
-      DLog(eLogType::Info, "------------------------");
-#endif
-
-      //btBvhTriangleMeshShape* trimesh = new btBvhTriangleMeshShape(mesh, true, true);
-      btConvexShape* trimesh = new btConvexTriangleMeshShape(mesh);
-      m_collisionShapes.push_back(trimesh);
-
-      // Create rigidbody
-      btTransform transform;
-      transform.setIdentity();
-      transform.setOrigin(
-        btVector3(
-          collider->GetAbsolutePositionConstRef().x, 
-          collider->GetAbsolutePositionConstRef().y,
-          collider->GetAbsolutePositionConstRef().z
-        )
-      );
-      transform.setRotation(
-        btQuaternion(
-          collider->GetAbsoluteRotationConstRef().x,
-          collider->GetAbsoluteRotationConstRef().y,
-          collider->GetAbsoluteRotationConstRef().z
-        )
-      );
-      
-
-      btScalar mass = 0.0f;
-      if (!collider->GetBIsStatic())
-      {
-        mass = 1.0f;
-      }
-
-      
-      auto newRb = createRigidBody(mass, transform, trimesh, btVector4(0, 0, 1, 1));
-      newRb->setUserIndex(static_cast<int>(collider->GetGuid()));
-      newRb->setUserPointer(collider);
-    }
+//    auto colliders = _pScene->GetActiveColliders();
+//
+//    createEmptyDynamicsWorld();
+//
+//    for (auto && it : colliders)
+//    {
+//
+//      Collider* collider = it.second;
+//
+//      std::vector<GLfloat> vertices = collider->GetVertices();
+//      std::vector<unsigned int> indices = collider->GetIndices();
+//
+//      size_t count = indices.size();
+//
+//      btTriangleMesh* mesh = new btTriangleMesh();
+//
+//#if LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION
+//
+//      DLog(eLogType::Info, "Constructing mesh for Bullet3");
+//#endif
+//      for (int i = 0; i < count; i = i + 3)
+//      {
+//#if LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION
+//        DLog(eLogType::Info, "triangle %d:", i / 3);
+//        DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i] * 8], vertices[indices[i] * 8 + 1], vertices[indices[i] * 8 + 2]);
+//        DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i + 1] * 8], vertices[indices[i + 1] * 8 + 1], vertices[indices[i + 1] * 8 + 2]);
+//        DLog(eLogType::Info, "v1: (%f, %f, %f)", vertices[indices[i + 2] * 8], vertices[indices[i + 2] * 8 + 1], vertices[indices[i + 2] * 8 + 2]);
+//#endif
+//
+//        mesh->addTriangle(
+//          btVector3(
+//            vertices[indices[i] * 8], 
+//            vertices[indices[i] * 8 + 1], 
+//            vertices[indices[i] * 8 + 2]
+//          ),
+//          btVector3(
+//            vertices[indices[i + 1] * 8],
+//            vertices[indices[i + 1] * 8 + 1],
+//            vertices[indices[i + 1] * 8 + 2]
+//          ),
+//          btVector3(
+//            vertices[indices[i + 2] * 8],
+//            vertices[indices[i + 2] * 8 + 1],
+//            vertices[indices[i + 2] * 8 + 2]
+//          ),
+//          true
+//        );
+//      }
+//
+//#if LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION
+//      DLog(eLogType::Info, "------------------------");
+//#endif
+//
+//      //btBvhTriangleMeshShape* trimesh = new btBvhTriangleMeshShape(mesh, true, true);
+//      btConvexShape* trimesh = new btConvexTriangleMeshShape(mesh);
+//      m_collisionShapes.push_back(trimesh);
+//
+//      // Create rigidbody
+//      btTransform transform;
+//      transform.setIdentity();
+//      transform.setOrigin(
+//        btVector3(
+//          collider->GetAbsolutePositionConstRef().x, 
+//          collider->GetAbsolutePositionConstRef().y,
+//          collider->GetAbsolutePositionConstRef().z
+//        )
+//      );
+//      transform.setRotation(
+//        btQuaternion(
+//          collider->GetAbsoluteRotationConstRef().x,
+//          collider->GetAbsoluteRotationConstRef().y,
+//          collider->GetAbsoluteRotationConstRef().z
+//        )
+//      );
+//      
+//
+//      btScalar mass = 0.0f;
+//      if (!collider->GetBIsStatic())
+//      {
+//        mass = 1.0f;
+//      }
+//
+//      
+//      auto newRb = createRigidBody(mass, transform, trimesh, btVector4(0, 0, 1, 1));
+//      newRb->setUserIndex(static_cast<int>(collider->GetGuid()));
+//      newRb->setUserPointer(collider);
+//    }
 
   }
 
