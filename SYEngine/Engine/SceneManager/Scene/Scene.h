@@ -100,9 +100,14 @@ public:
 
   
   void SetInputManagerPtr(InputManager* pInputManager) { _pInputManager = pInputManager; }
+  InputManager* GetInputManagerPtr() const { return _pInputManager; }
 
   Camera* GetEditorCamera() const;
   std::string_view GetSceneName() const;
+
+  void SetMainWindowPtr(Window* pMainWindow) { _pMainWindow = pMainWindow; };
+  Window* GetMainWindowPtr() const { return _pMainWindow; };
+
   size_t GetSceneNumberOfEntities() const;
   std::unordered_map<size_t, Entity*> GetEntitiesRef()
   {
@@ -125,6 +130,9 @@ private:
 
   /** Pointer to default Engine Editor camera instance */
   Camera* _pEditorCamera;
+
+  /** Pointer to main Window instance that this Scene is being rendered to */
+  Window* _pMainWindow;
  
   // Map of all entities in this Scene.
   std::unordered_map<size_t, Entity*> _entities;

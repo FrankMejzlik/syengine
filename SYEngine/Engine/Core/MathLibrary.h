@@ -5,6 +5,9 @@
  *
  * Currently implementing GLM.
  */
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 
 #pragma warning(push, 1)
 #include <glm/glm.hpp>
@@ -101,6 +104,7 @@ ElementType ToRadians(ElementType first)
 {
   return glm::radians(first);
 }
+
 
 /**
 * Typedefs

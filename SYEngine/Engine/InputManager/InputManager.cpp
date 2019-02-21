@@ -41,10 +41,13 @@ InputManager::~InputManager() noexcept
 
 void InputManager::ProcessKeys(GLFWwindow* window, int key, int code, int action, int mode)
 {
+  UNREFERENCED_PARAMETER(window);
   UNREFERENCED_PARAMETER(mode);
   UNREFERENCED_PARAMETER(code);
 
+
   Window* pWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+
 
   // Handle pushdowns and pushups
   if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -91,10 +94,14 @@ void InputManager::ProcessKeys(GLFWwindow* window, int key, int code, int action
 
 void InputManager::ProcessMouseKeys(GLFWwindow* window, int button, int action, int mode)
 {
+  UNREFERENCED_PARAMETER(window);
   UNREFERENCED_PARAMETER(mode);
   UNREFERENCED_PARAMETER(action);
 
+
   Window* pWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+  pWindow;
+
 
   if (button >= 0 && button < 1024)
   {
@@ -125,8 +132,12 @@ void InputManager::ProcessMouseKeys(GLFWwindow* window, int button, int action, 
 
 void InputManager::ProcessMouse(GLFWwindow* window, double xPos, double yPos)
 {
+  UNREFERENCED_PARAMETER(window);
+
+#if !INPUT_MANAGER_REFACTORED
   Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
+#endif
 #if !INPUT_MANAGER_REFACTORED
   if (theWindow->mouseFirstMoved)
   {
@@ -198,6 +209,9 @@ void InputManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
   UNREFERENCED_PARAMETER(deltaTime);
   UNREFERENCED_PARAMETER(pScene);
+
+  _deltaX = 0.0f;
+  _deltaY = 0.0f;
 
   // Clear all key buffers before processing this frame's input
   FlushKeyBuffers();

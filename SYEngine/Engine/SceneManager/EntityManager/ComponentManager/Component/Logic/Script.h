@@ -1,5 +1,9 @@
 #pragma once
 
+// Shortcuts to parent quick refs
+#define GET_TRANSFORM _pParent->GetTransformPtr()
+
+
 #include "Component.h"
 
 namespace SYE 
@@ -7,6 +11,7 @@ namespace SYE
 
 class Scene;
 class Transform;
+class ScriptHandler;
 
 class Script :
   public Component
@@ -26,10 +31,11 @@ public:
   virtual void OnInitializeScene() = 0;
   virtual void OnProcessFrame(dfloat deltaTime, Scene* pScene) = 0;
 
+  void SetParentPtr(ScriptHandler* pParent) { _pParent = pParent; }
+
   // Attributes
 protected:
-  // Quick refs
-  Transform* _pTransform;
+  ScriptHandler* _pParent;
 
 };
 

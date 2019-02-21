@@ -6,6 +6,7 @@ namespace SYE
 
 class Scene;
 class Script;
+class Transform;
 
 class ScriptHandler :
   public Component
@@ -19,11 +20,16 @@ public:
   ) noexcept;
   virtual ~ScriptHandler() noexcept;
 
+  void Refresh();
+
   template <typename ScriptClass>
   ScriptClass* AddScript()
   {
     // Create new Component
     ScriptClass* pScript = _pComponentManager->CreateComponent<ScriptClass>(_pOwnerEntity);
+
+    // Setup child Script ptr to self
+    pScript->SetParentPtr(this);
 
     // Store it to this instance
     _pScript = static_cast<Script*>(pScript);
@@ -36,10 +42,14 @@ public:
   void TriggerOnInitializeScene();
   void TriggerOnProcessFrame(dfloat deltaTime, Scene* pScene);
 
+  Transform* GetTransformPtr();
 
   // Attributes
 private:
   Script* _pScript;
+
+  // Quick refs
+  Transform* _pTransform;
 
 };
 

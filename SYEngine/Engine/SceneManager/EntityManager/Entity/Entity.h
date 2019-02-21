@@ -56,6 +56,8 @@ public:
   virtual ~Entity();
 
   ComponentManager* GetComponentManagerPtr();
+  Scene* GetOwnerScenePtr() const { return _pOwnerScene; }
+  
   eType SetType(eType newValue);
   eType GetType() const;
 

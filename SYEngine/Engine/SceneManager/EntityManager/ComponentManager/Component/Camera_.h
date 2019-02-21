@@ -41,13 +41,17 @@ public:
 
   virtual void Refresh();
 
+#if !INPUT_MANAGER_REFACTORED
+
   void SetWorldUpDirection(Vector3f worldUp) { _worldUp = worldUp; }
   void SetYaw(dfloat yaw) { _yaw = yaw; }
   void SetPitch(dfloat pitch) { _pitch = pitch; }
-  void SetCameraMode(eCameraModes mode) { _mode = mode; }
+  
   void SetMoveSpeed(dfloat moveSpeed) { _moveSpeed = moveSpeed; }
   void SetIsDraggingOn(bool isDraggingOn) { _isDragingOn = isDraggingOn; }
   void SetTurnSpeed(dfloat turnSpeed) { _firstPersonTurnSpeed = turnSpeed; }
+
+#endif
 
 #if !INPUT_MANAGER_REFACTORED
 
@@ -55,23 +59,26 @@ public:
   void KeyControl(Window* pMainWindow, dfloat deltaTime);
 	void MouseControl(dfloat xChange, dfloat yChange);
   void MouseKeyControl(bool* keys, dfloat deltaTime);
-
+  
 #endif
 
-	glm::mat4 CalculateViewMatrix();
-
+  void SetCameraMode(eCameraModes mode) { _mode = mode; }
+  glm::mat4 CalculateViewMatrix();
   Vector3f GetCameraPosition() const;
   Vector3f GetCameraDirection() const;
 
 protected:
 
+#if !INPUT_MANAGER_REFACTORED
   void Update();
   void UpdateEditorMode();
   void UpdateFirstPersonMode();
-	
+#endif
 
 protected:
   eCameraModes _mode;
+
+#if !INPUT_MANAGER_REFACTORED
 
   Vector3f _frontDirection;
   Vector3f _up;
@@ -90,6 +97,8 @@ protected:
 	dfloat _moveSpeed;
 	dfloat _firstPersonTurnSpeed;
   dfloat _editorModeTurnSpeed;
+
+#endif
 
   bool _isDragingOn;
 

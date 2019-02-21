@@ -19,7 +19,7 @@
 // If restructuring to Scene/ScreenScene->Entity->Component complete.
 #define NEW_SSSEC_IMPLEMENTED 0
 // InputManager refactored
-#define INPUT_MANAGER_REFACTORED 0
+#define INPUT_MANAGER_REFACTORED 1
 
 // If using double precision floating point types in whole project
 #define USE_DOUBLES 0
@@ -250,3 +250,18 @@
 #define INPUT_KEY_RIGHT_ALT          346
 #define INPUT_KEY_RIGHT_SUPER        347
 #define INPUT_KEY_MENU               348
+
+
+
+#define INPUT_MOUSE_BUTTON_1         0
+#define INPUT_MOUSE_BUTTON_2         1
+#define INPUT_MOUSE_BUTTON_3         2
+#define INPUT_MOUSE_BUTTON_4         3
+#define INPUT_MOUSE_BUTTON_5         4
+#define INPUT_MOUSE_BUTTON_6         5
+#define INPUT_MOUSE_BUTTON_7         6
+#define INPUT_MOUSE_BUTTON_8         7
+#define INPUT_MOUSE_BUTTON_LAST      INPUT_MOUSE_BUTTON_8
+#define INPUT_MOUSE_BUTTON_LEFT      INPUT_MOUSE_BUTTON_1
+#define INPUT_MOUSE_BUTTON_RIGHT     INPUT_MOUSE_BUTTON_2
+#define INPUT_MOUSE_BUTTON_MIDDLE    INPUT_MOUSE_BUTTON_3
