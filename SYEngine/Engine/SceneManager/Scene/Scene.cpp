@@ -98,9 +98,7 @@ Entity* Scene::CreateCamera(
     _pEditorCamera = pCamera;
   }
   
-
-
-  return nullptr;
+  return pNewEntity;
 }
 
 Entity* Scene::CreateQuad(
@@ -296,8 +294,8 @@ size_t Scene::MapTypeToSlot(size_t type)
     return COMPONENT_SPOT_LIGHT_SOURCE_SLOT;
     break;
 
-  case Component::eType::SCRIPT:
-    return COMPONENT_SCRIPT_SLOT;
+  case Component::eType::SCRIPT_HANDLER:
+    return COMPONENT_SCRIPT_HANDLER_SLOT;
     break;
 
   case Component::eType::CAMERA:

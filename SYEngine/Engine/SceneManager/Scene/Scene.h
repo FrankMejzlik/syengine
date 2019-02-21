@@ -98,6 +98,7 @@ public:
     bool isStatic = true
   );
 
+  
   void SetInputManagerPtr(InputManager* pInputManager) { _pInputManager = pInputManager; }
 
   Camera* GetEditorCamera() const;

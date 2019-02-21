@@ -85,7 +85,7 @@ public:
     // If attached, enlist it in active components in scene in order to be processed
     _pOwnerScene->EnlistComponent(pNewComponent);
 
-    // Trigger refress on all Components
+    // Trigger refresh on all Components
     RefreshComponents();
 
     return pNewComponent;

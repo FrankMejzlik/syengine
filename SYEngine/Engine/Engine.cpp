@@ -2,6 +2,7 @@
 #include "Engine.h"
 
 #include "Camera_.h"
+#include "ScriptHandler.h"
 
 using namespace SYE;
 
@@ -22,6 +23,7 @@ Engine::Engine(ProcessInstance* pInstance) noexcept :
   _subModules.insert(std::make_pair(ID_SCENE_MANAGER, std::make_unique<SceneManager>(*this)));
   _subModules.insert(std::make_pair(ID_INPUT_MANAGER, std::make_unique<InputManager>(*this)));
   _subModules.insert(std::make_pair(ID_NETWORK_MANAGER, std::make_unique<NetworkManager>(*this)));
+  _subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(*this)));
   _subModules.insert(std::make_pair(ID_SIMULATION_MANAGER, std::make_unique<SimulationManager>(*this)));
   _subModules.insert(std::make_pair(ID_OUTPUT_MANAGER, std::make_unique<OutputManager>(*this)));
 
@@ -78,6 +80,9 @@ bool Engine::Run()
 
   // Construct initial scene.
   Scene* pScene = SCENE_MANAGER->LoadInitialScene();
+
+  // Initialize LogicManager
+  LOGIC_MANAGER->InitializeScene(pScene);
 
   // Set Scene's InputManager
   pScene->SetInputManagerPtr(INPUT_MANAGER);

@@ -1,5 +1,8 @@
 #include "ScriptManager.h"
 
+#include "Scene.h"
+#include "ScriptHandler.h"
+
 using namespace SYE;
 
 ScriptManager::ScriptManager(BaseModule &parentModule):
@@ -47,4 +50,31 @@ bool ScriptManager::Terminate()
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "\t ScriptManager instance terminated.");
   return true;
+}
+
+void ScriptManager::InitializeScene(Scene * pScene)
+{
+  // Trigger OnInitialize on Components
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActiveComponentsBySlotsRef();
+
+  // Iterate through all active scripts and process them
+  for (auto&& script : components[COMPONENT_SCRIPT_HANDLER_SLOT])
+  {
+    static_cast<ScriptHandler*>(script.second)->TriggerOnInitializeScene();
+  }
+}
+
+void ScriptManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+{
+  UNREFERENCED_PARAMETER(deltaTime);
+  UNREFERENCED_PARAMETER(pScene);
+
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActiveComponentsBySlotsRef();
+
+  // Iterate through all active scripts and process them
+  for (auto&& script : components[COMPONENT_SCRIPT_HANDLER_SLOT])
+  {
+    static_cast<ScriptHandler*>(script.second)->TriggerOnProcessFrame(deltaTime, pScene);
+  }
+
 }

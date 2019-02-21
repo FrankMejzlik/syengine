@@ -1,4 +1,7 @@
+
 #include "AiManager.h"
+
+#include "Scene.h"
 
 using namespace SYE;
 
@@ -47,4 +50,19 @@ bool AiManager::Terminate()
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "\t AiManager instance terminated.");
   return true;
+}
+
+void AiManager::InitializeScene(Scene * pScene)
+{
+  UNREFERENCED_PARAMETER(pScene);
+  
+  LOG_NOT_IMPLEMENTED;
+}
+
+void AiManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+{
+  UNREFERENCED_PARAMETER(deltaTime);
+  UNREFERENCED_PARAMETER(pScene);
+
+  //LOG_NOT_IMPLEMENTED;
 }

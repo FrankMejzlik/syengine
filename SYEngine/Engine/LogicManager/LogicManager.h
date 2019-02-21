@@ -1,16 +1,11 @@
 #pragma once
 
 #include "BaseModule.h"
-#include "Scene.h"
-
-#include "AiManager.h"
-#include "ScriptManager.h"
-
 
 namespace SYE
 {
 
-class SimulationManager;
+class Scene;
 
 class LogicManager:
   public BaseModule
@@ -23,6 +18,8 @@ public:
 
   virtual bool Initialize() override;
   virtual bool Terminate() override;
+
+  void InitializeScene(Scene* pScene);
 
   void ProcessScene(dfloat deltaTime, Scene* pScene);
 };

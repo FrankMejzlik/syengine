@@ -1,5 +1,8 @@
 #include "LogicManager.h"
 
+#include "AiManager.h"
+#include "ScriptManager.h"
+
 using namespace SYE;
 
 LogicManager::LogicManager(BaseModule &parentModule):
@@ -53,8 +56,20 @@ bool LogicManager::Terminate()
   return true;
 }
 
+void LogicManager::InitializeScene(Scene * pScene)
+{
+  // Call submodules
+  SCRIPT_MANAGER->InitializeScene(pScene);
+  AI_MANAGER->InitializeScene(pScene);
+}
+
 void LogicManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
   UNREFERENCED_PARAMETER(deltaTime);
   UNREFERENCED_PARAMETER(pScene);
+
+  // Call submodules
+  SCRIPT_MANAGER->ProcessScene(deltaTime, pScene);
+  AI_MANAGER->ProcessScene(deltaTime, pScene);
+
 }

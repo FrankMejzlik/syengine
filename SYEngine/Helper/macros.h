@@ -3,6 +3,7 @@
 #define SAFE_DELETE(ptr) { delete ptr; ptr = nullptr; }
 #define SAFE_DELETE_ARR(ptrArr) {delete[] ptrArr; ptrArr = nullptr; }
 
+#define LOG_NOT_IMPLEMENTED DLog(eLogType::Warning, "NOT IMPLEMENTED function used!")
 
 #define CONCATENATE_LITERALS(A, B) A ## B
 #define CONCATENATE_DEFINES(A, B) CONCATENATE_LITERALS(A, B)
@@ -42,10 +43,9 @@
 #define SIMULATION_MANAGER static_cast<SimulationManager*>(_subModules[ID_SIMULATION_MANAGER].get())
 
 
-
-// SimulationManager submodules
-#define AI_MANAGER static_cast<AIManager*>(_subModules[ID_AI_MANAGER].get())
+#define AI_MANAGER static_cast<AiManager*>(_subModules[ID_AI_MANAGER].get())
 #define LOGIC_MANAGER static_cast<LogicManager*>(_subModules[ID_LOGIC_MANAGER].get())
+#define SCRIPT_MANAGER static_cast<ScriptManager*>(_subModules[ID_SCRIPT_MANAGER].get())
 #define PHYSICS_MANAGER static_cast<PhysicsManager*>(_subModules[ID_PHYSICS_MANAGER].get())
 
 

@@ -25,7 +25,7 @@ constexpr size_t gSingletonSlots[] = { COMPONENT_SLOT_SINGLETONS };
 #define COMPONENT_SPOT_LIGHT_SOURCE_SLOT 4
 
 /** Standard behavioral scripts */
-#define COMPONENT_SCRIPT_SLOT 5
+#define COMPONENT_SCRIPT_HANDLER_SLOT 5
 
 /** Camera slot */
 #define COMPONENT_CAMERA_SLOT 6

@@ -2,6 +2,9 @@
 #include "SceneManager.h"
 
 #include "Camera_.h"
+#include "ScriptHandler.h"
+
+#include "script_includes.h"
 
 Scene* SceneManager::_pActiveScene = nullptr;
 
@@ -100,28 +103,28 @@ Scene* SceneManager::LoadInitialScene()
   // Create new Scene instance.
   Scene* pNewScene = CreateScene(std::string("initialScene"));
 
-  // Create main camera.
-  /*pNewScene->CreateCamera(
-    std::string("main_camera"), glm::vec3(10.0f, 10.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), -120.0f, -45.0f
-  );*/
-
-  pNewScene->CreateCamera(
+  Entity* pCameraEntity = pNewScene->CreateCamera(
     Vector3f(10.0f, 10.0f, 10.0f),
     Vector3f(0.0f, 1.0f, 0.0f),
     -120.0f, -45.0f,
     true
   );
+  // Add ScriptHanlder Component
+  ScriptHandler* pScriptHander = pCameraEntity->AddComponent<ScriptHandler>();
+  // Attach specific script to it
+  pScriptHander->AddScript<FirstPersonCameraController>();
+
 
   pNewScene->CreateBlock(
     Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 10.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
-    true // Is  static
+    true 
   );
 
   pNewScene->CreateQuad(
     Vector3f(0.0f, -10.0f, 0.0f), Vector3f(90.0f* (float)DEG_TO_RAD, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     20.0f, 20.0f, 
-    true // Is  static
+    true
   );
     
   // Create DirectionalLight

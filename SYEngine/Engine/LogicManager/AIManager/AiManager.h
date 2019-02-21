@@ -4,7 +4,10 @@
 
 using namespace SYE;
 
-namespace SYE {
+namespace SYE 
+{
+
+class Scene;
 
 class AiManager :
   public BaseModule
@@ -18,6 +21,8 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  void InitializeScene(Scene* pScene);
+  void ProcessScene(dfloat deltaTime, Scene* pScene);
 
 private:
 
