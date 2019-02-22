@@ -294,61 +294,66 @@ void SkeletalModel::LoadBones(unsigned int MeshIndex, const aiMesh* pMesh, std::
   }
 }
 
-bool SkeletalModel::InitMaterials(const aiScene* pScene, const std::string& Filename)
+bool SkeletalModel::InitMaterials(const aiScene* pScene, const std::string& filename)
 {
-  // Extract the directory part from the file name
-  std::string::size_type SlashIndex = Filename.find_last_of("/");
-  std::string Dir;
+  UNREFERENCED_PARAMETER(pScene);
+  UNREFERENCED_PARAMETER(filename);
 
-  if (SlashIndex == std::string::npos) {
-    Dir = ".";
-  }
-  else if (SlashIndex == 0) {
-    Dir = "/";
-  }
-  else {
-    Dir = Filename.substr(0, SlashIndex);
-  }
+  //// Extract the directory part from the file name
+  //std::string::size_type SlashIndex = Filename.find_last_of("/");
+  //std::string Dir;
 
-  bool ret = true;
+  //if (SlashIndex == std::string::npos) {
+  //  Dir = ".";
+  //}
+  //else if (SlashIndex == 0) {
+  //  Dir = "/";
+  //}
+  //else {
+  //  Dir = Filename.substr(0, SlashIndex);
+  //}
 
-  /* Initialize the materials */
-  for (unsigned int i = 0; i < pScene->mNumMaterials; ++i)
-  {
-    _textures.resize(pScene->mNumMaterials);
-    /* Get the material */
-    const aiMaterial* pMaterial = pScene->mMaterials[i];
+  //bool ret = true;
 
-    m_Textures[i] = 0;
+  ///* Initialize the materials */
+  //for (unsigned int i = 0; i < pScene->mNumMaterials; ++i)
+  //{
+  //  _textures.resize(pScene->mNumMaterials);
+  //  /* Get the material */
+  //  const aiMaterial* pMaterial = pScene->mMaterials[i];
 
-    if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0)
-    {
-      aiString Path;
+  //  m_Textures[i] = 0;
 
-      if (pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
-      {
-        std::string p(Path.data);
+  //  if (pMaterial->GetTextureCount(aiTextureType_DIFFUSE) > 0)
+  //  {
+  //    aiString Path;
 
-        if (p.substr(0, 2) == ".\\")
-        {
-          p = p.substr(2, p.size() - 2);
-        }
+  //    if (pMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
+  //    {
+  //      std::string p(Path.data);
 
-        std::string FullPath = Dir + "/" + p;
+  //      if (p.substr(0, 2) == ".\\")
+  //      {
+  //        p = p.substr(2, p.size() - 2);
+  //      }
 
-        _textures[i] = new Texture(_pOwnerEntity, _subModules, _primaryComponentSlots, FullPath.c_str());
+  //      std::string FullPath = Dir + "/" + p;
 
-        if (!_textures[i]->LoadTexture())
-        {
-          printf("Failed to load texture at: %s\n", FullPath.c_str()); 
-          delete _textures[i];
-          _textures[i] = nullptr;
+  //      _textures[i] = new Texture(_pOwnerEntity, _subModules, _primaryComponentSlots, FullPath.c_str());
 
-        }
-      }
-    }
-  }
-  return ret;
+  //      if (!_textures[i]->LoadTexture())
+  //      {
+  //        printf("Failed to load texture at: %s\n", FullPath.c_str()); 
+  //        delete _textures[i];
+  //        _textures[i] = nullptr;
+
+  //      }
+  //    }
+  //  }
+  //}
+  //return ret;
+
+  return false;
 }
 
 void SkeletalModel::render(GLuint shaderId)

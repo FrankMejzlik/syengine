@@ -16,11 +16,6 @@
   #define TARGET_WINDOWS 1
 #endif
 
-// If restructuring to Scene/ScreenScene->Entity->Component complete.
-#define NEW_SSSEC_IMPLEMENTED 0
-// InputManager refactored
-#define INPUT_MANAGER_REFACTORED 1
-
 // If using double precision floating point types in whole project
 #define USE_DOUBLES 0
 

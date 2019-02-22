@@ -60,3 +60,10 @@ Entity* EntityManager::CreateEntity(Scene* pOwnerScene)
 
   return InsertEntity(std::move(newEntity));
 }
+
+Entity* EntityManager::InsertEntity(std::unique_ptr<Entity>&& pNewEntity)
+{
+  auto result = _entities.insert(std::make_pair(pNewEntity->GetGuid(), std::move(pNewEntity)));
+
+  return result.first->second.get();
+}

@@ -56,18 +56,28 @@ bool MeshManager::Terminate()
 
 std::unique_ptr<Mesh> MeshManager::GenerateMeshQuad(dfloat width, dfloat height)
 {
-  std::unique_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshQuad(width, height, false);
+  UNREFERENCED_PARAMETER(width);
+  UNREFERENCED_PARAMETER(height);
+
+  //std::unique_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshQuad(width, height, false);
   
   // TODO store Mesh
 
-  return newMesh;
+  //return newMesh;
+  return nullptr;
 }
 
 std::unique_ptr<Mesh> MeshManager::GenerateMeshBlock(dfloat width, dfloat height, dfloat length)
 {
-  std::unique_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshBlock(width, height, length, false);
+  UNREFERENCED_PARAMETER(width);
+  UNREFERENCED_PARAMETER(height);
+  UNREFERENCED_PARAMETER(length);
+
+  //std::unique_ptr<Mesh> newMesh = MESH_GENERATOR->GenerateMeshBlock(width, height, length, false);
 
   // TODO store Mesh
 
-  return newMesh;
+  //return newMesh;
+
+  return nullptr;
 }

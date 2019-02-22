@@ -151,54 +151,56 @@ public:
 
   virtual void stepSimulation(float deltaTime)
   {
-    if (m_dynamicsWorld)
-    {
-      m_dynamicsWorld->stepSimulation(deltaTime);
-    }
+    UNREFERENCED_PARAMETER(deltaTime);
 
-    //check collisions with player
-    //m_dynamicsWorld->contactTest(mPlayerObject, resultCallback);
-    int numManifolds = m_dynamicsWorld->getDispatcher()->getNumManifolds();
-    for (int i = 0; i < numManifolds; i++)
-    {
-      btPersistentManifold* contactManifold = m_dynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
-      const btCollisionObject* obA = contactManifold->getBody0(); obA;
-      const btCollisionObject* obB = contactManifold->getBody1(); obB;
-
-      Collider* obAPtr = static_cast<Collider*>(obA->getUserPointer()); obAPtr;
-      Collider* obBPtr = static_cast<Collider*>(obB->getUserPointer()); obBPtr;
-
-#if LOG_PHYSICS_MANAGER_COLLISIONS
-      DLog(eLogType::Info, "Collision between objects with IDs: %d, %d", obA->getUserIndex(), obB->getUserIndex());
-#endif
-      int numContacts = contactManifold->getNumContacts();
-      for (int j = 0; j<numContacts; j++)
-      {
-        btManifoldPoint& pt = contactManifold->getContactPoint(j);
-        if (pt.getDistance()<0.f)
-        {
-          const btVector3& ptA = pt.getPositionWorldOnA(); ptA;
-
-
-
-          const btVector3& ptB = pt.getPositionWorldOnB(); ptB;
-          const btVector3& normalOnB = pt.m_normalWorldOnB; normalOnB;
-
-#if LOG_PHYSICS_MANAGER_COLLISIONS
-          DLog(eLogType::Info, "contact %d:", j);
-          DLog(eLogType::Info, "A pos: (%f, %f, %f)", ptA.getX(), ptA.getY(), ptA.getX());
-          DLog(eLogType::Info, "B pos: (%f, %f, %f)", ptB.getX(), ptB.getY(), ptB.getZ());
-          DLog(eLogType::Info, "B normal: (%f, %f, %f)", normalOnB.getX(), normalOnB.getY(), normalOnB.getZ());
-#endif
-        }
-      }
-    }
+//    if (m_dynamicsWorld)
+//    {
+//      m_dynamicsWorld->stepSimulation(deltaTime);
+//    }
+//
+//    //check collisions with player
+//    //m_dynamicsWorld->contactTest(mPlayerObject, resultCallback);
+//    int numManifolds = m_dynamicsWorld->getDispatcher()->getNumManifolds();
+//    for (int i = 0; i < numManifolds; i++)
+//    {
+//      btPersistentManifold* contactManifold = m_dynamicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
+//      const btCollisionObject* obA = contactManifold->getBody0(); obA;
+//      const btCollisionObject* obB = contactManifold->getBody1(); obB;
+//
+//      Collider* obAPtr = static_cast<Collider*>(obA->getUserPointer()); obAPtr;
+//      Collider* obBPtr = static_cast<Collider*>(obB->getUserPointer()); obBPtr;
+//
+//#if LOG_PHYSICS_MANAGER_COLLISIONS
+//      DLog(eLogType::Info, "Collision between objects with IDs: %d, %d", obA->getUserIndex(), obB->getUserIndex());
+//#endif
+//      int numContacts = contactManifold->getNumContacts();
+//      for (int j = 0; j<numContacts; j++)
+//      {
+//        btManifoldPoint& pt = contactManifold->getContactPoint(j);
+//        if (pt.getDistance()<0.f)
+//        {
+//          const btVector3& ptA = pt.getPositionWorldOnA(); ptA;
+//
+//
+//
+//          const btVector3& ptB = pt.getPositionWorldOnB(); ptB;
+//          const btVector3& normalOnB = pt.m_normalWorldOnB; normalOnB;
+//
+//#if LOG_PHYSICS_MANAGER_COLLISIONS
+//          DLog(eLogType::Info, "contact %d:", j);
+//          DLog(eLogType::Info, "A pos: (%f, %f, %f)", ptA.getX(), ptA.getY(), ptA.getX());
+//          DLog(eLogType::Info, "B pos: (%f, %f, %f)", ptB.getX(), ptB.getY(), ptB.getZ());
+//          DLog(eLogType::Info, "B normal: (%f, %f, %f)", normalOnB.getX(), normalOnB.getY(), normalOnB.getZ());
+//#endif
+//        }
+//      }
+//    }
 
   }
 
   void syncPhysicsToGraphics()
   {
-    auto rbWorld = m_dynamicsWorld;
+    /*auto rbWorld = m_dynamicsWorld;
     int numCollisionObjects = rbWorld->getNumCollisionObjects();
     {
       
@@ -222,7 +224,7 @@ public:
         pCollider->SetOwnerEntityRotation(rotX, rotY, rotZ);
 
       }
-    }
+    }*/
   }
 };
 
