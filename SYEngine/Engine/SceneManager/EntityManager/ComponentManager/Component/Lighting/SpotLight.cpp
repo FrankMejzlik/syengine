@@ -1,4 +1,4 @@
-#include "SpotLight_.h"
+#include "SpotLight.h"
 
 #include "Component.h"
 #include "Entity.h"

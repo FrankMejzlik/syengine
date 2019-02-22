@@ -7,7 +7,7 @@
 #pragma warning(pop)
 
 #include "Entity.h"
-#include "Material_.h"
+#include "Material.h"
 #include "Mesh.h"
 #include "Transform.h"
 

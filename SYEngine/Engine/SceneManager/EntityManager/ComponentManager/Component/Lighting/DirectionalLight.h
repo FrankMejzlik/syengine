@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Light_.h"
+#include "Light.h"
 
 using namespace SYE;
 

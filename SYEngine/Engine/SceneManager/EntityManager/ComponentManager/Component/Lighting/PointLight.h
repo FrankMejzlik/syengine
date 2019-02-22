@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "Light_.h"
+#include "Light.h"
 #include "OmniShadowMap.h"
 #include "MathLibrary.h"
 

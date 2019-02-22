@@ -2,9 +2,3 @@
 
 using namespace SYE;
 
-BaseEngine::BaseEngine()
-{}
-
-
-BaseEngine::~BaseEngine()
-{}

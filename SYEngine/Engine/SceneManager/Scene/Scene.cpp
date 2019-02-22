@@ -6,11 +6,11 @@
 #include "Rigidbody.h"
 #include "BlockCollider.h"
 #include "Texture.h"
-#include "Material_.h"
-#include "DirectionalLight_.h"
-#include "PointLight_.h"
-#include "SpotLight_.h"
-#include "Camera_.h"
+#include "Material.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
+#include "Camera.h"
 
 using namespace SYE;
 

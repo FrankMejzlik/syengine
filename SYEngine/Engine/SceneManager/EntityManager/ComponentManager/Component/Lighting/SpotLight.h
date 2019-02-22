@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PointLight_.h"
+#include "PointLight.h"
 
 using namespace SYE;
 

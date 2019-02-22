@@ -18,11 +18,15 @@
 namespace SYE
 {
 
+// Forward declarations
 class Component;
-
-// Forward declarations.
 class EngineApi;
 
+/**
+ * Common ancestor to all Engine modules.
+ *
+ * Ancestor to modules like InputManager, SceneManager etc.
+ */
 class BaseModule:
   public IModule, public IModuleState, public IErrorLogging, public IUsesEngineAPI
 {

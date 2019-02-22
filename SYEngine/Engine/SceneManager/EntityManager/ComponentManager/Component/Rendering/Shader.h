@@ -9,9 +9,9 @@
 #include <iostream>
 #include <fstream>
 
-#include "PointLight_.h"
-#include "SpotLight_.h"
-#include "DirectionalLight_.h"
+#include "PointLight.h"
+#include "SpotLight.h"
+#include "DirectionalLight.h"
 
 #include <GLFW/glfw3.h>
 #include <GL\glew.h>

@@ -1,5 +1,5 @@
 
-#include "DirectionalLight_.h"
+#include "DirectionalLight.h"
 
 using namespace SYE;
 

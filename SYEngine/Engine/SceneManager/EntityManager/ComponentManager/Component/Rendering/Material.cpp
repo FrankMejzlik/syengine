@@ -1,4 +1,4 @@
-#include "Material_.h"
+#include "Material.h"
 
 #include "ComponentManager.h"
 

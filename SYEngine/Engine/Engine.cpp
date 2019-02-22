@@ -1,7 +1,7 @@
 
 #include "Engine.h"
 
-#include "Camera_.h"
+#include "Camera.h"
 #include "ScriptHandler.h"
 
 using namespace SYE;

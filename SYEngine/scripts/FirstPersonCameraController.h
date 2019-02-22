@@ -5,9 +5,7 @@
  *
  */
 
-#pragma warning(push, 1)
-#include <glm/glm.hpp>
-#pragma warning(pop)
+
 
 #include "common.h"
 #include "Script.h"
@@ -18,6 +16,11 @@
 #include "Entity.h"
 #include "Window.h"
 #include "ScriptHandler.h"
+
+#pragma warning(push, 1)
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#pragma warning(pop)
 
 namespace SYE 
 {

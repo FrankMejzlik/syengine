@@ -1,4 +1,4 @@
-#include "PointLight_.h"
+#include "PointLight.h"
 
 #include "Component.h"
 #include "Entity.h"

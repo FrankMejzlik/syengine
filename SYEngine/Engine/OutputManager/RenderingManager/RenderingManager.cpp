@@ -1,12 +1,12 @@
 #include "RenderingManager.h"
 
-#include "Light_.h"
-#include "PointLight_.h"
-#include "DirectionalLight_.h"
-#include "SpotLight_.h"
+#include "Light.h"
+#include "PointLight.h"
+#include "DirectionalLight.h"
+#include "SpotLight.h"
 #include "MeshRenderer.h"
 #include "Transform.h"
-#include "Camera_.h"
+#include "Camera.h"
 
 using namespace SYE;
 

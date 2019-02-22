@@ -1,7 +1,7 @@
 
 #include "SceneManager.h"
 
-#include "Camera_.h"
+#include "Camera.h"
 #include "ScriptHandler.h"
 
 #include "script_includes.h"
