@@ -21,10 +21,13 @@ public:
     const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
     std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
   ) noexcept;
-  virtual ~Collider() = default;
+  virtual ~Collider() noexcept;
 
 
   virtual void Refresh() override;
+
+  void SetMeshPtr(Mesh* pMesh);
+  void ClearMesh();
 
   const std::vector<unsigned int>& GetIndices() const;
   const std::vector<dfloat>& GetVertices() const;

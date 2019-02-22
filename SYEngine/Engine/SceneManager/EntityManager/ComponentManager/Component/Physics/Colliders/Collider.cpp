@@ -1,5 +1,7 @@
 #include "Collider.h"
 
+#include "ComponentManager.h"
+
 #include "Mesh.h"
 #include "Rigidbody.h"
 #include "Transform.h"
@@ -20,6 +22,12 @@ Collider::Collider(
   _type = eType::COLLIDER;
 }
 
+Collider::~Collider() noexcept
+{
+  // Set your Mesh free
+  ClearMesh();
+}
+
 void Collider::Refresh()
 {
   // Update Transform quick ref
@@ -34,6 +42,20 @@ void Collider::Refresh()
     _pRigidbody = static_cast<Rigidbody*>(_primaryComponentSlots[COMPONENT_PHYSICS_BODY_SLOT].begin()->second);
   }
 
+}
+
+void Collider::SetMeshPtr(Mesh* pMesh)
+{
+  _pMesh = pMesh;
+}
+
+void Collider::ClearMesh()
+{
+  // Tell ComponentManager to remove it
+  _pComponentManager->RemoveComponent(_pMesh);
+
+  // Set to nullptr
+  _pMesh = nullptr;
 }
 
 const std::vector<unsigned int>& Collider::GetIndices() const
