@@ -1,108 +1,65 @@
 #pragma once
 
-#pragma warning(push, 1)
-#include <GLM/glm.hpp>
-#pragma warning(pop)
-
 #include "common.h"
 #include "Component.h"
-#include "Mesh.h"
-#include "Entity.h"
 
 namespace SYE
 {
 
+class Mesh;
+class Rigidbody;
+class Transform;
+
 class Collider :
   public Component
 {
+  // Methods
 public:
   Collider() = delete;
-  
-  Collider(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots);
   Collider(
-    Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots, 
-    std::unique_ptr<Mesh>&& mesh,
-    glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, 
-    bool bIsStatic, bool bIsSolid
-  );
-  virtual ~Collider();
+    Entity* pOwnerEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
+  ) noexcept;
+  virtual ~Collider() = default;
 
-  void SetOwnerEntityPosition(dfloat x, dfloat y, dfloat z)
-  {
-    UNREFERENCED_PARAMETER(x);
-    UNREFERENCED_PARAMETER(y);
-    UNREFERENCED_PARAMETER(z);
-    //_pOwnerEntity->SetPositionVector(glm::vec3(x, y, z));
-  }
 
-  void SetOwnerEntityRotation(dfloat rotX, dfloat rotY, dfloat rotZ)
-  {
-    UNREFERENCED_PARAMETER(rotX);
-    UNREFERENCED_PARAMETER(rotY);
-    UNREFERENCED_PARAMETER(rotZ);
-    //_pOwnerEntity->SetRotationVector(glm::vec3(rotX, rotY, rotZ));
-  }
+  virtual void Refresh() override;
 
-  const std::vector<unsigned int>& GetIndices()
-  {
-    return _pMesh->GetIndices_();
-  }
+  const std::vector<unsigned int>& GetIndices() const;
+  const std::vector<dfloat>& GetVertices() const;
 
-  const std::vector<GLfloat>& GetVertices()
-  {
-    return _pMesh->GetVertices_();
-  }
+  const Vector3f& GetWorldPositionConstRef() const;
+  const Vector3f& GetWorldRotationConstRef() const;
+  const Vector3f& GetWorldScaleConstRef() const;
 
-  const glm::vec3& GetAbsolutePositionConstRef() const
-  {
-    return _absolutePosition;
-  }
+  bool IsTrigger() const;
 
-  const glm::vec3& GetAbsoluteRotationConstRef() const
-  {
-    return _absoluteRotation;
-  }
+  void RecalculateAbsolutePosition();
+  void RecalculateAbsoluteRotation();
 
-  const glm::vec3& GetAbsoluteScaleConstRef() const
-  {
-    return _absoluteScale;
-  }
 
-  bool GetBIsStatic() const
-  {
-    return _bIsStatic;
-  }
-  bool GetBIsSolid() const
-  {
-    return _bIsSolid;
-  }
-
+  // Attributes
 protected:
-  // Position relative to parent object
-  glm::vec3 _position;
-  glm::vec3 _rotation;
-  glm::vec3 _scale;
+  Mesh* _pMesh;
+  bool _isTrigger;
 
-  // Values relative to world origin
-  glm::vec3 _absolutePosition;
-  glm::vec3 _absoluteRotation;
-  glm::vec3 _absoluteScale;
+  Vector3f _localPosition;
+  Vector3f _localRotation;
+  Vector3f _localScale;
 
-  std::unique_ptr<Mesh> _pMesh;
-  bool _bIsStatic;
-  bool _bIsSolid;
+  Vector3f _worldPosition;
+  Vector3f _worldRotation;
+  Vector3f _worldScale;
 
 
-  void RecalculateAbsolutePosition()
-  {
-    //_absolutePosition = _pOwnerEntity->GetPositionVectorRefConst() + _position;
-  }
-
-  void RecalculateAbsoluteRotation()
-  {
-    //_absoluteRotation = _pOwnerEntity->GetRotationVectorRefConst() + _rotation;
-  }
-
+  /**
+   * QUICK REFERENCES
+   */
+  /** Sibling Transform Component */
+  Transform* _pTransform;
+  /** Sibling Rigidbody Component */
+  Rigidbody* _pRigidbody;
 };
 
 } // namespace SYE

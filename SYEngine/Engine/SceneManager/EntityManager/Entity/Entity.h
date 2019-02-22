@@ -66,6 +66,8 @@ public:
   void AddChild(Entity* pNewChild);
   void RemoveChild(Entity* pNewChild);
   const std::map<size_t, Entity*> GetChildren() const;
+  void SetIsStatic(bool newValue) { _isStatic = newValue; }
+  bool IsStatic() const { return _isStatic; }
 
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& GetPrimaryComponentSlotsRef() { return _primaryComponentSlots; }
 
@@ -160,11 +162,12 @@ protected:
 
   // Attributes
 protected:
-  
-
   /** Pointer to ComponentManager that is dedicated for this Entity. */
   ComponentManager* _pComponentManager;
   Scene* _pOwnerScene;
+
+  /** If this Entity is not going to change during time */
+  bool _isStatic;
 
   /** Type of this Entity. */
   eType _type;

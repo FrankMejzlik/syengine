@@ -1,8 +1,16 @@
 #include "Collider.h"
 
+#include "Mesh.h"
+#include "Rigidbody.h"
+#include "Transform.h"
+
 using namespace SYE;
 
-Collider::Collider(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots):
+Collider::Collider(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
+) noexcept:
   Component(
     pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     true, true,
@@ -12,6 +20,58 @@ Collider::Collider(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<Ba
   _type = eType::COLLIDER;
 }
 
+void Collider::Refresh()
+{
+  // Update Transform quick ref
+  if (!_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].empty())
+  {
+    _pTransform = static_cast<Transform*>(_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].begin()->second);
+  }
 
-Collider::~Collider()
-{}
+  // Update Rigidbody quick ref
+  if (!_primaryComponentSlots[COMPONENT_PHYSICS_BODY_SLOT].empty())
+  {
+    _pRigidbody = static_cast<Rigidbody*>(_primaryComponentSlots[COMPONENT_PHYSICS_BODY_SLOT].begin()->second);
+  }
+
+}
+
+const std::vector<unsigned int>& Collider::GetIndices() const
+{
+  return _pMesh->GetIndices();
+}
+
+const std::vector<dfloat>& Collider::GetVertices() const
+{
+  return _pMesh->GetVertices();
+}
+
+const Vector3f& Collider::GetWorldPositionConstRef() const
+{
+  return _worldPosition;
+}
+
+const Vector3f& Collider::GetWorldRotationConstRef() const
+{
+  return _worldRotation;
+}
+
+const Vector3f& Collider::GetWorldScaleConstRef() const
+{
+  return _worldScale;
+}
+
+bool Collider::IsTrigger() const 
+{ 
+  return _isTrigger; 
+}
+
+void Collider::RecalculateAbsolutePosition()
+{
+  _worldPosition = _pTransform->GetPosition() + _localPosition;
+}
+
+void Collider::RecalculateAbsoluteRotation()
+{
+  _worldRotation = _pTransform->GetRotation() + _localRotation;
+}

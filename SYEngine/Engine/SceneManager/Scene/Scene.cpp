@@ -11,6 +11,7 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Camera.h"
+#include "Mesh.h"
 
 using namespace SYE;
 
@@ -135,6 +136,7 @@ Entity* Scene::CreateBlock(
 
   // Call EntityManager to create new Quad Entity.
   Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+  pNewEntity->SetIsStatic(false);
   
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();

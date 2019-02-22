@@ -11,7 +11,6 @@ namespace SYE
 enum class eModuleState
 {
   Null,
-  Idle,
   OK,
   Warning,
   Error,
@@ -22,7 +21,6 @@ enum class eModuleWarning
 {
   kNull,
   kDuplicateEntries,
-
 };
 
 enum class eModuleError

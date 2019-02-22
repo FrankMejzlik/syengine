@@ -42,9 +42,9 @@ public:
 
   bool CalculateAverageNormals(std::vector<dfloat>& vertices, std::vector<unsigned int>& indices);
 
-  const std::vector<unsigned int>& GetIndices_() const { return _indices; }
+  const std::vector<unsigned int>& GetIndices() const { return _indices; }
 
-  const std::vector<dfloat>& GetVertices_() const { return _vertices; }
+  const std::vector<dfloat>& GetVertices() const { return _vertices; }
 
 protected:
   std::vector<dfloat> _vertices;

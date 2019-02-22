@@ -100,9 +100,10 @@ Scene* SceneManager::LoadInitialScene()
 {
   DLog(eLogType::Info, "Loading initial test scene.");
 
-  // Create new Scene instance.
+  // Create new Scene instance
   Scene* pNewScene = CreateScene(std::string("initialScene"));
 
+  // Create Camera 
   Entity* pCameraEntity = pNewScene->CreateCamera(
     Vector3f(10.0f, 10.0f, 10.0f),
     Vector3f(0.0f, 1.0f, 0.0f),
@@ -114,13 +115,14 @@ Scene* SceneManager::LoadInitialScene()
   // Attach specific script to it
   pScriptHander->AddScript<FirstPersonCameraController>();
 
-
+  // Create Block
   pNewScene->CreateBlock(
     Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 10.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
     true 
   );
 
+  // Create Block
   pNewScene->CreateQuad(
     Vector3f(0.0f, -10.0f, 0.0f), Vector3f(90.0f* (float)DEG_TO_RAD, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     20.0f, 20.0f, 

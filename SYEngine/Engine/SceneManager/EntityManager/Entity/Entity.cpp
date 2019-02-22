@@ -7,6 +7,7 @@ using namespace SYE;
 Entity::Entity(Scene* pOwnerScene, ComponentManager* pComponentManager) noexcept :
   _pParent(nullptr),
   _pOwnerScene(pOwnerScene),
+  _isStatic(true),
   _pComponentManager(pComponentManager),
   _type(Entity::eType::WORLD)
 {}

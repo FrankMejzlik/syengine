@@ -78,7 +78,7 @@ bool Engine::Run()
     GAME_WINDOW_DEFAULT_HEIGHT
   );
 
-  // Construct initial scene.
+  // Construct initial scene
   Scene* pScene = SCENE_MANAGER->LoadInitialScene();
 
   // Initialize LogicManager
@@ -91,19 +91,19 @@ bool Engine::Run()
   SIMULATION_MANAGER->InitializePhysicsScene(pScene);
 
   auto prev = std::chrono::high_resolution_clock::now();
-
   dfloat deltaTime = 0.0f;
 
   // Main game loop.
   while (_engineContext.GetBShouldRun())
   {
-    //TODO: Implement in TimeStamp class.
+    // TODO: Implement in TimeStamp class.
     // Get delta time.
     deltaTime = static_cast<dfloat>(std::chrono::duration_cast<std::chrono::microseconds>(
       std::chrono::high_resolution_clock::now() - prev
      ).count()) / 1000000;
     // Save now time for next frame calculation.
     prev = std::chrono::high_resolution_clock::now();
+    // TODO: Implement in TimeStamp class.
 
     // Do ImGUI stuff.
     ProcessImGui();

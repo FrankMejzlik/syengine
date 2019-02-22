@@ -2,7 +2,11 @@
 
 using namespace SYE;
 
-BlockCollider::BlockCollider(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) :
+BlockCollider::BlockCollider(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
+) noexcept:
   Collider(pOwnerEntity, subModulesConstRef, primaryComponentSlots)
 {
   _type = eType::BLOCK_COLLIDER;

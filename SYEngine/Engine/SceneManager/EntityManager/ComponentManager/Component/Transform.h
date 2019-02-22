@@ -22,6 +22,8 @@ public:
   ) noexcept;
   ~Transform() noexcept;
 
+  // virtual void Refresh() override;
+
   void SetPosition(Vector3f position) { _position = position; };
   void SetRotation(Vector3f rotation);
   void SetScale(Vector3f scale) { _scale = scale; };

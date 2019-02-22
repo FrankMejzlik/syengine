@@ -39,7 +39,7 @@ public:
     std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
   ) noexcept;
 
-  virtual void Refresh();
+  virtual void Refresh() override;
 
   void SetCameraMode(eCameraModes mode) { _mode = mode; }
   glm::mat4 CalculateViewMatrix();
