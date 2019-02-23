@@ -155,7 +155,6 @@
     <ClCompile Include="Engine\LogicManager\ScriptManager\ScriptManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\Collider.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Rigidbody.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Model.cpp">
       <Filter>Engine\ComponentManager\Component\Model</Filter>
     </ClCompile>
@@ -189,6 +188,12 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\Light.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\PointLight.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\SpotLight.cpp" />
+    <ClCompile Include="Engine\SimulationManager\PhysicsManager\MotionState.cpp" />
+    <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsScene.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Rigidbody.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\PhysicsBody.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Softbody.cpp" />
+    <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -362,7 +367,6 @@
     <ClInclude Include="Engine\LogicManager\ScriptManager\ScriptManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\Collider.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Rigidbody.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Model.h">
       <Filter>Engine\ComponentManager\Component\Model</Filter>
     </ClInclude>
@@ -400,6 +404,24 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\Light.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\PointLight.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Lighting\SpotLight.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonWindowInterface.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\Common2dCanvasInterface.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonCallbacks.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonCameraInterface.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonExampleInterface.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonFileIOInterface.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonGraphicsAppInterface.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonGUIHelperInterface.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonMultiBodyBase.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonParameterInterface.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonRenderInterface.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\bullet3parts\CommonRigidBodyBase.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\MotionState.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\PhysicsScene.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Rigidbody.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\PhysicsBody.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Softbody.h" />
+    <ClInclude Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

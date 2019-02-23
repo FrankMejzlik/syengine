@@ -1,16 +1,19 @@
 #include "PhysicsManager.h"
 
+#include "PhysicsScene.h"
+#include "Scene.h"
+
 using namespace SYE;
 
-PhysicsManager::PhysicsManager(BaseModule &parentModule):
+PhysicsManager::PhysicsManager(BaseModule& parentModule) noexcept:
   BaseModule(parentModule),
-  _bulletPhysics(nullptr)
+  _pPhysicsScene(nullptr)
 {
 
   DLog(eLogType::Success, "\t PhysicsManager instance created.");
 }
 
-PhysicsManager::~PhysicsManager()
+PhysicsManager::~PhysicsManager() noexcept
 {
   // If instance not terminated, do so
   if (GetModuleState() != eModuleState::Null)
@@ -45,9 +48,6 @@ bool PhysicsManager::Initialize()
 
 bool PhysicsManager::Terminate()
 {
-  // Class specific terminate
-  _bulletPhysics.exitPhysics();
-
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "\t PhysicsManager instance terminated.");
   return true;
@@ -56,20 +56,27 @@ bool PhysicsManager::Terminate()
 
 void PhysicsManager::InitializePhysicsScene(Scene* pScene)
 {
-  _bulletPhysics.SetScene(pScene);
-  _bulletPhysics.initPhysics();
+  // Instantiate new PhysicsScene
+  _pPhysicsScene = std::move(std::make_unique<PhysicsScene>(pScene));
+
+  // Initiallize it
+  _pPhysicsScene->Initialize();
+
+  // Attach it to this Scene instance
+  pScene->SetPhysicsScenePtr(_pPhysicsScene.get());
+}
+
+void PhysicsManager::TerminatePhysicsScene(Scene* pScene)
+{
+  UNREFERENCED_PARAMETER(pScene);
+
+  // Free this PhysicsScene
+  _pPhysicsScene.reset(nullptr);
 }
 
 void PhysicsManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
   UNREFERENCED_PARAMETER(pScene);
 
-
-  _bulletPhysics.stepSimulation(deltaTime);
-  _bulletPhysics.syncPhysicsToGraphics();
-
-
-  
-
-
+  _pPhysicsScene->ProcessScene(deltaTime);
 }

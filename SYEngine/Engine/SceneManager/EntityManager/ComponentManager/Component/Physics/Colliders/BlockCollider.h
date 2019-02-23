@@ -21,6 +21,7 @@ public:
   virtual ~BlockCollider() noexcept = default;
 
   void SetDimensions(dfloat width, dfloat height, dfloat length);
+  Vector3f GetDimensions() const { return Vector3f(_width, _height, _length); }
 
   // Attributes
 protected:

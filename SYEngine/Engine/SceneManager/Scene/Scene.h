@@ -23,6 +23,7 @@ namespace SYE
 class InputManager;
 class Camera;
 class Window;
+class PhysicsScene;
 
 /**
  * Every Scene MUST have it's EntityController to call to.
@@ -54,7 +55,8 @@ public:
   Entity* CreateBlock(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     dfloat width, dfloat height, dfloat length,
-    bool isStatic = true
+    bool isStatic = true,
+    dfloat mass = 0.0f
   );
 
   Entity* CreateDirectionalLight(
@@ -92,6 +94,8 @@ public:
   void SetMainWindowPtr(Window* pMainWindow) { _pMainWindow = pMainWindow; };
   Window* GetMainWindowPtr() const { return _pMainWindow; };
 
+  void SetPhysicsScenePtr(PhysicsScene* pPhysicsScene);
+
   size_t GetSceneNumberOfEntities() const;
   std::unordered_map<size_t, Entity*> GetEntitiesRef()
   {
@@ -117,6 +121,9 @@ private:
 
   /** Pointer to main Window instance that this Scene is being rendered to */
   Window* _pMainWindow;
+
+  /** Pointer to PhysicsScene that corresponds to this Scene */
+  PhysicsScene* _pPhysicsScene;
  
   // Map of all entities in this Scene.
   std::unordered_map<size_t, Entity*> _entities;

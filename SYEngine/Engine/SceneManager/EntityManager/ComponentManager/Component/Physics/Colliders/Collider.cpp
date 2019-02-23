@@ -15,7 +15,7 @@ Collider::Collider(
 ) noexcept:
   Component(
     pOwnerEntity, subModulesConstRef, primaryComponentSlots,
-    true, true,
+    false, true,
     PHYSICS_COLLIDER
   )
 {

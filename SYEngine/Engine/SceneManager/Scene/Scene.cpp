@@ -39,6 +39,11 @@ std::string_view Scene::GetSceneName() const
   return _sceneContext.m_sceneName;
 }
 
+void Scene::SetPhysicsScenePtr(PhysicsScene* pPhysicsScene)
+{
+  _pPhysicsScene = pPhysicsScene;
+}
+
 size_t Scene::GetSceneNumberOfEntities() const
 {
   return _entities.size();
@@ -77,6 +82,7 @@ Entity* Scene::CreateCamera(
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
   pTransform->SetPosition(positionVector);
+  pTransform->SetRotation(Vector3f(startYaw, startPitch, 0.0f));
 
   // Add Camera Component
   Camera* pCamera = pNewEntity->AddComponent<Camera>();
@@ -88,6 +94,7 @@ Entity* Scene::CreateCamera(
     _pEditorCamera = pCamera;
   }
   
+
   return pNewEntity;
 }
 
@@ -129,7 +136,8 @@ Entity* Scene::CreateQuad(
 Entity* Scene::CreateBlock(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   dfloat width, dfloat height, dfloat length,
-  bool isStatic
+  bool isStatic,
+  dfloat mass
 )
 { 
   UNREFERENCED_PARAMETER(isStatic);
@@ -158,13 +166,17 @@ Entity* Scene::CreateBlock(
     pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
   }
  
-  // Add BlockCollider Component
-  BlockCollider* pBlockCollider = pNewEntity->AddComponent<BlockCollider>();
-  pBlockCollider->SetDimensions(width, height, length);
-
   // Add Rigigbody Component
   Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();
-  pRigidBody;
+  pRigidBody->SetIsKinematic(true);
+  pRigidBody->SetMass(mass);
+
+  BlockCollider* pBlockCollider = pRigidBody->AddBlockCollider(width, height, length);
+  pBlockCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
+  pBlockCollider->SetLocalRotation(Vector3f(0.0f, 0.0f, 0.0f));
+  pBlockCollider->SetLocalScale(Vector3f(1.0f, 1.0f, 1.0f));
+
+
 
   return InsertEntity(pNewEntity);
 }
@@ -293,14 +305,14 @@ size_t Scene::MapTypeToSlot(size_t type)
     return COMPONENT_CAMERA_SLOT;
     break;
 
-  case Component::eType::RIGIDBODY:
-  case Component::eType::SOFTBODY:
+  case Component::eType::RIGID_BODY:
+  case Component::eType::SOFT_BODY:
     return COMPONENT_PHYSICS_BODY_SLOT;
     break;
 
   case Component::eType::BLOCK_COLLIDER:
   case Component::eType::SPHERE_COLLIDER:
-  case Component::eType::MESH_COLLIDER:
+  case Component::eType::CONVEX_MESH_COLLIDER:
     return COMPONENT_PHYSICS_COLLIDER_SLOT;
     break;
 

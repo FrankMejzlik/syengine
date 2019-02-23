@@ -22,6 +22,8 @@ namespace SYE
 template <typename VectorType, typename ElementType>
 class Vector3
 {
+public:
+
   // Methods
 public:
   Vector3() {}

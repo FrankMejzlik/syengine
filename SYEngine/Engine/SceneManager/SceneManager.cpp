@@ -107,7 +107,7 @@ Scene* SceneManager::LoadInitialScene()
   Entity* pCameraEntity = pNewScene->CreateCamera(
     Vector3f(10.0f, 10.0f, 10.0f),
     Vector3f(0.0f, 1.0f, 0.0f),
-    -120.0f, -45.0f,
+    4.0f, -0.8f,
     true
   );
   // Add ScriptHanlder Component
@@ -119,22 +119,29 @@ Scene* SceneManager::LoadInitialScene()
   pNewScene->CreateBlock(
     Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
-    true 
+    true, 1.0f
   );
 
   // Create Block
   pNewScene->CreateBlock(
     Vector3f(1.0f, 1.0f, 1.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
-    true 
+    true, 1.0f
+  );
+
+  // Create Block
+  pNewScene->CreateBlock(
+    Vector3f(1.0f, -20.0f, 1.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    10.0f, 1.0f, 10.0f,
+    true
   );
 
   // Create Quad
-  pNewScene->CreateQuad(
+  /*pNewScene->CreateQuad(
     Vector3f(0.0f, -10.0f, 0.0f), Vector3f(90.0f* (float)DEG_TO_RAD, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     20.0f, 20.0f, 
     true
-  );
+  );*/
     
   // Create DirectionalLight
   pNewScene->CreateDirectionalLight(
