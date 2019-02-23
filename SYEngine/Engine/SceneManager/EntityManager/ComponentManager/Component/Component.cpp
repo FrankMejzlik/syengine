@@ -27,6 +27,8 @@ Component::Component(
     _pComponentManager = pOwnerEntity->GetComponentManagerPtr();
   }
 
+  // Refress all Quick refs
+  Refresh();
 }
 
 void Component::Refresh()

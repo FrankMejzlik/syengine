@@ -58,7 +58,7 @@ void SimulationManager::InitializePhysicsScene(Scene* pScene)
 void SimulationManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
 
-// Construct physics scene.
+  // Construct physics scene.
   PHYSICS_MANAGER->ProcessScene(deltaTime, pScene);
 
 

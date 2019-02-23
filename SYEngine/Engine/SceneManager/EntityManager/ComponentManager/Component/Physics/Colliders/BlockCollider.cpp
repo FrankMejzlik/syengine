@@ -13,6 +13,9 @@ BlockCollider::BlockCollider(
 {
   _type = eType::BLOCK_COLLIDER;
 
+  // Refress all Quick refs
+  Refresh();
+
   // Create new Mesh
   Mesh* pMesh = _pComponentManager->CreateComponent<Mesh>(pOwnerEntity);
   // Make it  default block
@@ -20,6 +23,7 @@ BlockCollider::BlockCollider(
 
   // Add it as Mesh for Collider
   SetMeshPtr(pMesh);
+
 }
 
 void BlockCollider::SetDimensions(dfloat width, dfloat height, dfloat length)

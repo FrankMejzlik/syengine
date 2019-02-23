@@ -20,6 +20,13 @@ Collider::Collider(
   )
 {
   _type = eType::COLLIDER;
+
+  // Refress all Quick refs
+  Refresh();
+
+  RecalculateAbsolutePosition();
+  RecalculateAbsoluteRotation();
+  RecalculateAbsoluteScale();
 }
 
 Collider::~Collider() noexcept
@@ -83,9 +90,27 @@ const Vector3f& Collider::GetWorldScaleConstRef() const
   return _worldScale;
 }
 
+void Collider::SetIsTrigger(bool newValue)
+{
+  _isTrigger = newValue;
+}
+
 bool Collider::IsTrigger() const 
 { 
   return _isTrigger; 
+}
+
+void Collider::SetTransformPosition(dfloat x, dfloat y, dfloat z)
+{
+  _pTransform->SetPosition(Vector3f(x, y, z));
+}
+void Collider::SetTransformRotation(dfloat x, dfloat y, dfloat z)
+{
+  _pTransform->SetRotation(Vector3f(x, y, z));
+}
+void Collider::SetTransformScale(dfloat x, dfloat y, dfloat z)
+{
+  _pTransform->SetScale(Vector3f(x, y, z));
 }
 
 void Collider::RecalculateAbsolutePosition()
@@ -96,4 +121,30 @@ void Collider::RecalculateAbsolutePosition()
 void Collider::RecalculateAbsoluteRotation()
 {
   _worldRotation = _pTransform->GetRotation() + _localRotation;
+}
+
+void Collider::RecalculateAbsoluteScale()
+{
+  _worldScale = _pTransform->GetScale() + _localScale;
+}
+
+void Collider::SetLocalPosition(Vector3f position)
+{
+  _localPosition = position;
+
+  RecalculateAbsolutePosition();
+}
+
+void Collider::SetLocalRotation(Vector3f rotation)
+{
+  _localRotation = rotation;
+
+  RecalculateAbsoluteRotation();
+}
+
+void Collider::SetLocalScale(Vector3f scale)
+{
+  _localScale = scale;
+
+  RecalculateAbsoluteScale();
 }

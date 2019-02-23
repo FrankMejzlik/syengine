@@ -160,7 +160,7 @@ Entity* Scene::CreateBlock(
  
   // Add BlockCollider Component
   BlockCollider* pBlockCollider = pNewEntity->AddComponent<BlockCollider>();
-  pBlockCollider;
+  pBlockCollider->SetDimensions(width, height, length);
 
   // Add Rigigbody Component
   Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();

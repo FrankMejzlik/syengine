@@ -117,12 +117,19 @@ Scene* SceneManager::LoadInitialScene()
 
   // Create Block
   pNewScene->CreateBlock(
-    Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 10.0f, 1.0f),
+    Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     2.0f, 2.0f, 2.0f,
     true 
   );
 
   // Create Block
+  pNewScene->CreateBlock(
+    Vector3f(1.0f, 1.0f, 1.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    2.0f, 2.0f, 2.0f,
+    true 
+  );
+
+  // Create Quad
   pNewScene->CreateQuad(
     Vector3f(0.0f, -10.0f, 0.0f), Vector3f(90.0f* (float)DEG_TO_RAD, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     20.0f, 20.0f, 

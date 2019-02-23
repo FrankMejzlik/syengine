@@ -36,10 +36,23 @@ public:
   const Vector3f& GetWorldRotationConstRef() const;
   const Vector3f& GetWorldScaleConstRef() const;
 
+  void SetIsTrigger(bool newValue);
   bool IsTrigger() const;
 
+  void SetLocalPosition(Vector3f position);
+  void SetLocalRotation(Vector3f rotation);
+  void SetLocalScale(Vector3f scale);
+
+  void SetTransformPosition(dfloat x, dfloat y, dfloat z);
+  void SetTransformRotation(dfloat x, dfloat y, dfloat z);
+  void SetTransformScale(dfloat x, dfloat y, dfloat z);
+
+protected:
   void RecalculateAbsolutePosition();
   void RecalculateAbsoluteRotation();
+  void RecalculateAbsoluteScale();
+
+
 
 
   // Attributes
