@@ -199,58 +199,30 @@ PhysicsEntity* PhysicsScene::AddBlockColliderRigidbody(Rigidbody* pBody, Collide
 {
   BlockCollider* pBlockCollider = static_cast<BlockCollider*>(pCollider);
 
+  // Get Collider dimensions and scale
   Vector3f dimensions = pBlockCollider->GetDimensions();
-  Vector3f position = pBlockCollider->GetWorldPositionConstRef();
-  Vector3f rotation = pBlockCollider->GetWorldRotationConstRef();
   Vector3f scale = pBlockCollider->GetWorldScaleConstRef();
 
   // Construct BT versions of those
   btVector3 btDimensions(dimensions.GetX() / 2, dimensions.GetY() / 2, dimensions.GetZ() / 2);
-  btVector3 btPosition(position.GetX(), position.GetY(), position.GetZ());
-  btVector3 btRotation(rotation.GetX(), rotation.GetY(), rotation.GetZ());
   btVector3 btScale(scale.GetX(), scale.GetY(), scale.GetZ());
 
   // Allocate new box shape
   std::unique_ptr<btCollisionShape> pBoxShape = std::make_unique<btBoxShape>(btDimensions);
-
-  // Construct transform matrix
-  btTransform transform;
-  transform.setIdentity();
-  transform.setOrigin(btPosition);
-  transform.setRotation(btQuaternion(btRotation.x(), btRotation.y(), btRotation.z()));
-
-  // Allocate new MotionState for this PhysicsEntity
-  std::unique_ptr<MotionState> pMotionState = std::make_unique<MotionState>(transform);
-
-  // Create Rigidbody info struct
-  btRigidBody::btRigidBodyConstructionInfo rbInfo(pBody->GetMass(), pMotionState.get(), pBoxShape.get());
-
-  // Instantiate new Rigidbody instance for this PhysicsEntity
-  std::unique_ptr<btCollisionObject> pRigidBody = std::make_unique<btRigidBody>(rbInfo);
-
-  // Setup user pointers for this Rigidbody
-  pRigidBody->setUserIndex(static_cast<int>(pCollider->GetGuid()));
-  pRigidBody->setUserPointer(pCollider);
-
-  // If should be kinematic
-  if (pBody->IsKinematic())
-  {
-    pRigidBody->setCollisionFlags(pRigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
-    pRigidBody->setActivationState(DISABLE_DEACTIVATION);
-    pRigidBody->activate(true);
-  }
-  
-
-  // Add this Rigidbody into physics scene
-  _pWorld->addRigidBody(static_cast<btRigidBody*>(pRigidBody.get()));
+  // Scale it propperly
+  pBoxShape->setLocalScaling(btScale);
 
   // Instantiate new PhysicsEntity
   std::unique_ptr<PhysicsEntity> pPhysicsEntity = std::make_unique<PhysicsEntity>(
-    pBody->GetOwnerEntityPtr()->GetGuid(), 
-    std::move(pBoxShape), 
-    std::move(pRigidBody), 
-    std::move(pMotionState)
+    pCollider,
+    pBody,
+    std::move(pBoxShape),
+    pBody->GetMass(),
+    Vector3f(1.0f, 0.0f, 0.0)
   );
+
+  // Activate this PO inside physics scene
+  _pWorld->addRigidBody(static_cast<btRigidBody*>(pPhysicsEntity->GetCollisionObjectPtr()));
 
   return InsertPhysicsEntity(std::move(pPhysicsEntity));
 }

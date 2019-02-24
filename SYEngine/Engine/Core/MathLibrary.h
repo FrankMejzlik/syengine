@@ -8,8 +8,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-
 #pragma warning(push, 1)
+#include "LinearMath/btVector3.h"
 #include <glm/glm.hpp>
 #pragma warning(pop)
 
@@ -32,13 +32,27 @@ public:
   {}
   Vector3(const Vector3<VectorType, ElementType>& other) = default;
   Vector3(Vector3<VectorType, ElementType>&& other) = default;
+  // Vector3(const glm::vec3&)
   Vector3(const glm::vec3& other) :
     _vector(other)
-  {}
+  {};
+  // Vector3(glm::vec3&&)
   Vector3(glm::vec3&& other) :
     _vector(std::move(other))
-  {}
+  {};
+  // Vector3(const btVector3&)
+  Vector3(const btVector3& other) :
+    _vector(other.x, other.y, other.y)
+  {};
   ~Vector3() noexcept = default;
+
+  // Implicit conversion Vector3 -> btVector3
+  operator btVector3() const { return btVector3(_vector.x, _vector.y, _vector.z); }
+
+  // Asignment operator
+  Vector3<VectorType, ElementType>& operator=(const Vector3<VectorType, ElementType>& other) = default;
+  // Move asignment operator
+  Vector3<VectorType, ElementType>& operator=(Vector3<VectorType, ElementType>&& other) = default;
 
   ElementType GetX() const { return _vector.x; }
   ElementType GetY() const { return _vector.y; }
@@ -50,9 +64,26 @@ public:
 
   const VectorType& GetData() const { return _vector; }
 
+  // Vector3 = btVector3
+  Vector3<VectorType, ElementType>& operator=(const btVector3& other)
+  {
+    _vector.x = other.x();
+    _vector.y = other.y();
+    _vector.z = other.z();
 
-  Vector3<VectorType, ElementType>& operator=(const Vector3<VectorType, ElementType>& other) = default;
-  Vector3<VectorType, ElementType>& operator=(Vector3<VectorType, ElementType>&& other) = default;
+    return *this;
+  }
+
+  // Vector3 = glm::vec3
+  Vector3<VectorType, ElementType>& operator=(const glm::vec3& other)
+  {
+    _vector.x = other.x();
+    _vector.y = other.y();
+    _vector.z = other.z();
+
+    return *this;
+  }
+
   Vector3<VectorType, ElementType> operator*(ElementType other) const
   {
     return Vector3<VectorType, ElementType>(_vector * other);

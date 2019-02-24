@@ -125,7 +125,7 @@ void Collider::RecalculateAbsoluteRotation()
 
 void Collider::RecalculateAbsoluteScale()
 {
-  _worldScale = _pTransform->GetScale() + _localScale;
+  _worldScale = _pTransform->GetScale() * _localScale;
 }
 
 void Collider::SetLocalPosition(Vector3f position)
