@@ -123,13 +123,6 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
   // Run ImGUI draw.
   //UI_MANAGER->DrawImGui();
 
-  // Set correct viewport, just to be sure
-  //glViewport(0, 0, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
-
-  //// Clear window
-  //glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
   // Draw debug physics info
   _shaders[3]->UseShader();
   pScene->GetPhysicsScenePtr()->DrawDebug(_shaders[3]->GetShaderID(), pScene->GetEditorCamera()->CalculateViewMatrix(), _perspectiveProjectionMatrix);
