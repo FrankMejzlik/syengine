@@ -42,6 +42,9 @@ public:
 
   void SetEngineApiPointer(const EngineApi* const pEngineApi);
 
+  std::map<int, std::unique_ptr<BaseModule>>& GetSubModules() { return _subModules; }
+  BaseModule& GetParentModuleRef() { return _parentModule; }
+
 protected:
   BaseModule &_parentModule;
   const EngineApi* _pEngineApi;

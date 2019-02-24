@@ -11,6 +11,7 @@ namespace SYE
 // Forward declarations
 class PhysicsScene;
 class Scene;
+class PhysicsDebugRenderer;
 
 class PhysicsManager :
   public BaseModule
@@ -27,6 +28,7 @@ public:
   void TerminatePhysicsScene(Scene* pScene);
   void ProcessScene(dfloat deltaTime, Scene* pScene);
 
+  PhysicsDebugRenderer* GetDebugRendererPtr() const;
 
 private:
   /**

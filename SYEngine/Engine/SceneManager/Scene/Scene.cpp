@@ -44,6 +44,11 @@ void Scene::SetPhysicsScenePtr(PhysicsScene* pPhysicsScene)
   _pPhysicsScene = pPhysicsScene;
 }
 
+PhysicsScene* Scene::GetPhysicsScenePtr() const
+{
+  return _pPhysicsScene;
+}
+
 size_t Scene::GetSceneNumberOfEntities() const
 {
   return _entities.size();

@@ -2,6 +2,7 @@
 
 #include "PhysicsScene.h"
 #include "Scene.h"
+#include "RenderingManager.h"
 
 using namespace SYE;
 
@@ -64,6 +65,20 @@ void PhysicsManager::InitializePhysicsScene(Scene* pScene)
 
   // Attach it to this Scene instance
   pScene->SetPhysicsScenePtr(_pPhysicsScene.get());
+
+  // Setup DebugRenderer for this
+  _pPhysicsScene->SetDebugRenderer(GetDebugRendererPtr());
+}
+
+PhysicsDebugRenderer* PhysicsManager::GetDebugRendererPtr() const
+{
+  BaseModule& engineModule = _parentModule.GetParentModuleRef();
+
+  BaseModule* pOutputManager = engineModule.GetSubModules()[ID_OUTPUT_MANAGER].get();
+
+  BaseModule* pRenderingManager = pOutputManager->GetSubModules()[ID_RENDERING_MANAGER].get();
+
+  return static_cast<RenderingManager*>(pRenderingManager)->GetPhysicsDebugRendererPtr();
 }
 
 void PhysicsManager::TerminatePhysicsScene(Scene* pScene)

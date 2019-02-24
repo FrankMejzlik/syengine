@@ -7,7 +7,7 @@
 #include "Rigidbody.h"
 #include "Softbody.h"
 #include "BlockCollider.h"
-
+#include "PhysicsDebugRenderer.h"
 
 using namespace SYE;
 
@@ -82,10 +82,31 @@ void PhysicsScene::ProcessScene(dfloat deltaTime)
     }
   }
 
-
+  // Draw debug physics info
+  //_pWorld->debugDrawWorld();
 
   // Sync it
   SyncPhysicsToGraphics();
+}
+
+void PhysicsScene::DrawDebug(GLuint shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix)
+{
+  _pDebugRenderer->SetMatrices(shaderId, viewMatrix, projectionMatrix);
+
+  _pWorld->debugDrawWorld();
+}
+
+void PhysicsScene::SetDebugRenderer(PhysicsDebugRenderer* pDebugRenderer)
+{
+  // Store it for later
+  _pDebugRenderer = pDebugRenderer;
+
+  btIDebugDraw* ptr = (btIDebugDraw*)(_pDebugRenderer);
+
+  assert(_pWorld != nullptr); // Setting debug renderer before physics scene was initialized
+
+  _pWorld->setDebugDrawer(ptr);
+  
 }
 
 void PhysicsScene::SyncPhysicsToGraphics()
@@ -218,7 +239,7 @@ PhysicsEntity* PhysicsScene::AddBlockColliderRigidbody(Rigidbody* pBody, Collide
     pBody,
     std::move(pBoxShape),
     pBody->GetMass(),
-    Vector3f(1.0f, 0.0f, 0.0)
+    Vector3f(0.0f, 1.0f, 0.0)
   );
 
   // Activate this PO inside physics scene

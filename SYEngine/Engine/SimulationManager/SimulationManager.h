@@ -7,7 +7,10 @@
 
 using namespace SYE;
 
-namespace SYE {
+namespace SYE 
+{
+
+class RenderingManager;
 
 class SimulationManager :
   public BaseModule

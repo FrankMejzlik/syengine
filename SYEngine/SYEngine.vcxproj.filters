@@ -194,6 +194,7 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\PhysicsBody.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Softbody.cpp" />
     <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.cpp" />
+    <ClCompile Include="PhysicsDebugRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -422,6 +423,7 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\PhysicsBody.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Softbody.h" />
     <ClInclude Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.h" />
+    <ClInclude Include="PhysicsDebugRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

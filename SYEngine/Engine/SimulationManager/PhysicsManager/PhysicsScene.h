@@ -3,6 +3,8 @@
 #include <memory>
 #include <map>
 
+#include <GL/glew.h>
+
 #pragma warning (push, 0)
 #include "btBulletDynamicsCommon.h"
 #include "BulletDynamics/Dynamics/btDynamicsWorld.h"
@@ -22,6 +24,7 @@ class Collider;
 class PhysicsBody;
 class Rigidbody;
 class Softbody;
+class PhysicsDebugRenderer;
 
 /**
  * Implementation of engine processing all physics
@@ -38,6 +41,9 @@ public:
   void Initialize();
   void ProcessScene(dfloat deltaTime);
 
+  void DrawDebug(GLuint shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+
+  void SetDebugRenderer(PhysicsDebugRenderer* pDebugRenderer);
 
 private:
   void GenerateSceneObjects();
@@ -57,6 +63,8 @@ private:
 private:
   /** Scene that this physics scene belongs to */
   Scene* _pOwnerScene;
+
+  PhysicsDebugRenderer* _pDebugRenderer;
 
   /** Mapping Entity GUID to existing PhysicsEntities */
   std::map< size_t, std::unique_ptr<PhysicsEntity> > _entityToPhysicsEntitiyMap;

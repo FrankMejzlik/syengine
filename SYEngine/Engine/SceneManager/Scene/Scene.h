@@ -20,6 +20,7 @@
 
 namespace SYE
 {
+
 class InputManager;
 class Camera;
 class Window;
@@ -95,6 +96,7 @@ public:
   Window* GetMainWindowPtr() const { return _pMainWindow; };
 
   void SetPhysicsScenePtr(PhysicsScene* pPhysicsScene);
+  PhysicsScene* GetPhysicsScenePtr() const;
 
   size_t GetSceneNumberOfEntities() const;
   std::unordered_map<size_t, Entity*> GetEntitiesRef()

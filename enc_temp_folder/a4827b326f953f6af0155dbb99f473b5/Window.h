@@ -66,11 +66,6 @@ public:
   GLFWwindow* GetPGlfwWindow() const { return mainWindow; }
  
   bool _bMoveOnMouseMove = true;
-
-private:
-  void CreateCallbacks();
-
-  // Attributes
 private:
   
   GLFWwindow* mainWindow;
@@ -83,7 +78,11 @@ private:
   GLfloat yChange;
   bool mouseFirstMoved;
 
-  
+
+  //static void HandleKeys(GLFWwindow* window, int key, int code, int action, int mode);
+  //static void HandleMouse(GLFWwindow* window, double xPos, double yPos);
+
+  void CreateCallbacks();
 
 };
 

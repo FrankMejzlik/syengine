@@ -168,6 +168,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PhysicsDebugRenderer.cpp" />
     <ClCompile Include="Engine\LogicManager\ScriptManager\ScriptManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.cpp" />
@@ -257,6 +258,7 @@
     <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PhysicsDebugRenderer.h" />
     <ClInclude Include="Engine\Core\config_components.h" />
     <ClInclude Include="Engine\LogicManager\ScriptManager\ScriptManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.h" />

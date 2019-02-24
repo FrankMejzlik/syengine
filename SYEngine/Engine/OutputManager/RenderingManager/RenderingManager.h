@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "common.h"
 #include "BaseModule.h"
 #include "ShaderManager.h"
@@ -16,6 +18,8 @@ using namespace SYE;
 
 namespace SYE 
 {
+
+class PhysicsDebugRenderer;
 
 class RenderingManager :
   public BaseModule
@@ -37,10 +41,17 @@ public:
   void OmniShadowMapPass(Scene* pScene);
   void FinalMainRenderPass(Scene* pScene);
 
+  void ProcessDebugInput(Scene* pScene);
+
+  PhysicsDebugRenderer* GetPhysicsDebugRendererPtr() const { return _pPhysicsDebugRenderer.get(); }
+
 private:
   void CreateShaders();
 
-  std::vector<std::shared_ptr<Shader>> _shaders;
+
+  // Attributes
+private:
+  std::vector< std::unique_ptr<Shader> > _shaders;
 
   bool _perspectiveProjectionMatrixInitialized = false;
   glm::mat4 _perspectiveProjectionMatrix;
@@ -57,6 +68,9 @@ private:
   GLuint uniformEyePosition = 0;
   GLuint uniformOmniLightPos = 0;
   GLuint uniformFarPlane = 0;
+
+  std::unique_ptr<PhysicsDebugRenderer> _pPhysicsDebugRenderer;
+  
 
 };
 
