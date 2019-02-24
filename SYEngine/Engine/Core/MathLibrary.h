@@ -42,7 +42,7 @@ public:
   {};
   // Vector3(const btVector3&)
   Vector3(const btVector3& other) :
-    _vector(other.x, other.y, other.y)
+    _vector(other.x(), other.y(), other.y())
   {};
   ~Vector3() noexcept = default;
 

@@ -88,24 +88,6 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
   // Check debugging input
   ProcessDebugInput(pScene);
 
-  if (!_perspectiveProjectionMatrixInitialized)
-  {
-    // Get projeciton matrix
-    _perspectiveProjectionMatrix = glm::perspective(
-      glm::radians(45.0f),
-      (GLfloat)(pTargetWindow->GetBufferWidth()) / pTargetWindow->GetBufferHeight(),
-      0.1f, 100.0f
-    );
-    _perspectiveProjectionMatrixInitialized = true;
-  }
-
-  if (!_orthoProjectionMatrixInitialized)
-  {
-    // Get projeciton matrix
-    _orthoProjectionMatrix = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, 0.1f, 100.0f);
-    _orthoProjectionMatrixInitialized = true;
-  }
-
   // Calculate directional light shadow maps
   DirectionalShadowMapPass(pScene);
 
@@ -125,7 +107,7 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 
   // Draw debug physics info
   _shaders[3]->UseShader();
-  pScene->GetPhysicsScenePtr()->DrawDebug(_shaders[3]->GetShaderID(), pScene->GetEditorCamera()->CalculateViewMatrix(), _perspectiveProjectionMatrix);
+  pScene->GetPhysicsScenePtr()->DrawDebug(_shaders[3]->GetShaderID(), pScene->GetEditorCamera()->GetViewMatrixConstRef(), pScene->GetEditorCamera()->GetPerspectiveProjectionMatrixConstRef());
 
   // Swap buffers
   pTargetWindow->SwapBuffers();
@@ -342,8 +324,8 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
 
 
   // Set values in shader uniforms
-  glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(_perspectiveProjectionMatrix));
-  glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->CalculateViewMatrix()));
+  glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->GetPerspectiveProjectionMatrixConstRef()));
+  glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->GetViewMatrixConstRef()));
   glUniform3f(uniformEyePosition, 
     pScene->GetEditorCamera()->GetCameraPosition().GetX(), 
     pScene->GetEditorCamera()->GetCameraPosition().GetY(), 

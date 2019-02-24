@@ -21,6 +21,7 @@ enum class eEngineError
 
 
   UnableToLoadTextureFromFile = 500,
+  MissingLogicalDependency = 501,
 
   AttachingMultipleSingletonSlotComponents = 1000,
   DuplicateComponentOnEntity = 1001,

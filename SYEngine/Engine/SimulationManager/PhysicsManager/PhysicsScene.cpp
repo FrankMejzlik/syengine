@@ -125,7 +125,7 @@ void PhysicsScene::SyncPhysicsToGraphics()
       btQuaternion orn = colObj->getWorldTransform().getRotation();
 
       btScalar rotX, rotY, rotZ;
-      orn.getEulerZYX(rotX, rotY, rotZ);
+      orn.getEulerZYX(rotZ, rotY, rotX);
 
 
       Collider* pCollider = static_cast<Collider*>(colObj->getUserPointer());

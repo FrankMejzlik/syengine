@@ -113,8 +113,8 @@ std::pair< std::vector<dfloat>, std::vector<unsigned int> > MeshGenerator::Gener
     2, 1, 0,
     0, 3, 2,
     // Bottom.
-    6, 5, 4, 
-    4, 7, 6, 
+    4, 5, 6,
+    6, 7, 4,
     // Front.
     10, 9, 8,
     8, 11, 10,

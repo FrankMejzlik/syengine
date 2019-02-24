@@ -41,17 +41,65 @@ public:
 
   virtual void Refresh() override;
 
+  const glm::mat4& GetViewMatrixConstRef();
+  const glm::mat4& GetOrthoProjectionMatrixConstRef();
+  const glm::mat4& GetPerspectiveProjectionMatrixConstRef();
+
+  Vector3f GetPickingRay(size_t x, size_t y) const;
+
+
+  void SetFov(dfloat fovAngle);
+  dfloat GetFov() const;
+
   void SetCameraMode(eCameraModes mode) { _mode = mode; }
-  glm::mat4 CalculateViewMatrix();
+  
   Vector3f GetCameraPosition() const;
   Vector3f GetCameraDirection() const;
 
+private:
+  void CalculateViewMatrix();
+  void CalculateOrthoProjectionMatrix();
+  void CalculatePerspectiveProjectionMatrix();
 
+
+  // Attributes
 protected:
+  /** Window instance this Camera is working for */
+  Window* _pTargetWindow;
+
+  /** Current view matrix for this Camera */
+  glm::mat4 _viewMatrix;
+  
+  /** Orthogonal projection matrix for this Camera */
+  glm::mat4 _orthoProjectionMatrix;
+
+  /** Perspective projection matrix for this Cmaera */
+  glm::mat4 _perspectiveProjectionMatrix;
+
+  /** True if calculated matrix is up to date and calculated */
+  bool _isOrthoProjectionMatrixCalculated;
+
+  /** True if calculated matrix is up to date and calculated */
+  bool _isPerspectiveProjectionMatrixCalculated;
+
+  /** World up direction */
+  // TODO: Globalize for all uses
+  Vector3f _upDirection;
+
+  /** Camera mode it is currently in */
   eCameraModes _mode;
 
+  /** Field of View of this Camera */
+  dfloat _fov;
+
+  /** Near plane distance */
+  dfloat _nearPlane;
+
+  /** Far plane distance */
+  dfloat _farPlane;
+
 private:
-  // Quick refs
+  /** Transform quick ref */
   Transform* _pTransform;
 
 };

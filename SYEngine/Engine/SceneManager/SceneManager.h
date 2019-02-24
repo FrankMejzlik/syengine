@@ -41,8 +41,8 @@ public:
   Scene* GetScenePtr(size_t sceneGuid);
   Scene* InsertScene(std::unique_ptr<Scene>&& sceneToInsert);
 
-  Scene* CreateScene(std::string_view sceneName);
-  Scene* LoadInitialScene();
+  Scene* CreateScene(Window* pWindow);
+  Scene* LoadInitialScene(Window* pWindow);
 
 
   // Attributes.

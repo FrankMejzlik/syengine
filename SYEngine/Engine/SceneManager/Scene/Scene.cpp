@@ -15,9 +15,8 @@
 
 using namespace SYE;
 
-Scene::Scene(EntityManager* pEntityManager, std::string_view sceneName) noexcept :
+Scene::Scene(EntityManager* pEntityManager) noexcept :
   _pEntityManager(pEntityManager),
-  _sceneContext(sceneName),
   _pEditorCamera(nullptr)
 {
   DLog(eLogType::Success, "Scene with name %s instantiated.", _sceneContext.m_sceneName.data());

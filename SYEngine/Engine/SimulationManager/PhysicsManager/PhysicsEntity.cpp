@@ -46,7 +46,7 @@ PhysicsEntity::PhysicsEntity(
   }
 
   // Create Rigidbody info struct
-  btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass, _pMotionState.get(), _pCollisionShape.get());
+  btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass, _pMotionState.get(), _pCollisionShape.get(), _localInertia);
 
   // Instantiate new Rigidbody instance for this PhysicsEntity
   _pCollisionObject = std::make_unique<btRigidBody>(rbInfo);

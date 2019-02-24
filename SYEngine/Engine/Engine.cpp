@@ -79,7 +79,8 @@ bool Engine::Run()
   );
 
   // Construct initial scene
-  Scene* pScene = SCENE_MANAGER->LoadInitialScene();
+  Scene* pScene = SCENE_MANAGER->LoadInitialScene(pMainWindow);
+ 
 
   // Initialize LogicManager
   LOGIC_MANAGER->InitializeScene(pScene);

@@ -53,12 +53,6 @@ private:
 private:
   std::vector< std::unique_ptr<Shader> > _shaders;
 
-  bool _perspectiveProjectionMatrixInitialized = false;
-  glm::mat4 _perspectiveProjectionMatrix;
-
-  bool _orthoProjectionMatrixInitialized = false;
-  glm::mat4 _orthoProjectionMatrix;
-
   GLuint uf_bIsSkeletonAnimated = 0;
   GLuint uniformProjection = 0;
   GLuint ul_model = 0;

@@ -35,7 +35,7 @@ class Scene:
   // Methods
 public:
   Scene() = delete;
-  Scene(EntityManager* pEntityManager, std::string_view sceneName) noexcept;
+  Scene(EntityManager* pEntityManager) noexcept;
   ~Scene() noexcept;
 
   Entity* InsertEntity(Entity* pEntityToInsert);

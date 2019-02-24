@@ -63,20 +63,17 @@ bool SceneManager::Terminate()
 
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "SceneManager instance terminated.");
-  return true;
+  return true;  
 }
 
-Scene* SceneManager::CreateScene(std::string_view sceneName)
+Scene* SceneManager::CreateScene(Window* pWindow)
 {
   // Construct new scene instance.
   std::unique_ptr<Scene> pNewScene;
 
   try
   {
-    pNewScene = std::make_unique<Scene>(
-      ENTITY_MANAGER,
-      sceneName
-      );
+    pNewScene = std::make_unique<Scene>(ENTITY_MANAGER);
   }
   catch (const std::bad_alloc&)
   {
@@ -87,21 +84,25 @@ Scene* SceneManager::CreateScene(std::string_view sceneName)
   // If instantiation failed.
   if (!pNewScene)
   {
-    DLog(eLogType::Info, "Failed creating '%s' scene.", sceneName.data());
+    DLog(eLogType::Info, "Failed creating scene.");
     return nullptr;
   }
 
-  DLog(eLogType::Success, "Created '%s' scene.", sceneName.data());
+  // Attach to Window instance
+  pNewScene->SetMainWindowPtr(pWindow);
+
+  DLog(eLogType::Success, "Created scene.");
 
   return InsertScene(std::move(pNewScene));
 }
 
-Scene* SceneManager::LoadInitialScene()
+Scene* SceneManager::LoadInitialScene(Window* pWindow)
 {
   DLog(eLogType::Info, "Loading initial test scene.");
 
   // Create new Scene instance
-  Scene* pNewScene = CreateScene(std::string("initialScene"));
+  Scene* pNewScene = CreateScene(pWindow);
+
 
   // Create Camera 
   Entity* pCameraEntity = pNewScene->CreateCamera(
@@ -115,24 +116,28 @@ Scene* SceneManager::LoadInitialScene()
   // Attach specific script to it
   pScriptHander->AddScript<FirstPersonCameraController>();
 
-  // Create Block
+  // Floor
+  pNewScene->CreateBlock(
+    Vector3f(0.0f, -20.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    100.0f, 1.0f, 100.0f,
+    true
+  );
+
   pNewScene->CreateBlock(
     Vector3f(0.0f, 10.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    2.0f, 2.0f, 2.0f,
+    5.0f, 5.0f, 5.0f,
     true, 1.0f
   );
 
-  // Create Block
   pNewScene->CreateBlock(
     Vector3f(1.0f, 11.0f, 1.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    2.0f, 2.0f, 2.0f,
+    4.0f, 1.0f, 2.0f,
     true, 1.0f
   );
 
-  // Create Block
   pNewScene->CreateBlock(
     Vector3f(0.0f, -2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    2.0f, 2.0f, 2.0f,
+    2.0f, 8.0f, 5.0f,
     true, 1.0f
   );
 
@@ -155,12 +160,6 @@ Scene* SceneManager::LoadInitialScene()
   );
 
   pNewScene->CreateBlock(
-    Vector3f(0.0f, -20.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    100.0f, 1.0f, 100.0f,
-    true
-  );
-
-  pNewScene->CreateBlock(
     Vector3f(10.0f, -2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     true, 1.0f
@@ -169,7 +168,7 @@ Scene* SceneManager::LoadInitialScene()
   pNewScene->CreateBlock(
     Vector3f(12.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
-    true
+    true, 1.0f
   );
 
   pNewScene->CreateBlock(
@@ -200,7 +199,7 @@ Scene* SceneManager::LoadInitialScene()
     Vector3f(1.0f, 1.0f, 1.0f),          // Colour vector
     Vector3f(0.1f, 0.5f, 0.1f),          // Intensities
     Vector3u(2048, 2048, 0),              // Shadow dimensions
-    Vector3f(10.0f, -10.0f, 10.0f)
+    Vector3f(7.0f, -5.0f, 3.0f)
   ); 
 
   // Create PointLight
@@ -248,6 +247,7 @@ Scene* SceneManager::LoadInitialScene()
   _pActiveScene = pNewScene;
 
   DLog(eLogType::Success, "Initial test scene loaded.");
+
   return pNewScene;
 }
 
