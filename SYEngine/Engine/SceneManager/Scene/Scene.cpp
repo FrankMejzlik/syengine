@@ -13,6 +13,8 @@
 #include "Camera.h"
 #include "Mesh.h"
 
+#include "PhysicsEntity.h"
+
 using namespace SYE;
 
 Scene::Scene(EntityManager* pEntityManager) noexcept :
@@ -99,7 +101,8 @@ Entity* Scene::CreateCamera(
   }
   
 
-  return pNewEntity;
+
+  return InsertEntity(pNewEntity);
 }
 
 Entity* Scene::CreateQuad(
@@ -174,11 +177,14 @@ Entity* Scene::CreateBlock(
   Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();
   pRigidBody->SetIsKinematic(true);
   pRigidBody->SetMass(mass);
-
-  BlockCollider* pBlockCollider = pRigidBody->AddBlockCollider(width, height, length);
-  pBlockCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
-  pBlockCollider->SetLocalRotation(Vector3f(0.0f, 0.0f, 0.0f));
-  pBlockCollider->SetLocalScale(Vector3f(1.0f, 1.0f, 1.0f));
+  {
+    // Add Collider
+    BlockCollider* pBlockCollider = pRigidBody->AddBlockCollider(width, height, length);
+    pBlockCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
+    pBlockCollider->SetLocalRotation(Vector3f(0.0f, 0.0f, 0.0f));
+    pBlockCollider->SetLocalScale(Vector3f(1.0f, 1.0f, 1.0f));
+  }
+  pRigidBody->SaveComponent();
 
 
 
@@ -328,6 +334,23 @@ size_t Scene::MapTypeToSlot(size_t type)
     return 0;
     break;
   }
+}
+
+void Scene::ShootBox(const Vector3f& cameraPosition, const Vector3f& direction) 
+{
+  // Create new Entity
+  Entity* pBox = CreateBlock(
+    cameraPosition, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+    1.0f, 1.0f, 1.0f,
+    false,
+    1.0f
+  );
+
+  // Calculate the velocity
+  Vector3f velocity = Normalize(direction) * 25.0f;
+
+  // Set the linear velocity of the box
+  static_cast<btRigidBody*>(pBox->GetPhysicsBodyPtr()->GetPhysicsEntity()->GetCollisionObjectPtr())->setLinearVelocity(velocity);
 }
 
 void Scene::EnlistComponent(Component* pNewComponent)

@@ -138,8 +138,8 @@ public:
 
   void ProcessMouseControl(Scene* pScene)
   {
-    dfloat xChange = pScene->GetInputManagerPtr()->GetMouseXDelta(); 
-    dfloat yChange = pScene->GetInputManagerPtr()->GetMouseYDelta();
+    int xChange = pScene->GetInputManagerPtr()->GetMouseXDelta(); 
+    int yChange = pScene->GetInputManagerPtr()->GetMouseYDelta();
 
     _mouseXChange = xChange;
     _mouseYChange = yChange;
@@ -200,8 +200,8 @@ private:
   Vector3f _left;
   Vector3f _worldUp;
 
-  dfloat _mouseXChange;
-  dfloat _mouseYChange;
+  int _mouseXChange;
+  int _mouseYChange;
 
   dfloat _yaw;
   dfloat _pitch;

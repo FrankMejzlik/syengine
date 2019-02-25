@@ -45,7 +45,7 @@ public:
   const glm::mat4& GetOrthoProjectionMatrixConstRef();
   const glm::mat4& GetPerspectiveProjectionMatrixConstRef();
 
-  Vector3f GetPickingRay(size_t x, size_t y) const;
+  Vector3f GetPickingRay(int x, int y);
 
 
   void SetFov(dfloat fovAngle);

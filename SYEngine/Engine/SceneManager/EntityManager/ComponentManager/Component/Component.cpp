@@ -2,9 +2,9 @@
 #include "Component.h"
 #include "ComponentManager.h"
 #include "Entity.h"
+#include "PhysicsManager.h"
 
 using namespace SYE;
-
 
 
 Component::Component(
@@ -31,9 +31,19 @@ Component::Component(
   Refresh();
 }
 
+PhysicsManager* Component::GetPhysicsManager()
+{
+  return _pOwnerEntity->GetPhysicsManager();
+}
+
 void Component::Refresh()
 {
   // Update all quick refs to sibling Components
+}
+
+void Component::SaveComponent()
+{
+  // Save all changes on this Component
 }
 
 Entity* Component::GetOwnerEntityPtr() const
@@ -47,6 +57,11 @@ Entity* Component::SetOwnerEntityPtr(Entity* newOwnerPtr)
   _pOwnerEntity = newOwnerPtr;
 
   return oldOwner;
+}
+
+Scene* Component::GetOwnerScenePtr() const 
+{
+  return _pOwnerEntity->GetOwnerScenePtr(); 
 }
 
 bool Component::IsPrimary() const

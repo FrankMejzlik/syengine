@@ -25,6 +25,7 @@ class InputManager;
 class Camera;
 class Window;
 class PhysicsScene;
+class PhysicsManager;
 
 /**
  * Every Scene MUST have it's EntityController to call to.
@@ -89,6 +90,9 @@ public:
   void SetInputManagerPtr(InputManager* pInputManager) { _pInputManager = pInputManager; }
   InputManager* GetInputManagerPtr() const { return _pInputManager; }
 
+  void SetPhysicsManagerPtr(PhysicsManager* pPhysicsManager) { _pPhysicsManager = pPhysicsManager; }
+  PhysicsManager* GetPhysicsManagerPtr() const { return _pPhysicsManager; }
+
   Camera* GetEditorCamera() const;
   std::string_view GetSceneName() const;
 
@@ -98,6 +102,7 @@ public:
   void SetPhysicsScenePtr(PhysicsScene* pPhysicsScene);
   PhysicsScene* GetPhysicsScenePtr() const;
 
+
   size_t GetSceneNumberOfEntities() const;
   std::unordered_map<size_t, Entity*> GetEntitiesRef()
   {
@@ -106,6 +111,9 @@ public:
   /** Active Components categorized to important slots based on what module needs to acces them. */
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> GetActiveComponentsBySlotsRef() { return _activeComponentBySlots; }
 
+
+  void ShootBox(const Vector3f& cameraPosition, const Vector3f& direction);
+  
   size_t MapTypeToSlot(size_t type);
   void EnlistComponent(Component* pNewComponent);
   void DelistComponent(Component* pNewComponent);
@@ -117,6 +125,8 @@ private:
   EntityManager* _pEntityManager;
   /** Pointer to servicing InputManager for this Scene */
   InputManager* _pInputManager;
+
+  PhysicsManager* _pPhysicsManager;
 
   /** Pointer to default Engine Editor camera instance */
   Camera* _pEditorCamera;

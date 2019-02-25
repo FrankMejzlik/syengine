@@ -96,13 +96,9 @@ Scene* SceneManager::CreateScene(Window* pWindow)
   return InsertScene(std::move(pNewScene));
 }
 
-Scene* SceneManager::LoadInitialScene(Window* pWindow)
+Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
 {
   DLog(eLogType::Info, "Loading initial test scene.");
-
-  // Create new Scene instance
-  Scene* pNewScene = CreateScene(pWindow);
-
 
   // Create Camera 
   Entity* pCameraEntity = pNewScene->CreateCamera(
@@ -123,6 +119,18 @@ Scene* SceneManager::LoadInitialScene(Window* pWindow)
     true
   );
 
+
+  for (size_t i = 0; i < 10; ++i)
+  {
+    for (size_t j = 0; j < 10; ++j)
+    {
+      pNewScene->CreateBlock(
+        Vector3f(-5.0f + (float)i, 10.0f, -10.0f + (float)j), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+        1.0f, 1.0f, 1.0f,
+        true, 1.0f
+      );
+    }
+  }
   pNewScene->CreateBlock(
     Vector3f(0.0f, 10.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     5.0f, 5.0f, 5.0f,
@@ -136,7 +144,7 @@ Scene* SceneManager::LoadInitialScene(Window* pWindow)
   );
 
   pNewScene->CreateBlock(
-    Vector3f(0.0f, -2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    Vector3f(0.0f, -2.0f, 0.0f), Vector3f(0.0f, 2.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     2.0f, 8.0f, 5.0f,
     true, 1.0f
   );
@@ -281,10 +289,35 @@ Scene* SceneManager::GetScenePtr(size_t sceneGuid)
   return _scenes[sceneGuid].get();
 }
 
+void SceneManager::HandleInput(Scene* pScene)
+{
+  InputManager* pInputManager = pScene->GetInputManagerPtr();
+  Camera* pCamera = pScene->GetEditorCamera();
+
+  // If Mouse Right button pressed
+  if (pInputManager->IsOnKeyboardMouseDown(INPUT_MOUSE_BUTTON_RIGHT))
+  {
+    // Shoot box
+    pScene->ShootBox(
+      pCamera->GetCameraPosition(), 
+      pCamera->GetPickingRay(
+        pInputManager->GetMouseXPos(), 
+        pInputManager->GetMouseYPos()
+      )
+    );
+  }
+  else if (pInputManager->IsOnKeyboardKeyDown(INPUT_KEY_F2))
+  {
+    
+  }
+}
+
 void SceneManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
   UNREFERENCED_PARAMETER(deltaTime);
   UNREFERENCED_PARAMETER(pScene);
+
+  HandleInput(pScene);
 
   // TODO:
 }

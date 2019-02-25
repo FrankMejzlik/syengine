@@ -13,6 +13,8 @@
 #include "common.h"
 #include "IGuidCounted.h"
 
+#include "PhysicsManager.h"
+
 #include "ComponentManager.h"
 
 namespace SYE 
@@ -23,6 +25,7 @@ class Component;
 class Model;
 class Scene;
 class Transform;
+class PhysicsBody;
 
 
 /**
@@ -50,7 +53,6 @@ public:
 
 public:
   Entity() = delete;
-
   Entity(Scene* pOwnerScene, ComponentManager* pComponentManager) noexcept;
 
   virtual ~Entity();
@@ -58,6 +60,10 @@ public:
   ComponentManager* GetComponentManagerPtr();
   Scene* GetOwnerScenePtr() const { return _pOwnerScene; }
   
+  PhysicsManager* GetPhysicsManager();
+
+  PhysicsBody* GetPhysicsBodyPtr() const;
+
   eType SetType(eType newValue);
   eType GetType() const;
 

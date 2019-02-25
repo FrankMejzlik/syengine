@@ -12,6 +12,8 @@
 #include "Component.h"
 #include "Entity.h"
 
+
+
 namespace SYE 
 {
 
@@ -29,6 +31,8 @@ public:
 
   virtual bool Initialize() override;
   virtual bool Terminate() override;
+
+  
 
   template <typename ComponentType>
   ComponentType* CreateComponent(Entity* pOwnerEntity)

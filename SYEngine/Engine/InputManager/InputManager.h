@@ -44,10 +44,10 @@ public:
   bool IsOnKeyboardKeyUp(size_t keyIndex) const;
   bool IsOnKeyboardMouseUp(size_t keyIndex) const;
 
-  dfloat GetMouseXPos() const { return _currX; }
-  dfloat GetMouseYPos() const { return _currY; }
-  dfloat GetMouseXDelta() const { return _deltaX; }
-  dfloat GetMouseYDelta() const { return _deltaY; }
+  int GetMouseXPos() const { return _currX; }
+  int GetMouseYPos() const { return _currY; }
+  int GetMouseXDelta() const { return _deltaX; }
+  int GetMouseYDelta() const { return _deltaY; }
 
 private:
   void FlushKeyBuffers();
@@ -61,10 +61,10 @@ public:
   static std::vector<size_t> _keyboardKeysReleased;
   static std::vector<size_t> _mouseKeysReleased;
 
-  static dfloat _currX;
-  static dfloat _currY;
-  static dfloat _deltaX;
-  static dfloat _deltaY;
+  static int _currX;
+  static int _currY;
+  static int _deltaX;
+  static int _deltaY;
   static bool _mouseFirstMoved;
 
 };

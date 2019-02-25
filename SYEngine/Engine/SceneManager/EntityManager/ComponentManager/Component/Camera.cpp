@@ -60,45 +60,36 @@ Vector3f Camera::GetCameraDirection() const
 }
 
 
-Vector3f Camera::GetPickingRay(size_t x, size_t y) const
+Vector3f Camera::GetPickingRay(int x, int y)
 {
-  // calculate the field-of-view
-  float tanFov = 1.0f / _nearPlane;
-  float fov = btScalar(2.0) * btAtan(tanFov);
-  fov;
+  // Dimensiions 
+  size_t width = _pTargetWindow->GetBufferWidth();
+  size_t height = _pTargetWindow->GetBufferHeight();
 
-  // get a ray pointing forward from the 
-  // camera and extend it to the far plane
-  btVector3 rayFrom = GetCameraPosition();
-  btVector3 rayForward = _pTransform->GetZDir();
-  rayForward.normalize();
-  rayForward*= _farPlane;
+  const glm::mat4& projectionMatrix = GetPerspectiveProjectionMatrixConstRef();
+  const glm::mat4& viewMatrix = GetViewMatrixConstRef();
 
-  // find the horizontal and vertical vectors 
-  // relative to the current camera view
-  btVector3 ver = _upDirection;
-  btVector3 hor = rayForward.cross(ver);
-  hor.normalize();
-  ver = hor.cross(rayForward);
-  ver.normalize();
-  hor *= 2.f * _farPlane * tanFov;
-  ver *= 2.f * _farPlane * tanFov;
 
-  // calculate the aspect ratio
-  btScalar aspect = _pTargetWindow->GetBufferWidth() / (btScalar)_pTargetWindow->GetBufferHeight();
+  // Normalised device coordinates
+  dfloat normX = static_cast<dfloat>((2 * ((dfloat)x / width)) - 1);
+  dfloat normY = static_cast<dfloat>((2 * ((dfloat)y / height)) - 1);
+  normY = -normY;
+  dfloat normZ = 1.0f;
 
-  // adjust the forward-ray based on
-  // the X/Y coordinates that were clicked
-  hor*=aspect;
-  btVector3 rayToCenter = rayFrom + rayForward;
-  btVector3 dHor = hor * 1.f/float(_pTargetWindow->GetBufferWidth());
-  btVector3 dVert = ver * 1.f/float(_pTargetWindow->GetBufferHeight());
-  btVector3 rayTo = rayToCenter - 0.5f * hor + 0.5f * ver;
-  rayTo += btScalar(x) * dHor;
-  rayTo -= btScalar(y) * dVert;
+  glm::vec3 rayNormalised(normX, normY, normZ);
 
-  // return the final result
-  return rayTo;
+  glm::vec4 rayClip(rayNormalised.x, rayNormalised.y, -1.0f, 1.0f);
+
+  glm::vec4 rayEye = inverse(projectionMatrix) * rayClip;
+
+  rayEye = glm::vec4(rayEye.x, rayEye.y, -1.0f, 0.0f);
+
+  glm::vec4 rayWor4 = inverse(viewMatrix) * rayEye;
+
+  glm::vec3 rayWorld(rayWor4.x, rayWor4.y, rayWor4.z);
+  rayWorld = glm::normalize(rayWorld);
+
+  return Vector3f(rayWorld);
 }
 
 

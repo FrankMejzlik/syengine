@@ -13,8 +13,11 @@
 
 namespace SYE
 {
+
+class Scene;
 class Entity;
 class ComponentManager;
+class PhysicsManager;
 
 class Component:
   public IGuidCounted, public IErrorLogging
@@ -77,9 +80,14 @@ public:
   virtual ~Component() noexcept = default;
 
   virtual void Refresh();
+  virtual void SaveComponent();
+
+  PhysicsManager* GetPhysicsManager();
 
   Entity* GetOwnerEntityPtr() const;
   Entity* SetOwnerEntityPtr(Entity* newOwnerPtr);
+
+  Scene* GetOwnerScenePtr() const;
 
   bool IsPrimary() const;
   bool SetIsPrimary(bool newValue);
@@ -89,6 +97,8 @@ public:
   bool SetIsDefault(bool newValue);
   size_t GetSlotIndex() const { return static_cast<size_t>(_slotIndex); };
   size_t GetType() const { return static_cast<size_t>(_type); }
+
+  
 
 protected:
 

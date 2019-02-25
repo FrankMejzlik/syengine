@@ -31,7 +31,7 @@ void PhysicsScene::Initialize()
   _pWorld = std::make_unique<btDiscreteDynamicsWorld>(_pDispatcher.get(), _pBroadphaseInterface.get(), _pSolver.get(), _pCollisionConfiguration.get());
 
   // Create initial physics objects for Scene
-  GenerateSceneObjects();
+  //InsertInitialPhysicsEntities();
 }
 
 void PhysicsScene::ProcessScene(dfloat deltaTime)
@@ -138,7 +138,7 @@ void PhysicsScene::SyncPhysicsToGraphics()
   }
 }
 
-void PhysicsScene::GenerateSceneObjects()
+void PhysicsScene::InsertInitialPhysicsEntities()
 {
   // Get active PhysicsBodies - RigidBody, SoftBody
   auto physicsBodies = _pOwnerScene->GetActiveComponentsBySlotsRef()[COMPONENT_PHYSICS_BODY_SLOT];
@@ -153,22 +153,46 @@ void PhysicsScene::GenerateSceneObjects()
     {
       continue;
     }
-
-    // Choose what type of PhysicsBody it is
-    switch (pBody->GetType())
-    {
-      // RigidBody
-      case static_cast<size_t>(Component::eType::RIGID_BODY) :
-        AddRigidBody(static_cast<Rigidbody*>(pBody));
-        break;
-
-      // SoftBody
-      case static_cast<size_t>(Component::eType::SOFT_BODY) :
-        AddSoftBody(static_cast<Softbody*>(pBody));
-        break;
-    }
+    InsertPhysicsEntity(static_cast<PhysicsBody*>(pBody));
   }
 
+}
+
+bool PhysicsScene::RemovePhysicsEntity(PhysicsBody* pBody)
+{
+  auto result = _entityToPhysicsEntitiyMap.erase(pBody->GetOwnerEntityPtr()->GetGuid());
+
+  if (result <= 0)
+  {
+    return false;
+  }
+
+  return true;
+}
+
+PhysicsEntity* PhysicsScene::InsertPhysicsEntity(PhysicsBody* pBody)
+{
+  PhysicsEntity* pNewPhysEntity(nullptr);
+
+  // Choose what type of PhysicsBody it is
+  switch (pBody->GetType())
+  {
+    // RigidBody
+    case static_cast<size_t>(Component::eType::RIGID_BODY) :
+      pNewPhysEntity = AddRigidBody(static_cast<Rigidbody*>(pBody));
+      break;
+
+    // SoftBody
+    case static_cast<size_t>(Component::eType::SOFT_BODY) :
+      pNewPhysEntity = AddSoftBody(static_cast<Softbody*>(pBody));
+      break;
+
+  }
+
+  // Set this PhysEntity to PhysicsBody Component
+  static_cast<PhysicsBody*>(pBody)->SetPhysicsEntity(pNewPhysEntity);
+
+  return pNewPhysEntity;
 }
 
 bool PhysicsScene::DoesContain(size_t guid) const

@@ -1,6 +1,8 @@
 #include "Entity.h"
 #include "Collider.h"
+#include "Scene.h"
 
+#include "PhysicsBody.h"
 
 using namespace SYE;
 
@@ -18,6 +20,25 @@ Entity::~Entity()
 ComponentManager* Entity::GetComponentManagerPtr()
 {
   return _pComponentManager;
+}
+
+PhysicsBody* Entity::GetPhysicsBodyPtr() const
+{
+  // Try to find this Component
+  auto result = _primaryComponentSlots[COMPONENT_PHYSICS_BODY_SLOT].begin();
+
+  // If item NOT found
+  if (result == _primaryComponentSlots[COMPONENT_PHYSICS_BODY_SLOT].end())
+  {
+    return nullptr;
+  }
+
+  return static_cast<PhysicsBody*>(result->second);
+}
+
+PhysicsManager* Entity::GetPhysicsManager()
+{
+  return _pOwnerScene->GetPhysicsManagerPtr();
 }
 
 Entity::eType Entity::SetType(eType newValue)

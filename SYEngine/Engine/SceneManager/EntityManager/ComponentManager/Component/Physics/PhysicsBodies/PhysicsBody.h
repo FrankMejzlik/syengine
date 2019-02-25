@@ -8,6 +8,7 @@ namespace SYE
 {
 
 class Collider;
+class PhysicsEntity;
 
 class PhysicsBody:
   public Component
@@ -15,7 +16,8 @@ class PhysicsBody:
 public:
   PhysicsBody() = delete;
   PhysicsBody(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept;
-  ~PhysicsBody() noexcept;
+
+  virtual void SaveComponent() override;
 
   void SetCollider(Collider* pCollider);
   Collider* GetCollider() const { return _pCollider; }
@@ -29,13 +31,17 @@ public:
 
   void ClearCollider();
   
-
+  void SetPhysicsEntity(PhysicsEntity* pPhysEntity);
+  PhysicsEntity* GetPhysicsEntity() const;
 
 
   // Attributes
 protected:
   /** Collider for this body */
   Collider* _pCollider;
+
+  /** Pointer to PhysicsEntity instance used for simulation */
+  PhysicsEntity* _pPhysEntity;
 
   /** Mass of this body */
   dfloat _mass;

@@ -4,6 +4,8 @@
 #include "Camera.h"
 #include "ScriptHandler.h"
 
+#include "PhysicsManager.h"
+
 using namespace SYE;
 
 Engine::Engine(ProcessInstance* pInstance) noexcept :
@@ -78,18 +80,22 @@ bool Engine::Run()
     GAME_WINDOW_DEFAULT_HEIGHT
   );
 
-  // Construct initial scene
-  Scene* pScene = SCENE_MANAGER->LoadInitialScene(pMainWindow);
- 
+  // Create new Scene instance
+  Scene* pScene = SCENE_MANAGER->CreateScene(pMainWindow);
 
   // Initialize LogicManager
   LOGIC_MANAGER->InitializeScene(pScene);
 
   // Set Scene's InputManager
   pScene->SetInputManagerPtr(INPUT_MANAGER);
+  pScene->SetPhysicsManagerPtr(static_cast<PhysicsManager*>(SIMULATION_MANAGER->GetSubModules()[ID_PHYSICS_MANAGER].get()));
+
 
   // Initialize physics.
   SIMULATION_MANAGER->InitializePhysicsScene(pScene);
+
+  // Construct initial scene
+  SCENE_MANAGER->LoadInitialScene(pScene);
 
   auto prev = std::chrono::high_resolution_clock::now();
   dfloat deltaTime = 0.0f;

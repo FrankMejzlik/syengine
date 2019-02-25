@@ -42,8 +42,8 @@ public:
   Scene* InsertScene(std::unique_ptr<Scene>&& sceneToInsert);
 
   Scene* CreateScene(Window* pWindow);
-  Scene* LoadInitialScene(Window* pWindow);
-
+  Scene* LoadInitialScene(Scene* pNewScene);
+  void HandleInput(Scene* pScene);
 
   // Attributes.
 private:

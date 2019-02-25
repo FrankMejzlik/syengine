@@ -11,10 +11,10 @@ std::array<bool, NUM_MOUSE_KEYS> InputManager::_mouseKeysDown = std::array<bool,
 std::vector<size_t> InputManager::_keyboardKeysReleased = std::vector<size_t>();
 std::vector<size_t> InputManager::_mouseKeysReleased = std::vector<size_t>();
 
-dfloat InputManager::_currX = 0.0f;
-dfloat InputManager::_currY = 0.0f;
-dfloat InputManager::_deltaX = 0.0f;
-dfloat InputManager::_deltaY = 0.0f;
+int InputManager::_currX = 0;
+int InputManager::_currY = 0;
+int InputManager::_deltaX = 0;
+int InputManager::_deltaY = 0;
 bool InputManager::_mouseFirstMoved = false;
 
 InputManager::InputManager(BaseModule &parentModule) noexcept:
@@ -120,19 +120,19 @@ void InputManager::ProcessMouse(GLFWwindow* window, double xPos, double yPos)
   UNREFERENCED_PARAMETER(window);
 
   // If this is first mouse movement
-  if (_mouseFirstMoved)
+  if (!_mouseFirstMoved)
   {
     // To prevent first move look jump
-    _currX = static_cast<dfloat>(xPos);
-    _currY = static_cast<dfloat>(yPos);
-    _mouseFirstMoved = false;
+    _currX = static_cast<int>(xPos);
+    _currY = static_cast<int>(yPos);
+    _mouseFirstMoved = true;
   }
 
-  _deltaX = static_cast<dfloat>(xPos - _currX);
-  _deltaY = static_cast<dfloat>(_currY - yPos);
+  _deltaX = static_cast<int>(xPos - _currX);
+  _deltaY = static_cast<int>(_currY - yPos);
 
-  _currX = static_cast<dfloat>(xPos);
-  _currY = static_cast<dfloat>(yPos);
+  _currX = static_cast<int>(xPos);
+  _currY = static_cast<int>(yPos);
 
   }
 
@@ -175,8 +175,8 @@ void InputManager::ProcessScene(dfloat deltaTime, Scene* pScene)
   UNREFERENCED_PARAMETER(deltaTime);
   UNREFERENCED_PARAMETER(pScene);
 
-  _deltaX = 0.0f;
-  _deltaY = 0.0f;
+  _deltaX = 0ULL;
+  _deltaY = 0ULL;
 
   // Clear all key buffers before processing this frame's input
   FlushKeyBuffers();

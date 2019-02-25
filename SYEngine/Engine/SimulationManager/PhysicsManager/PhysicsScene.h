@@ -45,8 +45,13 @@ public:
 
   void SetDebugRenderer(PhysicsDebugRenderer* pDebugRenderer);
 
+  PhysicsEntity* InsertPhysicsEntity(PhysicsBody* pBody);
+  bool RemovePhysicsEntity(PhysicsBody* pBody);
+
 private:
-  void GenerateSceneObjects();
+  void InsertInitialPhysicsEntities();
+  
+  
   bool DoesContain(size_t guid) const;
 
   PhysicsEntity* AddRigidBody(Rigidbody* pBody);
