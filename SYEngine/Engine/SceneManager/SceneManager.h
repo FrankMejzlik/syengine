@@ -17,6 +17,8 @@ using namespace SYE;
 namespace SYE 
 {
 
+class Engine;
+
 class SceneManager :
   public BaseModule
 {
@@ -31,6 +33,7 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  bool InitializeScene(Scene* pScene);
   void ProcessScene(dfloat deltaTime, Scene* pScene);
 
   /**
@@ -40,7 +43,7 @@ public:
   Scene* GetScenePtr(size_t sceneGuid);
   Scene* InsertScene(std::unique_ptr<Scene>&& sceneToInsert);
 
-  Scene* CreateScene(Window* pWindow);
+  Scene* CreateScene(EngineContext* pEngineContext, Engine* pOwnerEngine, Window* pWindow);
   Scene* LoadInitialScene(Scene* pNewScene);
   void HandleInput(Scene* pScene);
 

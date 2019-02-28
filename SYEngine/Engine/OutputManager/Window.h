@@ -6,6 +6,7 @@
 #include <GLFW\glfw3.h>
 
 #include "common.h"
+#include "IGuidCounted.h"
 #include "InputManager.h"
 
 #include "Component.h"
@@ -13,16 +14,16 @@
 namespace SYE 
 {
 
-class Window
+class Window:
+  public IGuidCounted
 {
+  // Structs
+public:
   friend class InputManager;
 
+  // Methods
 public:
-  
-
-
   Window() = delete;
-
   Window(GLsizei windowWidth, GLsizei WindowHeight);
   ~Window();
 

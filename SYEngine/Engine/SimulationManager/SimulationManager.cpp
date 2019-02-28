@@ -53,9 +53,13 @@ bool SimulationManager::Terminate()
   return true;
 }
 
-void SimulationManager::InitializePhysicsScene(Scene* pScene)
+bool SimulationManager::InitializeScene(Scene* pScene)
 {
-  PHYSICS_MANAGER->InitializePhysicsScene(pScene);
+  bool result = true;
+
+  result = result && PHYSICS_MANAGER->InitializeScene(pScene);
+
+  return result;
 }
 
 void SimulationManager::ProcessScene(dfloat deltaTime, Scene* pScene)

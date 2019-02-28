@@ -1,6 +1,7 @@
 
 #include "Engine.h"
 
+#include "Scene.h"
 #include "Camera.h"
 #include "ScriptHandler.h"
 
@@ -71,6 +72,43 @@ bool Engine::Initialize()
   return true;
 }
 
+Scene* Engine::AddScene(Window* pTargetWindow)
+{
+  return SCENE_MANAGER->CreateScene(_pEngineContext, this, pTargetWindow);
+}
+
+Window* Engine::AddWindow()
+{
+  return OUTPUT_MANAGER->ConstructWindow(
+    eWindowType::MAIN_GAME_WINDOW, 
+    WORLD_GAME_NAME, 
+    GAME_WINDOW_DEFAULT_WIDTH, 
+    GAME_WINDOW_DEFAULT_HEIGHT
+  );
+}
+
+bool Engine::InitializeSceneInModules(Scene* pScene)
+{
+  bool result = true;
+
+  // Initialize scene instance in all modules
+  result = result && SCENE_MANAGER->InitializeScene(pScene);
+  result = result && INPUT_MANAGER->InitializeScene(pScene);
+  result = result && NETWORK_MANAGER->InitializeScene(pScene);
+  result = result && LOGIC_MANAGER->InitializeScene(pScene);
+  result = result && SIMULATION_MANAGER->InitializeScene(pScene);
+  result = result && OUTPUT_MANAGER->InitializeScene(pScene);
+
+  // If something failed
+  if (!result)
+  {
+    PUSH_ENGINE_ERROR(eEngineError::SceneInitializationFailed, "Scene initialization failed", "");
+  }
+ 
+  return true;
+  
+}
+
 bool Engine::Run()
 {
   // If engine not initialized yet, do it so
@@ -79,31 +117,34 @@ bool Engine::Run()
     Initialize();
   }
 
-  // Create all output channels.
-  Window* pMainWindow = OUTPUT_MANAGER->ConstructWindow(
-    eWindowType::MAIN_GAME_WINDOW, 
-    WORLD_GAME_NAME, 
-    GAME_WINDOW_DEFAULT_WIDTH, 
-    GAME_WINDOW_DEFAULT_HEIGHT
-  );
+  // Create main Window instance
+  Window* pMainWindow = this->AddWindow();
+  // If creating Window failed
+  if (pMainWindow == nullptr)
+  {
+    return false;
+  }
 
   // Create new Scene instance
-  Scene* pScene = SCENE_MANAGER->CreateScene(pMainWindow);
+  Scene* pScene = this->AddScene(pMainWindow);
+  // If creating Scene failed
+  if (pScene == nullptr)
+  {
+    return false;
+  }
 
-  // Initialize LogicManager
-  LOGIC_MANAGER->InitializeScene(pScene);
-
-  // Set Scene's InputManager
-  pScene->SetInputManagerPtr(INPUT_MANAGER);
-  pScene->SetPhysicsManagerPtr(static_cast<PhysicsManager*>(SIMULATION_MANAGER->GetSubModulesRef()[ID_PHYSICS_MANAGER].get()));
-
-
-  // Initialize physics.
-  SIMULATION_MANAGER->InitializePhysicsScene(pScene);
+  // Initialize Scene instance everywhere
+  if (!InitializeSceneInModules(pScene))
+  {
+    // TODO: Try to solve this situation during runtime
+    return false;
+  }
 
   // Construct initial scene
+  // TODO: Make Scene method for loading from script file
   SCENE_MANAGER->LoadInitialScene(pScene);
 
+  // TODO: Implement with TimeManager class
   auto prev = std::chrono::high_resolution_clock::now();
   dfloat deltaTime = 0.0f;
 
@@ -136,6 +177,34 @@ bool Engine::Run()
     return false;
   }
   return true;
+}
+
+bool Engine::AttachScene(Scene* pScene)
+{
+  auto result = _scenes.insert(std::make_pair(pScene->GetGuid(), pScene));
+
+  return result.second;
+}
+
+bool Engine::DetachScene(Scene* pScene)
+{
+  auto result = _scenes.erase(pScene->GetGuid());
+
+  return (result > 0);
+}
+
+bool Engine::AttachWindow(Window* pWindow)
+{
+  auto result = _windows.insert(std::make_pair(pWindow->GetGuid(), pWindow));
+
+  return result.second;
+}
+
+bool Engine::DetachWindow(Window* pWindow)
+{
+  auto result = _windows.erase(pWindow->GetGuid());
+
+  return (result > 0);
 }
 
 void Engine::ProcessImGui()
@@ -229,9 +298,3 @@ EngineApi* Engine::GetEngineApiPtr() const
 {
   return static_cast<EngineApi*>(_subModules.find(ID_ENGINE_API)->second.get());
 }
-
-SceneManager* Engine::GetSceneManagerPtr() const
-{
-  return static_cast<SceneManager*>(_subModules.find(ID_SCENE_MANAGER)->second.get());
-}
-

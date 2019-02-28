@@ -57,7 +57,7 @@ bool PhysicsManager::Terminate()
 }
 
 
-void PhysicsManager::InitializePhysicsScene(Scene* pScene)
+bool PhysicsManager::InitializeScene(Scene* pScene)
 {
   // Instantiate new PhysicsScene
   _pPhysicsScene = std::move(std::make_unique<PhysicsScene>(pScene));
@@ -70,6 +70,8 @@ void PhysicsManager::InitializePhysicsScene(Scene* pScene)
 
   // Setup DebugRenderer for this
   _pPhysicsScene->SetDebugRenderer(GetDebugRendererPtr());
+
+  return true;
 }
 
 PhysicsDebugRenderer* PhysicsManager::GetDebugRendererPtr() const
@@ -83,7 +85,7 @@ PhysicsDebugRenderer* PhysicsManager::GetDebugRendererPtr() const
   return static_cast<RenderingManager*>(pRenderingManager)->GetPhysicsDebugRendererPtr();
 }
 
-void PhysicsManager::TerminatePhysicsScene(Scene* pScene)
+void PhysicsManager::TerminateScene(Scene* pScene)
 {
   UNREFERENCED_PARAMETER(pScene);
 

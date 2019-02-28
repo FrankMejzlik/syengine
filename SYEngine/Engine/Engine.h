@@ -41,7 +41,7 @@ using namespace SYE;
 
 namespace SYE
 {
-
+class Scene;
 class Window;
 
 class Engine :
@@ -58,15 +58,19 @@ public:
   bool Run();
 
   EngineApi* GetEngineApiPtr() const;
-  SceneManager* GetSceneManagerPtr() const;
 
   bool AttachScene(Scene* pScene);
   bool DetachScene(Scene* pScene);
+  bool AttachWindow(Window* pWindow);
+  bool DetachWindow(Window* pWindow);
 
 private:
   void ProcessFrame(dfloat deltaTime, Scene* pScene, Window* pMainWindow);
   void ProcessImGui();
   void CheckModuleStates();
+  Scene* AddScene(Window* pTargetWindow);
+  Window* AddWindow();
+  bool InitializeSceneInModules(Scene* pScene);
 
 
   // Attributes
@@ -76,6 +80,9 @@ private:
   
   /** Engine context holding all engine relevant data that is needed across application */
   std::unique_ptr<EngineContext> _pOwningEngineContext;
+
+  /** Windows attached to this Engine instance */
+  std::map<size_t, Window*> _windows;
 
   /** Scenes attached to this Engine instance */
   std::map<size_t, Scene*> _scenes;

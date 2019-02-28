@@ -172,6 +172,14 @@ bool InputManager::Terminate()
   return true;
 }
 
+bool InputManager::InitializeScene(Scene* pScene)
+{
+  UNREFERENCED_PARAMETER(pScene);
+
+
+  return true;
+}
+
 void InputManager::ProcessScene(dfloat deltaTime, Scene* pScene)
 {
   UNREFERENCED_PARAMETER(deltaTime);

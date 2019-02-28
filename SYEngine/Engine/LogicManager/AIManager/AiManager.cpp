@@ -55,11 +55,11 @@ bool AiManager::Terminate()
   return true;
 }
 
-void AiManager::InitializeScene(Scene * pScene)
+bool AiManager::InitializeScene(Scene * pScene)
 {
   UNREFERENCED_PARAMETER(pScene);
-  
-  LOG_NOT_IMPLEMENTED;
+
+  return true;
 }
 
 void AiManager::ProcessScene(dfloat deltaTime, Scene* pScene)

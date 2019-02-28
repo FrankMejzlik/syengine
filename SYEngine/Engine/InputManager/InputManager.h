@@ -35,6 +35,7 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  bool InitializeScene(Scene* pScene);
   void ProcessScene(dfloat deltaTime, Scene* pScene);
 
   bool IsKeyboardKeyDown(size_t keyIndex) const;

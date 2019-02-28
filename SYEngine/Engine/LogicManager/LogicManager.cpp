@@ -59,11 +59,15 @@ bool LogicManager::Terminate()
   return true;
 }
 
-void LogicManager::InitializeScene(Scene * pScene)
+bool LogicManager::InitializeScene(Scene* pScene)
 {
-  // Call submodules
-  SCRIPT_MANAGER->InitializeScene(pScene);
-  AI_MANAGER->InitializeScene(pScene);
+  bool result = true;
+
+  // Initialize in submodules
+  result = result && SCRIPT_MANAGER->InitializeScene(pScene);
+  result = result && AI_MANAGER->InitializeScene(pScene);
+
+  return result;
 }
 
 void LogicManager::ProcessScene(dfloat deltaTime, Scene* pScene)

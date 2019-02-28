@@ -18,7 +18,7 @@ enum class eEngineError
 {
   Null = 0,
   UnableToSetupMainModuleChannels = 1,
-
+  SceneInitializationFailed = 2,
 
   UnableToLoadTextureFromFile = 500,
   MissingPointerToTargetWindowInstance = 501,

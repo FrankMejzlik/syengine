@@ -30,6 +30,8 @@ class PhysicsBody;
 class Entity;
 class EntityManager;
 class Component;
+class Engine;
+class EngineContext;
 
 /**
  * Every Scene MUST have it's EntityController to call to.
@@ -40,18 +42,8 @@ class Scene:
   // Methods
 public:
   Scene() = delete;
-  Scene(EntityManager* pEntityManager);
+  Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow);
   ~Scene() noexcept;
-
-  template <typename EntityType>
-  EntityType* AddEntity()
-  {
-    Entity* pNewEntity = _pEntityManager->CreateEntity<EntityType>(this);
-
-    return pNewEntity;
-  }
-
-  bool DeleteEntity(Entity* pEntityToDelete);
 
   Entity* CreateCamera(
     Vector3f positionVector, 
@@ -97,16 +89,26 @@ public:
     bool isStatic = true
   );
 
+
+
+  template <typename EntityType>
+  EntityType* AddEntity()
+  {
+    EntityType* pNewEntity = GetEntityManagerPtr()->CreateEntity<EntityType>(this);
+
+    return pNewEntity;
+  }
+
+  bool DeleteEntity(Entity* pEntityToDelete);
+
   /**
    * Casts ray from specified position in specified direction and returns <PBody hit, hit Point>
    */
   std::pair<PhysicsBody*, Vector3f> Raycast(Vector3f from, Vector3f direction) const;
 
-  void SetInputManagerPtr(InputManager* pInputManager) { _pInputManager = pInputManager; }
-  InputManager* GetInputManagerPtr() const { return _pInputManager; }
-
-  void SetPhysicsManagerPtr(PhysicsManager* pPhysicsManager) { _pPhysicsManager = pPhysicsManager; }
-  PhysicsManager* GetPhysicsManagerPtr() const { return _pPhysicsManager; }
+  InputManager* GetInputManagerPtr() const;
+  PhysicsManager* GetPhysicsManagerPtr() const;
+  EntityManager* GetEntityManagerPtr() const;
 
   Camera* GetEditorCamera() const;
   std::string_view GetSceneName() const;
@@ -142,16 +144,18 @@ public:
    */
   bool DelistEntity(Entity* pEntity);
 
+
+
   // Attributes
 private:
+  /** Context of this scene */
   SceneContext _sceneContext;
-  /** EntityManager instance dedicated for this Scene instance */
-  EntityManager* _pEntityManager;
-  /** Pointer to servicing InputManager for this Scene */
-  InputManager* _pInputManager;
+  
+  /** Context of Engine instance */
+  EngineContext* _pEngineContext;
 
-  /** Pointer to corresponding PhysicsManager */
-  PhysicsManager* _pPhysicsManager;
+  /** Pointer to owner Engine instance */
+  Engine* _pEngine;
 
   /** Pointer to default Engine Editor camera instance */
   Camera* _pEditorCamera;

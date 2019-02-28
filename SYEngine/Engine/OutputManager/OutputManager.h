@@ -6,10 +6,8 @@
 #include "BaseModule.h"
 #include "Scene.h"
 
-// Submodules.
 #include "RenderingManager.h"
 #include "AudioManager.h"
-//#include "OtherInputManager.h"
 
 using namespace SYE;
 
@@ -30,7 +28,9 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  bool InitializeScene(Scene* pScene);
   void ProcessScene(dfloat deltaTime, Scene* pScene, Window* pTargetWindow);
+  
   Window* ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height);
 
 

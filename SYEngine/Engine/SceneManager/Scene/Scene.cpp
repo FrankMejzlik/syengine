@@ -14,16 +14,23 @@
 #include "Mesh.h"
 #include "Entity.h"
 
+#include "Engine.h"
 #include "EntityManager.h"
 #include "PhysicsEntity.h"
 #include "PhysicsScene.h"
+#include "EngineContext.h"
 
 using namespace SYE;
 
-Scene::Scene(EntityManager* pEntityManager) :
-  _pEntityManager(pEntityManager),
+Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow) :
+  _pEngineContext(pEngineContext),
+  _pEngine(pEngine),
+  _pMainWindow(pTargetWindow),
   _pEditorCamera(nullptr)
 {
+  // Attach this engine to Engine
+  _pEngine->AttachScene(this);
+
   DLog(eLogType::Success, "Scene with name %s instantiated.", _sceneContext.m_sceneName.data());
 }
 
@@ -72,12 +79,27 @@ std::pair<PhysicsBody*, Vector3f> Scene::Raycast(Vector3f from, Vector3f directi
   return _pPhysicsScene->Raycast(from, direction);
 }
 
+InputManager* Scene::GetInputManagerPtr() const
+{
+  return static_cast<InputManager*>(_pEngineContext->GetModule(ID_INPUT_MANAGER));
+}
+
+PhysicsManager* Scene::GetPhysicsManagerPtr() const
+{
+  return static_cast<PhysicsManager*>(_pEngineContext->GetModule(ID_PHYSICS_MANAGER));
+}
+
+EntityManager* Scene::GetEntityManagerPtr() const
+{
+  return static_cast<EntityManager*>(_pEngineContext->GetModule(ID_ENTITY_MANAGER));
+}
+
 bool Scene::DeleteEntity(Entity* pEntityToDelete)
 {
    // Delete it from hash map.
   _entities.erase(pEntityToDelete->GetGuid());
 
-  _pEntityManager->DestroyEntity(pEntityToDelete);
+  GetEntityManagerPtr()->DestroyEntity(pEntityToDelete);
 
   return true;
 }
@@ -94,7 +116,7 @@ Entity* Scene::CreateCamera(
   UNREFERENCED_PARAMETER(startPitch);
 
   // Call EntityManager to create new Quad Entity.
-  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
+  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -163,7 +185,7 @@ Entity* Scene::CreateBlock(
   UNREFERENCED_PARAMETER(isStatic);
 
   // Call EntityManager to create new Quad Entity.
-  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
+  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
   pNewEntity->SetIsStatic(false);
   
   // Add Transform Component
@@ -215,7 +237,7 @@ Entity* Scene::CreateDirectionalLight(
   UNREFERENCED_PARAMETER(isStatic);
 
   // Create new Entity
-  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
+  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -245,7 +267,7 @@ Entity* Scene::CreatePointLight(
   UNREFERENCED_PARAMETER(isStatic);
 
   // Create new Entity
-  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
+  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -278,7 +300,7 @@ Entity* Scene::CreateSpotLight(
   UNREFERENCED_PARAMETER(isStatic);
 
   // Create new Entity
-  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
+  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();

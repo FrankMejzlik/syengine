@@ -24,8 +24,8 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  void InitializePhysicsScene(Scene* pScene);
-  void TerminatePhysicsScene(Scene* pScene);
+  bool InitializeScene(Scene* pScene);
+  void TerminateScene(Scene* pScene);
   void ProcessScene(dfloat deltaTime, Scene* pScene);
 
   PhysicsDebugRenderer* GetDebugRendererPtr() const;

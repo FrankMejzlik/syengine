@@ -21,7 +21,7 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  void InitializeScene(Scene* pScene);
+  bool InitializeScene(Scene* pScene);
   void ProcessScene(dfloat deltaTime, Scene* pScene);
 
 

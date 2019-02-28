@@ -55,6 +55,13 @@ bool OutputManager::Terminate()
 }
 
 
+bool OutputManager::InitializeScene(Scene* pScene)
+{
+  UNREFERENCED_PARAMETER(pScene);
+
+  return true;
+}
+
 void OutputManager::ProcessScene(dfloat deltaTime, Scene* pScene, Window* pTargetWindow)
 {
   UNREFERENCED_PARAMETER(deltaTime);
