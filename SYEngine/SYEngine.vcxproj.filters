@@ -52,9 +52,6 @@
     <ClCompile Include="Engine\OutputManager\AudioManager\AudioManager.cpp">
       <Filter>Engine\AudioManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\OutputManager\AudioManager\MusicManager.cpp">
-      <Filter>Engine\AudioManager</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\OutputManager\AudioManager\SoundManager.cpp">
       <Filter>Engine\AudioManager</Filter>
     </ClCompile>
@@ -246,9 +243,6 @@
       <Filter>Engine\RenderingManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\OutputManager\AudioManager\AudioManager.h">
-      <Filter>Engine\AudioManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\AudioManager\MusicManager.h">
       <Filter>Engine\AudioManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\OutputManager\AudioManager\SoundManager.h">

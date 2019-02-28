@@ -2,8 +2,8 @@
 
 using namespace SYE;
 
-KeyboardManager::KeyboardManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+KeyboardManager::KeyboardManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   DLog(eLogType::Success, "\t KeyboardManager instance created.");
 }

@@ -15,7 +15,7 @@ class TextureManager :
 public:
   TextureManager() = delete;
 
-  TextureManager(BaseModule &parentModule);
+  TextureManager(BaseModule &parentModule, EngineContext* pEngineContext);
   ~TextureManager();
 
   virtual bool Initialize() override;

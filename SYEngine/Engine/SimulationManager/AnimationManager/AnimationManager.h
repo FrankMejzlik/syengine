@@ -12,7 +12,7 @@ class AnimationManager :
 public:
   AnimationManager() = delete;
 
-  AnimationManager(BaseModule &parentModule);
+  AnimationManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~AnimationManager();
 
   virtual bool Initialize() override;

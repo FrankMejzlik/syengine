@@ -19,7 +19,7 @@ class EntityManager :
 public:
   EntityManager() = delete;
 
-  EntityManager(BaseModule &parentModule);
+  EntityManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~EntityManager();
 
   virtual bool Initialize() override;

@@ -3,8 +3,8 @@
 using namespace SYE;
 
 
-ModelManager::ModelManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+ModelManager::ModelManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   DLog(eLogType::Success, "\t\t\t ModelManager instance created.");
 }

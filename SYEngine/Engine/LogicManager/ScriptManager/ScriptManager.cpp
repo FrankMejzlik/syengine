@@ -5,8 +5,8 @@
 
 using namespace SYE;
 
-ScriptManager::ScriptManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+ScriptManager::ScriptManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   DLog(eLogType::Success, "\t ScriptManager instance created.");
 }

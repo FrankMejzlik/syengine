@@ -3,11 +3,11 @@
 using namespace SYE;
 
 
-MeshManager::MeshManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+MeshManager::MeshManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_unique<MeshGenerator>(*this)));
+  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_unique<MeshGenerator>(*this, _pEngineContext)));
 
   DLog(eLogType::Success, "\t\t\t MeshManager instance created.");
 }

@@ -22,7 +22,7 @@ class UiManager :
 public:
   UiManager() = delete;
 
-  UiManager(BaseModule &parentModule);
+  UiManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~UiManager();
 
   virtual bool Initialize() override;

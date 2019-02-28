@@ -5,7 +5,8 @@ using namespace SYE;
 
 BaseModule::BaseModule(int magicNumber) :
   _parentModule(*this),
-  _pEngineApi(nullptr)
+  _pEngineApi(nullptr),
+  _pEngineContext(nullptr)
 {
   // Test if magic number matches
   if (magicNumber != MAGIC_BASE_MODULE_NUMBER)
@@ -15,8 +16,9 @@ BaseModule::BaseModule(int magicNumber) :
   }
 }
 
-BaseModule::BaseModule(BaseModule &parentModule):
+BaseModule::BaseModule(BaseModule& parentModule, EngineContext* pEngineContext):
   _parentModule(parentModule),
+  _pEngineContext(pEngineContext),
   _pEngineApi(nullptr)
 {}
 

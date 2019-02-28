@@ -2,12 +2,9 @@
 
 using namespace SYE;
 
-TextureManager::TextureManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+TextureManager::TextureManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
-  // Load texture.
-  //_defaultTexture->LoadTextureA();
-
   DLog(eLogType::Success, "\t\t\tTextureManager instance created.");
 }
 

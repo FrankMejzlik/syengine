@@ -15,7 +15,7 @@ class NetworkManager :
 public:
   NetworkManager() = delete;
 
-  NetworkManager(BaseModule &parentModule);
+  NetworkManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~NetworkManager();
 
   virtual bool Initialize() override;

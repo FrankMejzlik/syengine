@@ -12,7 +12,7 @@ class ShadowManager :
 public:
   ShadowManager() = delete;
 
-  ShadowManager(BaseModule &parentModule);
+  ShadowManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~ShadowManager();
 
   virtual bool Initialize() override;

@@ -1,11 +1,11 @@
 
 #include "SimulationManager.h"
 
-SimulationManager::SimulationManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+SimulationManager::SimulationManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_PHYSICS_MANAGER, std::make_unique<PhysicsManager>(*this)));
+  _subModules.insert(std::make_pair(ID_PHYSICS_MANAGER, std::make_unique<PhysicsManager>(*this, _pEngineContext)));
 
   DLog(eLogType::Success, "SimulationManager instance created.");
 }

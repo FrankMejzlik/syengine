@@ -5,8 +5,8 @@
 
 using namespace SYE;
 
-AiManager::AiManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+AiManager::AiManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   DLog(eLogType::Success, "\t AiManager instance created.");
 }

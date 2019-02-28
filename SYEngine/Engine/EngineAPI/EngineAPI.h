@@ -25,7 +25,7 @@ class EngineApi:
 {
 public:
   EngineApi() = delete;
-  EngineApi(BaseModule &parentModule);
+  EngineApi(BaseModule& parentModule, EngineContext* pEngineContext);
   ~EngineApi();
 
 

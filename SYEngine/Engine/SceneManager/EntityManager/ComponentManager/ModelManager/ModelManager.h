@@ -14,7 +14,7 @@ class ModelManager :
 public:
   ModelManager() = delete;
 
-  ModelManager(BaseModule &parentModule);
+  ModelManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~ModelManager();
 
   virtual bool Initialize() override;

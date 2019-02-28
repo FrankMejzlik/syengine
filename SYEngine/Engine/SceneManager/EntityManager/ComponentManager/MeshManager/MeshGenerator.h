@@ -12,7 +12,7 @@ class MeshGenerator:
 {
 public:
   MeshGenerator() = delete;
-  MeshGenerator(BaseModule& parentModule) noexcept;
+  MeshGenerator(BaseModule& parentModule, EngineContext* pEngineContext);
   ~MeshGenerator() noexcept;
 
   virtual bool Initialize() override;

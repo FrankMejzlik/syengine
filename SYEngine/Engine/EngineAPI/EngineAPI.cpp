@@ -8,14 +8,13 @@ using namespace SYE;
 EngineApi* EngineApi::_pEngineApistatic = nullptr;
 
 
-EngineApi::EngineApi(BaseModule &parentModule):
-  BaseModule(parentModule),
+EngineApi::EngineApi(BaseModule &parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext),
   _engineQueue(),
   _editorQueue()
 {
 
   _pEngineApistatic = this;
-
 
   DLog(eLogType::Success, "EngineAPI instance created.");
 }

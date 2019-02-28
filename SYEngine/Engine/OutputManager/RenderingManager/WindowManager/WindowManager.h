@@ -17,7 +17,7 @@ class WindowManager :
 public:
   WindowManager() = delete;
 
-  WindowManager(BaseModule &parentModule);
+  WindowManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~WindowManager();
 
   virtual bool Initialize() override;

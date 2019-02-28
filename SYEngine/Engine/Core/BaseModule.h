@@ -6,7 +6,6 @@
 #include <memory>
 #include <array>
 
-
 #include "common.h"
 #include "config_components.h"
 #include "IModuleState.h"
@@ -14,13 +13,14 @@
 #include "IUsesEngineAPI.h"
 #include "IModule.h"
 
-
 namespace SYE
 {
 
 // Forward declarations
 class Component;
 class EngineApi;
+class EngineContext;
+class Engine;
 
 /**
  * Common ancestor to all Engine modules.
@@ -30,27 +30,38 @@ class EngineApi;
 class BaseModule:
   public IModule, public IModuleState, public IErrorLogging, public IUsesEngineAPI
 {
+  // Structs
 public:
-  
+  /** Allow Engine class to set pointer to owning EngineContext ptr */
+  friend class Engine;
+
+  // Methods
+public:
   BaseModule() = delete;
   // Constructor for just root module - Engine.
   BaseModule(int magicNumber);
   // Constructor for other modules.
-  BaseModule(BaseModule &parentModule);
+  BaseModule(BaseModule& parentModule, EngineContext* pEngineContext);
+  virtual ~BaseModule() noexcept = default;
 
-  virtual ~BaseModule() = default;
-
+  
   void SetEngineApiPointer(const EngineApi* const pEngineApi);
 
-  std::map<int, std::unique_ptr<BaseModule>>& GetSubModules() { return _subModules; }
+  std::map<int, std::unique_ptr<BaseModule>>& GetSubModulesRef() { return _subModules; }
   BaseModule& GetParentModuleRef() { return _parentModule; }
+  
+  EngineContext* GetEngineContextPtr() const { return _pEngineContext; };
+  
+private:
+  void SetEngineContextPtr(EngineContext* pEngineContext) { _pEngineContext = pEngineContext; }
 
 protected:
-  BaseModule &_parentModule;
+  BaseModule& _parentModule;
+  EngineContext* _pEngineContext;
   const EngineApi* _pEngineApi;
   std::map<int, std::unique_ptr<BaseModule>> _subModules;
 
-  // Just for ability to constrict Component before removing last bits of old architecture
+  // Just for ability to construct Component before removing last bits of old architecture
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> _fake;
 
 };

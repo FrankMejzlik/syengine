@@ -5,11 +5,11 @@
 
 using namespace SYE;
 
-LogicManager::LogicManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+LogicManager::LogicManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
-  _subModules.insert(std::make_pair(ID_SCRIPT_MANAGER, std::make_unique<ScriptManager>(*this)));
-  _subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AiManager>(*this)));
+  _subModules.insert(std::make_pair(ID_SCRIPT_MANAGER, std::make_unique<ScriptManager>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AiManager>(*this, _pEngineContext)));
 
   DLog(eLogType::Success, "\t LogicManager instance created.");
 }

@@ -17,7 +17,7 @@ class MaterialManager :
 public:
   MaterialManager() = delete;
 
-  MaterialManager(BaseModule &parentModule);
+  MaterialManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~MaterialManager();
 
   virtual bool Initialize() override;

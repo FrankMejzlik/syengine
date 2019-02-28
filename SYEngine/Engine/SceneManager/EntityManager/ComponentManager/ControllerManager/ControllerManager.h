@@ -12,7 +12,7 @@ class ControllerManager :
 public:
   ControllerManager() = delete;
 
-  ControllerManager(BaseModule &parentModule);
+  ControllerManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~ControllerManager();
 
   virtual bool Initialize() override;

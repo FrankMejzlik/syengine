@@ -16,3 +16,12 @@ void EngineContext::SetShouldRun(bool newValue)
   _shouldRun = newValue;
 }
 
+void EngineContext::SetModule(size_t indexKey, BaseModule* pModule)
+{
+  _pModules.insert(std::make_pair(indexKey, pModule));
+}
+
+BaseModule* EngineContext::GetModule(size_t indexKey) const
+{
+  return _pModules.at(indexKey);
+}

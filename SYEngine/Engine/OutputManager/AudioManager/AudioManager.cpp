@@ -1,8 +1,8 @@
 
 #include "AudioManager.h"
 
-AudioManager::AudioManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+AudioManager::AudioManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   DLog(eLogType::Success, "\t AudioManager instance created.");
 }

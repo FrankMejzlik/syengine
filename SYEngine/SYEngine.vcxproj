@@ -241,7 +241,6 @@
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshGenerator.cpp" />
-    <ClCompile Include="Engine\OutputManager\AudioManager\MusicManager.cpp" />
     <ClCompile Include="Engine\OutputManager\AudioManager\SoundManager.cpp" />
     <ClCompile Include="Engine\InputManager\MouseManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.cpp" />
@@ -345,7 +344,6 @@
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshGenerator.h" />
-    <ClInclude Include="Engine\OutputManager\AudioManager\MusicManager.h" />
     <ClInclude Include="Engine\OutputManager\AudioManager\SoundManager.h" />
     <ClInclude Include="Engine\InputManager\KeyboardManager.h" />
     <ClInclude Include="Engine\InputManager\MouseManager.h" />

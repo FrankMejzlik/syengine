@@ -27,7 +27,7 @@ class RenderingManager :
 public:
   RenderingManager() = delete;
 
-  RenderingManager(BaseModule &parentModule);
+  RenderingManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~RenderingManager();
 
   virtual bool Initialize() override;

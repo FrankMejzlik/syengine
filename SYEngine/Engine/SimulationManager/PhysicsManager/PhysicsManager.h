@@ -18,7 +18,7 @@ class PhysicsManager :
 {
 public:
   PhysicsManager() = delete;
-  PhysicsManager(BaseModule &parentModule) noexcept;
+  PhysicsManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~PhysicsManager() noexcept;
 
   virtual bool Initialize() override;

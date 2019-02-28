@@ -21,7 +21,7 @@ class MeshManager :
 public:
   MeshManager() = delete;
 
-  MeshManager(BaseModule &parentModule);
+  MeshManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~MeshManager();
 
   virtual bool Initialize() override;

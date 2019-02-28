@@ -12,7 +12,7 @@ class SkyboxManager :
 public:
   SkyboxManager() = delete;
 
-  SkyboxManager(BaseModule &parentModule);
+  SkyboxManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~SkyboxManager();
 
   virtual bool Initialize() override;

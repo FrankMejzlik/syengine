@@ -6,11 +6,10 @@
 
 using namespace SYE;
 
-PhysicsManager::PhysicsManager(BaseModule& parentModule) noexcept:
-  BaseModule(parentModule),
+PhysicsManager::PhysicsManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext),
   _pPhysicsScene(nullptr)
 {
-
   DLog(eLogType::Success, "\t PhysicsManager instance created.");
 }
 
@@ -74,9 +73,9 @@ PhysicsDebugRenderer* PhysicsManager::GetDebugRendererPtr() const
 {
   BaseModule& engineModule = _parentModule.GetParentModuleRef();
 
-  BaseModule* pOutputManager = engineModule.GetSubModules()[ID_OUTPUT_MANAGER].get();
+  BaseModule* pOutputManager = engineModule.GetSubModulesRef()[ID_OUTPUT_MANAGER].get();
 
-  BaseModule* pRenderingManager = pOutputManager->GetSubModules()[ID_RENDERING_MANAGER].get();
+  BaseModule* pRenderingManager = pOutputManager->GetSubModulesRef()[ID_RENDERING_MANAGER].get();
 
   return static_cast<RenderingManager*>(pRenderingManager)->GetPhysicsDebugRendererPtr();
 }

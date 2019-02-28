@@ -28,7 +28,7 @@ public:
 
 
   InputManager() = delete;
-  InputManager(BaseModule& parentModule) noexcept;
+  InputManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~InputManager() noexcept;
   
 

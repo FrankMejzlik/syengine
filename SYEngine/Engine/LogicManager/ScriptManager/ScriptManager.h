@@ -15,7 +15,7 @@ class ScriptManager :
 public:
   ScriptManager() = delete;
 
-  ScriptManager(BaseModule &parentModule);
+  ScriptManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~ScriptManager();
 
   virtual bool Initialize() override;

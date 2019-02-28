@@ -13,7 +13,7 @@ class AudioManager :
 public:
   AudioManager() = delete;
 
-  AudioManager(BaseModule &parentModule);
+  AudioManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~AudioManager();
 
   virtual bool Initialize() override;

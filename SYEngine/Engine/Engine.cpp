@@ -10,24 +10,34 @@ using namespace SYE;
 
 Engine::Engine(ProcessInstance* pInstance) noexcept :
   BaseModule(MAGIC_BASE_MODULE_NUMBER), // Identify as root module.
-  _pInstance(pInstance) // Save OS instance handle.
+  _pInstance(pInstance), // Save OS instance handle,
+  _pOwningEngineContext(std::make_unique<EngineContext>())
 {
+  // Setup your own poniner
+  SetEngineContextPtr(_pOwningEngineContext.get());
+
 #if RUN_ENGINE_API
 
   // Insert EngineAPI instance.
-  _subModules.insert(std::make_pair(ID_ENGINE_API, std::make_unique<EngineApi>(*this)));
+  _subModules.insert(std::make_pair(ID_ENGINE_API, std::make_unique<EngineApi>(*this, _pOwningEngineContext.get())));
   // Set engine pointer to this.
   SetEngineApiPointer(static_cast<EngineApi*>(_subModules.find(ID_ENGINE_API)->second.get()));
 
 #endif
 
   // Instantiate submodules.
-  _subModules.insert(std::make_pair(ID_SCENE_MANAGER, std::make_unique<SceneManager>(*this)));
-  _subModules.insert(std::make_pair(ID_INPUT_MANAGER, std::make_unique<InputManager>(*this)));
-  _subModules.insert(std::make_pair(ID_NETWORK_MANAGER, std::make_unique<NetworkManager>(*this)));
-  _subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(*this)));
-  _subModules.insert(std::make_pair(ID_SIMULATION_MANAGER, std::make_unique<SimulationManager>(*this)));
-  _subModules.insert(std::make_pair(ID_OUTPUT_MANAGER, std::make_unique<OutputManager>(*this)));
+  _subModules.insert(std::make_pair(ID_SCENE_MANAGER, std::make_unique<SceneManager>(*this, _pOwningEngineContext.get())));
+  _subModules.insert(std::make_pair(ID_INPUT_MANAGER, std::make_unique<InputManager>(*this, _pOwningEngineContext.get())));
+  _subModules.insert(std::make_pair(ID_NETWORK_MANAGER, std::make_unique<NetworkManager>(*this, _pOwningEngineContext.get())));
+  _subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(*this, _pOwningEngineContext.get())));
+  _subModules.insert(std::make_pair(ID_SIMULATION_MANAGER, std::make_unique<SimulationManager>(*this, _pOwningEngineContext.get())));
+  _subModules.insert(std::make_pair(ID_OUTPUT_MANAGER, std::make_unique<OutputManager>(*this, _pOwningEngineContext.get())));
+
+  // Insert pointers to all these modules into EngineContext
+  /*for (auto&& modulePair : _subModules)
+  {
+
+  }*/
 
   DLog(eLogType::Success, "Engine instance created.");
 }
@@ -88,7 +98,7 @@ bool Engine::Run()
 
   // Set Scene's InputManager
   pScene->SetInputManagerPtr(INPUT_MANAGER);
-  pScene->SetPhysicsManagerPtr(static_cast<PhysicsManager*>(SIMULATION_MANAGER->GetSubModules()[ID_PHYSICS_MANAGER].get()));
+  pScene->SetPhysicsManagerPtr(static_cast<PhysicsManager*>(SIMULATION_MANAGER->GetSubModulesRef()[ID_PHYSICS_MANAGER].get()));
 
 
   // Initialize physics.
@@ -101,7 +111,7 @@ bool Engine::Run()
   dfloat deltaTime = 0.0f;
 
   // Main game loop.
-  while (_pEngineContext.ShouldRun())
+  while (_pEngineContext->ShouldRun())
   {
     // TODO: Implement in TimeStamp class.
     // Get delta time.

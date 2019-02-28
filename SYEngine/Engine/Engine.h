@@ -64,21 +64,21 @@ public:
   bool DetachScene(Scene* pScene);
 
 private:
-  // Instance that this Engine is running in.
-  ProcessInstance* _pInstance;
-  
-  /** Engine context holding all engine relevant data that is needed across application */
-  EngineContext _pEngineContext;
-
-  /** Scenes attached to this Engine instance */
-  std::vector<Scene*> _scenes;
-
   void ProcessFrame(dfloat deltaTime, Scene* pScene, Window* pMainWindow);
   void ProcessImGui();
   void CheckModuleStates();
 
-public:
+
+  // Attributes
+private:
+  // Instance that this Engine is running in.
+  ProcessInstance* _pInstance;
   
+  /** Engine context holding all engine relevant data that is needed across application */
+  std::unique_ptr<EngineContext> _pOwningEngineContext;
+
+  /** Scenes attached to this Engine instance */
+  std::map<size_t, Scene*> _scenes;
 
 };
 

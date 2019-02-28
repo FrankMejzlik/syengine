@@ -25,8 +25,7 @@ public:
   static Scene* GetActiveScene();
   
   SceneManager() = delete;
-  SceneManager(BaseModule& parentModule) noexcept;
-
+  SceneManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~SceneManager() noexcept;
   
   virtual bool Initialize() override;

@@ -12,7 +12,7 @@ class MouseManager :
 public:
   MouseManager() = delete;
 
-  MouseManager(BaseModule &parentModule);
+  MouseManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~MouseManager();
 
   virtual bool Initialize() override;

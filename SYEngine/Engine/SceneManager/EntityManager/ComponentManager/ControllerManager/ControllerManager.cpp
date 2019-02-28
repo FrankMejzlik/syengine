@@ -2,8 +2,8 @@
 
 using namespace SYE;
 
-ControllerManager::ControllerManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+ControllerManager::ControllerManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   DLog(eLogType::Success, "\t\t\t ControllerManager instance created.");
 }

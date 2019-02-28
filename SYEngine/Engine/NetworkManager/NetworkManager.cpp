@@ -1,8 +1,8 @@
 
 #include "NetworkManager.h"
 
-NetworkManager::NetworkManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+NetworkManager::NetworkManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   DLog(eLogType::Success, "NetworkManager instance created.");
 }

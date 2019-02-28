@@ -12,7 +12,7 @@ class KeyboardManager :
 public:
   KeyboardManager() = delete;
 
-  KeyboardManager(BaseModule &parentModule);
+  KeyboardManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~KeyboardManager();
 
   virtual bool Initialize() override;

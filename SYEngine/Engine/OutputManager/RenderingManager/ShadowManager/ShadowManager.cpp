@@ -2,13 +2,9 @@
 
 using namespace SYE;
 
-ShadowManager::ShadowManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+ShadowManager::ShadowManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
-  // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(this)));
-
   DLog(eLogType::Success, "\t\t ShadowManager instance created.");
 }
 

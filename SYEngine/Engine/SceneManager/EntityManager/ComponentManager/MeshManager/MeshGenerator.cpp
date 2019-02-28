@@ -2,12 +2,9 @@
 
 using namespace SYE;
 
-MeshGenerator::MeshGenerator(BaseModule& parentModule) noexcept:
-  BaseModule(parentModule)
+MeshGenerator::MeshGenerator(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
-  // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_unique<MeshGenerator>(*this)));
-
   DLog(eLogType::Success, "\t\t\t MeshGenerator instance created.");
 }
 

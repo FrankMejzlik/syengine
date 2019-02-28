@@ -1,10 +1,10 @@
 #include "OutputManager.h"
 
-OutputManager::OutputManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+OutputManager::OutputManager(BaseModule &parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_RENDERING_MANAGER, std::make_unique<RenderingManager>(*this)));
+  _subModules.insert(std::make_pair(ID_RENDERING_MANAGER, std::make_unique<RenderingManager>(*this, _pEngineContext)));
   
 
   DLog(eLogType::Success, "OutputManager instance created.");

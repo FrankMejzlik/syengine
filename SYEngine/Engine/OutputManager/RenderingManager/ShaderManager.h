@@ -4,7 +4,8 @@
 
 using namespace SYE;
 
-namespace SYE {
+namespace SYE 
+{
 
 class ShaderManager :
   public BaseModule
@@ -12,7 +13,7 @@ class ShaderManager :
 public:
   ShaderManager() = delete;
 
-  ShaderManager(BaseModule &parentModule);
+  ShaderManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~ShaderManager();
 
   virtual bool Initialize() override;

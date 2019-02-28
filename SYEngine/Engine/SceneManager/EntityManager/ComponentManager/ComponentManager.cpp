@@ -15,17 +15,16 @@
 
 using namespace SYE; 
 
-ComponentManager::ComponentManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+ComponentManager::ComponentManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   // Instantiate all submodules.
-  _subModules.insert(std::make_pair(ID_CONTROLLER_MANAGER, std::make_unique<ControllerManager>(*this)));
-  _subModules.insert(std::make_pair(ID_MATERIAL_MANAGER, std::make_unique<MaterialManager>(*this)));
-  _subModules.insert(std::make_pair(ID_MESH_MANAGER, std::make_unique<MeshManager>(*this)));
-  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_unique<MeshGenerator>(*this)));
-  _subModules.insert(std::make_pair(ID_MODEL_MANAGER, std::make_unique<ModelManager>(*this)));
-  _subModules.insert(std::make_pair(ID_SKYBOX_MANAGER, std::make_unique<SkyboxManager>(*this)));
-  _subModules.insert(std::make_pair(ID_TEXTURE_MANAGER, std::make_unique<TextureManager>(*this)));
+  _subModules.insert(std::make_pair(ID_MATERIAL_MANAGER, std::make_unique<MaterialManager>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_MESH_MANAGER, std::make_unique<MeshManager>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_unique<MeshGenerator>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_MODEL_MANAGER, std::make_unique<ModelManager>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_SKYBOX_MANAGER, std::make_unique<SkyboxManager>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_TEXTURE_MANAGER, std::make_unique<TextureManager>(*this, _pEngineContext)));
 
   DLog(eLogType::Success, "\t\tComponentManager instance created.");
 }

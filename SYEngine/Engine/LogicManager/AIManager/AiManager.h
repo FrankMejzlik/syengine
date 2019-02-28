@@ -15,7 +15,7 @@ class AiManager :
 public:
   AiManager() = delete;
 
-  AiManager(BaseModule &parentModule);
+  AiManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~AiManager();
 
   virtual bool Initialize() override;

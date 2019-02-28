@@ -2,16 +2,9 @@
 
 using namespace SYE;
 
-MaterialManager::MaterialManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+MaterialManager::MaterialManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
-  // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(this)));
-  
-  //_genericMaterials.insert(std::make_pair(std::string("shiny_material"), std::make_unique<Material>(1.0f, 512)));
-  //_genericMaterials.insert(std::make_pair(std::string("dull_material"), std::make_unique<Material>(0.3f, 4)));
-
   DLog(eLogType::Success, "\t\t\t MaterialManager instance created.");
 }
 

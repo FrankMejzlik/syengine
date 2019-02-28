@@ -2,10 +2,10 @@
 
 using namespace SYE;
 
-EntityManager::EntityManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+EntityManager::EntityManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
-  _subModules.insert(std::make_pair(ID_COMPONENT_MANAGER, std::make_unique<ComponentManager>(*this)));
+  _subModules.insert(std::make_pair(ID_COMPONENT_MANAGER, std::make_unique<ComponentManager>(*this, _pEngineContext)));
 
   DLog(eLogType::Success, "\t EntityManager instance created.");
 }

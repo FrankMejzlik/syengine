@@ -17,12 +17,12 @@ int InputManager::_deltaX = 0;
 int InputManager::_deltaY = 0;
 bool InputManager::_mouseFirstMoved = false;
 
-InputManager::InputManager(BaseModule &parentModule) noexcept:
-  BaseModule(parentModule)
+InputManager::InputManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   // Instantiate submodules into map container
-  _subModules.insert(std::make_pair(ID_KEYBOARD_MANAGER, std::make_unique<KeyboardManager>(*this)));
-  _subModules.insert(std::make_pair(ID_MOUSE_MANAGER, std::make_unique<MouseManager>(*this)));
+  _subModules.insert(std::make_pair(ID_KEYBOARD_MANAGER, std::make_unique<KeyboardManager>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_MOUSE_MANAGER, std::make_unique<MouseManager>(*this, _pEngineContext)));
   
 
   DLog(eLogType::Success, "InputManager instance created.");

@@ -14,10 +14,10 @@ Scene* SceneManager::GetActiveScene()
   return _pActiveScene;
 }
 
-SceneManager::SceneManager(BaseModule& parentModule) noexcept:
-  BaseModule(parentModule)
+SceneManager::SceneManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
-  _subModules.insert(std::make_pair(ID_ENTITY_MANAGER, std::make_unique<EntityManager>(*this)));
+  _subModules.insert(std::make_pair(ID_ENTITY_MANAGER, std::make_unique<EntityManager>(*this, _pEngineContext)));
 
   DLog(eLogType::Success, "SceneManager instance created.");
 }

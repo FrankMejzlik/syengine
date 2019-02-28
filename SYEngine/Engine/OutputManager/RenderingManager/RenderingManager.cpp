@@ -14,13 +14,13 @@
 
 using namespace SYE;
 
-RenderingManager::RenderingManager(BaseModule &parentModule):
-  BaseModule(parentModule),
+RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext),
   _pPhysicsDebugRenderer(std::make_unique<PhysicsDebugRenderer>())
 {
   // Add submodules for this module.
-  _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_unique<WindowManager>(*this)));
-  _subModules.insert(std::make_pair(ID_SHADOW_MANAGER, std::make_unique<ShadowManager>(*this)));
+  _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_unique<WindowManager>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_SHADOW_MANAGER, std::make_unique<ShadowManager>(*this, _pEngineContext)));
   
   // Set debug renderer level
   _pPhysicsDebugRenderer->setDebugMode(0);

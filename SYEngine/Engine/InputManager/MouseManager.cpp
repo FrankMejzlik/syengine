@@ -2,8 +2,8 @@
 
 using namespace SYE;
 
-MouseManager::MouseManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+MouseManager::MouseManager(BaseModule& parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
   DLog(eLogType::Success, "\t MouseManager instance created.");
 }

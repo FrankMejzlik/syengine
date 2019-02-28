@@ -24,7 +24,7 @@ class OutputManager :
 public:
   OutputManager() = delete;
 
-  OutputManager(BaseModule &parentModule);
+  OutputManager(BaseModule &parentModule, EngineContext* pEngineContext);
   ~OutputManager();
 
   virtual bool Initialize() override;

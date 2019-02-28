@@ -26,7 +26,7 @@ class ComponentManager:
 public:
   ComponentManager() = delete;
 
-  ComponentManager(BaseModule& parentModule);
+  ComponentManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~ComponentManager();
 
   virtual bool Initialize() override;

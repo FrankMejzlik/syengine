@@ -13,7 +13,7 @@ class LogicManager:
 public:
   LogicManager() = delete;
 
-  LogicManager(BaseModule &parentModule);
+  LogicManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~LogicManager();
 
   virtual bool Initialize() override;

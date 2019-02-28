@@ -18,7 +18,7 @@ class SimulationManager :
 public:
   SimulationManager() = delete;
 
-  SimulationManager(BaseModule &parentModule);
+  SimulationManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~SimulationManager();
 
   virtual bool Initialize() override;

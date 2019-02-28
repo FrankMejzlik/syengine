@@ -3,13 +3,10 @@
 
 using namespace SYE;
 
-AnimationManager::AnimationManager(BaseModule &parentModule):
-  BaseModule(parentModule)
+AnimationManager::AnimationManager(BaseModule &parentModule, EngineContext* pEngineContext):
+  BaseModule(parentModule, pEngineContext)
 {
-  // Instantiate submodules into map container
-  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AIManager>(this)));
-  //_subModules.insert(std::make_pair(ID_LOGIC_MANAGER, std::make_unique<LogicManager>(this)));
-
+  
   DLog(eLogType::Success, "\t AnimationManager instance created.");
 }
 
