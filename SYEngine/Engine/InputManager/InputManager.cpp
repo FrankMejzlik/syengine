@@ -24,6 +24,8 @@ InputManager::InputManager(BaseModule& parentModule, EngineContext* pEngineConte
   _subModules.insert(std::make_pair(ID_KEYBOARD_MANAGER, std::make_unique<KeyboardManager>(*this, _pEngineContext)));
   _subModules.insert(std::make_pair(ID_MOUSE_MANAGER, std::make_unique<MouseManager>(*this, _pEngineContext)));
   
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
 
   DLog(eLogType::Success, "InputManager instance created.");
 }

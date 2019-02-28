@@ -33,11 +33,8 @@ Engine::Engine(ProcessInstance* pInstance) noexcept :
   _subModules.insert(std::make_pair(ID_SIMULATION_MANAGER, std::make_unique<SimulationManager>(*this, _pOwningEngineContext.get())));
   _subModules.insert(std::make_pair(ID_OUTPUT_MANAGER, std::make_unique<OutputManager>(*this, _pOwningEngineContext.get())));
 
-  // Insert pointers to all these modules into EngineContext
-  /*for (auto&& modulePair : _subModules)
-  {
-
-  }*/
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
 
   DLog(eLogType::Success, "Engine instance created.");
 }

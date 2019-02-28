@@ -5,6 +5,9 @@ using namespace SYE;
 MouseManager::MouseManager(BaseModule& parentModule, EngineContext* pEngineContext):
   BaseModule(parentModule, pEngineContext)
 {
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t MouseManager instance created.");
 }
 

@@ -7,6 +7,9 @@ SimulationManager::SimulationManager(BaseModule& parentModule, EngineContext* pE
   // Instantiate submodules into map container
   _subModules.insert(std::make_pair(ID_PHYSICS_MANAGER, std::make_unique<PhysicsManager>(*this, _pEngineContext)));
 
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "SimulationManager instance created.");
 }
 

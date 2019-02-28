@@ -9,6 +9,9 @@ MeshManager::MeshManager(BaseModule& parentModule, EngineContext* pEngineContext
   // Instantiate submodules into map container
   _subModules.insert(std::make_pair(ID_MESH_GENERATOR, std::make_unique<MeshGenerator>(*this, _pEngineContext)));
 
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t\t\t MeshManager instance created.");
 }
 

@@ -4,6 +4,9 @@
 AudioManager::AudioManager(BaseModule& parentModule, EngineContext* pEngineContext):
   BaseModule(parentModule, pEngineContext)
 {
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t AudioManager instance created.");
 }
 

@@ -22,6 +22,9 @@ RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEng
   _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_unique<WindowManager>(*this, _pEngineContext)));
   _subModules.insert(std::make_pair(ID_SHADOW_MANAGER, std::make_unique<ShadowManager>(*this, _pEngineContext)));
   
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   // Set debug renderer level
   _pPhysicsDebugRenderer->setDebugMode(0);
 

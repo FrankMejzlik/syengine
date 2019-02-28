@@ -1,5 +1,7 @@
 #include "BaseModule.h"
 
+#include "EngineContext.h"
+
 using namespace SYE;
 
 
@@ -27,4 +29,15 @@ void BaseModule::SetEngineApiPointer(const EngineApi* const pEngineApi)
 {
   _pEngineApi = pEngineApi;
   return;
+}
+
+void BaseModule::EnlistSubmodulesToEngineContext()
+{
+  // Iterate through all submodules and add them into pointer table
+  for (auto&& modulePair : _subModules)
+  {
+    BaseModule* pModule = modulePair.second.get();
+    
+    _pEngineContext->SetModule(static_cast<size_t>(modulePair.first), pModule);
+  }
 }

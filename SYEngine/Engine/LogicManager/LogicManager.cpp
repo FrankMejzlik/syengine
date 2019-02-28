@@ -11,6 +11,9 @@ LogicManager::LogicManager(BaseModule& parentModule, EngineContext* pEngineConte
   _subModules.insert(std::make_pair(ID_SCRIPT_MANAGER, std::make_unique<ScriptManager>(*this, _pEngineContext)));
   _subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AiManager>(*this, _pEngineContext)));
 
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t LogicManager instance created.");
 }
 

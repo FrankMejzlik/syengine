@@ -52,6 +52,9 @@ public:
   
   EngineContext* GetEngineContextPtr() const { return _pEngineContext; };
   
+protected:
+  void EnlistSubmodulesToEngineContext();
+
 private:
   void SetEngineContextPtr(EngineContext* pEngineContext) { _pEngineContext = pEngineContext; }
 

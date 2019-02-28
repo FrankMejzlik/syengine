@@ -4,6 +4,9 @@
 WindowManager::WindowManager(BaseModule& parentModule, EngineContext* pEngineContext):
   BaseModule(parentModule, pEngineContext)
 {
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t\t WindowManager instance created.");
 }
 

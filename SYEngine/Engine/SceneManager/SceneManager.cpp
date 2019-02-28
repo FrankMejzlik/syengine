@@ -19,6 +19,9 @@ SceneManager::SceneManager(BaseModule& parentModule, EngineContext* pEngineConte
 {
   _subModules.insert(std::make_pair(ID_ENTITY_MANAGER, std::make_unique<EntityManager>(*this, _pEngineContext)));
 
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "SceneManager instance created.");
 }
 

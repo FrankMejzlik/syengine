@@ -6,6 +6,8 @@ OutputManager::OutputManager(BaseModule &parentModule, EngineContext* pEngineCon
   // Instantiate submodules into map container
   _subModules.insert(std::make_pair(ID_RENDERING_MANAGER, std::make_unique<RenderingManager>(*this, _pEngineContext)));
   
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
 
   DLog(eLogType::Success, "OutputManager instance created.");
 }

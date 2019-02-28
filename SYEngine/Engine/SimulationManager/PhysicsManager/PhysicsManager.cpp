@@ -10,6 +10,9 @@ PhysicsManager::PhysicsManager(BaseModule& parentModule, EngineContext* pEngineC
   BaseModule(parentModule, pEngineContext),
   _pPhysicsScene(nullptr)
 {
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t PhysicsManager instance created.");
 }
 

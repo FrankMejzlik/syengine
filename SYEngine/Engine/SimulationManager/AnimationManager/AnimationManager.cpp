@@ -7,6 +7,9 @@ AnimationManager::AnimationManager(BaseModule &parentModule, EngineContext* pEng
   BaseModule(parentModule, pEngineContext)
 {
   
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t AnimationManager instance created.");
 }
 

@@ -7,6 +7,9 @@ EntityManager::EntityManager(BaseModule& parentModule, EngineContext* pEngineCon
 {
   _subModules.insert(std::make_pair(ID_COMPONENT_MANAGER, std::make_unique<ComponentManager>(*this, _pEngineContext)));
 
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t EntityManager instance created.");
 }
 

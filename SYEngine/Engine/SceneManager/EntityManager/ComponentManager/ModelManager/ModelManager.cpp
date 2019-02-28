@@ -6,6 +6,9 @@ using namespace SYE;
 ModelManager::ModelManager(BaseModule& parentModule, EngineContext* pEngineContext):
   BaseModule(parentModule, pEngineContext)
 {
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t\t\t ModelManager instance created.");
 }
 

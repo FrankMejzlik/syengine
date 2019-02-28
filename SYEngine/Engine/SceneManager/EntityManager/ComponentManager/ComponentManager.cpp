@@ -26,6 +26,9 @@ ComponentManager::ComponentManager(BaseModule& parentModule, EngineContext* pEng
   _subModules.insert(std::make_pair(ID_SKYBOX_MANAGER, std::make_unique<SkyboxManager>(*this, _pEngineContext)));
   _subModules.insert(std::make_pair(ID_TEXTURE_MANAGER, std::make_unique<TextureManager>(*this, _pEngineContext)));
 
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t\tComponentManager instance created.");
 }
 

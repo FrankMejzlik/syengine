@@ -5,6 +5,10 @@ using namespace SYE;
 KeyboardManager::KeyboardManager(BaseModule& parentModule, EngineContext* pEngineContext):
   BaseModule(parentModule, pEngineContext)
 {
+
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t KeyboardManager instance created.");
 }
 

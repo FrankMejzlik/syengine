@@ -5,6 +5,9 @@ using namespace SYE;
 TextureManager::TextureManager(BaseModule& parentModule, EngineContext* pEngineContext):
   BaseModule(parentModule, pEngineContext)
 {
+  // Enlist all submodules into EngineContext ptr table
+  EnlistSubmodulesToEngineContext();
+
   DLog(eLogType::Success, "\t\t\tTextureManager instance created.");
 }
 
