@@ -16,6 +16,7 @@
 #include "PhysicsManager.h"
 
 #include "ComponentManager.h"
+#include "Scene.h"
 
 namespace SYE 
 {
@@ -26,6 +27,7 @@ class Model;
 class Scene;
 class Transform;
 class PhysicsBody;
+class EntityManager;
 
 
 /**
@@ -53,7 +55,7 @@ public:
 
 public:
   Entity() = delete;
-  Entity(Scene* pOwnerScene, ComponentManager* pComponentManager) noexcept;
+  Entity(Scene* pOwnerScene, EntityManager* pEntityManager, ComponentManager* pComponentManager) noexcept;
 
   virtual ~Entity();
 
@@ -83,17 +85,17 @@ public:
     ComponentType* pNewComponent = _pComponentManager->CreateComponent<ComponentType>(this);
     
     // Try to attach it to this Entity
-    ComponentType* resultPtr = AttachComponent<ComponentType>(pNewComponent);
-    
-    // If cannot attach to this Component
-    if (resultPtr == nullptr)
-    {
-      // Destroy it
-      _pComponentManager->RemoveComponent(pNewComponent);
-    }
+    //ComponentType* resultPtr = AttachComponent<ComponentType>(pNewComponent);
+    //
+    //// If cannot attach to this Component
+    //if (resultPtr == nullptr)
+    //{
+    //  // Destroy it
+    //  _pComponentManager->DestroyComponent(pNewComponent);
+    //}
 
     // If attached, enlist it in active components in scene in order to be processed
-    _pOwnerScene->EnlistComponent(pNewComponent);
+    //_pOwnerScene->EnlistComponent(pNewComponent);
 
     // Trigger refresh on all Components
     RefreshComponents();
@@ -133,21 +135,12 @@ public:
     }
 
     bool isDuplicate = false;
-    auto newPair = std::make_pair(pNewComponent->GetGuid(), pNewComponent);
 
-    // Try inserting it in its place to correct slot index
-    auto result = _primaryComponentSlots[slotIndex].insert(newPair);
-    if (result.second == false)
-    {
-      isDuplicate = true;
-    }
+    // Enlist to self Entity
+    isDuplicate = !EnlistComponent(pNewComponent);
 
-    // Insert it into list of all Components that this Entity owns
-    result = _components.insert(newPair);
-    if (result.second == false)
-    {
-      isDuplicate = true;
-    }
+    // Enlist it to Scene as well
+    isDuplicate = !(_pOwnerScene->EnlistComponent(pNewComponent));
 
     // If was duplicate in some list, something is not right
     if (isDuplicate)
@@ -159,8 +152,11 @@ public:
       );
     } 
 
-    return static_cast<ComponentType*>(&(*(result.first->second)));
+    return static_cast<ComponentType*>(pNewComponent);
   }
+
+  bool EnlistComponent(Component* pComponent);
+  bool DelistComponent(Component* pComponent);
 
 protected:
   void RefreshComponents();
@@ -170,6 +166,9 @@ protected:
 protected:
   /** Pointer to ComponentManager that is dedicated for this Entity. */
   ComponentManager* _pComponentManager;
+
+  EntityManager* _pEntityManager;
+
   Scene* _pOwnerScene;
 
   /** If this Entity is not going to change during time */

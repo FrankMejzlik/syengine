@@ -53,17 +53,9 @@ bool EntityManager::Terminate()
   return true;
 }
 
-Entity* EntityManager::CreateEntity(Scene* pOwnerScene)
+bool EntityManager::DestroyEntity(Entity* pEntity)
 {
-  // Instantiate new Entity
-  std::unique_ptr<Entity> newEntity = std::make_unique<Entity>(pOwnerScene, COMPONENT_MANAGER);
+  auto result = _entities.erase(pEntity->GetGuid());
 
-  return InsertEntity(std::move(newEntity));
-}
-
-Entity* EntityManager::InsertEntity(std::unique_ptr<Entity>&& pNewEntity)
-{
-  auto result = _entities.insert(std::make_pair(pNewEntity->GetGuid(), std::move(pNewEntity)));
-
-  return result.first->second.get();
+  return (result > 0);
 }

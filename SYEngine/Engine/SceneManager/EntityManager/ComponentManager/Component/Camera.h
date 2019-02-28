@@ -15,6 +15,7 @@
 
 namespace SYE 
 {
+
 class Window;
 class Transform;
 
@@ -36,8 +37,9 @@ public:
 	Camera(
     Entity* pOwnerEntity, 
     const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
-  ) noexcept;
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = CAMERA, Component::eType type = eType::CAMERA
+  ) ;
 
   virtual void Refresh() override;
 
@@ -46,8 +48,7 @@ public:
   const glm::mat4& GetPerspectiveProjectionMatrixConstRef();
 
   Vector3f GetPickingRay(int x, int y);
-
-
+  
   void SetFov(dfloat fovAngle);
   dfloat GetFov() const;
 
@@ -60,6 +61,7 @@ private:
   void CalculateViewMatrix();
   void CalculateOrthoProjectionMatrix();
   void CalculatePerspectiveProjectionMatrix();
+  
 
 
   // Attributes

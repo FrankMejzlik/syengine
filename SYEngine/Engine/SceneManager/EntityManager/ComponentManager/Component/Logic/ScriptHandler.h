@@ -16,8 +16,9 @@ public:
   ScriptHandler(
     Entity* pOwnerEntity, 
     const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
-  ) noexcept;
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = SCRIPT_HANDLER, Component::eType type = eType::SCRIPT_HANDLER
+  );
   virtual ~ScriptHandler() noexcept;
 
   void Refresh();
@@ -26,7 +27,7 @@ public:
   ScriptClass* AddScript()
   {
     // Create new Component
-    ScriptClass* pScript = _pComponentManager->CreateComponent<ScriptClass>(_pOwnerEntity);
+    ScriptClass* pScript = _pComponentManager->CreateComponent<ScriptClass>(_pOwnerEntity, this);
 
     // Setup child Script ptr to self
     pScript->SetParentPtr(this);

@@ -7,10 +7,15 @@
 using namespace SYE;
 
 
-SpotLight::SpotLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept :
-  PointLight(pOwnerEntity, subModulesConstRef, primaryComponentSlots)
+SpotLight::SpotLight(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+):
+  PointLight(pOwnerEntity, subModulesConstRef, primaryComponentSlots, slotIndex, type)
 {
-  _type = eType::SPOT_LIGHT;
+ 
 }
 
 SpotLight::~SpotLight() noexcept

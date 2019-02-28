@@ -23,8 +23,13 @@ class Mesh:
 {
 public:
   Mesh() = delete;
-  Mesh(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept;
-  ~Mesh() noexcept;
+  Mesh(
+    Entity* pOwnerEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::MESH
+  );
+  virtual ~Mesh() noexcept;
 
 
   virtual void CreateMesh_(

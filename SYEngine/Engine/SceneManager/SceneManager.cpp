@@ -3,6 +3,7 @@
 
 #include "Camera.h"
 #include "ScriptHandler.h"
+#include "Script.h"
 
 #include "script_includes.h"
 

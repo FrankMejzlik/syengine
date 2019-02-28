@@ -1,8 +1,12 @@
 #pragma once
+
+namespace SYE
+{
+
 class IGuidCounted
 {
 public:
-  IGuidCounted():
+  IGuidCounted() :
     _guid(_nextGuid)
   {
     // Increment counters.
@@ -25,3 +29,4 @@ private:
   size_t _guid;
 };
 
+};

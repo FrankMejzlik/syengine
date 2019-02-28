@@ -3,23 +3,74 @@
 #include "Scene.h"
 
 #include "PhysicsBody.h"
+#include "EntityManager.h"
 
 using namespace SYE;
 
-Entity::Entity(Scene* pOwnerScene, ComponentManager* pComponentManager) noexcept :
+Entity::Entity(Scene* pOwnerScene, EntityManager* pEntityManager, ComponentManager* pComponentManager) noexcept :
   _pParent(nullptr),
+  _pEntityManager(pEntityManager),
   _pOwnerScene(pOwnerScene),
   _isStatic(true),
   _pComponentManager(pComponentManager),
   _type(Entity::eType::WORLD)
-{}
+{
+  // Enlist self in owner Scene
+  _pOwnerScene->EnlistEntity(this);
+}
 
-Entity::~Entity() 
-{}
+Entity::~Entity()
+{
+  // Destroy all children Entities
+  for (auto&& childPair : _children)
+  {
+    _pEntityManager->DestroyEntity(childPair.second);
+  }
+
+  // Destroy all Components that it owns
+  for (auto&& componentPair : _components)
+  {
+    _pComponentManager->DestroyComponent(componentPair.second);
+  }
+
+  // Delist self from owning scene
+  _pOwnerScene->DelistEntity(this);
+
+}
 
 ComponentManager* Entity::GetComponentManagerPtr()
 {
   return _pComponentManager;
+}
+
+
+bool Entity::EnlistComponent(Component* pComponent)
+{
+  auto newPair = std::make_pair(pComponent->GetGuid(), pComponent);
+
+  _primaryComponentSlots[pComponent->GetSlotIndex()].insert(newPair);
+
+  // Try inserting it in its place to correct slot index
+  auto result = _components.insert(newPair);
+
+  if (result.second == false)
+  {
+    return false;
+  }
+
+  return false;
+}
+
+bool Entity::DelistComponent(Component* pComponent)
+{
+  // Delist it from Scene first
+  _pOwnerScene->DelistComponent(pComponent);
+
+  auto result = _components.erase(pComponent->GetGuid());
+  
+  _primaryComponentSlots[pComponent->GetSlotIndex()].erase(pComponent->GetGuid());
+
+  return (result > 0);
 }
 
 PhysicsBody* Entity::GetPhysicsBodyPtr() const

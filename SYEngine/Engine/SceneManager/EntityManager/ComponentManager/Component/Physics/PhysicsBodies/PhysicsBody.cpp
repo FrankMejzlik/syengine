@@ -5,20 +5,25 @@
 
 #include "Scene.h"
 #include "PhysicsScene.h"
+#include "Transform.h"
 
 using namespace SYE;
 
-PhysicsBody::PhysicsBody(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept:
+PhysicsBody::PhysicsBody(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+):
   Component(
     pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     true, true, 
-    PHYSICS_BODY
+    slotIndex, type
     ),
   _pCollider(nullptr),
   _mass(0.0f),
   _isKinematic(false)
 {
-  _type = eType::PHYSICS_BODY;
 }
 
 void PhysicsBody::SetCollider(Collider* pCollider)
@@ -32,6 +37,20 @@ void PhysicsBody::SetCollider(Collider* pCollider)
 void PhysicsBody::SetPhysicsEntity(PhysicsEntity* pPhysEntity)
 {
   _pPhysEntity = pPhysEntity;
+}
+
+void PhysicsBody::Refresh()
+{
+  /**
+  * Update all quick refs to sibling Components
+  */
+
+  // Update Transform quick ref
+  if (!_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].empty())
+  {
+    _pTransform = static_cast<Transform*>(_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].begin()->second);
+  }
+
 }
 
 
@@ -110,6 +129,6 @@ bool PhysicsBody::IsDynamic() const
 void PhysicsBody::ClearCollider()
 {
   // Detroy Collider
-  _pComponentManager->RemoveComponent(static_cast<Component*>(_pCollider));
+  _pComponentManager->DestroyComponent(static_cast<Component*>(_pCollider));
   _pCollider = nullptr;
 }

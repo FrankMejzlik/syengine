@@ -2,19 +2,17 @@
 
 using namespace SYE;
 
-bool EngineContext::gTorchOn = false;
-
 EngineContext::EngineContext():
-  _bShouldRun(true)
+  _shouldRun(true)
 {}
 
-bool EngineContext::GetBShouldRun() const
+bool EngineContext::ShouldRun() const
 {
-  return _bShouldRun;
+  return _shouldRun;
 }
 
-void EngineContext::SetBShouldRun(bool newValue)
+void EngineContext::SetShouldRun(bool newValue)
 {
-  _bShouldRun = newValue;
+  _shouldRun = newValue;
 }
 

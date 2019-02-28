@@ -15,7 +15,12 @@ class DirectionalLight :
 {
 public:
   DirectionalLight() = delete;
-  DirectionalLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept;
+  DirectionalLight(
+    Entity* pOwnerEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = DIRECTIONAL_LIGHT_SOURCE, Component::eType type = eType::DIRECTIONAL_LIGHT
+  );
   virtual ~DirectionalLight() noexcept;
   
   glm::vec3 GetLightDirection() const { return _lightDirectionVector; };

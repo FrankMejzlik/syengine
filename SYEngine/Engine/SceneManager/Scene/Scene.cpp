@@ -12,12 +12,15 @@
 #include "SpotLight.h"
 #include "Camera.h"
 #include "Mesh.h"
+#include "Entity.h"
 
+#include "EntityManager.h"
 #include "PhysicsEntity.h"
+#include "PhysicsScene.h"
 
 using namespace SYE;
 
-Scene::Scene(EntityManager* pEntityManager) noexcept :
+Scene::Scene(EntityManager* pEntityManager) :
   _pEntityManager(pEntityManager),
   _pEditorCamera(nullptr)
 {
@@ -55,18 +58,26 @@ size_t Scene::GetSceneNumberOfEntities() const
   return _entities.size();
 }
 
-Entity* Scene::InsertEntity(Entity* pEntityToInsert)
-{
-  _entities.insert(std::make_pair(pEntityToInsert->GetGuid(), pEntityToInsert));
 
-  return pEntityToInsert;
+std::pair<PhysicsBody*, Vector3f> Scene::Raycast(Vector3f from, Vector3f direction) const
+{
+  // If not valid physics scene
+  if (_pPhysicsScene == nullptr)
+  {
+    PUSH_ENGINE_ERROR(eEngineError::PhysicalSceneNotSet, "Trying to do operation on PhysicsScene, but it's not valid.", "");
+
+    return std::make_pair(nullptr, Vector3f(0.0f, 0.0f, 0.0f));
+  }
+  
+  return _pPhysicsScene->Raycast(from, direction);
 }
 
 bool Scene::DeleteEntity(Entity* pEntityToDelete)
 {
-
-  // Delete it from hash map.
+   // Delete it from hash map.
   _entities.erase(pEntityToDelete->GetGuid());
+
+  _pEntityManager->DestroyEntity(pEntityToDelete);
 
   return true;
 }
@@ -83,7 +94,7 @@ Entity* Scene::CreateCamera(
   UNREFERENCED_PARAMETER(startPitch);
 
   // Call EntityManager to create new Quad Entity.
-  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -102,7 +113,7 @@ Entity* Scene::CreateCamera(
   
 
 
-  return InsertEntity(pNewEntity);
+  return pNewEntity;
 }
 
 Entity* Scene::CreateQuad(
@@ -114,7 +125,9 @@ Entity* Scene::CreateQuad(
   UNREFERENCED_PARAMETER(isStatic);
 
   // Call EntityManager to create new Quad Entity.
-  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+  //Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+
+  Entity* pNewEntity = AddEntity<Entity>();
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -136,7 +149,7 @@ Entity* Scene::CreateQuad(
     pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
   }
 
-  return InsertEntity(pNewEntity);
+  return pNewEntity;
 }
 
 
@@ -150,7 +163,7 @@ Entity* Scene::CreateBlock(
   UNREFERENCED_PARAMETER(isStatic);
 
   // Call EntityManager to create new Quad Entity.
-  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
   pNewEntity->SetIsStatic(false);
   
   // Add Transform Component
@@ -188,7 +201,7 @@ Entity* Scene::CreateBlock(
 
 
 
-  return InsertEntity(pNewEntity);
+  return pNewEntity;
 }
 
 
@@ -202,7 +215,7 @@ Entity* Scene::CreateDirectionalLight(
   UNREFERENCED_PARAMETER(isStatic);
 
   // Create new Entity
-  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -218,7 +231,7 @@ Entity* Scene::CreateDirectionalLight(
   pLight->SetLightDirection(direction.GetData());
 
   
-  return InsertEntity(pNewEntity);
+  return pNewEntity;
 }
 
 Entity* Scene::CreatePointLight(
@@ -232,7 +245,7 @@ Entity* Scene::CreatePointLight(
   UNREFERENCED_PARAMETER(isStatic);
 
   // Create new Entity
-  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -248,7 +261,7 @@ Entity* Scene::CreatePointLight(
   pLight->SetCoeficients(coefficients);
 
 
-  return InsertEntity(pNewEntity);
+  return pNewEntity;
 }
 
 
@@ -265,7 +278,7 @@ Entity* Scene::CreateSpotLight(
   UNREFERENCED_PARAMETER(isStatic);
 
   // Create new Entity
-  Entity* pNewEntity = _pEntityManager->CreateEntity(this);
+  Entity* pNewEntity = _pEntityManager->CreateEntity<Entity>(this);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -283,7 +296,7 @@ Entity* Scene::CreateSpotLight(
   pLight->SetConeAngle(coneAngle);
 
 
-  return InsertEntity(pNewEntity);
+  return pNewEntity;
 }
 
 size_t Scene::MapTypeToSlot(size_t type)
@@ -353,7 +366,7 @@ void Scene::ShootBox(const Vector3f& cameraPosition, const Vector3f& direction)
   static_cast<btRigidBody*>(pBox->GetPhysicsBodyPtr()->GetPhysicsEntity()->GetCollisionObjectPtr())->setLinearVelocity(velocity);
 }
 
-void Scene::EnlistComponent(Component* pNewComponent)
+bool Scene::EnlistComponent(Component* pNewComponent)
 {
   // Get type
   size_t type = pNewComponent->GetType();
@@ -362,10 +375,18 @@ void Scene::EnlistComponent(Component* pNewComponent)
   size_t slotIndex = MapTypeToSlot(type);
 
   // Insert it there
-  _activeComponentBySlots[slotIndex].insert(std::make_pair(pNewComponent->GetGuid(), pNewComponent));
+  auto result = _activeComponentBySlots[slotIndex].insert(std::make_pair(pNewComponent->GetGuid(), pNewComponent));
+
+  // If already existed
+  if (result.second == false)
+  {
+    return false;
+  }
+
+  return true;
 }
 
-void Scene::DelistComponent(Component* pNewComponent)
+bool Scene::DelistComponent(Component* pNewComponent)
 {
   // Get type
   size_t type = pNewComponent->GetType();
@@ -374,5 +395,28 @@ void Scene::DelistComponent(Component* pNewComponent)
   size_t slotIndex = MapTypeToSlot(type);
 
   // Insert it there
-  _activeComponentBySlots[slotIndex].erase(pNewComponent->GetGuid());
+  size_t result = _activeComponentBySlots[slotIndex].erase(pNewComponent->GetGuid());
+
+  return (result > 0);
+}
+
+bool Scene::EnlistEntity(Entity* pEntity)
+{
+  // Insert it there
+  auto result = _entities.insert(std::make_pair(pEntity->GetGuid(), pEntity));
+
+  // If already existed
+  if (result.second == false)
+  {
+    return false;
+  }
+
+  return true;
+}
+
+bool Scene::DelistEntity(Entity* pEntity)
+{
+  auto result = _entities.erase(pEntity->GetGuid());
+
+  return (result > 0);
 }

@@ -11,6 +11,7 @@
 #include "BulletDynamics/ConstraintSolver/btConstraintSolver.h"
 #pragma warning(pop)
 
+#include "IErrorLogging.h"
 #include "common.h"
 #include "PhysicsEntity.h"
 
@@ -32,7 +33,8 @@ class PhysicsDebugRenderer;
  * Currently implementing Bullet3 physics engine.
  *    https://github.com/bulletphysics/bullet3
  */
-class PhysicsScene
+class PhysicsScene :
+  public IErrorLogging
 {
 public:
   PhysicsScene() = delete;
@@ -42,6 +44,8 @@ public:
   void ProcessScene(dfloat deltaTime);
 
   void DrawDebug(GLuint shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+
+  std::pair<PhysicsBody*, Vector3f> Raycast(const Vector3f& from, const Vector3f& direction);
 
   void SetDebugRenderer(PhysicsDebugRenderer* pDebugRenderer);
 

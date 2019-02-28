@@ -7,11 +7,15 @@
 using namespace SYE;
 
 
-PointLight::PointLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept:
-  Light(pOwnerEntity, subModulesConstRef, primaryComponentSlots)
+PointLight::PointLight(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+):
+  Light(pOwnerEntity, subModulesConstRef, primaryComponentSlots, slotIndex, type)
 {
   _pShadowMap = std::make_unique<OmniShadowMap>();
-  _type = eType::POINT_LIGHT;
 }
 
 PointLight::~PointLight() noexcept

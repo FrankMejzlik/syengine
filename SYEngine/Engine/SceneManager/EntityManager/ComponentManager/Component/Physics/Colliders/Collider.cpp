@@ -11,16 +11,15 @@ using namespace SYE;
 Collider::Collider(
   Entity* pOwnerEntity, 
   const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
-) noexcept:
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+):
   Component(
     pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     false, true,
-    PHYSICS_COLLIDER
+    slotIndex, type
   )
 {
-  _type = eType::COLLIDER;
-
   // Refress all Quick refs
   Refresh();
 
@@ -59,7 +58,7 @@ void Collider::SetMeshPtr(Mesh* pMesh)
 void Collider::ClearMesh()
 {
   // Tell ComponentManager to remove it
-  _pComponentManager->RemoveComponent(_pMesh);
+  _pComponentManager->DestroyComponent(_pMesh);
 
   // Set to nullptr
   _pMesh = nullptr;

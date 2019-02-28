@@ -26,7 +26,12 @@ class Light:
 {
 public:
   Light() = delete;
-  Light(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept;
+  Light(
+    Entity* pOwnerEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = UNDEFINED, Component::eType type = Component::eType::LIGHT
+  );
   virtual ~Light() noexcept;
 
   virtual void Refresh();

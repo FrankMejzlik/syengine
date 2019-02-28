@@ -2,8 +2,6 @@
 
 #include <unordered_map>
 
-#include "CommonValues.h"
-
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -29,8 +27,8 @@ using namespace SYE;
 namespace SYE 
 {
 
-class Shader:
-  public Component
+class Shader//:
+  //public Component
 {
 public:
   Shader() = delete;

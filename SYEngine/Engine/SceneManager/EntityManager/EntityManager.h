@@ -39,13 +39,27 @@ public:
    * @see   class ComponentManager
    * @see   class Component
    */
-  Entity* CreateEntity(Scene* pOwnerScene);
+  template <typename EntityType>
+  EntityType* CreateEntity(Scene* pOwnerScene)
+  {
+    // Instantiate new Entity
+    std::unique_ptr<EntityType> newEntity = std::make_unique<EntityType>(pOwnerScene, this, COMPONENT_MANAGER);
+
+    return InsertEntity(std::move(newEntity));
+  }
+
+  bool DestroyEntity(Entity* pEntity);
 
 
 protected:
 private:
-  Entity* InsertEntity(std::unique_ptr<Entity>&& pNewEntity);
+  template <typename EntityType>
+  EntityType* InsertEntity(std::unique_ptr<EntityType>&& pNewEntity)
+  {
+    auto result = _entities.insert(std::make_pair(pNewEntity->GetGuid(), std::move(pNewEntity)));
 
+    return result.first->second.get();
+  }
 
 private:
   std::map<size_t, std::unique_ptr<Entity>> _entities;

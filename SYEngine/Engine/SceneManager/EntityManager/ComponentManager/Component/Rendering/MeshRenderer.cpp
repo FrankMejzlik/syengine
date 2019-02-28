@@ -13,18 +13,17 @@
 
 using namespace SYE;
 
-SYE::MeshRenderer::MeshRenderer(Entity * pOwnerEntity, const std::map<int, std::unique_ptr<BaseModule>>& subModulesConstRef,
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) :
+SYE::MeshRenderer::MeshRenderer(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+) :
   Component(
     pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     true, true,
-    MESH_RENDERER
+    slotIndex, type
   )
-{
-  _type = eType::MESH_RENDERER;
-}
-
-MeshRenderer::~MeshRenderer()
 {}
 
 void MeshRenderer::Refresh()
@@ -95,7 +94,7 @@ void MeshRenderer::RenderForLight(GLuint ul_modelToWorldMatrix) const
 Mesh* MeshRenderer::AddMesh()
 {
   // Create new Mesh Component
-  Mesh* pMesh = _pComponentManager->CreateComponent<Mesh>(_pOwnerEntity);
+  Mesh* pMesh = _pComponentManager->CreateComponent<Mesh>(_pOwnerEntity, this);
 
   // Push it in
   _meshes.push_back(pMesh);
@@ -113,7 +112,7 @@ Mesh* MeshRenderer::AddMesh(Mesh* pMesh)
 Material* MeshRenderer::AddMaterial()
 {
   // Create empty Material.
-  Material* pMaterial = _pComponentManager->CreateComponent<Material>(_pOwnerEntity);
+  Material* pMaterial = _pComponentManager->CreateComponent<Material>(_pOwnerEntity, this);
   // Add default texture
   pMaterial->AddTexture();
 
@@ -138,7 +137,7 @@ Material* MeshRenderer::AddMaterial(
 )
 {
   // Create empty Material.
-  Material* pMaterial = _pComponentManager->CreateComponent<Material>(_pOwnerEntity);
+  Material* pMaterial = _pComponentManager->CreateComponent<Material>(_pOwnerEntity, this);
   // Add texture
   pMaterial->AddTexture(textureFilePath);
 
@@ -161,7 +160,7 @@ Material* MeshRenderer::AddMaterial(
 
 Material* MeshRenderer::AddMaterial(Texture* pTexture, Shininess* pShininess, Shader* pShader)
 {
-  Material* pMaterial = _pComponentManager->CreateComponent<Material>(_pOwnerEntity);
+  Material* pMaterial = _pComponentManager->CreateComponent<Material>(_pOwnerEntity, this);
   pMaterial->AddTexture(pTexture);
   pMaterial->AddShininess(pShininess);
   pMaterial->AddShader(pShader);

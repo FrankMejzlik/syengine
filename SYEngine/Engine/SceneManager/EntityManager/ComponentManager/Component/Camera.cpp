@@ -9,14 +9,15 @@
 using namespace SYE;
 
 Camera::Camera(
-  Entity* pOwnerEntity,
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
-) noexcept :
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+) :
   Component(
     pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     true, true,
-    CAMERA
+    slotIndex, type
   ),
   _pTargetWindow(pOwnerEntity->GetOwnerScenePtr()->GetMainWindowPtr()),
   _upDirection(Vector3f(0.0f, 1.0f, 0.0f)),
@@ -27,11 +28,10 @@ Camera::Camera(
   _nearPlane(0.1f),
   _farPlane(100.0f)
 {
-  _type = eType::CAMERA;
 
   if (_pTargetWindow == nullptr)
   {
-    PUSH_EDITOR_ERROR(eEngineError::MissingLogicalDependency, "Unable to get pointer to target Window instance.", "");
+    PUSH_EDITOR_ERROR(eEngineError::MissingPointerToTargetWindowInstance, "Unable to get pointer to target Window instance.", "");
   }
 }
 
@@ -62,33 +62,36 @@ Vector3f Camera::GetCameraDirection() const
 
 Vector3f Camera::GetPickingRay(int x, int y)
 {
-  // Dimensiions 
+  // Dimensions of viewport
   size_t width = _pTargetWindow->GetBufferWidth();
   size_t height = _pTargetWindow->GetBufferHeight();
 
+  // Prepare refs to projection and view matrices for this Camera
   const glm::mat4& projectionMatrix = GetPerspectiveProjectionMatrixConstRef();
   const glm::mat4& viewMatrix = GetViewMatrixConstRef();
 
-
-  // Normalised device coordinates
+  // Get normalised device coordinates
   dfloat normX = static_cast<dfloat>((2 * ((dfloat)x / width)) - 1);
   dfloat normY = static_cast<dfloat>((2 * ((dfloat)y / height)) - 1);
+  // Switch Y coordinate because in world it is in opposite fashion
   normY = -normY;
-  dfloat normZ = 1.0f;
 
-  glm::vec3 rayNormalised(normX, normY, normZ);
-
+  // Construct vector
+  glm::vec3 rayNormalised(normX, normY, 1.0f);
+  // Construct ray in Clip Space
   glm::vec4 rayClip(rayNormalised.x, rayNormalised.y, -1.0f, 1.0f);
-
+  // Construct ray in View Space
   glm::vec4 rayEye = inverse(projectionMatrix) * rayClip;
-
+  // Slice it
   rayEye = glm::vec4(rayEye.x, rayEye.y, -1.0f, 0.0f);
-
+  // Construct ray in World Space
   glm::vec4 rayWor4 = inverse(viewMatrix) * rayEye;
-
+  // Slice it
   glm::vec3 rayWorld(rayWor4.x, rayWor4.y, rayWor4.z);
+  // Normalize it
   rayWorld = glm::normalize(rayWorld);
 
+  // Return our type vector
   return Vector3f(rayWorld);
 }
 

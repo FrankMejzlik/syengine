@@ -21,8 +21,12 @@ class MeshRenderer:
 {
 public:
   MeshRenderer() = delete;
-  MeshRenderer(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots);
-  ~MeshRenderer();
+  MeshRenderer(
+    Entity* pOwnerEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = MESH_RENDERER, Component::eType type = eType::MESH_RENDERER
+  );
 
   virtual void Refresh();
 

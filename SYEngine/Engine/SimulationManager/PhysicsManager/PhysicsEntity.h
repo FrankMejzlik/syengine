@@ -42,6 +42,7 @@ public:
   void SetLocalInertia(const Vector3f& localInertia);
 
   btCollisionObject* GetCollisionObjectPtr() const;
+  PhysicsBody* GetPhysicsBodyPtr() const { return _pPhysicsBody; }
 
   // Attributes
 private:

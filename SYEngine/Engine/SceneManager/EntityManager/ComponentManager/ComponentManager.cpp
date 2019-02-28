@@ -12,7 +12,6 @@
 
 // Components
 #include "Mesh.h"
-#include "Model.h"
 
 using namespace SYE; 
 

@@ -51,9 +51,12 @@ PhysicsEntity::PhysicsEntity(
   // Instantiate new Rigidbody instance for this PhysicsEntity
   _pCollisionObject = std::make_unique<btRigidBody>(rbInfo);
 
-  // Setup user pointers for this Rigidbody
-  _pCollisionObject->setUserIndex(static_cast<int>(pCollider->GetGuid()));
-  _pCollisionObject->setUserPointer(pCollider);
+  // Setup user index #1 to correspond to PhysicsBody instance
+  _pCollisionObject->setUserIndex(static_cast<int>(pPhysicsBody->GetGuid()));
+  // Setup user index #2 to correspond to Entity that owns this PhysicsBody
+  _pCollisionObject->setUserIndex2(static_cast<int>(_pOwnerEntity->GetGuid()));
+  // Setup user pointer to correctponding PhysicsBody
+  _pCollisionObject->setUserPointer(pPhysicsBody);
 
   // If should be kinematic
   if (_pPhysicsBody->IsKinematic())

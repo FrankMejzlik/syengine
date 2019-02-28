@@ -3,14 +3,18 @@
 
 using namespace SYE;
 
-DirectionalLight::DirectionalLight(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept :
-  Light(pOwnerEntity, subModulesConstRef, primaryComponentSlots) 
+DirectionalLight::DirectionalLight(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+) :
+  Light(pOwnerEntity, subModulesConstRef, primaryComponentSlots, slotIndex, type) 
 {
   // Calculate projection matrix for this light
   // Directional light uses orthogonal projection
   // TODO: Make modifiable values.
   _lightProjectionMatrix = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, 0.1f, 100.0f);
-  _type = eType::DIRECTIONAL_LIGHT;
 
 }
 

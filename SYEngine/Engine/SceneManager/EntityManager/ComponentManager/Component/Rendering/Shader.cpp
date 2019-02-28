@@ -5,7 +5,7 @@
 using namespace SYE;
 
 Shader::Shader(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots):
-  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false),
+  //Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, true),
   _ul_bIsSkeletonAnimated(0),
   shaderID(0), 
   uniformModel(0), 
@@ -14,7 +14,12 @@ Shader::Shader(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseMo
   pointLightCount(0),
   spotLightCount(0)
 {
-  _type = eType::SHADER;
+  //_type = eType::SHADER;
+
+  UNREFERENCED_PARAMETER(pOwnerEntity);
+  UNREFERENCED_PARAMETER(subModulesConstRef);
+  UNREFERENCED_PARAMETER(primaryComponentSlots);
+
 }
 
 GLuint Shader::GetShaderID()

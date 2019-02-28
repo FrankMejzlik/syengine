@@ -12,13 +12,14 @@
 #include "stb_image.h"
 #pragma warning(pop)
 
-#include "CommonValues.h"
 #include "Mesh.h"
 #include "Shader.h"
 
 #include "Component.h"
 
 using namespace SYE;
+
+// TODO: Reimplementation needed
 
 namespace SYE 
 {

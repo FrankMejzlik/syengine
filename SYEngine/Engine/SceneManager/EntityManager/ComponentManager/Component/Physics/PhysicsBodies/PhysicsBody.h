@@ -9,15 +9,22 @@ namespace SYE
 
 class Collider;
 class PhysicsEntity;
+class Transform;
 
 class PhysicsBody:
   public Component
 {
 public:
   PhysicsBody() = delete;
-  PhysicsBody(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept;
+  PhysicsBody(
+    Entity* pOwnerEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::PHYSICS_BODY
+  );
 
   virtual void SaveComponent() override;
+  virtual void Refresh() override;
 
   void SetCollider(Collider* pCollider);
   Collider* GetCollider() const { return _pCollider; }
@@ -33,6 +40,8 @@ public:
   
   void SetPhysicsEntity(PhysicsEntity* pPhysEntity);
   PhysicsEntity* GetPhysicsEntity() const;
+  
+  Transform* GetTransformPtr() const { return _pTransform; }
 
 
   // Attributes
@@ -50,6 +59,7 @@ protected:
   bool _isKinematic;
 
 private:
+  Transform* _pTransform;
 
 };
 

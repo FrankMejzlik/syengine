@@ -22,11 +22,10 @@ public:
   Script(
     Entity* pOwnerEntity, 
     const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
-  ) noexcept;
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::SCRIPT
+  );
   virtual ~Script() noexcept;
-
-  virtual void Refresh();
 
   virtual void OnInitializeScene() = 0;
   virtual void OnProcessFrame(dfloat deltaTime, Scene* pScene) = 0;

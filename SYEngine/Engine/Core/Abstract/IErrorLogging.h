@@ -15,19 +15,19 @@ class IErrorLogging
 {
 public:
   IErrorLogging();
-  virtual ~IErrorLogging();
+  virtual ~IErrorLogging() noexcept;
 
   void PushEngineError(
     eEngineError type, 
     std::string filePath, size_t lineNumber, 
     std::string shortDescription = "", std::string longDescription = ""
-  );
-  EngineError GetLastError();
-  EngineError GetNextError();
-  EngineError PopNextError();
+  ) const;
+  EngineError GetLastError() const;
+  EngineError GetNextError() const;
+  EngineError PopNextError() const;
 
 protected:
-  std::queue<EngineError> _engineErrorQueue;
+  mutable std::queue<EngineError> _engineErrorQueue;
 };
 
 }

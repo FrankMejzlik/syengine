@@ -33,11 +33,12 @@ public:
    * dull: 0.3f  4
    */
   Shininess(
-    Entity* pEntity, 
+    Entity* pOwnerEntity, 
     const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::SHININESS
   ):
-    Component(pEntity, subModulesConstRef, primaryComponentSlots, false),
+    Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false, true, slotIndex, type),
     _specularIntensity(0.3f), _shininessIntensity(4)
   {}
 
@@ -67,9 +68,12 @@ class Material:
 {
 public:
   Material() = delete;
-  Material(Entity* pEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots);
-  ~Material();
-
+  Material(
+    Entity* pOwnerEntity, 
+    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::MATERIAL
+  );
 
   size_t AddTexture();
   size_t AddTexture(std::string_view filePathToTexture);

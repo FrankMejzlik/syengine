@@ -4,19 +4,20 @@
 
 using namespace SYE;
 
-Material::Material(Entity* _pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots):
-  Component(_pOwnerEntity, subModulesConstRef, primaryComponentSlots, false)
-{
-  _type = eType::MATERIAL;
-}
-
-Material::~Material()
+Material::Material(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+):
+  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false, true, slotIndex, type)
 {}
+
 
 size_t Material::AddShininess()
 {
   // Add default Shininess
-  Shininess* pShininess = _pComponentManager->CreateComponent<Shininess>(_pOwnerEntity);
+  Shininess* pShininess = _pComponentManager->CreateComponent<Shininess>(_pOwnerEntity, this);
 
   _shininesses.push_back(pShininess);
 
@@ -26,7 +27,7 @@ size_t Material::AddShininess()
 size_t Material::AddShininess(dfloat specularIntensity, dfloat shininessIntensity)
 {
   // Create new Shininess Component
-  Shininess* pShininess = _pComponentManager->CreateComponent<Shininess>(_pOwnerEntity);
+  Shininess* pShininess = _pComponentManager->CreateComponent<Shininess>(_pOwnerEntity, this);
   
   // Set correct values
   pShininess->SetSpecularIntensity(specularIntensity);
@@ -47,7 +48,7 @@ size_t Material::AddShininess(Shininess* pShininess)
 size_t Material::AddTexture()
 {
   // Create new Texture Component
-  Texture* pTexture = _pComponentManager->CreateComponent<Texture>(_pOwnerEntity);
+  Texture* pTexture = _pComponentManager->CreateComponent<Texture>(_pOwnerEntity, this);
 
   // Load default texture
   bool result = pTexture->LoadTexture(FILEPATH_DEFAULT_TEXTURE);
@@ -64,7 +65,7 @@ size_t Material::AddTexture()
 size_t Material::AddTexture(std::string_view filePathToTexture)
 {
   // Create new Texture Component
-  Texture* pTexture = _pComponentManager->CreateComponent<Texture>(_pOwnerEntity);
+  Texture* pTexture = _pComponentManager->CreateComponent<Texture>(_pOwnerEntity, this);
   bool result = pTexture->LoadTexture(filePathToTexture);
   if (result == false)
   {

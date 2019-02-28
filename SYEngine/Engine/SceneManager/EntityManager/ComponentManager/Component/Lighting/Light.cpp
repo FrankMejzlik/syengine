@@ -3,15 +3,19 @@
 using namespace SYE;
 
 
-Light::Light(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots) noexcept :
+Light::Light(
+  Entity* pOwnerEntity, 
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+) :
   Component(
     pOwnerEntity, subModulesConstRef, primaryComponentSlots,
     true, true,
-    UNDEFINED
+    slotIndex , type 
   ),
   _pShadowMap(std::move(std::make_unique<ShadowMap>()))
 {
-  _type = eType::LIGHT;
 }
 
 Light::~Light() noexcept

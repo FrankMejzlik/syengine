@@ -1,4 +1,8 @@
 #pragma once
+
+namespace SYE
+{
+
 class Ui
 {
 public:
@@ -6,3 +10,4 @@ public:
   virtual ~Ui();
 };
 
+};

@@ -10,17 +10,30 @@ using namespace SYE;
 Component::Component(
   Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
   bool isPrimary, bool isActive,
-  eSlotIndex slotIndex
-) noexcept :
+  eSlotIndex slotIndex, Component::eType type
+) :
   _pOwnerEntity(pOwnerEntity),
   _subModules(subModulesConstRef),
   _isPrimary(isPrimary),
   _isActive(isActive),
   _isDefault(true),
   _slotIndex(slotIndex),
-  _type(eType::COMPONENT),
-  _primaryComponentSlots(primaryComponentSlots)
+  _type(type),
+  _primaryComponentSlots(primaryComponentSlots),
+  _pOwnerComponent(nullptr)
 {
+  // If primary Entity
+  if (_isPrimary)
+  {
+    // Enlist self to owner Entity
+    _pOwnerEntity->AttachComponent(this);
+  }
+  else
+  {
+    // Enlist self to owner Component
+    //_pOwnerComponent->EnlistComponent(this);
+  }
+
   // Get pointer to ComponentManager that Components can use.
   if (_pOwnerEntity)
   {
@@ -29,6 +42,30 @@ Component::Component(
 
   // Refress all Quick refs
   Refresh();
+}
+
+Component::~Component() noexcept
+{
+  // Destroy all subcomponents
+  // Class specific
+
+  // If primary Entity
+  if (_isPrimary)
+  {
+    // Enlist self to owner Entity
+    _pOwnerEntity->DelistComponent(this);
+  }
+  else
+  {
+    // Delist self from owner Component
+    _pOwnerComponent->DelistComponent(this);
+  }
+  
+}
+
+void Component::SetOwnerComponentPtr(Component* pComponent)
+{
+  _pOwnerComponent = pComponent;
 }
 
 PhysicsManager* Component::GetPhysicsManager()
@@ -101,4 +138,19 @@ bool Component::SetIsDefault(bool newValue)
   _isDefault = newValue;
 
   return oldValue;
+}
+
+
+bool Component::EnlistComponent(Component* pNewComponent)
+{
+  UNREFERENCED_PARAMETER(pNewComponent);
+
+  return true;
+}
+
+bool Component::DelistComponent(Component* pNewComponent)
+{
+  UNREFERENCED_PARAMETER(pNewComponent);
+
+  return true;
 }

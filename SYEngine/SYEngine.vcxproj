@@ -187,7 +187,6 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsMaterial.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\MeshRenderer.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\SkeletalModel.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Rigidbody.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\ControllerManager\ControllerManager.cpp" />
@@ -206,7 +205,6 @@
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\Core\EngineContext.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Mesh\Mesh.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Model.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Texture.cpp" />
@@ -218,7 +216,6 @@
     <ClCompile Include="Engine\InputManager\InputManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\Entity\Entity.cpp" />
     <ClCompile Include="Engine\LogicManager\LogicManager.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.cpp" />
     <ClCompile Include="Engine\InputManager\KeyboardManager.cpp" />
     <ClCompile Include="external\x64\imgui\1.66\src\imgui.cpp" />
     <ClCompile Include="external\x64\imgui\1.66\src\imgui_demo.cpp" />
@@ -246,7 +243,6 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshGenerator.cpp" />
     <ClCompile Include="Engine\OutputManager\AudioManager\MusicManager.cpp" />
     <ClCompile Include="Engine\OutputManager\AudioManager\SoundManager.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Sound\Sound.cpp" />
     <ClCompile Include="Engine\InputManager\MouseManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.cpp" />
@@ -281,7 +277,6 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\MeshRenderer.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Rigidbody.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\SkeletalModel.h" />
     <ClInclude Include="Engine\Core\config_world.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Rigidbody.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Transform.h" />
@@ -292,7 +287,6 @@
     <ClInclude Include="Engine\SimulationManager\AnimationManager\AnimationManager.h" />
     <ClInclude Include="Diagnostics\Logger.h" />
     <ClInclude Include="Engine\Core\Common\EngineError.h" />
-    <ClInclude Include="Engine\Core\CommonValues.h" />
     <ClInclude Include="Engine\EngineApi\EngineAPI.h" />
     <ClInclude Include="Engine\EngineApi\Command.h" />
     <ClInclude Include="Engine\Core\BaseEngine.h" />
@@ -300,7 +294,6 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\Core\EngineContext.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Mesh\Mesh.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Model.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Texture.h" />
@@ -349,13 +342,11 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\SkyboxManager\SkyboxManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\TextureManager\TextureManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Logic\Logic.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshGenerator.h" />
     <ClInclude Include="Engine\OutputManager\AudioManager\MusicManager.h" />
     <ClInclude Include="Engine\OutputManager\AudioManager\SoundManager.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Sound\Sound.h" />
     <ClInclude Include="Engine\InputManager\KeyboardManager.h" />
     <ClInclude Include="Engine\InputManager\MouseManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\WindowManager\WindowManager.h" />

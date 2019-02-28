@@ -101,7 +101,7 @@ bool Engine::Run()
   dfloat deltaTime = 0.0f;
 
   // Main game loop.
-  while (_engineContext.GetBShouldRun())
+  while (_pEngineContext.ShouldRun())
   {
     // TODO: Implement in TimeStamp class.
     // Get delta time.

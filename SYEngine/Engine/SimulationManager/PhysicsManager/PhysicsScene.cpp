@@ -8,6 +8,8 @@
 #include "Softbody.h"
 #include "BlockCollider.h"
 #include "PhysicsDebugRenderer.h"
+#include "PhysicsBody.h"
+#include "Transform.h"
 
 using namespace SYE;
 
@@ -128,11 +130,10 @@ void PhysicsScene::SyncPhysicsToGraphics()
       orn.getEulerZYX(rotZ, rotY, rotX);
 
 
-      Collider* pCollider = static_cast<Collider*>(colObj->getUserPointer());
+      PhysicsBody* pPhysBody = static_cast<PhysicsBody*>(colObj->getUserPointer());
 
-      // Set new values to object
-      pCollider->SetTransformPosition(pos.getX(), pos.getY(), pos.getZ());
-      pCollider->SetTransformRotation(rotX, rotY, rotZ);
+      pPhysBody->GetTransformPtr()->SetPosition(pos);
+      pPhysBody->GetTransformPtr()->SetRotation(Vector3f(rotX, rotY, rotZ));
 
     }
   }
@@ -238,6 +239,51 @@ PhysicsEntity* PhysicsScene::AddSoftBody(Softbody* body)
   LOG_NOT_IMPLEMENTED;
 
   return nullptr;
+}
+
+std::pair<PhysicsBody*, Vector3f> PhysicsScene::Raycast(const Vector3f& from, const Vector3f& direction)
+{
+  // If world not set
+  if (!_pWorld)
+  {
+    PUSH_ENGINE_ERROR(eEngineError::PhysicsWorldNotSet, "Physics world not set.", "");
+
+    return std::make_pair(nullptr, Vector3f(0.0f, 0.0f, 0.0f));
+  }
+
+  // Get the picking ray
+  btVector3 rayTo = direction;
+  btVector3 rayFrom = from;
+
+  // Create our raycast callback object
+  btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom,rayTo);
+
+  // Perform the raycast
+  _pWorld->rayTest(rayFrom, rayTo, rayCallback);
+
+  // If we hit something
+  if (rayCallback.hasHit())
+  {
+    // Upcast result to rigidbody
+    //const btRigidBody* pBody = btRigidBody::upcast(rayCallback.m_collisionObject);
+    const btCollisionObject* pBody = rayCallback.m_collisionObject;
+    // If not valid ptr
+    if (!pBody)
+    {
+      PUSH_ENGINE_ERROR(eEngineError::PhysicsLibRaycastWeirdResult, "There should be hit, but no pointer to object.", "");
+
+      return std::make_pair(nullptr, Vector3f(0.0f, 0.0f, 0.0f));
+    }
+
+    // Get corresponding PhysicsBody instance ptr
+    PhysicsBody* pPhysBody = static_cast<PhysicsBody*>(pBody->getUserPointer());
+    Vector3f hitPoint(rayCallback.m_hitPointWorld);
+    
+    return std::make_pair(pPhysBody, hitPoint);
+  }
+
+  // No hit
+  return std::make_pair(nullptr, Vector3f(0.0f, 0.0f, 0.0f));
 }
 
 PhysicsEntity* PhysicsScene::AddBlockColliderRigidbody(Rigidbody* pBody, Collider* pCollider)

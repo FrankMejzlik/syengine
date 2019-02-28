@@ -44,7 +44,7 @@ public:
     const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
     std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
   ) noexcept :
-    Script(pOwnerEntity, subModulesConstRef, primaryComponentSlots),
+    Script(pOwnerEntity, subModulesConstRef, primaryComponentSlots, UNDEFINED, Component::eType::SCRIPT),
     _isDragingOn(false),
     _moveSpeed(5.0f),
     _firstPersonTurnSpeed(0.01f),

@@ -35,10 +35,21 @@ public:
   
 
   template <typename ComponentType>
-  ComponentType* CreateComponent(Entity* pOwnerEntity)
+  ComponentType* CreateComponent(Entity* pOwnerEntity, Component* pOwnerComponent = nullptr)
   {
     // Instantiate new Component
-    return InsertComponent<ComponentType>(std::make_unique<ComponentType>(pOwnerEntity, _subModules, pOwnerEntity->GetPrimaryComponentSlotsRef()));
+    std::unique_ptr<ComponentType> pComponent = std::make_unique<ComponentType>(pOwnerEntity, _subModules, pOwnerEntity->GetPrimaryComponentSlotsRef());
+
+    // If subcomponent
+    if (!pComponent->IsPrimary())
+    {
+      assert(pOwnerComponent != nullptr);
+
+      // Set it's pointer to owning Component
+      pComponent->SetOwnerComponentPtr(pOwnerComponent);
+    }
+
+    return InsertComponent<ComponentType>(std::move(pComponent));
   }
 
   /** 
@@ -47,7 +58,7 @@ public:
    * @param Component*  Pointer to instance to destroy.
    * @return  bool  True if destroyed, false if there was nothing to destroy.
    */
-  bool RemoveComponent(Component* pComponentToRemove)
+  bool DestroyComponent(Component* pComponentToRemove)
   {
     if (pComponentToRemove == nullptr)
     {

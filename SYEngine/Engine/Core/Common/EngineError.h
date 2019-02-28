@@ -21,7 +21,10 @@ enum class eEngineError
 
 
   UnableToLoadTextureFromFile = 500,
-  MissingLogicalDependency = 501,
+  MissingPointerToTargetWindowInstance = 501,
+  PhysicalSceneNotSet = 502,
+  PhysicsWorldNotSet = 503,
+  PhysicsLibRaycastWeirdResult = 504,
 
   AttachingMultipleSingletonSlotComponents = 1000,
   DuplicateComponentOnEntity = 1001,

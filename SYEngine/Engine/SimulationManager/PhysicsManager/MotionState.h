@@ -4,15 +4,19 @@
   #include "btBulletCollisionCommon.h"
 #pragma warning(pop)
 
-class MotionState:
+namespace SYE
+{
+
+class MotionState :
   public btDefaultMotionState
 {
 public:
   MotionState(const btTransform &transform) noexcept;
   virtual ~MotionState() noexcept;
 
-  
+
   void GetWorldTransform(btScalar* transform);
 
 };
 
+};

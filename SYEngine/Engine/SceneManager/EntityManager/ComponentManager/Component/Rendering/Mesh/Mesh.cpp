@@ -6,12 +6,12 @@ using namespace SYE;
 
 Mesh::Mesh(
   Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
-) noexcept :
-  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false)
-{
-  _type = eType::MESH;
-}
+  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  eSlotIndex slotIndex, Component::eType type
+):
+  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false, true, slotIndex, type)
+{}
 
 Mesh::~Mesh()
 {

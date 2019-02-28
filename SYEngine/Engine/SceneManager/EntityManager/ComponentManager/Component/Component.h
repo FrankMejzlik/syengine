@@ -18,6 +18,7 @@ class Scene;
 class Entity;
 class ComponentManager;
 class PhysicsManager;
+class Component;
 
 class Component:
   public IGuidCounted, public IErrorLogging
@@ -38,6 +39,7 @@ public:
     CAPSULE_COLLIDER = 101,
     CONVEX_MESH_COLLIDER = 102,
     MATERIAL = 110,
+    SHININESS = 111,
     TEXTURE = 120,
     MESH_RENDERER = 130,
     PHYSICS_BODY = 139,
@@ -63,7 +65,7 @@ public:
     DIRECTIONAL_LIGHT_SOURCE = COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT,
     POINT_LIGHT_SOURCE = COMPONENT_POINT_LIGHT_SOURCE_SLOT,
     SPOT_LIGHT_SOURCE = COMPONENT_SPOT_LIGHT_SOURCE_SLOT,
-    SCRIPT = COMPONENT_SCRIPT_HANDLER_SLOT,
+    SCRIPT_HANDLER = COMPONENT_SCRIPT_HANDLER_SLOT,
     CAMERA = COMPONENT_CAMERA_SLOT,
     PHYSICS_BODY = COMPONENT_PHYSICS_BODY_SLOT,
     PHYSICS_COLLIDER = COMPONENT_PHYSICS_COLLIDER_SLOT,
@@ -75,12 +77,15 @@ public:
   Component(
     Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
     bool isPrimary = true, bool isActive = true,
-    eSlotIndex slotIndex = UNDEFINED 
-  ) noexcept;
-  virtual ~Component() noexcept = default;
+    eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::COMPONENT
+  );
+  virtual ~Component() noexcept;
 
   virtual void Refresh();
   virtual void SaveComponent();
+
+  virtual bool EnlistComponent(Component* pNewComponent);
+  virtual bool DelistComponent(Component* pComponent);
 
   PhysicsManager* GetPhysicsManager();
 
@@ -98,6 +103,9 @@ public:
   size_t GetSlotIndex() const { return static_cast<size_t>(_slotIndex); };
   size_t GetType() const { return static_cast<size_t>(_type); }
 
+  void SetOwnerComponentPtr(Component* pComponent);
+
+
   
 
 protected:
@@ -105,6 +113,9 @@ protected:
 protected:
   /** Pointer to Entity that owns this Component. */
   Entity* _pOwnerEntity;
+
+  /** Pointer to Component that owns this instance */
+  Component* _pOwnerComponent;
 
   /** ComponentManager dedicated to this */
   ComponentManager* _pComponentManager;

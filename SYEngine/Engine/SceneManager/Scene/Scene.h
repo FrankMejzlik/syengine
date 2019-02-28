@@ -2,18 +2,18 @@
 
 #include <memory>
 #include <string>
+#include <map>
 #include <unordered_map>
+#include <array>
 
 #pragma warning(push, 1)
 #include <glm/glm.hpp>
 #pragma warning(pop)
 
 #include "common.h"
+#include "IErrorLogging.h"
 #include "IGuidCounted.h"
 #include "SceneContext.h"
-
-#include "EntityManager.h"
-#include "Entity.h"
 
 #include "MathLibrary.h"
 
@@ -26,20 +26,31 @@ class Camera;
 class Window;
 class PhysicsScene;
 class PhysicsManager;
+class PhysicsBody;
+class Entity;
+class EntityManager;
+class Component;
 
 /**
  * Every Scene MUST have it's EntityController to call to.
  */
 class Scene:
-  public IGuidCounted
+  public IGuidCounted, public IErrorLogging
 {
   // Methods
 public:
   Scene() = delete;
-  Scene(EntityManager* pEntityManager) noexcept;
+  Scene(EntityManager* pEntityManager);
   ~Scene() noexcept;
 
-  Entity* InsertEntity(Entity* pEntityToInsert);
+  template <typename EntityType>
+  EntityType* AddEntity()
+  {
+    Entity* pNewEntity = _pEntityManager->CreateEntity<EntityType>(this);
+
+    return pNewEntity;
+  }
+
   bool DeleteEntity(Entity* pEntityToDelete);
 
   Entity* CreateCamera(
@@ -86,7 +97,11 @@ public:
     bool isStatic = true
   );
 
-  
+  /**
+   * Casts ray from specified position in specified direction and returns <PBody hit, hit Point>
+   */
+  std::pair<PhysicsBody*, Vector3f> Raycast(Vector3f from, Vector3f direction) const;
+
   void SetInputManagerPtr(InputManager* pInputManager) { _pInputManager = pInputManager; }
   InputManager* GetInputManagerPtr() const { return _pInputManager; }
 
@@ -115,8 +130,17 @@ public:
   void ShootBox(const Vector3f& cameraPosition, const Vector3f& direction);
   
   size_t MapTypeToSlot(size_t type);
-  void EnlistComponent(Component* pNewComponent);
-  void DelistComponent(Component* pNewComponent);
+
+  bool EnlistComponent(Component* pNewComponent);
+  bool DelistComponent(Component* pComponent);
+  /** 
+   * Adds pointer to this instance everywhere it needs to
+   */
+  bool EnlistEntity(Entity* pEntity);
+  /** 
+   * Nulls pointer to this instance everywhere EnlistEntity added it
+   */
+  bool DelistEntity(Entity* pEntity);
 
   // Attributes
 private:
@@ -126,6 +150,7 @@ private:
   /** Pointer to servicing InputManager for this Scene */
   InputManager* _pInputManager;
 
+  /** Pointer to corresponding PhysicsManager */
   PhysicsManager* _pPhysicsManager;
 
   /** Pointer to default Engine Editor camera instance */

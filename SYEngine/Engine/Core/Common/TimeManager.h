@@ -4,11 +4,14 @@
 
 #include <chrono>
 
+namespace SYE
+{
+
 class TimeStamp
 {
 public:
   // Construct timestamp with current time
-  TimeStamp():
+  TimeStamp() :
     _timeStamp(std::chrono::steady_clock::now())
   {}
 
@@ -16,7 +19,7 @@ public:
 private:
   std::chrono::steady_clock::time_point _timeStamp;
 };
- 
+
 class TimeManager
 {
 public:
@@ -29,3 +32,4 @@ public:
 
 };
 
+};
