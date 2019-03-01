@@ -5,20 +5,13 @@
 using namespace SYE;
 
 BlockCollider::BlockCollider(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ):
-  Collider(pOwnerEntity, subModulesConstRef, primaryComponentSlots, slotIndex, type)
+  Collider(pOwnerEntity, pOwnerComponent, slotIndex, type)
 {
-  _type = eType::BLOCK_COLLIDER;
-
-  // Refress all Quick refs
-  Refresh();
-
   // Create new Mesh
-  Mesh* pMesh = _pComponentManager->CreateComponent<Mesh>(pOwnerEntity, this);
+  Mesh* pMesh = GetComponentManagerPtr()->CreateComponent<Mesh>(pOwnerEntity, this);
   // Make it  default block
   pMesh->MakeBlock(1.0f, 1.0f, 1.0f);
 
@@ -38,7 +31,7 @@ void BlockCollider::SetDimensions(dfloat width, dfloat height, dfloat length)
   ClearMesh();
 
   // Create new Mesh
-  Mesh* pMesh = _pComponentManager->CreateComponent<Mesh>(_pOwnerEntity, this);
+  Mesh* pMesh = GetComponentManagerPtr()->CreateComponent<Mesh>(_pOwnerEntity, this);
   // Make it desired block
   pMesh->MakeBlock(_width, _height, _length);
 

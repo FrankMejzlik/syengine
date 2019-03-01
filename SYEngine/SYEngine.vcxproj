@@ -168,6 +168,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Core\Abstract\IEngineContextInterface.cpp" />
+    <ClCompile Include="Engine\Core\Abstract\IComponentsInterface.cpp" />
+    <ClCompile Include="Engine\Core\Abstract\ISceneContextInterface.cpp" />
     <ClCompile Include="PhysicsDebugRenderer.cpp" />
     <ClCompile Include="Engine\LogicManager\ScriptManager\ScriptManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.cpp" />
@@ -253,6 +256,9 @@
     <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Core\Abstract\IEngineContextInterface.h" />
+    <ClInclude Include="Engine\Core\Abstract\IComponentsInterface.h" />
+    <ClInclude Include="Engine\Core\Abstract\ISceneContextInterface.h" />
     <ClInclude Include="PhysicsDebugRenderer.h" />
     <ClInclude Include="Engine\Core\config_components.h" />
     <ClInclude Include="Engine\LogicManager\ScriptManager\ScriptManager.h" />

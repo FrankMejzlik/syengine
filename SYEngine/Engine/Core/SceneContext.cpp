@@ -3,15 +3,11 @@
 using namespace SYE;
 
 
-SceneContext::SceneContext()
+SceneContext::SceneContext(size_t sceneId):
+  _sceneId(sceneId)
 {}
 
-SceneContext::SceneContext(std::string_view sceneName):
-  m_sceneName(sceneName)
+size_t SceneContext::GetSceneId() const
 {
-
+  return _sceneId;
 }
-
-
-SceneContext::~SceneContext()
-{}

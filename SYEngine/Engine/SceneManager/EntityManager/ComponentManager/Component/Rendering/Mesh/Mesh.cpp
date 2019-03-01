@@ -1,16 +1,15 @@
 #include "Mesh.h"
 
+#include "MeshManager.h"
 #include "MeshGenerator.h"
 
 using namespace SYE;
 
 Mesh::Mesh(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ):
-  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false, true, slotIndex, type)
+  Component(pOwnerEntity, pOwnerComponent, false, true, slotIndex, type)
 {}
 
 Mesh::~Mesh()
@@ -131,14 +130,14 @@ void Mesh::ClearMesh()
 
 void Mesh::MakeBlock(dfloat width, dfloat height, dfloat length)
 {
-  auto data = CONST_MESH_GENERATOR->GenerateBlockVerticesIndices(width, height, length);
+  auto data = GetMeshManagerPtr()->GenerateBlockVerticesIndices(width, height, length);
   
   CreateMesh_(data.first, data.second, false);
 }
 
 void Mesh::MakeQuad(dfloat width, dfloat height)
 {
-  auto data = CONST_MESH_GENERATOR->GenerateQuadVerticesIndices(width, height);
+  auto data = GetMeshManagerPtr()->GenerateQuadVerticesIndices(width, height);
 
   CreateMesh_(data.first, data.second, false);
 }

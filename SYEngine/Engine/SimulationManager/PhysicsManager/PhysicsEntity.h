@@ -50,8 +50,11 @@ private:
   Collider* _pCollider;
   PhysicsBody* _pPhysicsBody;
 
-  std::unique_ptr<btCollisionObject> _pCollisionObject; // Handle to dynamic world
+  /** Collision object from BT lib */
+  std::unique_ptr<btCollisionObject> _pCollisionObject;
+  /** Collision shape in BT representation */
   std::unique_ptr<btCollisionShape> _pCollisionShape;
+  /** Motion controller for this CollisionObject */
   std::unique_ptr<MotionState> _pMotionState;
 
   dfloat _mass;

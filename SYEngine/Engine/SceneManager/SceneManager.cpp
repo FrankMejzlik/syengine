@@ -70,14 +70,14 @@ bool SceneManager::Terminate()
   return true;  
 }
 
-Scene* SceneManager::CreateScene(EngineContext* pEngineContext, Engine* pOwnerEngine, Window* pWindow)
+Scene* SceneManager::CreateScene(EngineContext* pEngineContext, Engine* pOwnerEngine, Window* pWindow, size_t sceneId)
 {
   // Construct new scene instance.
   std::unique_ptr<Scene> pNewScene;
 
   try
   {
-    pNewScene = std::make_unique<Scene>(pEngineContext, pOwnerEngine, pWindow);
+    pNewScene = std::make_unique<Scene>(pEngineContext, pOwnerEngine, pWindow, sceneId);
   }
   catch (const std::bad_alloc&)
   {

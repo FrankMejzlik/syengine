@@ -30,7 +30,7 @@ class Skybox:
 public:
   Skybox() = delete;
 
-  Skybox(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots, std::vector<std::string> faceLocation);
+  Skybox(Entity* pOwnerEntity, Component* pOwnerComponent, std::vector<std::string> faceLocation);
   ~Skybox();
 
   void DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);

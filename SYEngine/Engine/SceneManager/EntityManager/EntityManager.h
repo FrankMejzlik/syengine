@@ -40,10 +40,10 @@ public:
    * @see   class Component
    */
   template <typename EntityType>
-  EntityType* CreateEntity(Scene* pOwnerScene)
+  EntityType* CreateEntity(Scene* pOwnerScene, Entity* pParentEntity)
   {
     // Instantiate new Entity
-    std::unique_ptr<EntityType> newEntity = std::make_unique<EntityType>(pOwnerScene, this, COMPONENT_MANAGER);
+    std::unique_ptr<EntityType> newEntity = std::make_unique<EntityType>(pOwnerScene, pParentEntity);
 
     return InsertEntity(std::move(newEntity));
   }

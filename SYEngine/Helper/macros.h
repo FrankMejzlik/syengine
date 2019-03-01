@@ -3,7 +3,11 @@
 #define SAFE_DELETE(ptr) { delete ptr; ptr = nullptr; }
 #define SAFE_DELETE_ARR(ptrArr) {delete[] ptrArr; ptrArr = nullptr; }
 
-#define LOG_NOT_IMPLEMENTED DLog(eLogType::Warning, "NOT IMPLEMENTED function used!")
+#if PRINT_NOT_IMPLEMENTED_WARNINGS
+  #define LOG_NOT_IMPLEMENTED DLog(eLogType::Warning, "NOT IMPLEMENTED function used!")
+#else
+  #define LOG_NOT_IMPLEMENTED
+#endif
 
 #define CONCATENATE_LITERALS(A, B) A ## B
 #define CONCATENATE_DEFINES(A, B) CONCATENATE_LITERALS(A, B)

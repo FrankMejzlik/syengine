@@ -8,12 +8,10 @@ using namespace SYE;
 
 
 PointLight::PointLight(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ):
-  Light(pOwnerEntity, subModulesConstRef, primaryComponentSlots, slotIndex, type)
+  Light(pOwnerEntity, pOwnerComponent, slotIndex, type)
 {
   _pShadowMap = std::make_unique<OmniShadowMap>();
 }
@@ -56,7 +54,7 @@ void PointLight::UseLight(
   GLuint exponentLocation
 )
 {
-  Vector3f pos = _pTransform->GetPosition();
+  Vector3f pos = GetTransformPtr()->GetPosition();
 
   glUniform3f(ambientColourLocation, _colourVector.x, _colourVector.y, _colourVector.z);
 
@@ -74,7 +72,7 @@ std::vector<glm::mat4> PointLight::GetOmniLightModelToWorldMatrices()
 {
   std::vector<glm::mat4> lightMatrices;
 
-  glm::vec3 pos = _pTransform->GetPosition().GetData();
+  glm::vec3 pos = GetTransformPtr()->GetPosition().GetData();
 
   // +x, -x
   lightMatrices.push_back(_lightProjectionMatrix * glm::lookAt(pos, pos + glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));

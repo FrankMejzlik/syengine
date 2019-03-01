@@ -19,11 +19,13 @@
 #include "PhysicsEntity.h"
 #include "PhysicsScene.h"
 #include "EngineContext.h"
+#include "SceneContext.h"
 
 using namespace SYE;
 
-Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow) :
-  _pEngineContext(pEngineContext),
+Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow, size_t sceneId) :
+  IEngineContextInterface(pEngineContext),
+  _pSceneContext(std::make_unique<SceneContext>(sceneId)),
   _pEngine(pEngine),
   _pMainWindow(pTargetWindow),
   _pEditorCamera(nullptr)
@@ -31,12 +33,12 @@ Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWind
   // Attach this engine to Engine
   _pEngine->AttachScene(this);
 
-  DLog(eLogType::Success, "Scene with name %s instantiated.", _sceneContext.m_sceneName.data());
+  DLog(eLogType::Success, "Scene %d instantiated.", _pSceneContext->GetSceneId());
 }
 
 Scene::~Scene() noexcept
 {
-  DLog(eLogType::Success, "Scene with name %s destroyed.", _sceneContext.m_sceneName.data());
+  DLog(eLogType::Success, "Scene %d destroyed.", _pSceneContext->GetSceneId());
 }
 
 Camera* Scene::GetEditorCamera() const
@@ -44,11 +46,6 @@ Camera* Scene::GetEditorCamera() const
   return _pEditorCamera;
 }
 
-
-std::string_view Scene::GetSceneName() const
-{
-  return _sceneContext.m_sceneName;
-}
 
 void Scene::SetPhysicsScenePtr(PhysicsScene* pPhysicsScene)
 {
@@ -58,11 +55,6 @@ void Scene::SetPhysicsScenePtr(PhysicsScene* pPhysicsScene)
 PhysicsScene* Scene::GetPhysicsScenePtr() const
 {
   return _pPhysicsScene;
-}
-
-size_t Scene::GetSceneNumberOfEntities() const
-{
-  return _entities.size();
 }
 
 
@@ -79,27 +71,32 @@ std::pair<PhysicsBody*, Vector3f> Scene::Raycast(Vector3f from, Vector3f directi
   return _pPhysicsScene->Raycast(from, direction);
 }
 
-InputManager* Scene::GetInputManagerPtr() const
-{
-  return static_cast<InputManager*>(_pEngineContext->GetModule(ID_INPUT_MANAGER));
-}
 
-PhysicsManager* Scene::GetPhysicsManagerPtr() const
-{
-  return static_cast<PhysicsManager*>(_pEngineContext->GetModule(ID_PHYSICS_MANAGER));
-}
-
-EntityManager* Scene::GetEntityManagerPtr() const
-{
-  return static_cast<EntityManager*>(_pEngineContext->GetModule(ID_ENTITY_MANAGER));
-}
 
 bool Scene::DeleteEntity(Entity* pEntityToDelete)
 {
-   // Delete it from hash map.
-  _entities.erase(pEntityToDelete->GetGuid());
+  // Detach it from Scene
+  if (!DetachEntity(pEntityToDelete))
+  {
+    PUSH_EDITOR_ERROR(
+      eEngineError::TryingToDeleteNonExistentEntityFromScene,
+      "This Entity '" + std::to_string(pEntityToDelete->GetGuid()) + "' does not exist in Scene '" + std::to_string(GetGuid()) + "' and thus cannot be deleted.",
+      ""
+    );
 
-  GetEntityManagerPtr()->DestroyEntity(pEntityToDelete);
+    return false;
+  }
+
+  // Tell EntityManager to destroy it
+  bool result = GetEntityManagerPtr()->DestroyEntity(pEntityToDelete);
+  if (!result)
+  {
+    PUSH_EDITOR_ERROR(
+      eEngineError::UnableToDeleteEntityBecauseDestructionFailed,
+      "This Entity '" + std::to_string(pEntityToDelete->GetGuid()) + "' is detached from Scene '" + std::to_string(GetGuid()) + "' but destruction failed. It is still allocated.",
+      ""
+    );
+  }
 
   return true;
 }
@@ -116,7 +113,7 @@ Entity* Scene::CreateCamera(
   UNREFERENCED_PARAMETER(startPitch);
 
   // Call EntityManager to create new Quad Entity.
-  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
+  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this, nullptr);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -146,9 +143,7 @@ Entity* Scene::CreateQuad(
 { 
   UNREFERENCED_PARAMETER(isStatic);
 
-  // Call EntityManager to create new Quad Entity.
-  //Entity* pNewEntity = _pEntityManager->CreateEntity(this);
-
+  // Add new Entity to Scene instance
   Entity* pNewEntity = AddEntity<Entity>();
 
   // Add Transform Component
@@ -182,11 +177,9 @@ Entity* Scene::CreateBlock(
   dfloat mass
 )
 { 
-  UNREFERENCED_PARAMETER(isStatic);
-
-  // Call EntityManager to create new Quad Entity.
-  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
-  pNewEntity->SetIsStatic(false);
+  // Add new Entity to Scene instance
+  Entity* pNewEntity = AddEntity<Entity>();
+  pNewEntity->SetIsStatic(isStatic);
   
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -236,8 +229,8 @@ Entity* Scene::CreateDirectionalLight(
 {
   UNREFERENCED_PARAMETER(isStatic);
 
-  // Create new Entity
-  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
+  // Add new Entity to Scene instance
+  Entity* pNewEntity = AddEntity<Entity>();
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -266,8 +259,8 @@ Entity* Scene::CreatePointLight(
 {
   UNREFERENCED_PARAMETER(isStatic);
 
-  // Create new Entity
-  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
+  // Add new Entity to Scene instance
+  Entity* pNewEntity = AddEntity<Entity>();
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -299,8 +292,8 @@ Entity* Scene::CreateSpotLight(
 {
   UNREFERENCED_PARAMETER(isStatic);
 
-  // Create new Entity
-  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this);
+  // Add new Entity to Scene instance
+  Entity* pNewEntity = AddEntity<Entity>();
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
@@ -388,7 +381,7 @@ void Scene::ShootBox(const Vector3f& cameraPosition, const Vector3f& direction)
   static_cast<btRigidBody*>(pBox->GetPhysicsBodyPtr()->GetPhysicsEntity()->GetCollisionObjectPtr())->setLinearVelocity(velocity);
 }
 
-bool Scene::EnlistComponent(Component* pNewComponent)
+bool Scene::RegisterComponent(Component* pNewComponent)
 {
   // Get type
   size_t type = pNewComponent->GetType();
@@ -402,13 +395,19 @@ bool Scene::EnlistComponent(Component* pNewComponent)
   // If already existed
   if (result.second == false)
   {
+    PUSH_EDITOR_ERROR(
+      eEngineError::RegisteredAlreadyExistingComponentToScene, 
+      "This Component is already registered to Scene instance with ID " + GetGuid(), 
+      ""
+    );
+
     return false;
   }
 
   return true;
 }
 
-bool Scene::DelistComponent(Component* pNewComponent)
+bool Scene::UnregisterComponent(Component* pNewComponent)
 {
   // Get type
   size_t type = pNewComponent->GetType();
@@ -422,23 +421,29 @@ bool Scene::DelistComponent(Component* pNewComponent)
   return (result > 0);
 }
 
-bool Scene::EnlistEntity(Entity* pEntity)
+bool Scene::AttachEntity(Entity* pEntity)
 {
   // Insert it there
-  auto result = _entities.insert(std::make_pair(pEntity->GetGuid(), pEntity));
+  auto result = _childEntities.insert(std::make_pair(pEntity->GetGuid(), pEntity));
 
   // If already existed
   if (result.second == false)
   {
+    PUSH_EDITOR_ERROR(
+      eEngineError::AttachingAlreadyExistingEntityToScene,
+      "This Entity '" + std::to_string(pEntity->GetGuid()) + "' is already attached to Scene instance with ID " + std::to_string(GetGuid()),
+      ""
+    );
+
     return false;
   }
 
   return true;
 }
 
-bool Scene::DelistEntity(Entity* pEntity)
+bool Scene::DetachEntity(Entity* pEntity)
 {
-  auto result = _entities.erase(pEntity->GetGuid());
+  auto result = _childEntities.erase(pEntity->GetGuid());
 
   return (result > 0);
 }

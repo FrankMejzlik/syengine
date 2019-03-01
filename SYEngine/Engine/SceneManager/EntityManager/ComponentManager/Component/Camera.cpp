@@ -9,13 +9,11 @@
 using namespace SYE;
 
 Camera::Camera(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ) :
   Component(
-    pOwnerEntity, subModulesConstRef, primaryComponentSlots,
+    pOwnerEntity, pOwnerComponent,
     true, true,
     slotIndex, type
   ),
@@ -34,29 +32,14 @@ Camera::Camera(
     PUSH_EDITOR_ERROR(eEngineError::MissingPointerToTargetWindowInstance, "Unable to get pointer to target Window instance.", "");
   }
 }
-
-void Camera::Refresh()
-{
-  /**
-   * Update all quick refs to sibling Components
-   */
-
-  // Update Transform quick ref
-  if (!_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].empty())
-  {
-    _pTransform = static_cast<Transform*>(_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].begin()->second);
-  }
-  
-}
-
 Vector3f Camera::GetCameraPosition() const
 {
-  return _pTransform->GetPosition();
+  return GetTransformPtr()->GetPosition();
 }
 
 Vector3f Camera::GetCameraDirection() const
 {
-  return Normalize(_pTransform->GetZDir());
+  return Normalize(GetTransformPtr()->GetZDir());
 }
 
 
@@ -127,7 +110,7 @@ void Camera::CalculateViewMatrix()
 {
   Vector3f position = GetCameraPosition();
 
-  _viewMatrix = glm::lookAt(position.GetData(), (position + _pTransform->GetZDir()).GetData(), _pTransform->GetYDir().GetData());
+  _viewMatrix = glm::lookAt(position.GetData(), (position + GetTransformPtr()->GetZDir()).GetData(), GetTransformPtr()->GetYDir().GetData());
 }
 
 void Camera::CalculateOrthoProjectionMatrix()

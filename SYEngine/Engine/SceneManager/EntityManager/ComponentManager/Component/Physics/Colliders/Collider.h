@@ -17,15 +17,11 @@ class Collider :
 public:
   Collider() = delete;
   Collider(
-    Entity* pOwnerEntity, 
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    Entity* pOwnerEntity, Component* pOwnerComponent,
     eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::COLLIDER
   );
   virtual ~Collider() noexcept;
 
-
-  virtual void Refresh() override;
 
   void SetMeshPtr(Mesh* pMesh);
   void ClearMesh();
@@ -69,14 +65,6 @@ protected:
   Vector3f _worldRotation;
   Vector3f _worldScale;
 
-
-  /**
-   * QUICK REFERENCES
-   */
-  /** Sibling Transform Component */
-  Transform* _pTransform;
-  /** Sibling Rigidbody Component */
-  Rigidbody* _pRigidbody;
 };
 
 } // namespace SYE

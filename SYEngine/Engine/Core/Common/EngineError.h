@@ -28,7 +28,19 @@ enum class eEngineError
 
   AttachingMultipleSingletonSlotComponents = 1000,
   DuplicateComponentOnEntity = 1001,
-  OutOfRangeIndices = 1002
+  OutOfRangeIndices = 1002,
+  RegisteredAlreadyExistingComponentToScene = 1003,
+  RegisteredAlreadyExistingChildComponentToScene = 1004,
+  AddingEntityToSceneFailed = 1005,
+  TryingToDeleteNonExistentEntityFromScene = 1006,
+  UnableToDeleteEntityBecauseDestructionFailed = 1007,
+  AddingComponentToEntityFailed = 1008,
+  TryingToDeleteNonExistentComponentFromEntity = 1009,
+  UnableToDeleteComponentBecauseDestructionFailed = 1010,
+  AddingEntityToEntityFailed = 1011,
+  AttachingAlreadyExistingEntityToEntity = 1012,
+  AttachingAlreadyExistingEntityToScene = 1013,
+  TryingToDeleteNonExistentEntityFromEntity = 1014,
 };
 
 class EngineError

@@ -43,7 +43,7 @@ public:
   Scene* GetScenePtr(size_t sceneGuid);
   Scene* InsertScene(std::unique_ptr<Scene>&& sceneToInsert);
 
-  Scene* CreateScene(EngineContext* pEngineContext, Engine* pOwnerEngine, Window* pWindow);
+  Scene* CreateScene(EngineContext* pEngineContext, Engine* pOwnerEngine, Window* pWindow, size_t sceneId);
   Scene* LoadInitialScene(Scene* pNewScene);
   void HandleInput(Scene* pScene);
 

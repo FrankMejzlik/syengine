@@ -17,9 +17,7 @@ class PointLight :
 public:
   PointLight() = delete;
   PointLight(
-    Entity* pOwnerEntity, 
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    Entity* pOwnerEntity, Component* pOwnerComponent,
     eSlotIndex slotIndex = POINT_LIGHT_SOURCE, Component::eType type = eType::POINT_LIGHT
   ) ;
   virtual ~PointLight() noexcept;

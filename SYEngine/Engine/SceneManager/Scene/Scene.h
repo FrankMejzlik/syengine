@@ -11,6 +11,7 @@
 #pragma warning(pop)
 
 #include "common.h"
+#include "IEngineContextInterface.h"
 #include "IErrorLogging.h"
 #include "IGuidCounted.h"
 #include "SceneContext.h"
@@ -21,28 +22,24 @@
 namespace SYE
 {
 
-class InputManager;
 class Camera;
 class Window;
 class PhysicsScene;
-class PhysicsManager;
 class PhysicsBody;
 class Entity;
-class EntityManager;
 class Component;
 class Engine;
-class EngineContext;
 
 /**
  * Every Scene MUST have it's EntityController to call to.
  */
 class Scene:
-  public IGuidCounted, public IErrorLogging
+  public IGuidCounted, public IErrorLogging, public IEngineContextInterface
 {
   // Methods
 public:
   Scene() = delete;
-  Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow);
+  Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow, size_t sceneId);
   ~Scene() noexcept;
 
   Entity* CreateCamera(
@@ -94,7 +91,23 @@ public:
   template <typename EntityType>
   EntityType* AddEntity()
   {
-    EntityType* pNewEntity = GetEntityManagerPtr()->CreateEntity<EntityType>(this);
+    // Spawn new Entity
+    EntityType* pNewEntity = GetEntityManagerPtr()->CreateEntity<EntityType>(this, nullptr);
+
+    // Try to attach it to self
+    if (!AttachEntity(pNewEntity))
+    {
+      PUSH_EDITOR_ERROR(
+        eEngineError::AddingEntityToSceneFailed,
+        "Adding Entity '" + std::to_string(pNewEntity->GetGuid()) + "' to Scene '" + std::to_string(GetGuid()) + "' failed.",
+        ""
+      );
+
+      // Detroy this Entity
+      GetEntityManagerPtr()->DestroyEntity(pNewEntity);
+
+      return nullptr;
+    }
 
     return pNewEntity;
   }
@@ -106,12 +119,9 @@ public:
    */
   std::pair<PhysicsBody*, Vector3f> Raycast(Vector3f from, Vector3f direction) const;
 
-  InputManager* GetInputManagerPtr() const;
-  PhysicsManager* GetPhysicsManagerPtr() const;
-  EntityManager* GetEntityManagerPtr() const;
+  
 
   Camera* GetEditorCamera() const;
-  std::string_view GetSceneName() const;
 
   void SetMainWindowPtr(Window* pMainWindow) { _pMainWindow = pMainWindow; };
   Window* GetMainWindowPtr() const { return _pMainWindow; };
@@ -119,40 +129,41 @@ public:
   void SetPhysicsScenePtr(PhysicsScene* pPhysicsScene);
   PhysicsScene* GetPhysicsScenePtr() const;
 
+  SceneContext* GetSceneContextPtr() const { return _pSceneContext.get(); };
 
-  size_t GetSceneNumberOfEntities() const;
-  std::unordered_map<size_t, Entity*> GetEntitiesRef()
-  {
-    return _entities;
-  }
+
   /** Active Components categorized to important slots based on what module needs to acces them. */
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> GetActiveComponentsBySlotsRef() { return _activeComponentBySlots; }
-
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> GetActivePrimaryComponentSlotsRef() { return _activeComponentBySlots; }
 
   void ShootBox(const Vector3f& cameraPosition, const Vector3f& direction);
-  
+ 
+  /**
+   * This is called by Component instance to be processed in main loop
+   */
+  bool RegisterComponent(Component* pNewComponent);
+  /**
+   * Removes Component from main loop process
+   */
+  bool UnregisterComponent(Component* pComponent);
+
+
+
+private:
   size_t MapTypeToSlot(size_t type);
-
-  bool EnlistComponent(Component* pNewComponent);
-  bool DelistComponent(Component* pComponent);
   /** 
-   * Adds pointer to this instance everywhere it needs to
-   */
-  bool EnlistEntity(Entity* pEntity);
+    * Adds pointer to this instance everywhere it needs to
+    */
+  bool AttachEntity(Entity* pEntity);
   /** 
-   * Nulls pointer to this instance everywhere EnlistEntity added it
-   */
-  bool DelistEntity(Entity* pEntity);
-
+    * Nulls pointer to this instance everywhere EnlistEntity added it
+    */
+  bool DetachEntity(Entity* pEntity);
 
 
   // Attributes
 private:
-  /** Context of this scene */
-  SceneContext _sceneContext;
-  
-  /** Context of Engine instance */
-  EngineContext* _pEngineContext;
+  /** Owner ptr of SceneContext */
+  std::unique_ptr<SceneContext> _pSceneContext;
 
   /** Pointer to owner Engine instance */
   Engine* _pEngine;
@@ -165,10 +176,10 @@ private:
 
   /** Pointer to PhysicsScene that corresponds to this Scene */
   PhysicsScene* _pPhysicsScene;
- 
-  // Map of all entities in this Scene.
-  std::unordered_map<size_t, Entity*> _entities;
 
+  /** Map of all child Entities */
+  std::map<size_t, Entity*> _childEntities;
+  
   /** 
   * Table of active primary Components on this Entity 
   *

@@ -5,13 +5,11 @@
 using namespace SYE;
 
 Transform::Transform(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ) :
   Component(
-    pOwnerEntity, subModulesConstRef, primaryComponentSlots,
+    pOwnerEntity, pOwnerComponent,
     true, true,
     slotIndex, type
   ),
@@ -19,20 +17,6 @@ Transform::Transform(
   _rotation(Vector3f(0.0f, 0.0f, 0.0f)),
   _scale(Vector3f(1.0f, 1.0f, 1.0f)),
   _worldUp(0.0f, 1.0f, 0.0f)
-{
-}
-
-Transform::Transform(
-  Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
-  Vector3f position,
-  Vector3f rotation,
-  Vector3f scale,
-  eSlotIndex slotIndex, Component::eType type
-) :
-  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, true, true, slotIndex, type),
-  _position(position),
-  _rotation(rotation),
-  _scale(scale)
 {
 }
 

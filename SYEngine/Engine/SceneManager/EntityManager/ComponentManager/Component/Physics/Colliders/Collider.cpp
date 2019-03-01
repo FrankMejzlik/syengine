@@ -9,19 +9,17 @@
 using namespace SYE;
 
 Collider::Collider(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ):
   Component(
-    pOwnerEntity, subModulesConstRef, primaryComponentSlots,
+    pOwnerEntity, pOwnerComponent,
     false, true,
     slotIndex, type
   )
 {
   // Refress all Quick refs
-  Refresh();
+  RefreshQuickRefs();
 
   RecalculateAbsolutePosition();
   RecalculateAbsoluteRotation();
@@ -34,21 +32,6 @@ Collider::~Collider() noexcept
   ClearMesh();
 }
 
-void Collider::Refresh()
-{
-  // Update Transform quick ref
-  if (!_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].empty())
-  {
-    _pTransform = static_cast<Transform*>(_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].begin()->second);
-  }
-
-  // Update Rigidbody quick ref
-  if (!_primaryComponentSlots[COMPONENT_PHYSICS_BODY_SLOT].empty())
-  {
-    _pRigidbody = static_cast<Rigidbody*>(_primaryComponentSlots[COMPONENT_PHYSICS_BODY_SLOT].begin()->second);
-  }
-
-}
 
 void Collider::SetMeshPtr(Mesh* pMesh)
 {
@@ -58,7 +41,7 @@ void Collider::SetMeshPtr(Mesh* pMesh)
 void Collider::ClearMesh()
 {
   // Tell ComponentManager to remove it
-  _pComponentManager->DestroyComponent(_pMesh);
+  GetComponentManagerPtr()->DestroyComponent(_pMesh);
 
   // Set to nullptr
   _pMesh = nullptr;
@@ -101,30 +84,30 @@ bool Collider::IsTrigger() const
 
 void Collider::SetTransformPosition(dfloat x, dfloat y, dfloat z)
 {
-  _pTransform->SetPosition(Vector3f(x, y, z));
+  GetTransformPtr()->SetPosition(Vector3f(x, y, z));
 }
 void Collider::SetTransformRotation(dfloat x, dfloat y, dfloat z)
 {
-  _pTransform->SetRotation(Vector3f(x, y, z));
+  GetTransformPtr()->SetRotation(Vector3f(x, y, z));
 }
 void Collider::SetTransformScale(dfloat x, dfloat y, dfloat z)
 {
-  _pTransform->SetScale(Vector3f(x, y, z));
+  GetTransformPtr()->SetScale(Vector3f(x, y, z));
 }
 
 void Collider::RecalculateAbsolutePosition()
 {
-  _worldPosition = _pTransform->GetPosition() + _localPosition;
+  _worldPosition = GetTransformPtr()->GetPosition() + _localPosition;
 }
 
 void Collider::RecalculateAbsoluteRotation()
 {
-  _worldRotation = _pTransform->GetRotation() + _localRotation;
+  _worldRotation = GetTransformPtr()->GetRotation() + _localRotation;
 }
 
 void Collider::RecalculateAbsoluteScale()
 {
-  _worldScale = _pTransform->GetScale() * _localScale;
+  _worldScale = GetTransformPtr()->GetScale() * _localScale;
 }
 
 void Collider::SetLocalPosition(Vector3f position)

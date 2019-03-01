@@ -4,12 +4,10 @@
 using namespace SYE;
 
 DirectionalLight::DirectionalLight(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ) :
-  Light(pOwnerEntity, subModulesConstRef, primaryComponentSlots, slotIndex, type) 
+  Light(pOwnerEntity, pOwnerComponent, slotIndex, type) 
 {
   // Calculate projection matrix for this light
   // Directional light uses orthogonal projection

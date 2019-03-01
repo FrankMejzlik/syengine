@@ -33,12 +33,10 @@ public:
    * dull: 0.3f  4
    */
   Shininess(
-    Entity* pOwnerEntity, 
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    Entity* pOwnerEntity, Component* pOwnerComponent,
     eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::SHININESS
   ):
-    Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false, true, slotIndex, type),
+    Component(pOwnerEntity, pOwnerComponent, false, true, slotIndex, type),
     _specularIntensity(0.3f), _shininessIntensity(4)
   {}
 
@@ -69,9 +67,7 @@ class Material:
 public:
   Material() = delete;
   Material(
-    Entity* pOwnerEntity, 
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    Entity* pOwnerEntity, Component* pOwnerComponent,
     eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::MATERIAL
   );
 

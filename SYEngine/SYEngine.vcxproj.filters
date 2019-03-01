@@ -182,6 +182,9 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Softbody.cpp" />
     <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.cpp" />
     <ClCompile Include="PhysicsDebugRenderer.cpp" />
+    <ClCompile Include="Engine\Core\Abstract\IEngineContextInterface.cpp" />
+    <ClCompile Include="Engine\Core\Abstract\IComponentsInterface.cpp" />
+    <ClCompile Include="Engine\Core\Abstract\ISceneContextInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -395,6 +398,9 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Softbody.h" />
     <ClInclude Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.h" />
     <ClInclude Include="PhysicsDebugRenderer.h" />
+    <ClInclude Include="Engine\Core\Abstract\IEngineContextInterface.h" />
+    <ClInclude Include="Engine\Core\Abstract\IComponentsInterface.h" />
+    <ClInclude Include="Engine\Core\Abstract\ISceneContextInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

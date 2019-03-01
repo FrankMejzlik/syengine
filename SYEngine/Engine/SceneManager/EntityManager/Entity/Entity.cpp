@@ -7,68 +7,40 @@
 
 using namespace SYE;
 
-Entity::Entity(Scene* pOwnerScene, EntityManager* pEntityManager, ComponentManager* pComponentManager) noexcept :
-  _pParent(nullptr),
-  _pEntityManager(pEntityManager),
+Entity::Entity(Scene* pOwnerScene, Entity* pParentEntity):
+  IEngineContextInterface(pOwnerScene->GetEngineContextPtr()),
+  ISceneContextInterface(pOwnerScene->GetSceneContextPtr()),
   _pOwnerScene(pOwnerScene),
+  _pParentEntity(pParentEntity),
   _isStatic(true),
-  _pComponentManager(pComponentManager),
   _type(Entity::eType::WORLD)
-{
-  // Enlist self in owner Scene
-  _pOwnerScene->EnlistEntity(this);
-}
+{}
 
-Entity::~Entity()
+Entity::~Entity() noexcept
 {
-  // Destroy all children Entities
-  for (auto&& childPair : _children)
+  // Delete all children Entities recursively
+  for (auto&& childPair : _childEntities)
   {
-    _pEntityManager->DestroyEntity(childPair.second);
+    DeleteEntity(childPair.second);
   }
 
-  // Destroy all Components that it owns
-  for (auto&& componentPair : _components)
+  // Destroy all child Component recursively
+  for (auto&& slotMap : _primaryComponentSlots)
   {
-    _pComponentManager->DestroyComponent(componentPair.second);
+    for (auto&& componentPair : slotMap)
+    {
+      DeleteComponent(componentPair.second);
+    }
   }
-
-  // Delist self from owning scene
-  _pOwnerScene->DelistEntity(this);
-
 }
 
-ComponentManager* Entity::GetComponentManagerPtr()
-{
-  return _pComponentManager;
-}
-
-
-bool Entity::EnlistComponent(Component* pComponent)
-{
-  auto newPair = std::make_pair(pComponent->GetGuid(), pComponent);
-
-  _primaryComponentSlots[pComponent->GetSlotIndex()].insert(newPair);
-
-  // Try inserting it in its place to correct slot index
-  auto result = _components.insert(newPair);
-
-  if (result.second == false)
-  {
-    return false;
-  }
-
-  return false;
-}
-
-bool Entity::DelistComponent(Component* pComponent)
+bool Entity::DetachComponent(Component* pComponent)
 {
   // Delist it from Scene first
-  _pOwnerScene->DelistComponent(pComponent);
+  _pOwnerScene->UnregisterComponent(pComponent);
 
-  auto result = _components.erase(pComponent->GetGuid());
-  
-  _primaryComponentSlots[pComponent->GetSlotIndex()].erase(pComponent->GetGuid());
+  // Remove it from slot
+  auto result = _primaryComponentSlots[pComponent->GetSlotIndex()].erase(pComponent->GetGuid());
 
   return (result > 0);
 }
@@ -87,11 +59,6 @@ PhysicsBody* Entity::GetPhysicsBodyPtr() const
   return static_cast<PhysicsBody*>(result->second);
 }
 
-PhysicsManager* Entity::GetPhysicsManager()
-{
-  return _pOwnerScene->GetPhysicsManagerPtr();
-}
-
 Entity::eType Entity::SetType(eType newValue)
 {
   Entity::eType oldType = _type;
@@ -107,37 +74,125 @@ Entity::eType Entity::GetType() const
 
 Entity* Entity::SetParent(Entity* newValue)
 {
-  Entity* oldParent = _pParent;
-   _pParent = newValue;
+  Entity* oldParent = _pParentEntity;
+   _pParentEntity = newValue;
 
   return oldParent;
 }
 
 Entity* Entity::GetParentPtr() const 
 { 
-  return _pParent; 
+  return _pParentEntity; 
 }
 
 void Entity::AddChild(Entity* pNewChild)
 {
-  _children.insert(std::pair(pNewChild->GetGuid(), pNewChild));
+  _childEntities.insert(std::pair(pNewChild->GetGuid(), pNewChild));
 }
 
 void Entity::RemoveChild(Entity* pNewChild)
 {
-  _children.erase(pNewChild->GetGuid());
+  _childEntities.erase(pNewChild->GetGuid());
 }
 
-const std::map<size_t, Entity*> Entity::GetChildren() const 
+const std::map<size_t, Entity*>& Entity::GetChildrenConstRef() const 
 { 
-  return _children; 
+  return _childEntities; 
 }
 
-void Entity::RefreshComponents()
+bool Entity::DeleteComponent(Component* pComponentToDelete)
 {
-  for (auto&& component : _components)
+  // Detach it from Entity
+  if (!DetachComponent(pComponentToDelete))
   {
-    component.second->Refresh();
+    PUSH_EDITOR_ERROR(
+      eEngineError::TryingToDeleteNonExistentEntityFromScene,
+      "This Component '" + std::to_string(pComponentToDelete->GetGuid()) + "' does not exist on Entity '" + std::to_string(GetGuid()) + "' and thus cannot be deleted.",
+      ""
+    );
+
+    return false;
+  }
+
+  // Tell EntityManager to destroy it
+  bool result = GetComponentManagerPtr()->DestroyComponent(pComponentToDelete);
+  if (!result)
+  {
+    PUSH_EDITOR_ERROR(
+      eEngineError::UnableToDeleteComponentBecauseDestructionFailed,
+      "This Component '" + std::to_string(pComponentToDelete->GetGuid()) + "' is detached from Entity  '" + std::to_string(GetGuid()) + "' but destruction failed. It is still allocated.",
+      ""
+    );
+  }
+
+  return true;
+}
+
+bool Entity::DeleteEntity(Entity* pEntityToDelete)
+{
+  // Detach it from Scene
+  if (!DetachEntity(pEntityToDelete))
+  {
+    PUSH_EDITOR_ERROR(
+      eEngineError::TryingToDeleteNonExistentEntityFromEntity,
+      "This Entity '" + std::to_string(pEntityToDelete->GetGuid()) + "' does not exist on Entity '" + std::to_string(GetGuid()) + "' and thus cannot be deleted.",
+      ""
+    );
+
+    return false;
+  }
+
+  // Tell EntityManager to destroy it
+  bool result = GetEntityManagerPtr()->DestroyEntity(pEntityToDelete);
+  if (!result)
+  {
+    PUSH_EDITOR_ERROR(
+      eEngineError::UnableToDeleteEntityBecauseDestructionFailed,
+      "This Entity '" + std::to_string(pEntityToDelete->GetGuid()) + "' is detached from Scene '" + std::to_string(GetGuid()) + "' but destruction failed. It is still allocated.",
+      ""
+    );
+  }
+
+  return true;
+}
+
+void Entity::RefreshQuickRefs()
+{
+  // Iterate through slots
+  for (auto&& slotMap : _primaryComponentSlots)
+  {
+    // Iterate through Components in each slot
+    for (auto&& component : slotMap)
+    {
+      component.second->RefreshQuickRefs();
+    }
   }
 }
 
+
+bool Entity::AttachEntity(Entity* pEntity)
+{
+  // Insert it there
+  auto result = _childEntities.insert(std::make_pair(pEntity->GetGuid(), pEntity));
+
+  // If already existed
+  if (result.second == false)
+  {
+    PUSH_EDITOR_ERROR(
+      eEngineError::AttachingAlreadyExistingEntityToEntity,
+      "This Entity '" + std::to_string(pEntity->GetGuid()) + "' is already attached to Entity instance with ID '" + std::to_string(GetGuid()) + "'.",
+      ""
+    );
+
+    return false;
+  }
+
+  return true;
+}
+
+bool Entity::DetachEntity(Entity* pEntity)
+{
+  auto result = _childEntities.erase(pEntity->GetGuid());
+
+  return (result > 0);
+}

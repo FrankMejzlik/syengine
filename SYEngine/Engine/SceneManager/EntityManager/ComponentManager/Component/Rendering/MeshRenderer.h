@@ -22,13 +22,9 @@ class MeshRenderer:
 public:
   MeshRenderer() = delete;
   MeshRenderer(
-    Entity* pOwnerEntity, 
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    Entity* pOwnerEntity, Component* pOwnerComponent,
     eSlotIndex slotIndex = MESH_RENDERER, Component::eType type = eType::MESH_RENDERER
   );
-
-  virtual void Refresh();
 
   void Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation) const;
   void RenderForLight(GLuint ul_modelToWorldMatrix) const;
@@ -80,10 +76,6 @@ protected:
   std::vector<Mesh*> _meshes;
   std::vector<Material*> _materials;
   std::vector<size_t> _meshToMaterialIndex;
-
-private:
-  // Quick refs
-  Transform* _pTransform;
 
 };
 

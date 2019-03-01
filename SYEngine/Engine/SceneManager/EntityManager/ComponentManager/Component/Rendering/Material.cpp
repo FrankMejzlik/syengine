@@ -5,19 +5,17 @@
 using namespace SYE;
 
 Material::Material(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ):
-  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots, false, true, slotIndex, type)
+  Component(pOwnerEntity, pOwnerComponent, false, true, slotIndex, type)
 {}
 
 
 size_t Material::AddShininess()
 {
   // Add default Shininess
-  Shininess* pShininess = _pComponentManager->CreateComponent<Shininess>(_pOwnerEntity, this);
+  Shininess* pShininess = GetComponentManagerPtr()->CreateComponent<Shininess>(_pOwnerEntity, this);
 
   _shininesses.push_back(pShininess);
 
@@ -27,7 +25,7 @@ size_t Material::AddShininess()
 size_t Material::AddShininess(dfloat specularIntensity, dfloat shininessIntensity)
 {
   // Create new Shininess Component
-  Shininess* pShininess = _pComponentManager->CreateComponent<Shininess>(_pOwnerEntity, this);
+  Shininess* pShininess = GetComponentManagerPtr()->CreateComponent<Shininess>(_pOwnerEntity, this);
   
   // Set correct values
   pShininess->SetSpecularIntensity(specularIntensity);
@@ -48,7 +46,7 @@ size_t Material::AddShininess(Shininess* pShininess)
 size_t Material::AddTexture()
 {
   // Create new Texture Component
-  Texture* pTexture = _pComponentManager->CreateComponent<Texture>(_pOwnerEntity, this);
+  Texture* pTexture = GetComponentManagerPtr()->CreateComponent<Texture>(_pOwnerEntity, this);
 
   // Load default texture
   bool result = pTexture->LoadTexture(FILEPATH_DEFAULT_TEXTURE);
@@ -65,7 +63,7 @@ size_t Material::AddTexture()
 size_t Material::AddTexture(std::string_view filePathToTexture)
 {
   // Create new Texture Component
-  Texture* pTexture = _pComponentManager->CreateComponent<Texture>(_pOwnerEntity, this);
+  Texture* pTexture = GetComponentManagerPtr()->CreateComponent<Texture>(_pOwnerEntity, this);
   bool result = pTexture->LoadTexture(filePathToTexture);
   if (result == false)
   {
@@ -109,7 +107,7 @@ void Material::UseMaterial(
 
 size_t Material::AddShader()
 {
-  DLog(eLogType::Warning, "%s", "NOT IMPMLEMENTED!");
+  LOG_NOT_IMPLEMENTED;
   return 0ULL;
 }
 
@@ -117,7 +115,7 @@ size_t Material::AddShader(std::string_view filePath)
 {
   UNREFERENCED_PARAMETER(filePath);
 
-  DLog(eLogType::Warning, "%s", "NOT IMPMLEMENTED!");
+  LOG_NOT_IMPLEMENTED;
   return 0ULL;
 }
 
@@ -125,7 +123,7 @@ size_t Material::AddShader(Shader* pShader)
 {
   UNREFERENCED_PARAMETER(pShader);
 
-  DLog(eLogType::Warning, "%s", "NOT IMPMLEMENTED!");
+  LOG_NOT_IMPLEMENTED;
   return 0ULL;
 }
 
@@ -134,5 +132,5 @@ void Material::AddTextureToShaderIndex(size_t textureIndex, size_t shaderIndex)
   UNREFERENCED_PARAMETER(textureIndex);
   UNREFERENCED_PARAMETER(shaderIndex);
 
-  DLog(eLogType::Warning, "%s", "NOT IMPMLEMENTED!");
+  LOG_NOT_IMPLEMENTED;
 }

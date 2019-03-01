@@ -64,8 +64,6 @@ protected:
   const EngineApi* _pEngineApi;
   std::map<int, std::unique_ptr<BaseModule>> _subModules;
 
-  // Just for ability to construct Component before removing last bits of old architecture
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> _fake;
 
 };
 

@@ -35,15 +35,12 @@ public:
   ComponentType* CreateComponent(Entity* pOwnerEntity, Component* pOwnerComponent = nullptr)
   {
     // Instantiate new Component
-    std::unique_ptr<ComponentType> pComponent = std::make_unique<ComponentType>(pOwnerEntity, _subModules, GetPrimaryComponentSlotsRef(pOwnerEntity));
+    std::unique_ptr<ComponentType> pComponent = std::make_unique<ComponentType>(pOwnerEntity, pOwnerComponent);
 
     // If subcomponent
     if (!pComponent->IsPrimary())
     {
       assert(pOwnerComponent != nullptr);
-
-      // Set it's pointer to owning Component
-      pComponent->SetOwnerComponentPtr(pOwnerComponent);
     }
 
     return InsertComponent<ComponentType>(std::move(pComponent));

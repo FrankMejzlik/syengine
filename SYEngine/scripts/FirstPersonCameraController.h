@@ -39,12 +39,8 @@ public:
   // Methods.
 public:
   FirstPersonCameraController() = delete;
-  FirstPersonCameraController(
-    Entity* pOwnerEntity,
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef,
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots
-  ) noexcept :
-    Script(pOwnerEntity, subModulesConstRef, primaryComponentSlots, UNDEFINED, Component::eType::SCRIPT),
+  FirstPersonCameraController(Entity* pOwnerEntity, Component* pOwnerComponent) :
+    Script(pOwnerEntity, pOwnerComponent, UNDEFINED, Component::eType::SCRIPT),
     _isDragingOn(false),
     _moveSpeed(5.0f),
     _firstPersonTurnSpeed(0.01f),
@@ -81,10 +77,10 @@ public:
 
   void ProcessKeyControl(dfloat deltaTime, Scene* pScene)
   {
-    Vector3f position = GET_TRANSFORM->GetPosition();
-    _frontDirection = GET_TRANSFORM->GetZDir();
-    _left = GET_TRANSFORM->GetXDir();
-    _up = GET_TRANSFORM->GetYDir();
+    Vector3f position = GetTransformPtr()->GetPosition();
+    _frontDirection = GetTransformPtr()->GetZDir();
+    _left = GetTransformPtr()->GetXDir();
+    _up = GetTransformPtr()->GetYDir();
 
 
     dfloat deltaSpeed = _moveSpeed * deltaTime;
@@ -133,7 +129,7 @@ public:
     }
 
     // Update position in Transform Component
-    GET_TRANSFORM->SetPosition(position);
+    GetTransformPtr()->SetPosition(position);
   }
 
   void ProcessMouseControl(Scene* pScene)
@@ -150,7 +146,7 @@ public:
     //dfloat editorModeChangeX = xChange * _editorModeTurnSpeed;
     //dfloat editorModeChangeY = yChange * _editorModeTurnSpeed;
 
-    Vector3f rotationAngles = GET_TRANSFORM->GetRotation();
+    Vector3f rotationAngles = GetTransformPtr()->GetRotation();
 
     dfloat yaw = rotationAngles.GetX() + firstPersonChangeX;
     dfloat pitch = rotationAngles.GetY() + firstPersonChangeY;
@@ -170,7 +166,7 @@ public:
     rotationAngles.SetY(pitch);
 
     // Update Transform values
-    GET_TRANSFORM->SetRotation(rotationAngles);
+    GetTransformPtr()->SetRotation(rotationAngles);
     
   }
 
@@ -189,7 +185,7 @@ public:
 
   glm::mat4 CalculateViewMatrix()
   {
-    return glm::lookAt(GET_TRANSFORM->GetPosition().GetData(), (GET_TRANSFORM->GetPosition() + _frontDirection).GetData(), _up.GetData());
+    return glm::lookAt(GetTransformPtr()->GetPosition().GetData(), (GetTransformPtr()->GetPosition() + _frontDirection).GetData(), _up.GetData());
   }
 
 private:
@@ -216,3 +212,4 @@ private:
 };
 
 };
+  

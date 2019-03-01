@@ -72,9 +72,9 @@ bool Engine::Initialize()
   return true;
 }
 
-Scene* Engine::AddScene(Window* pTargetWindow)
+Scene* Engine::AddScene(Window* pTargetWindow, size_t sceneId)
 {
-  return SCENE_MANAGER->CreateScene(_pEngineContext, this, pTargetWindow);
+  return SCENE_MANAGER->CreateScene(_pEngineContext, this, pTargetWindow, sceneId);
 }
 
 Window* Engine::AddWindow()
@@ -126,7 +126,7 @@ bool Engine::Run()
   }
 
   // Create new Scene instance
-  Scene* pScene = this->AddScene(pMainWindow);
+  Scene* pScene = this->AddScene(pMainWindow, 0ULL);
   // If creating Scene failed
   if (pScene == nullptr)
   {

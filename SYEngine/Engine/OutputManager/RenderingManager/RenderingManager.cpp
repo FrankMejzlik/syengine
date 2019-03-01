@@ -133,22 +133,22 @@ void RenderingManager::CreateShaders()
 
   
   // Main shader
-  std::unique_ptr<Shader> pMainShader = std::make_unique<Shader>(nullptr, _subModules, _fake);
+  std::unique_ptr<Shader> pMainShader = std::make_unique<Shader>(nullptr, nullptr);
   pMainShader->CreateFromFiles(vShader, fShader);
   _shaders.push_back(std::move(pMainShader));
 
   // Directional light shader
-  std::unique_ptr<Shader> pDLShader = std::make_unique<Shader>(nullptr, _subModules, _fake);
+  std::unique_ptr<Shader> pDLShader = std::make_unique<Shader>(nullptr, nullptr);
   pDLShader->CreateFromFiles(vDLShader, fDLShader);
   _shaders.push_back(std::move(pDLShader));
 
   // Omnidir light shader
-  std::unique_ptr<Shader> pODLShader = std::make_unique<Shader>(nullptr, _subModules, _fake);
+  std::unique_ptr<Shader> pODLShader = std::make_unique<Shader>(nullptr, nullptr);
   pODLShader->CreateFromFiles(vODLShader, gODLShader, fODLShader);
   _shaders.push_back(std::move(pODLShader));
 
   // Line shader
-  std::unique_ptr<Shader> pLineShader = std::make_unique<Shader>(nullptr, _subModules, _fake);
+  std::unique_ptr<Shader> pLineShader = std::make_unique<Shader>(nullptr, nullptr);
   pLineShader->CreateFromFiles(lineVertexShader, lineFragShader);
   _shaders.push_back(std::move(pLineShader));
 
@@ -160,7 +160,7 @@ void RenderingManager::DirectionalShadowMapPass(Scene* pScene)
   // TODO: Implement in Material
   _shaders[1]->UseShader();
 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActiveComponentsBySlotsRef();
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
 
   for (auto&& dirLight : components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT])
   {
@@ -206,7 +206,7 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
   // TODO: Implement in Material
   _shaders[2]->UseShader();
 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActiveComponentsBySlotsRef();
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
 
   for (auto&& pointLight : components[COMPONENT_POINT_LIGHT_SOURCE_SLOT])
   {
@@ -293,7 +293,7 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
 
 void RenderingManager::FinalMainRenderPass(Scene* pScene)
 {
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActiveComponentsBySlotsRef();
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
   
   DirectionalLight* mainLight;
   if (!components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].empty())

@@ -1,20 +1,20 @@
 #pragma once
 
-#include <string>
-
 namespace SYE 
 {
 
 class SceneContext
 {
 public:
-  SceneContext();
+  SceneContext() = delete;
+  SceneContext(size_t sceneId);
 
-  SceneContext(std::string_view sceneName);
-   
-  ~SceneContext();
-  
-  std::string_view m_sceneName;
+
+  size_t GetSceneId() const;
+
+private:
+  /** ID/index of this scene */
+  size_t _sceneId;
 };
 
 }

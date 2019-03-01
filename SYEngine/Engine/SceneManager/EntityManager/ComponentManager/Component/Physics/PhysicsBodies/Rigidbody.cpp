@@ -8,15 +8,11 @@
 using namespace SYE;
 
 Rigidbody::Rigidbody(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ) :
-  PhysicsBody(pOwnerEntity, subModulesConstRef, primaryComponentSlots, slotIndex, type)
-{
-
-}
+  PhysicsBody(pOwnerEntity, pOwnerComponent, slotIndex, type)
+{}
 
 
 Rigidbody::~Rigidbody() noexcept
@@ -34,7 +30,7 @@ void Rigidbody::SaveComponent()
 
 BlockCollider* Rigidbody::AddBlockCollider(dfloat width, dfloat height, dfloat length)
 {
-  BlockCollider* pBlockCollider = _pComponentManager->CreateComponent<BlockCollider>(_pOwnerEntity, this);
+  BlockCollider* pBlockCollider = GetComponentManagerPtr()->CreateComponent<BlockCollider>(_pOwnerEntity, this);
   pBlockCollider->SetDimensions(width, height, length);
   pBlockCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
 

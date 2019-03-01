@@ -14,31 +14,15 @@
 using namespace SYE;
 
 SYE::MeshRenderer::MeshRenderer(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ) :
   Component(
-    pOwnerEntity, subModulesConstRef, primaryComponentSlots,
+    pOwnerEntity, pOwnerComponent,
     true, true,
     slotIndex, type
   )
 {}
-
-void MeshRenderer::Refresh()
-{
-  /**
-  * Update all quick refs to sibling Components
-  */
-
-  // Update Transform quick ref
-  if (!_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].empty())
-  {
-    _pTransform = static_cast<Transform*>(_primaryComponentSlots[COMPONENT_TRANSFORM_SLOT].begin()->second);
-  }
-
-}
 
 void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation) const
 {
@@ -47,11 +31,11 @@ void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntens
   // Prepare Model->World transform matrix
   glm::mat4 modelToWorldMatrix;
   modelToWorldMatrix = std::move(glm::mat4(1.0f));
-  modelToWorldMatrix = glm::translate(modelToWorldMatrix, _pTransform->GetPosition().GetData());
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
-  modelToWorldMatrix = glm::scale(modelToWorldMatrix, _pTransform->GetScale().GetData());
+  modelToWorldMatrix = glm::translate(modelToWorldMatrix, GetTransformPtr()->GetPosition().GetData());
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
+  modelToWorldMatrix = glm::scale(modelToWorldMatrix, GetTransformPtr()->GetScale().GetData());
 
   glUniformMatrix4fv(ul_modelToWorldMatrix, 1, GL_FALSE, glm::value_ptr(modelToWorldMatrix));
 
@@ -75,11 +59,11 @@ void MeshRenderer::RenderForLight(GLuint ul_modelToWorldMatrix) const
   // Prepare Model->World transform matrix
   glm::mat4 modelToWorldMatrix;
   modelToWorldMatrix = std::move(glm::mat4(1.0f));
-  modelToWorldMatrix = glm::translate(modelToWorldMatrix, _pTransform->GetPosition().GetData());
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, _pTransform->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
-  modelToWorldMatrix = glm::scale(modelToWorldMatrix, _pTransform->GetScale().GetData());
+  modelToWorldMatrix = glm::translate(modelToWorldMatrix, GetTransformPtr()->GetPosition().GetData());
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
+  modelToWorldMatrix = glm::scale(modelToWorldMatrix, GetTransformPtr()->GetScale().GetData());
 
   glUniformMatrix4fv(ul_modelToWorldMatrix, 1, GL_FALSE, glm::value_ptr(modelToWorldMatrix));
 
@@ -94,7 +78,7 @@ void MeshRenderer::RenderForLight(GLuint ul_modelToWorldMatrix) const
 Mesh* MeshRenderer::AddMesh()
 {
   // Create new Mesh Component
-  Mesh* pMesh = _pComponentManager->CreateComponent<Mesh>(_pOwnerEntity, this);
+  Mesh* pMesh = GetComponentManagerPtr()->CreateComponent<Mesh>(_pOwnerEntity, this);
 
   // Push it in
   _meshes.push_back(pMesh);
@@ -112,7 +96,7 @@ Mesh* MeshRenderer::AddMesh(Mesh* pMesh)
 Material* MeshRenderer::AddMaterial()
 {
   // Create empty Material.
-  Material* pMaterial = _pComponentManager->CreateComponent<Material>(_pOwnerEntity, this);
+  Material* pMaterial = GetComponentManagerPtr()->CreateComponent<Material>(_pOwnerEntity, this);
   // Add default texture
   pMaterial->AddTexture();
 
@@ -137,7 +121,7 @@ Material* MeshRenderer::AddMaterial(
 )
 {
   // Create empty Material.
-  Material* pMaterial = _pComponentManager->CreateComponent<Material>(_pOwnerEntity, this);
+  Material* pMaterial = GetComponentManagerPtr()->CreateComponent<Material>(_pOwnerEntity, this);
   // Add texture
   pMaterial->AddTexture(textureFilePath);
 
@@ -149,9 +133,6 @@ Material* MeshRenderer::AddMaterial(
   pMaterial->AddShader(shaderPathFile);
   pMaterial->AddTextureToShaderIndex(0ULL, 0ULL);
 
-  // Set is as custom
-  pMaterial->SetIsDefault(false);
-
   // Push it in
   _materials.push_back(pMaterial);
 
@@ -160,14 +141,11 @@ Material* MeshRenderer::AddMaterial(
 
 Material* MeshRenderer::AddMaterial(Texture* pTexture, Shininess* pShininess, Shader* pShader)
 {
-  Material* pMaterial = _pComponentManager->CreateComponent<Material>(_pOwnerEntity, this);
+  Material* pMaterial = GetComponentManagerPtr()->CreateComponent<Material>(_pOwnerEntity, this);
   pMaterial->AddTexture(pTexture);
   pMaterial->AddShininess(pShininess);
   pMaterial->AddShader(pShader);
   pMaterial->AddTextureToShininessIndex(0ULL, 0ULL);
-
-  // Set is as custom
-  pMaterial->SetIsDefault(false);
 
   // Push it in
   _materials.push_back(pMaterial);

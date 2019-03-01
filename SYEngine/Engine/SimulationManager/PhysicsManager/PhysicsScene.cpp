@@ -42,7 +42,7 @@ void PhysicsScene::ProcessScene(dfloat deltaTime)
 
   if (_pWorld)
   {
-    _pWorld->stepSimulation(deltaTime);
+    _pWorld->stepSimulation(deltaTime, 60);
   }
 
   //check collisions with player
@@ -142,7 +142,7 @@ void PhysicsScene::SyncPhysicsToGraphics()
 void PhysicsScene::InsertInitialPhysicsEntities()
 {
   // Get active PhysicsBodies - RigidBody, SoftBody
-  auto physicsBodies = _pOwnerScene->GetActiveComponentsBySlotsRef()[COMPONENT_PHYSICS_BODY_SLOT];
+  auto physicsBodies = _pOwnerScene->GetActivePrimaryComponentSlotsRef()[COMPONENT_PHYSICS_BODY_SLOT];
 
   // Iteratre through all active PhysicsBodies
   for (auto&& bodyPair : physicsBodies)

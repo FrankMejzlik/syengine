@@ -17,14 +17,11 @@ class PhysicsBody:
 public:
   PhysicsBody() = delete;
   PhysicsBody(
-    Entity* pOwnerEntity, 
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    Entity* pOwnerEntity, Component* pOwnerComponent,
     eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::PHYSICS_BODY
   );
 
   virtual void SaveComponent() override;
-  virtual void Refresh() override;
 
   void SetCollider(Collider* pCollider);
   Collider* GetCollider() const { return _pCollider; }
@@ -41,9 +38,6 @@ public:
   void SetPhysicsEntity(PhysicsEntity* pPhysEntity);
   PhysicsEntity* GetPhysicsEntity() const;
   
-  Transform* GetTransformPtr() const { return _pTransform; }
-
-
   // Attributes
 protected:
   /** Collider for this body */
@@ -57,9 +51,6 @@ protected:
 
   /** If is kinematic (must also have zero mass)*/
   bool _isKinematic;
-
-private:
-  Transform* _pTransform;
 
 };
 

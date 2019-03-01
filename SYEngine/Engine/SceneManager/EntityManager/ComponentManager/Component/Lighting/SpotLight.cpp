@@ -8,15 +8,11 @@ using namespace SYE;
 
 
 SpotLight::SpotLight(
-  Entity* pOwnerEntity, 
-  const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+  Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ):
-  PointLight(pOwnerEntity, subModulesConstRef, primaryComponentSlots, slotIndex, type)
-{
- 
-}
+  PointLight(pOwnerEntity, pOwnerComponent, slotIndex, type)
+{}
 
 SpotLight::~SpotLight() noexcept
 {}
@@ -47,7 +43,7 @@ void SpotLight::UseLight(
   GLuint edgeLocation
 )
 {
-  Vector3f pos = _pTransform->GetPosition();
+  Vector3f pos = GetTransformPtr()->GetPosition();
 
   glUniform3f(ambientColourLocation, _colourVector.x, _colourVector.y, _colourVector.z);
   glUniform1f(ambientIntensityLocation, _lightIntensities.x);

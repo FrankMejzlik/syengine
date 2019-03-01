@@ -4,7 +4,10 @@
 #include <vector>
 #include <map>
 
-#include "config_components.h"
+#include "common.h"
+#include "IEngineContextInterface.h"
+#include "IComponentsInterface.h"
+#include "ISceneContextInterface.h"
 #include "IGuidCounted.h"
 #include "IErrorLogging.h"
 #include "BaseModule.h"
@@ -21,7 +24,9 @@ class PhysicsManager;
 class Component;
 
 class Component:
-  public IGuidCounted, public IErrorLogging
+  public IGuidCounted, public IErrorLogging, 
+  public IEngineContextInterface, public ISceneContextInterface,
+  public IComponentsInterface
 {
 public:
   enum class eType
@@ -75,19 +80,13 @@ public:
 public:
   Component() = delete;
   Component(
-    Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
+    Entity* pOwnerEntity, Component* pOwnerComponent,
     bool isPrimary = true, bool isActive = true,
     eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::COMPONENT
   );
-  virtual ~Component() noexcept;
 
-  virtual void Refresh();
   virtual void SaveComponent();
 
-  virtual bool EnlistComponent(Component* pNewComponent);
-  virtual bool DelistComponent(Component* pComponent);
-
-  PhysicsManager* GetPhysicsManager();
 
   Entity* GetOwnerEntityPtr() const;
   Entity* SetOwnerEntityPtr(Entity* newOwnerPtr);
@@ -98,27 +97,22 @@ public:
   bool SetIsPrimary(bool newValue);
   bool IsActive() const;
   bool SetIsActive(bool newValue);
-  bool IsDefault() const;
-  bool SetIsDefault(bool newValue);
+
   size_t GetSlotIndex() const { return static_cast<size_t>(_slotIndex); };
   size_t GetType() const { return static_cast<size_t>(_type); }
 
   void SetOwnerComponentPtr(Component* pComponent);
 
 
-  
-
 protected:
+  /** Pointer to Scene that owns this Component */
+  Scene* _pOwnerScene;
 
-protected:
-  /** Pointer to Entity that owns this Component. */
+  /** Pointer to Entity that owns this Component */
   Entity* _pOwnerEntity;
 
   /** Pointer to Component that owns this instance */
   Component* _pOwnerComponent;
-
-  /** ComponentManager dedicated to this */
-  ComponentManager* _pComponentManager;
 
   /** If this Component can be directly placed on Entity. */
   bool _isPrimary;
@@ -126,28 +120,13 @@ protected:
   /** If this Component is active */
   bool _isActive;
 
-  /** If is in default state*/
-  bool _isDefault;
-
   /** What slot it belongs to on Entity */
   eSlotIndex _slotIndex;
 
   /** Type of Component */
   eType _type;
 
-  /** ComponentManager submodules that every Component can use */
-  const std::map< int, std::unique_ptr<BaseModule> >& _subModules;
-
-  /** 
-   * Reference to table of active primary Components on owning Entity 
-   *
-   * Indices of slots are configured at config_components.h.
-   * Some slots are singletons, e.g. there can be only one light source per Component.
-   */
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& _primaryComponentSlots;
   
-private:
-
 };
 
 }

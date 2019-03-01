@@ -13,18 +13,7 @@ class Transform:
 public:
   Transform() = delete;
   Transform(
-    Entity* pOwnerEntity, 
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
-    eSlotIndex slotIndex = TRANSFORM, Component::eType type = eType::TRANSFORM
-  );
-  Transform(
-    Entity* pOwnerEntity, 
-    const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, 
-    std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots,
-    Vector3f position,
-    Vector3f rotation,
-    Vector3f scale,
+    Entity* pOwnerEntity, Component* pOwnerComponent,
     eSlotIndex slotIndex = TRANSFORM, Component::eType type = eType::TRANSFORM
   );
   ~Transform() noexcept;

@@ -68,7 +68,7 @@ private:
   void ProcessFrame(dfloat deltaTime, Scene* pScene, Window* pMainWindow);
   void ProcessImGui();
   void CheckModuleStates();
-  Scene* AddScene(Window* pTargetWindow);
+  Scene* AddScene(Window* pTargetWindow, size_t sceneId);
   Window* AddWindow();
   bool InitializeSceneInModules(Scene* pScene);
 

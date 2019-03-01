@@ -9,10 +9,10 @@
 #include <glm/glm.hpp>
 #pragma warning(pop)
 
-#include "config_components.h"
 #include "common.h"
+#include "IEngineContextInterface.h"
 #include "IGuidCounted.h"
-
+#include "ISceneContextInterface.h"
 #include "PhysicsManager.h"
 #include "Scene.h"
 #include "ComponentManager.h"
@@ -27,6 +27,8 @@ class Scene;
 class Transform;
 class PhysicsBody;
 class EntityManager;
+class EngineContext;
+class SceneContext;
 
 
 /**
@@ -35,7 +37,8 @@ class EntityManager;
  * Every Entity MUST have pointer to it's ComponentManager instance.
  */
 class Entity:
-  public IGuidCounted, public IErrorLogging
+  public IGuidCounted, public IErrorLogging, 
+  public IEngineContextInterface, public ISceneContextInterface
 {
   // Structures
 public:
@@ -54,15 +57,11 @@ public:
 
 public:
   Entity() = delete;
-  Entity(Scene* pOwnerScene, EntityManager* pEntityManager, ComponentManager* pComponentManager) noexcept;
+  Entity(Scene* pOwnerScene, Entity* pParentEntity);
+  virtual ~Entity() noexcept;
 
-  virtual ~Entity();
-
-  ComponentManager* GetComponentManagerPtr();
   Scene* GetOwnerScenePtr() const { return _pOwnerScene; }
   
-  PhysicsManager* GetPhysicsManager();
-
   PhysicsBody* GetPhysicsBodyPtr() const;
 
   eType SetType(eType newValue);
@@ -72,7 +71,8 @@ public:
   Entity* GetParentPtr() const;
   void AddChild(Entity* pNewChild);
   void RemoveChild(Entity* pNewChild);
-  const std::map<size_t, Entity*> GetChildren() const;
+  const std::map<size_t, Entity*>& GetChildrenConstRef() const;
+
   void SetIsStatic(bool newValue) { _isStatic = newValue; }
   bool IsStatic() const { return _isStatic; }
 
@@ -81,26 +81,56 @@ public:
   template <typename ComponentType>
   ComponentType* AddComponent()
   {
-    ComponentType* pNewComponent = _pComponentManager->CreateComponent<ComponentType>(this);
+    // Instantiate new Component
+    ComponentType* pNewComponent = GetComponentManagerPtr()->CreateComponent<ComponentType>(this);
     
     // Try to attach it to this Entity
-    //ComponentType* resultPtr = AttachComponent<ComponentType>(pNewComponent);
-    //
-    //// If cannot attach to this Component
-    //if (resultPtr == nullptr)
-    //{
-    //  // Destroy it
-    //  _pComponentManager->DestroyComponent(pNewComponent);
-    //}
+    bool result = AttachComponent<ComponentType>(pNewComponent);
+    
+    // If cannot attach to this Component
+    if (!result)
+    {
+      PUSH_EDITOR_ERROR(
+        eEngineError::AddingComponentToEntityFailed,
+        "Adding Component '" + std::to_string(pNewComponent->GetGuid()) + "' to Entity '" + std::to_string(GetGuid()) + "' failed.",
+        ""
+      );
 
-    // If attached, enlist it in active components in scene in order to be processed
-    //_pOwnerScene->EnlistComponent(pNewComponent);
-
-    // Trigger refresh on all Components
-    RefreshComponents();
+      // Destroy it
+      GetComponentManagerPtr()->DestroyComponent(pNewComponent);
+    }
 
     return pNewComponent;
   }
+  bool DeleteComponent(Component* pComponentToDelete);
+
+  template <typename EntityType>
+  EntityType* AddEntity()
+  {
+    // Spawn new Entity
+    EntityType* pNewEntity = GetEntityManagerPtr()->CreateEntity<EntityType>(_pOwnerScene, this);
+
+    // Try to attach it to self
+    if (!AttachEntity(pNewEntity))
+    {
+      PUSH_EDITOR_ERROR(
+        eEngineError::AddingEntityToEntityFailed,
+        "Adding Entity '" + pNewEntity->GetGuid() + "' to Entity '" + GetGuid() + "' failed.",
+        ""
+      );
+
+      // Detroy this Entity
+      GetEntityManagerPtr()->DestroyEntity(pNewEntity);
+
+      return nullptr;
+    }
+
+    return pNewEntity;
+  }
+  bool DeleteEntity(Entity* pEntityToDelete);
+
+protected:
+  void RefreshQuickRefs();
 
   template <typename ComponentType>
   ComponentType* AttachComponent(ComponentType* pNewComponent)
@@ -125,50 +155,56 @@ public:
       {
         PUSH_EDITOR_ERROR(
           eEngineError::AttachingMultipleSingletonSlotComponents,
-          "Entity " + std::to_string(this->GetGuid()) + " cannot have more of " + std::to_string(slotIndex) + "slot index Components.", 
+          "Entity " + std::to_string(this->GetGuid()) + " cannot have more of " + std::to_string(slotIndex) + "slot index Components.",
           ""
         );
 
         return nullptr;
       }
     }
+    // Insert it into your slot
+    _primaryComponentSlots[slotIndex].insert(std::make_pair(pNewComponent->GetGuid(), pNewComponent));
 
-    bool isDuplicate = false;
+    // Try to register this Component to Scene
+    bool result = _pOwnerScene->RegisterComponent(pNewComponent);
 
-    // Enlist to self Entity
-    isDuplicate = !EnlistComponent(pNewComponent);
-
-    // Enlist it to Scene as well
-    isDuplicate = !(_pOwnerScene->EnlistComponent(pNewComponent));
-
-    // If was duplicate in some list, something is not right
-    if (isDuplicate)
+    // If this component is already registered
+    if (!result)
     {
       PUSH_EDITOR_ERROR(
         eEngineError::DuplicateComponentOnEntity,
         "Entity " + std::to_string(this->GetGuid()) + " already has Component with ID " + std::to_string(pNewComponent->GetGuid()),
         ""
       );
-    } 
+
+      return nullptr;
+    }
+
+    // Trigger refresh on all Components
+    RefreshQuickRefs();
 
     return static_cast<ComponentType*>(pNewComponent);
   }
+  bool DetachComponent(Component* pComponent);
 
-  bool EnlistComponent(Component* pComponent);
-  bool DelistComponent(Component* pComponent);
-
-protected:
-  void RefreshComponents();
+  bool AttachEntity(Entity* pEntity);
+  bool DetachEntity(Entity* pEntity);
 
 
   // Attributes
 protected:
-  /** Pointer to ComponentManager that is dedicated for this Entity. */
-  ComponentManager* _pComponentManager;
-
-  EntityManager* _pEntityManager;
-
+  /** Scene instance this Entity belongs to */
   Scene* _pOwnerScene;
+
+  /** 
+   * Parent Entity 
+   *
+   * If 'nullptr' then this has no parent.
+   */
+  Entity* _pParentEntity;
+
+  /** Child Entities */
+  std::map<size_t, Entity*> _childEntities;
 
   /** If this Entity is not going to change during time */
   bool _isStatic;
@@ -177,25 +213,12 @@ protected:
   eType _type;
 
   /** 
-   * Parent Entity 
-   *
-   * If 'nullptr' then this has no parent.
-   */
-  Entity* _pParent;
-
-  /** Child Entities */
-  std::map<size_t, Entity*> _children;
-
-  /** 
    * Table of active primary Components on this Entity 
    *
    * Indices of slots are configured at config_components.h.
    * Some slots are singletons, e.g. there can be only one light source per Component.
    */
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> _primaryComponentSlots;
-
-  /** List of all components on this Entity */
-  std::map<size_t, Component*> _components;
   
 };
 
