@@ -10,15 +10,12 @@
 #include "common.h"
 #include "BaseModule.h"
 #include "Component.h"
-#include "Entity.h"
-
-
 
 namespace SYE 
 {
 
 class Component;
-
+class Entity;
 
 class ComponentManager:
     public BaseModule
@@ -38,7 +35,7 @@ public:
   ComponentType* CreateComponent(Entity* pOwnerEntity, Component* pOwnerComponent = nullptr)
   {
     // Instantiate new Component
-    std::unique_ptr<ComponentType> pComponent = std::make_unique<ComponentType>(pOwnerEntity, _subModules, pOwnerEntity->GetPrimaryComponentSlotsRef());
+    std::unique_ptr<ComponentType> pComponent = std::make_unique<ComponentType>(pOwnerEntity, _subModules, GetPrimaryComponentSlotsRef(pOwnerEntity));
 
     // If subcomponent
     if (!pComponent->IsPrimary())
@@ -51,6 +48,8 @@ public:
 
     return InsertComponent<ComponentType>(std::move(pComponent));
   }
+
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& GetPrimaryComponentSlotsRef(Entity* pEntity);
 
   /** 
    * Destructs Component instance that provided pointer points to.

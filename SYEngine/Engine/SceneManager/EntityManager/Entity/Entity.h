@@ -14,9 +14,8 @@
 #include "IGuidCounted.h"
 
 #include "PhysicsManager.h"
-
-#include "ComponentManager.h"
 #include "Scene.h"
+#include "ComponentManager.h"
 
 namespace SYE 
 {

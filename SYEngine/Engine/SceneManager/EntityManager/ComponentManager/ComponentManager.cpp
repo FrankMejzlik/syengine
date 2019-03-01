@@ -12,6 +12,7 @@
 
 // Components
 #include "Mesh.h"
+#include "Entity.h"
 
 using namespace SYE; 
 
@@ -66,4 +67,11 @@ bool ComponentManager::Terminate()
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "ComponentManager instance terminated.");
   return true;
+}
+
+// TODO: Delete this
+std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& ComponentManager::GetPrimaryComponentSlotsRef(Entity* pEntity)
+{
+  return pEntity->GetPrimaryComponentSlotsRef();
+
 }
