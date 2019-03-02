@@ -20,7 +20,8 @@ PhysicsBody::PhysicsBody(
     ),
   _pCollider(nullptr),
   _mass(0.0f),
-  _isKinematic(false)
+  _isKinematic(false),
+  _restitution(1.0f)
 {
 }
 
@@ -44,6 +45,17 @@ void PhysicsBody::SaveComponent()
 
   // Create new updated Physics Entity
   GetOwnerScenePtr()->GetPhysicsScenePtr()->InsertPhysicsEntity(this);
+}
+
+void PhysicsBody::SetRestitution(dfloat newValue)
+{
+  _restitution = newValue;
+  _pPhysEntity->SetRestitution(newValue);
+}
+
+dfloat PhysicsBody::GetRestitution() const
+{
+  return _restitution;
 }
 
 PhysicsEntity* PhysicsBody::GetPhysicsEntity() const

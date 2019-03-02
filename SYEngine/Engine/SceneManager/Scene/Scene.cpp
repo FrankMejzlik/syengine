@@ -179,41 +179,43 @@ Entity* Scene::CreateBlock(
 { 
   // Add new Entity to Scene instance
   Entity* pNewEntity = AddEntity<Entity>();
-  pNewEntity->SetIsStatic(isStatic);
-  
-  // Add Transform Component
-  Transform* pTransform = pNewEntity->AddComponent<Transform>();
-  pTransform->SetPosition(positionVector);
-  pTransform->SetRotation(rotationVector);
-  pTransform->SetScale(scaleVector);
-
-  // Add MeshRenderer Component
-  MeshRenderer* pMeshRenderer = pNewEntity->AddComponent<MeshRenderer>();
   {
-    Mesh* pMesh = pMeshRenderer->AddMesh();
+    pNewEntity->SetIsStatic(isStatic);
+
+    // Add Transform Component
+    Transform* pTransform = pNewEntity->AddComponent<Transform>();
+    pTransform->SetPosition(positionVector);
+    pTransform->SetRotation(rotationVector);
+    pTransform->SetScale(scaleVector);
+
+    // Add MeshRenderer Component
+    MeshRenderer* pMeshRenderer = pNewEntity->AddComponent<MeshRenderer>();
     {
-      pMesh->ClearMesh();
-      pMesh->MakeBlock(width, height, length);
+      Mesh* pMesh = pMeshRenderer->AddMesh();
+      {
+        pMesh->ClearMesh();
+        pMesh->MakeBlock(width, height, length);
+      }
+      Material* pMaterial = pMeshRenderer->AddMaterial();
+      pMaterial;
+
+      pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
     }
-    Material* pMaterial = pMeshRenderer->AddMaterial();
-    pMaterial;
 
-    pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
+    // Add Rigigbody Component
+    Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();
+    pRigidBody->SetIsKinematic(true);
+    pRigidBody->SetMass(mass);
+    {
+      // Add Collider
+      BlockCollider* pBlockCollider = pRigidBody->AddBlockCollider(width, height, length);
+      pBlockCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
+      pBlockCollider->SetLocalRotation(Vector3f(0.0f, 0.0f, 0.0f));
+      pBlockCollider->SetLocalScale(Vector3f(1.0f, 1.0f, 1.0f));
+    }
+    pRigidBody->SaveComponent();
   }
- 
-  // Add Rigigbody Component
-  Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();
-  pRigidBody->SetIsKinematic(true);
-  pRigidBody->SetMass(mass);
-  {
-    // Add Collider
-    BlockCollider* pBlockCollider = pRigidBody->AddBlockCollider(width, height, length);
-    pBlockCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
-    pBlockCollider->SetLocalRotation(Vector3f(0.0f, 0.0f, 0.0f));
-    pBlockCollider->SetLocalScale(Vector3f(1.0f, 1.0f, 1.0f));
-  }
-  pRigidBody->SaveComponent();
-
+  pNewEntity->SaveEntity();
 
 
   return pNewEntity;

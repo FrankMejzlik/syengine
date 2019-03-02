@@ -10,6 +10,7 @@ using namespace SYE;
 Entity::Entity(Scene* pOwnerScene, Entity* pParentEntity):
   IEngineContextInterface(pOwnerScene->GetEngineContextPtr()),
   ISceneContextInterface(pOwnerScene->GetSceneContextPtr()),
+  IComponentsInterface(_primaryComponentSlots),
   _pOwnerScene(pOwnerScene),
   _pParentEntity(pParentEntity),
   _isStatic(true),
@@ -57,6 +58,12 @@ PhysicsBody* Entity::GetPhysicsBodyPtr() const
   }
 
   return static_cast<PhysicsBody*>(result->second);
+}
+
+void Entity::SaveEntity()
+{
+  // Update Entity refs
+  EntityRefreshQuickRefs();
 }
 
 Entity::eType Entity::SetType(eType newValue)
@@ -156,8 +163,11 @@ bool Entity::RemoveEntity(Entity* pEntityToDelete)
   return true;
 }
 
-void Entity::RefreshQuickRefs()
+void Entity::EntityRefreshQuickRefs()
 {
+  // Refresh your refs
+  RefreshQuickRefs();
+
   // Iterate through slots
   for (auto&& slotMap : _primaryComponentSlots)
   {

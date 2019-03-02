@@ -13,6 +13,7 @@
 #include "IEngineContextInterface.h"
 #include "IGuidCounted.h"
 #include "ISceneContextInterface.h"
+#include "IComponentsInterface.h"
 #include "PhysicsManager.h"
 #include "Scene.h"
 #include "ComponentManager.h"
@@ -38,7 +39,8 @@ class SceneContext;
  */
 class Entity:
   public IGuidCounted, public IErrorLogging, 
-  public IEngineContextInterface, public ISceneContextInterface
+  public IEngineContextInterface, public ISceneContextInterface,
+  public IComponentsInterface
 {
   // Structures
 public:
@@ -63,6 +65,8 @@ public:
   Scene* GetOwnerScenePtr() const { return _pOwnerScene; }
   
   PhysicsBody* GetPhysicsBodyPtr() const;
+
+  void SaveEntity();
 
   eType SetType(eType newValue);
   eType GetType() const;
@@ -130,7 +134,7 @@ public:
   bool RemoveEntity(Entity* pEntityToDelete);
 
 protected:
-  void RefreshQuickRefs();
+  void EntityRefreshQuickRefs();
 
   template <typename ComponentType>
   ComponentType* AttachComponent(ComponentType* pNewComponent)
@@ -181,7 +185,7 @@ protected:
     }
 
     // Trigger refresh on all Components
-    RefreshQuickRefs();
+    EntityRefreshQuickRefs();
 
     return static_cast<ComponentType*>(pNewComponent);
   }

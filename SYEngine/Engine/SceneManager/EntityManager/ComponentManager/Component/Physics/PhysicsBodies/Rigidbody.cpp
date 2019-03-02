@@ -21,6 +21,9 @@ Rigidbody::~Rigidbody() noexcept
 
 void Rigidbody::SaveComponent()
 {
+  // Refresh quick links
+  RefreshQuickRefs();
+
   // Try to delete this existing PhysicsEntity (if exists)
   GetOwnerScenePtr()->GetPhysicsScenePtr()->RemovePhysicsEntity(this);
 

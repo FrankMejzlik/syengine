@@ -33,6 +33,9 @@ public:
   void SetIsKinematic(bool isKinematic);
   bool IsKinematic() const;
 
+  void SetRestitution(dfloat newValue);
+  dfloat GetRestitution() const;
+
   void ClearCollider();
   
   void SetPhysicsEntity(PhysicsEntity* pPhysEntity);
@@ -51,6 +54,8 @@ protected:
 
   /** If is kinematic (must also have zero mass)*/
   bool _isKinematic;
+
+  dfloat _restitution;
 
 };
 

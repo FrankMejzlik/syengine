@@ -46,10 +46,16 @@ PhysicsEntity::PhysicsEntity(
   }
 
   // Create Rigidbody info struct
-  btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass, _pMotionState.get(), _pCollisionShape.get(), _localInertia);
+  btRigidBody::btRigidBodyConstructionInfo rbInfo(
+    _mass, _pMotionState.get(), 
+    _pCollisionShape.get(), 
+    _localInertia);
 
   // Instantiate new Rigidbody instance for this PhysicsEntity
   _pCollisionObject = std::make_unique<btRigidBody>(rbInfo);
+
+  _pCollisionObject->setRestitution(_pPhysicsBody->GetRestitution());
+
 
   // Setup user index #1 to correspond to PhysicsBody instance
   _pCollisionObject->setUserIndex(static_cast<int>(pPhysicsBody->GetGuid()));
@@ -65,6 +71,16 @@ PhysicsEntity::PhysicsEntity(
     _pCollisionObject->setActivationState(DISABLE_DEACTIVATION);
   }
 
+}
+
+void PhysicsEntity::SetRestitution(dfloat newValeue)
+{
+  _pCollisionObject->setRestitution(newValeue);
+}
+
+dfloat PhysicsEntity::GetRestitution() const
+{
+  return _pCollisionObject->getRestitution();
 }
 
 size_t PhysicsEntity::GetOwnerEntityGuid() const

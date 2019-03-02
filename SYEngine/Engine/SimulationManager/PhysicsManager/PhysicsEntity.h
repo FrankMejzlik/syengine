@@ -41,6 +41,9 @@ public:
   size_t GetOwnerEntityGuid() const;
   void SetLocalInertia(const Vector3f& localInertia);
 
+  void SetRestitution(dfloat newValeue);
+  dfloat GetRestitution() const;
+
   btCollisionObject* GetCollisionObjectPtr() const;
   PhysicsBody* GetPhysicsBodyPtr() const { return _pPhysicsBody; }
 

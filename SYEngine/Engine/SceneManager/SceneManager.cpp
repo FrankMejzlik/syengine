@@ -5,6 +5,8 @@
 #include "ScriptHandler.h"
 #include "Script.h"
 
+#include "Rigidbody.h"
+
 #include "script_includes.h"
 
 Scene* SceneManager::_pActiveScene = nullptr;
@@ -117,83 +119,161 @@ Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
   pScriptHander->AddScript<FirstPersonCameraController>();
 
   // Floor
-  pNewScene->CreateBlock(
-    Vector3f(0.0f, -20.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    100.0f, 1.0f, 100.0f,
+  Entity* pBlock1 = pNewScene->CreateBlock(
+    Vector3f(-10.0f, -20.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    9.0f, 1.0f, 9.0f,
     true
   );
-
-
-  for (size_t i = 0; i < 10; ++i)
+  Rigidbody* pRb_block1 = pBlock1->GetRigidbodyPtr();
+  if (pRb_block1 != nullptr)
   {
-    for (size_t j = 0; j < 10; ++j)
-    {
-      pNewScene->CreateBlock(
-        Vector3f(-5.0f + (float)i, 10.0f, -10.0f + (float)j), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-        1.0f, 1.0f, 1.0f,
-        true, 1.0f
-      );
-    }
+    pRb_block1->SetRestitution(0.5f);
   }
-  pNewScene->CreateBlock(
-    Vector3f(0.0f, 10.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    5.0f, 5.0f, 5.0f,
-    true, 1.0f
-  );
 
-  pNewScene->CreateBlock(
-    Vector3f(1.0f, 11.0f, 1.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    4.0f, 1.0f, 2.0f,
-    true, 1.0f
+  pBlock1 = pNewScene->CreateBlock(
+    Vector3f(10.0f, -20.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    9.0f, 1.0f, 9.0f,
+    true
   );
+  pRb_block1 = pBlock1->GetRigidbodyPtr();
+  if (pRb_block1 != nullptr)
+  {
+    pRb_block1->SetRestitution(1.0f);
+  }
 
-  pNewScene->CreateBlock(
-    Vector3f(0.0f, -2.0f, 0.0f), Vector3f(0.0f, 2.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    2.0f, 8.0f, 5.0f,
-    true, 1.0f
+  pBlock1 = pNewScene->CreateBlock(
+    Vector3f(10.0f, -20.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    9.0f, 1.0f, 9.0f,
+    true
   );
+  pRb_block1 = pBlock1->GetRigidbodyPtr();
+  if (pRb_block1 != nullptr)
+  {
+    pRb_block1->SetRestitution(1.5f);
+  }
 
-  pNewScene->CreateBlock(
-    Vector3f(2.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  pBlock1 = pNewScene->CreateBlock(
+    Vector3f(-10.0f, -20.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    9.0f, 1.0f, 9.0f,
+    true
+  );
+  pRb_block1 = pBlock1->GetRigidbodyPtr();
+  if (pRb_block1 != nullptr)
+  {
+    pRb_block1->SetRestitution(2.0f);
+  }
+
+  Entity* pBlock2 = pNewScene->CreateBlock(
+    Vector3f(-10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     true, 1.0f
   );
+  Rigidbody* pRb_block2 = pBlock2->GetRigidbodyPtr();
+  if (pRb_block2 != nullptr)
+  {
+    //pRb_block1->SetRestitution(20.0f);
+  }
 
   pNewScene->CreateBlock(
-    Vector3f(-2.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    Vector3f(10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     true, 1.0f
   );
+  pRb_block2 = pBlock2->GetRigidbodyPtr();
+  if (pRb_block2 != nullptr)
+  {
+    //pRb_block1->SetRestitution(20.0f);
+  }
 
   pNewScene->CreateBlock(
-    Vector3f(0.0f, 2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    Vector3f(10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     true, 1.0f
   );
+  pRb_block2 = pBlock2->GetRigidbodyPtr();
+  if (pRb_block2 != nullptr)
+  {
+    //pRb_block1->SetRestitution(20.0f);
+  }
 
   pNewScene->CreateBlock(
-    Vector3f(10.0f, -2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+    Vector3f(-10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     true, 1.0f
   );
+  pRb_block2 = pBlock2->GetRigidbodyPtr();
+  if (pRb_block2 != nullptr)
+  {
+    //pRb_block1->SetRestitution(20.0f);
+  }
 
-  pNewScene->CreateBlock(
-    Vector3f(12.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    1.0f, 1.0f, 1.0f,
-    true, 1.0f
-  );
 
-  pNewScene->CreateBlock(
-    Vector3f(-12.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    1.0f, 1.0f, 1.0f,
-    true, 1.0f
-  );
+  //for (size_t i = 0; i < 10; ++i)
+  //{
+  //  for (size_t j = 0; j < 10; ++j)
+  //  {
+  //    pNewScene->CreateBlock(
+  //      Vector3f(-5.0f + (float)i, 10.0f, -10.0f + (float)j), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //      1.0f, 1.0f, 1.0f,
+  //      true, 1.0f
+  //    );
+  //  }
+  //}
+  
 
-  pNewScene->CreateBlock(
-    Vector3f(10.0f, 2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    1.0f, 1.0f, 1.0f,
-    true, 1.0f
-  );
+  //pNewScene->CreateBlock(
+  //  Vector3f(1.0f, 11.0f, 1.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  4.0f, 1.0f, 2.0f,
+  //  true, 1.0f
+  //);
+
+  //pNewScene->CreateBlock(
+  //  Vector3f(0.0f, -2.0f, 0.0f), Vector3f(0.0f, 2.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  2.0f, 8.0f, 5.0f,
+  //  true, 1.0f
+  //);
+
+  //pNewScene->CreateBlock(
+  //  Vector3f(2.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  1.0f, 1.0f, 1.0f,
+  //  true, 1.0f
+  //);
+
+  //pNewScene->CreateBlock(
+  //  Vector3f(-2.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  1.0f, 1.0f, 1.0f,
+  //  true, 1.0f
+  //);
+
+  //pNewScene->CreateBlock(
+  //  Vector3f(0.0f, 2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  1.0f, 1.0f, 1.0f,
+  //  true, 1.0f
+  //);
+
+  //pNewScene->CreateBlock(
+  //  Vector3f(10.0f, -2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  1.0f, 1.0f, 1.0f,
+  //  true, 1.0f
+  //);
+
+  //pNewScene->CreateBlock(
+  //  Vector3f(12.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  1.0f, 1.0f, 1.0f,
+  //  true, 1.0f
+  //);
+
+  //pNewScene->CreateBlock(
+  //  Vector3f(-12.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  1.0f, 1.0f, 1.0f,
+  //  true, 1.0f
+  //);
+
+  //pNewScene->CreateBlock(
+  //  Vector3f(10.0f, 2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+  //  1.0f, 1.0f, 1.0f,
+  //  true, 1.0f
+  //);
 
   // Create Quad
   /*pNewScene->CreateQuad(
