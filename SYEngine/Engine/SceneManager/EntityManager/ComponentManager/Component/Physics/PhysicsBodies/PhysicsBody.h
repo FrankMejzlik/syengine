@@ -33,6 +33,8 @@ public:
   void SetIsKinematic(bool isKinematic);
   bool IsKinematic() const;
 
+  void SetToContiniousCollision();
+
   void SetRestitution(dfloat newValue);
   dfloat GetRestitution() const;
 

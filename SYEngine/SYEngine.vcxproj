@@ -371,6 +371,8 @@
     <ClInclude Include="scripts\script_includes.h" />
     <ClInclude Include="scripts\FirstPersonCameraController.h" />
     <ClInclude Include="scripts\_SceneBuilder.h" />
+    <ClInclude Include="scripts\RightPaddleController.h" />
+    <ClInclude Include="scripts\LeftPaddleController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\shaders\directional_shadow_map.frag" />

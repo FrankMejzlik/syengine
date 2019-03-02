@@ -1,4 +1,12 @@
 
+#pragma warning(push, 1)
+#include <GLM/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/matrix_decompose.hpp>
+#pragma warning(pop)
+
 #include "PhysicsEntity.h"
 
 #include "Entity.h"
@@ -45,6 +53,7 @@ PhysicsEntity::PhysicsEntity(
     _pCollisionShape->calculateLocalInertia(mass, btLocalInertia);
     _localInertia = btLocalInertia;
   }
+  _localInertia = Vector3f(0.0f, 0.0f, 0.0);
 
   // Create Rigidbody info struct
   btRigidBody::btRigidBodyConstructionInfo rbInfo(
@@ -57,6 +66,9 @@ PhysicsEntity::PhysicsEntity(
 
   _pCollisionObject->setRestitution(_pPhysicsBody->GetRestitution());
 
+  _pCollisionObject->setCcdMotionThreshold(0.0000001f);
+  _pCollisionObject->setCcdSweptSphereRadius(0.2f);
+
 
   // Setup user index #1 to correspond to PhysicsBody instance
   _pCollisionObject->setUserIndex(static_cast<int>(pPhysicsBody->GetGuid()));
@@ -68,8 +80,8 @@ PhysicsEntity::PhysicsEntity(
   // If should be kinematic
   if (_pPhysicsBody->IsKinematic())
   {
-    _pCollisionObject->setCollisionFlags(_pCollisionObject->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
-    _pCollisionObject->setActivationState(DISABLE_DEACTIVATION);
+    //_pCollisionObject->setCollisionFlags(_pCollisionObject->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+    //_pCollisionObject->setActivationState(DISABLE_DEACTIVATION);
   }
 
 }
@@ -93,6 +105,14 @@ size_t PhysicsEntity::GetOwnerEntityGuid() const
 btCollisionObject* PhysicsEntity::GetCollisionObjectPtr() const
 {
   return _pCollisionObject.get();
+}
+
+void PhysicsEntity::SetWorldTransform(Vector3f position, glm::quat rotation)
+{
+  btQuaternion orient(rotation.x, rotation.y, rotation.z, rotation.w);
+  btTransform transform(orient, position);
+
+  _pCollisionObject->setWorldTransform(transform);
 }
 
 void PhysicsEntity::SetLocalInertia(const Vector3f& localInertia)

@@ -47,7 +47,7 @@ void PhysicsScene::ProcessScene(dfloat deltaTime)
 
   if (_pWorld)
   {
-    _pWorld->stepSimulation(deltaTime, 10);
+    _pWorld->stepSimulation(deltaTime, 10, 1/120.0f);
   }
 
   //check collisions with player
@@ -127,7 +127,6 @@ void PhysicsScene::SyncPhysicsToGraphics()
       btCollisionObject* colObj = _pWorld->getCollisionObjectArray()[i];
       btCollisionShape* collisionShape = colObj->getCollisionShape(); collisionShape;
 
-
       btVector3 pos = colObj->getWorldTransform().getOrigin();
       btQuaternion orn = colObj->getWorldTransform().getRotation();
 
@@ -137,8 +136,12 @@ void PhysicsScene::SyncPhysicsToGraphics()
 
       PhysicsBody* pPhysBody = static_cast<PhysicsBody*>(colObj->getUserPointer());
 
-      pPhysBody->GetTransformPtr()->SetPosition(pos);
-      pPhysBody->GetTransformPtr()->SetRotation(Vector3f(rotX, rotY, rotZ));
+      // Sync only non kinematic objects
+      if (!pPhysBody->IsKinematic())
+      {
+        pPhysBody->GetTransformPtr()->SetPosition(pos);
+        pPhysBody->GetTransformPtr()->SetRotation(Vector3f(rotX, rotY, rotZ));
+      }
 
     }
   }

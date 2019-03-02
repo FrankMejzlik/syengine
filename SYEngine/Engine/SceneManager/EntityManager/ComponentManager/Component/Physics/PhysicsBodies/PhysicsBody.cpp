@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "PhysicsScene.h"
 #include "Transform.h"
+#include "PhysicsEntity.h"
 
 using namespace SYE;
 
@@ -102,6 +103,12 @@ bool PhysicsBody::IsKinematic() const
   {
     return false;
   }
+}
+
+
+void PhysicsBody::SetToContiniousCollision()
+{
+  _pPhysEntity->SetCccThreshold();
 }
 
 void PhysicsBody::SetIsKinematic(bool isKinematic)

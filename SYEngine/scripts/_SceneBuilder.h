@@ -5,7 +5,8 @@
 #include "Entity.h"
 #include "MeshRenderer.h"
 #include "Rigidbody.h"
-#include "FirstPersonCameraController.h"
+
+#include "script_includes.h"
 
 namespace SYE
 {
@@ -29,6 +30,7 @@ public:
       pScriptHander->AddScript<FirstPersonCameraController>();
     }
 
+  #if 1
     // Construct pinball area
     {
       MeshRenderer* pMeshRenderer;
@@ -117,7 +119,7 @@ public:
       // Right bottom
       pBackBase = pScene->CreateBlock(
         Vector3f(4.5f, -9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        5.0f, 0.5f, 1.0f,
+        15.0f, 0.5f, 1.0f,
         true
       );
       // Change colour
@@ -129,27 +131,80 @@ public:
       }
     }
 
+  #endif
     // Create paddles
     {
-    MeshRenderer* pMeshRenderer; pMeshRenderer;
-    Entity* pEntity; pEntity;
+      MeshRenderer* pMeshRenderer; pMeshRenderer;
+      Entity* pEntity; pEntity;
+      Transform* pTransform;
+      ScriptHandler* pScriptHander;
+      Rigidbody* rb;
 
+      // Right paddle
       pEntity = pScene->CreatePrism(
-        Vector3f(0.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+        Vector3f(2.0f, -8.0f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         Vector3f(0.0f, 0.0f, 0.0f),
-        Vector3f(-1.0f, -1.0f, -1.0f), Vector3f(1.5f, -1.5f, -1.0f), Vector3f(1.5f, 1.5f, -1.0f), Vector3f(-1.0f, 1.0f, -1.0f),
-        Vector3f(-1.0f, -1.0f, -0.0f), Vector3f(1.5f, -1.5f, 0.0f), Vector3f(1.5f, 1.5f, -0.0f), Vector3f(-1.0f, 1.0f, 0.0f),
+        Vector3f(-1.0f, -0.1f, -1.0f), Vector3f(1.5f, -0.2f, -1.0f), Vector3f(1.5f, 0.2f, -1.0f), Vector3f(-1.0f, 0.1f, -1.0f),
+        Vector3f(-1.0f, -0.1f, -0.0f), Vector3f(1.5f, -0.2f, 0.0f), Vector3f(1.5f, 0.2f, -0.0f), Vector3f(-1.0f, 0.1f, 0.0f),
         true, // Is static
         0.0f  // No mass
       );
+      // Get Transfrom
+      pTransform = pEntity->GetTransformPtr();
+      if (pTransform != nullptr)
+      {
+        // Change origin point
+        pTransform->SetOrigin(Vector3f(-1.5f, 0.0f, 0.0f));
+      }
+      // Add ScriptHanlder Component
+      pScriptHander = pEntity->AddComponent<ScriptHandler>();
+      // Attach specific script to it
+      pScriptHander->AddScript<RightPaddleController>();
 
+      rb = pEntity->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetIsKinematic(true);
+        rb->SetToContiniousCollision();
+       
+      }
+
+
+      // Left paddle
+      pEntity = pScene->CreatePrism(
+        Vector3f(-5.0f, -8.0f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+        Vector3f(0.0f, 0.0f, 0.0f),
+        Vector3f(1.5f, 0.2f, -1.0f), Vector3f(-1.0f, 0.1f, -1.0f), Vector3f(-1.0f, -0.1f, -1.0f), Vector3f(1.5f, -0.2f, -1.0f),
+        Vector3f(1.5f, 0.2f, -0.0f), Vector3f(-1.0f, 0.1f, 0.0f), Vector3f(-1.0f, -0.1f, -0.0f), Vector3f(1.5f, -0.2f, 0.0f),
+        true, // Is static
+        0.0f  // No mass
+      );
+      // Get Transfrom
+      pTransform = pEntity->GetTransformPtr();
+      if (pTransform != nullptr)
+      {
+        // Change origin point
+        pTransform->SetOrigin(Vector3f(-1.5f, 0.0f, 0.0f));
+      }
+      // Add ScriptHanlder Component
+      pScriptHander = pEntity->AddComponent<ScriptHandler>();
+      // Attach specific script to it
+      pScriptHander->AddScript<LeftPaddleController>();
+
+      rb = pEntity->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetIsKinematic(true);
+      }
     }
 
+  #if 1
 
     // Create ball
     {
       Entity* pSphere;
       MeshRenderer* pMeshRenderer;
+      Rigidbody* rb;
 
       pSphere = pScene->CreateSphere(
         Vector3f(4.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
@@ -162,8 +217,51 @@ public:
         pMeshRenderer->ClearMaterials();
         pMeshRenderer->AddMaterial(Vector3f(255.0f, 255.0f, 0.0f), 1.0f, 512.0f);
       }
+
+      rb = pSphere->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetToContiniousCollision();
+      }
+
+      pSphere = pScene->CreateSphere(
+      Vector3f(-4.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      0.5f, 20ULL, 20ULL,
+      false, 0.1f
+      );
+      pMeshRenderer = pSphere->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(255.0f, 255.0f, 0.0f), 1.0f, 512.0f);
+      }
+
+      rb = pSphere->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetToContiniousCollision();
+      }
+
+      pSphere = pScene->CreateSphere(
+        Vector3f(4.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+        0.5f, 20ULL, 20ULL,
+        false, 0.1f
+      );
+      pMeshRenderer = pSphere->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(255.0f, 255.0f, 0.0f), 1.0f, 512.0f);
+      }
+
+      rb = pSphere->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetToContiniousCollision();
+      }
     }
 
+  #endif
 
     // Create DirectionalLight
     pScene->CreateDirectionalLight(

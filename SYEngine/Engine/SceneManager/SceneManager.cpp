@@ -8,6 +8,9 @@
 #include "Rigidbody.h"
 #include "MeshRenderer.h"
 
+// Build initial scene in this script's SetupScene method
+#include "_SceneBuilder.h"
+
 #include "script_includes.h"
 
 Scene* SceneManager::_pActiveScene = nullptr;

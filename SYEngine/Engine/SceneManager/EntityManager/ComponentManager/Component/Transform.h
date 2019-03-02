@@ -18,8 +18,17 @@ public:
   );
   ~Transform() noexcept;
 
-  void SetPosition(Vector3f position) { _position = position; };
-  void SetRotation(Vector3f rotation);
+  void SetPosition(const Vector3f& position)
+  {
+    _position = position; 
+    UpdatePhysBody();
+  };
+  void SetPosition(Vector3f&& position)
+  {
+    _position = std::move(position); UpdatePhysBody();
+  };
+  void SetRotation(const Vector3f& rotation);
+  void SetRotation(Vector3f&& rotation);
   void SetScale(Vector3f scale) { _scale = scale; };
   
   Vector3f GetPosition() const { return _position; };
@@ -32,10 +41,23 @@ public:
   Vector3f GetYDir() const { return _yDir; };
   Vector3f GetXDir() const { return _xDir; };
 
+  void SetOrigin(const Vector3f& origin);
+  void SetOrigin(Vector3f&& origin);
+  const Vector3f& GetOrigin() const;
+
+  glm::mat4 GetModelToWorldMatrix() const;
+
+protected:
+  void RecalcDirection();
+  void UpdatePhysBody();
+  
 
 protected:
   /** Direction up of virtual world (usually positive Y-axis)*/
   Vector3f _worldUp;
+
+  /** Local coordinates of origin point */
+  Vector3f _origin;
 
   /** Current Component position */
   Vector3f _position;

@@ -45,7 +45,13 @@ public:
   dfloat GetRestitution() const;
 
   btCollisionObject* GetCollisionObjectPtr() const;
-  PhysicsBody* GetPhysicsBodyPtr() const { return _pPhysicsBody; }
+  PhysicsBody* GetPhysicsBodyPtr() const { return _pPhysicsBody;}
+  void SetWorldTransform(Vector3f position, glm::quat rotation);
+
+  void SetCccThreshold()
+  {
+    
+  }
 
   // Attributes
 private:

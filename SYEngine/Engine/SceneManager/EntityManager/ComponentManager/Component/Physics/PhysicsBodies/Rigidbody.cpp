@@ -41,7 +41,7 @@ BlockCollider* Rigidbody::AddBlockCollider(dfloat width, dfloat height, dfloat l
   pBlockCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
 
   _pCollider = static_cast<Collider*>(pBlockCollider);
-    
+
   return pBlockCollider;
 }
 

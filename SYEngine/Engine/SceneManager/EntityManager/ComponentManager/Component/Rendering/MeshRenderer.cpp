@@ -24,18 +24,38 @@ SYE::MeshRenderer::MeshRenderer(
   )
 {}
 
+glm::mat4 MeshRenderer::GetModelToWorldMatrix() const
+{
+  // Initialize identity
+  glm::mat4 modelToWorldMatrix = std::move(glm::mat4(1.0f));
+
+  // Last transform is to put everything back due to origin transform
+  modelToWorldMatrix = glm::translate(modelToWorldMatrix, -(GetTransformPtr()->GetOrigin().GetData()));
+
+  // Lastly transform
+  modelToWorldMatrix = glm::translate(modelToWorldMatrix, GetTransformPtr()->GetPosition().GetData());
+  // Rotate X
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
+  // Rotate Y
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
+  // Rotate Z
+  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
+  // Scale first
+  modelToWorldMatrix = glm::scale(modelToWorldMatrix, GetTransformPtr()->GetScale().GetData());
+
+  // Apply inverse origin translation first
+  modelToWorldMatrix = glm::translate(modelToWorldMatrix, GetTransformPtr()->GetOrigin().GetData());
+
+  return modelToWorldMatrix;
+}
+
 void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation) const
 {
   // TODO: Abstract matrices out in MathLibrary.h
 
   // Prepare Model->World transform matrix
-  glm::mat4 modelToWorldMatrix;
-  modelToWorldMatrix = std::move(glm::mat4(1.0f));
-  modelToWorldMatrix = glm::translate(modelToWorldMatrix, GetTransformPtr()->GetPosition().GetData());
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
-  modelToWorldMatrix = glm::scale(modelToWorldMatrix, GetTransformPtr()->GetScale().GetData());
+  glm::mat4 modelToWorldMatrix = GetModelToWorldMatrix();
+ 
 
   glUniformMatrix4fv(ul_modelToWorldMatrix, 1, GL_FALSE, glm::value_ptr(modelToWorldMatrix));
 
@@ -57,13 +77,7 @@ void MeshRenderer::RenderForLight(GLuint ul_modelToWorldMatrix) const
   // TODO: Abstract matrices out in MathLibrary.h
 
   // Prepare Model->World transform matrix
-  glm::mat4 modelToWorldMatrix;
-  modelToWorldMatrix = std::move(glm::mat4(1.0f));
-  modelToWorldMatrix = glm::translate(modelToWorldMatrix, GetTransformPtr()->GetPosition().GetData());
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetZ(), glm::vec3(0.0f, 0.0f, 1.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetY(), glm::vec3(0.0f, 1.0f, 0.0f));
-  modelToWorldMatrix = glm::rotate(modelToWorldMatrix, GetTransformPtr()->GetRotation().GetX(), glm::vec3(1.0f, 0.0f, 0.0f));
-  modelToWorldMatrix = glm::scale(modelToWorldMatrix, GetTransformPtr()->GetScale().GetData());
+  glm::mat4 modelToWorldMatrix = GetModelToWorldMatrix();
 
   glUniformMatrix4fv(ul_modelToWorldMatrix, 1, GL_FALSE, glm::value_ptr(modelToWorldMatrix));
 
