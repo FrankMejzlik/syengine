@@ -75,9 +75,9 @@ bool Texture::LoadTexture(Vector3f colour)
   // Fill in texture data
   // R G B A
   unsigned char textureData[] = { 
-    static_cast<unsigned char>(colour.GetX() * 255),
-    static_cast<unsigned char>(colour.GetY() * 255),
-    static_cast<unsigned char>(colour.GetZ() * 255),
+    static_cast<unsigned char>(colour.GetX()),
+    static_cast<unsigned char>(colour.GetY()),
+    static_cast<unsigned char>(colour.GetZ()),
     static_cast<unsigned char>(1.0f * 255)
   };
 

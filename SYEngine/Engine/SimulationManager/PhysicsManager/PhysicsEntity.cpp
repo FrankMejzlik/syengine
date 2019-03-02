@@ -32,7 +32,8 @@ PhysicsEntity::PhysicsEntity(
   btTransform transform;
   transform.setIdentity();
   transform.setOrigin(btPosition);
-  transform.setRotation(btQuaternion(btRotation.x(), btRotation.y(), btRotation.z()));
+  // Default btQuaternion order is YXZ
+  transform.setRotation(btQuaternion(btRotation.y(), btRotation.x(), btRotation.z()));
 
   // Allocate new MotionState for this PhysicsEntity
   _pMotionState = std::make_unique<MotionState>(transform);

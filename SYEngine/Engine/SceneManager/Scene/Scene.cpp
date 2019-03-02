@@ -108,10 +108,7 @@ Entity* Scene::CreateCamera(
   bool isEditor
 )
 {
-  UNREFERENCED_PARAMETER(positionVector);
   UNREFERENCED_PARAMETER(startUpDirection);
-  UNREFERENCED_PARAMETER(startYaw);
-  UNREFERENCED_PARAMETER(startPitch);
 
   // Call EntityManager to create new Quad Entity.
   Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this, nullptr);
