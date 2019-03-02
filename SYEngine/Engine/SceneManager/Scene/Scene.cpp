@@ -20,6 +20,7 @@
 #include "PhysicsScene.h"
 #include "EngineContext.h"
 #include "SceneContext.h"
+#include "SphereCollider.h"
 
 using namespace SYE;
 
@@ -204,7 +205,6 @@ Entity* Scene::CreateBlock(
 
     // Add Rigigbody Component
     Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();
-    pRigidBody->SetIsKinematic(true);
     pRigidBody->SetMass(mass);
     {
       // Add Collider
@@ -221,6 +221,56 @@ Entity* Scene::CreateBlock(
   return pNewEntity;
 }
 
+
+Entity* Scene::CreateSphere(
+  Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+  dfloat radius, size_t numSlices, size_t numStacks,
+  bool isStatic,
+  dfloat mass
+)
+{
+  // Add new Entity to Scene instance
+  Entity* pNewEntity = AddEntity<Entity>();
+  {
+    pNewEntity->SetIsStatic(isStatic);
+
+    // Add Transform Component
+    Transform* pTransform = pNewEntity->AddComponent<Transform>();
+    pTransform->SetPosition(positionVector);
+    pTransform->SetRotation(rotationVector);
+    pTransform->SetScale(scaleVector);
+
+    // Add MeshRenderer Component
+    MeshRenderer* pMeshRenderer = pNewEntity->AddComponent<MeshRenderer>();
+    {
+      Mesh* pMesh = pMeshRenderer->AddMesh();
+      {
+        pMesh->ClearMesh();
+        pMesh->MakeSphere(radius, numSlices, numStacks);
+      }
+      Material* pMaterial = pMeshRenderer->AddMaterial();
+      pMaterial;
+
+      pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
+    }
+
+    // Add Rigigbody Component
+    Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();
+    pRigidBody->SetMass(mass);
+    {
+      // Add Collider
+      SphereCollider* pSphereCollider = pRigidBody->AddSphereCollider(radius, numSlices, numStacks);
+      pSphereCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
+      pSphereCollider->SetLocalRotation(Vector3f(0.0f, 0.0f, 0.0f));
+      pSphereCollider->SetLocalScale(Vector3f(1.0f, 1.0f, 1.0f));
+    }
+    pRigidBody->SaveComponent();
+  }
+  pNewEntity->SaveEntity();
+
+
+  return pNewEntity;
+}
 
 Entity* Scene::CreateDirectionalLight(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,

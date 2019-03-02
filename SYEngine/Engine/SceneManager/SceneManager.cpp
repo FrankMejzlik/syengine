@@ -75,11 +75,11 @@ bool SceneManager::Terminate()
 Scene* SceneManager::CreateScene(EngineContext* pEngineContext, Engine* pOwnerEngine, Window* pWindow, size_t sceneId)
 {
   // Construct new scene instance.
-  std::unique_ptr<Scene> pNewScene;
+  std::unique_ptr<Scene> pScene;
 
   try
   {
-    pNewScene = std::make_unique<Scene>(pEngineContext, pOwnerEngine, pWindow, sceneId);
+    pScene = std::make_unique<Scene>(pEngineContext, pOwnerEngine, pWindow, sceneId);
   }
   catch (const std::bad_alloc&)
   {
@@ -88,26 +88,26 @@ Scene* SceneManager::CreateScene(EngineContext* pEngineContext, Engine* pOwnerEn
   }
 
   // If instantiation failed.
-  if (!pNewScene)
+  if (!pScene)
   {
     DLog(eLogType::Info, "Failed creating scene.");
     return nullptr;
   }
 
   // Attach to Window instance
-  pNewScene->SetMainWindowPtr(pWindow);
+  pScene->SetMainWindowPtr(pWindow);
 
   DLog(eLogType::Success, "Created scene.");
 
-  return InsertScene(std::move(pNewScene));
+  return InsertScene(std::move(pScene));
 }
 
-Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
+Scene* SceneManager::LoadInitialScene(Scene* pScene)
 {
   DLog(eLogType::Info, "Loading initial test scene.");
 
   // Create Camera 
-  Entity* pCameraEntity = pNewScene->CreateCamera(
+  Entity* pCameraEntity = pScene->CreateCamera(
     Vector3f(10.0f, 10.0f, 10.0f),
     Vector3f(0.0f, 1.0f, 0.0f),
     4.0f, -0.8f,
@@ -118,8 +118,9 @@ Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
   // Attach specific script to it
   pScriptHander->AddScript<FirstPersonCameraController>();
 
-  // Floor
-  Entity* pBlock1 = pNewScene->CreateBlock(
+#if 1 // 4 static floor block planes
+
+  Entity* pBlock1 = pScene->CreateBlock(
     Vector3f(-10.0f, -20.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     9.0f, 1.0f, 9.0f,
     true
@@ -130,7 +131,7 @@ Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
     pRb_block1->SetRestitution(0.5f);
   }
 
-  pBlock1 = pNewScene->CreateBlock(
+  pBlock1 = pScene->CreateBlock(
     Vector3f(10.0f, -20.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     9.0f, 1.0f, 9.0f,
     true
@@ -141,7 +142,7 @@ Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
     pRb_block1->SetRestitution(1.0f);
   }
 
-  pBlock1 = pNewScene->CreateBlock(
+  pBlock1 = pScene->CreateBlock(
     Vector3f(10.0f, -20.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     9.0f, 1.0f, 9.0f,
     true
@@ -152,7 +153,7 @@ Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
     pRb_block1->SetRestitution(1.5f);
   }
 
-  pBlock1 = pNewScene->CreateBlock(
+  pBlock1 = pScene->CreateBlock(
     Vector3f(-10.0f, -20.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     9.0f, 1.0f, 9.0f,
     true
@@ -163,127 +164,85 @@ Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
     pRb_block1->SetRestitution(2.0f);
   }
 
-  Entity* pBlock2 = pNewScene->CreateBlock(
+#endif
+
+#if 1 // Small falling spheres
+
+  pScene->CreateSphere(
+    Vector3f(-10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+    1.0f, 20ULL, 20ULL,
+    false, 0.1f
+  );
+
+  pScene->CreateSphere(
+    Vector3f(10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+    1.0f, 20ULL, 20ULL,
+    false, 0.1f
+  );
+
+  pScene->CreateSphere(
+    Vector3f(-10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+    1.0f, 20ULL, 20ULL,
+    false, 0.1f
+  );
+
+  pScene->CreateSphere(
+    Vector3f(10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+    1.0f, 20ULL, 20ULL,
+    false, 0.1f
+  );
+
+#endif
+
+
+#if 0 // Small falling blocks
+
+  pScene->CreateBlock(
     Vector3f(-10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     true, 1.0f
   );
-  Rigidbody* pRb_block2 = pBlock2->GetRigidbodyPtr();
-  if (pRb_block2 != nullptr)
-  {
-    //pRb_block1->SetRestitution(20.0f);
-  }
 
-  pNewScene->CreateBlock(
+  pScene->CreateBlock(
     Vector3f(10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     true, 1.0f
   );
-  pRb_block2 = pBlock2->GetRigidbodyPtr();
-  if (pRb_block2 != nullptr)
-  {
-    //pRb_block1->SetRestitution(20.0f);
-  }
 
-  pNewScene->CreateBlock(
+  pScene->CreateBlock(
     Vector3f(10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     true, 1.0f
   );
-  pRb_block2 = pBlock2->GetRigidbodyPtr();
-  if (pRb_block2 != nullptr)
-  {
-    //pRb_block1->SetRestitution(20.0f);
-  }
 
-  pNewScene->CreateBlock(
+  pScene->CreateBlock(
     Vector3f(-10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     true, 1.0f
   );
-  pRb_block2 = pBlock2->GetRigidbodyPtr();
-  if (pRb_block2 != nullptr)
+
+#endif
+
+
+#if 0 // Lot of small falling blocks
+
+  for (size_t i = 0; i < 10; ++i)
   {
-    //pRb_block1->SetRestitution(20.0f);
+    for (size_t j = 0; j < 10; ++j)
+    {
+      pScene->CreateBlock(
+        Vector3f(-5.0f + (float)i, 10.0f, -10.0f + (float)j), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
+        1.0f, 1.0f, 1.0f,
+        true, 1.0f
+      );
+    }
   }
 
-
-  //for (size_t i = 0; i < 10; ++i)
-  //{
-  //  for (size_t j = 0; j < 10; ++j)
-  //  {
-  //    pNewScene->CreateBlock(
-  //      Vector3f(-5.0f + (float)i, 10.0f, -10.0f + (float)j), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //      1.0f, 1.0f, 1.0f,
-  //      true, 1.0f
-  //    );
-  //  }
-  //}
+#endif
   
 
-  //pNewScene->CreateBlock(
-  //  Vector3f(1.0f, 11.0f, 1.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  4.0f, 1.0f, 2.0f,
-  //  true, 1.0f
-  //);
-
-  //pNewScene->CreateBlock(
-  //  Vector3f(0.0f, -2.0f, 0.0f), Vector3f(0.0f, 2.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  2.0f, 8.0f, 5.0f,
-  //  true, 1.0f
-  //);
-
-  //pNewScene->CreateBlock(
-  //  Vector3f(2.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  1.0f, 1.0f, 1.0f,
-  //  true, 1.0f
-  //);
-
-  //pNewScene->CreateBlock(
-  //  Vector3f(-2.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  1.0f, 1.0f, 1.0f,
-  //  true, 1.0f
-  //);
-
-  //pNewScene->CreateBlock(
-  //  Vector3f(0.0f, 2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  1.0f, 1.0f, 1.0f,
-  //  true, 1.0f
-  //);
-
-  //pNewScene->CreateBlock(
-  //  Vector3f(10.0f, -2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  1.0f, 1.0f, 1.0f,
-  //  true, 1.0f
-  //);
-
-  //pNewScene->CreateBlock(
-  //  Vector3f(12.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  1.0f, 1.0f, 1.0f,
-  //  true, 1.0f
-  //);
-
-  //pNewScene->CreateBlock(
-  //  Vector3f(-12.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  1.0f, 1.0f, 1.0f,
-  //  true, 1.0f
-  //);
-
-  //pNewScene->CreateBlock(
-  //  Vector3f(10.0f, 2.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-  //  1.0f, 1.0f, 1.0f,
-  //  true, 1.0f
-  //);
-
-  // Create Quad
-  /*pNewScene->CreateQuad(
-    Vector3f(0.0f, -10.0f, 0.0f), Vector3f(90.0f* (float)DEG_TO_RAD, 0.0f, 0.0f * DEG_TO_RAD), Vector3f(1.0f, 1.0f, 1.0f),
-    20.0f, 20.0f, 
-    true
-  );*/
-    
   // Create DirectionalLight
-  pNewScene->CreateDirectionalLight(
+  pScene->CreateDirectionalLight(
     Vector3f(0.0f, 0.0f, 0.0f),          // Position vector
     Vector3f(0.0f, 0.0f, 0.0f),          // rotation vector
     Vector3f(1.0f, 1.0f, 1.0f),          // scale vector
@@ -295,7 +254,7 @@ Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
   ); 
 
   // Create PointLight
-  pNewScene->CreatePointLight(
+  pScene->CreatePointLight(
     Vector3f(5.0f, -5.0f, 5.0f),       // Position vector
     Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
     Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
@@ -308,7 +267,7 @@ Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
   );
 
   // Create SpotLight
-  pNewScene->CreateSpotLight(
+  pScene->CreateSpotLight(
     Vector3f(-6.0f, -4.0f, -6.0f),       // Position vector
     Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
     Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
@@ -324,23 +283,23 @@ Scene* SceneManager::LoadInitialScene(Scene* pNewScene)
   );
 
   
-  /*pNewScene->CreateStaticModelFromFile(
+  /*pScene->CreateStaticModelFromFile(
     "terrain",
     glm::vec3(-00.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(1.1f, 1.1f, 1.1f),
     "Resource/models/SnowTerrain.obj"
   );
 
-  pNewScene->CreateStaticModelFromFile(
+  pScene->CreateStaticModelFromFile(
     "model1",
     glm::vec3(-6.0f, 6.0f, 4.0f), glm::vec3(0.0f, 0.0f, 0.0f * DEG_TO_RAD), glm::vec3(.1f, .1f, 0.1f),
     "Resource/panFazulka.DAE"
   );*/
 
-  _pActiveScene = pNewScene;
+  _pActiveScene = pScene;
 
   DLog(eLogType::Success, "Initial test scene loaded.");
 
-  return pNewScene;
+  return pScene;
 }
 
 Scene* SceneManager::InsertScene(std::unique_ptr<Scene>&& sceneToInsert)

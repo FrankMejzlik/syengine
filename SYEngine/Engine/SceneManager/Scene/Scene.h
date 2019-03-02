@@ -61,6 +61,13 @@ public:
     dfloat mass = 0.0f
   );
 
+  Entity* CreateSphere(
+    Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+    dfloat radius, size_t numSlices, size_t numStacks,
+    bool isStatic = true,
+    dfloat mass = 0.0f
+  );
+
   Entity* CreateDirectionalLight(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,

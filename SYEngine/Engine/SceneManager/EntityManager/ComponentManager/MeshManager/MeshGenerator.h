@@ -25,6 +25,10 @@ public:
   std::pair< std::vector<dfloat>, std::vector<unsigned int> > GenerateQuadVerticesIndices(
     dfloat width, dfloat height
   );
+  std::pair< std::vector<dfloat>, std::vector<unsigned int> > GenerateSphereVerticesIndices(
+    dfloat radius, size_t numSlices, size_t numStacks
+  );
+
 
 };
 

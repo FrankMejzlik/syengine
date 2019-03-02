@@ -7,7 +7,9 @@
 namespace SYE 
 {
 
+// Forward declarations
 class BlockCollider;
+class SphereCollider;
 
 class Rigidbody:
   public PhysicsBody
@@ -23,7 +25,7 @@ public:
   virtual void SaveComponent() override;
 
   BlockCollider* AddBlockCollider(dfloat width, dfloat height, dfloat length);
-  BlockCollider* AddSphereCollider(dfloat radius);
+  SphereCollider* AddSphereCollider(dfloat radius, size_t numSlices, size_t numStacks);
 
 
 private:

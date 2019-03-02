@@ -7,6 +7,7 @@
 #include "Rigidbody.h"
 #include "Softbody.h"
 #include "BlockCollider.h"
+#include "SphereCollider.h"
 #include "PhysicsDebugRenderer.h"
 #include "PhysicsBody.h"
 #include "Transform.h"
@@ -32,6 +33,9 @@ void PhysicsScene::Initialize()
   // Create the world
   _pWorld = std::make_unique<btDiscreteDynamicsWorld>(_pDispatcher.get(), _pBroadphaseInterface.get(), _pSolver.get(), _pCollisionConfiguration.get());
 
+  // Set gravity
+  _pWorld->setGravity(btVector3(0.0f, -9.80665f, 0.0f));
+
   // Create initial physics objects for Scene
   //InsertInitialPhysicsEntities();
 }
@@ -42,7 +46,7 @@ void PhysicsScene::ProcessScene(dfloat deltaTime)
 
   if (_pWorld)
   {
-    _pWorld->stepSimulation(deltaTime, 60);
+    _pWorld->stepSimulation(deltaTime, 10);
   }
 
   //check collisions with player
@@ -320,11 +324,33 @@ PhysicsEntity* PhysicsScene::AddBlockColliderRigidbody(Rigidbody* pBody, Collide
 
 PhysicsEntity* PhysicsScene::AddSphereColliderRigidbody(Rigidbody* pBody, Collider* pCollider)
 {
-  UNREFERENCED_PARAMETER(pBody);
-  UNREFERENCED_PARAMETER(pCollider);
+  SphereCollider* pSphereCollider = static_cast<SphereCollider*>(pCollider);
 
-  LOG_NOT_IMPLEMENTED;
+  // Get Collider dimensions and scale
+  dfloat radius = pSphereCollider->GetRadius();
+  Vector3f scale = pSphereCollider->GetWorldScaleConstRef();
 
+  // Construct BT versions of those
+  btVector3 btScale(scale.GetX(), scale.GetY(), scale.GetZ());
+
+  // Allocate new box shape
+  std::unique_ptr<btCollisionShape> pSphereShape = std::make_unique<btSphereShape>(radius);
+  // Scale it propperly
+  pSphereShape->setLocalScaling(btScale);
+
+  // Instantiate new PhysicsEntity
+  std::unique_ptr<PhysicsEntity> pPhysicsEntity = std::make_unique<PhysicsEntity>(
+    pCollider,
+    pBody,
+    std::move(pSphereShape),
+    pBody->GetMass(),
+    Vector3f(0.0f, 1.0f, 0.0)
+    );
+
+  // Activate this PO inside physics scene
+  _pWorld->addRigidBody(static_cast<btRigidBody*>(pPhysicsEntity->GetCollisionObjectPtr()));
+
+  return InsertPhysicsEntity(std::move(pPhysicsEntity));
   return nullptr;
 }
 

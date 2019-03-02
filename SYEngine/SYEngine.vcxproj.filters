@@ -144,7 +144,6 @@
     <ClCompile Include="external\x64\imgui\1.66\src\imgui_widgets.cpp" />
     <ClCompile Include="Engine\Core\MathLibrary.cpp" />
     <ClCompile Include="Engine\LogicManager\ScriptManager\ScriptManager.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\Collider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.cpp">
       <Filter>Engine\ComponentManager\Component\Shader</Filter>
@@ -185,6 +184,8 @@
     <ClCompile Include="Engine\Core\Abstract\IEngineContextInterface.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IComponentsInterface.cpp" />
     <ClCompile Include="Engine\Core\Abstract\ISceneContextInterface.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\SphereCollider.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -344,7 +345,6 @@
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.h" />
     <ClInclude Include="Engine\Core\MathLibrary.h" />
     <ClInclude Include="Engine\LogicManager\ScriptManager\ScriptManager.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\Collider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.h">
       <Filter>Engine\ComponentManager\Component\Shader</Filter>
@@ -401,6 +401,8 @@
     <ClInclude Include="Engine\Core\Abstract\IEngineContextInterface.h" />
     <ClInclude Include="Engine\Core\Abstract\IComponentsInterface.h" />
     <ClInclude Include="Engine\Core\Abstract\ISceneContextInterface.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\SphereCollider.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

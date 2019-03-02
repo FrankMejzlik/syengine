@@ -1,6 +1,8 @@
 #include "Rigidbody.h"
 
 #include "BlockCollider.h"
+#include "SphereCollider.h"
+
 #include "Scene.h"
 #include "PhysicsScene.h"
 
@@ -40,4 +42,16 @@ BlockCollider* Rigidbody::AddBlockCollider(dfloat width, dfloat height, dfloat l
   _pCollider = static_cast<Collider*>(pBlockCollider);
     
   return pBlockCollider;
+}
+
+
+SphereCollider* Rigidbody::AddSphereCollider(dfloat radius, size_t numSlices, size_t numStacks)
+{
+  SphereCollider* pSphereCollider = GetComponentManagerPtr()->CreateComponent<SphereCollider>(_pOwnerEntity, this);
+  pSphereCollider->SetDimensions(radius, numSlices, numStacks);
+  pSphereCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
+
+  _pCollider = static_cast<Collider*>(pSphereCollider);
+
+  return pSphereCollider;
 }

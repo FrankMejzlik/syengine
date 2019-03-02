@@ -40,6 +40,13 @@ public:
     return MESH_GENERATOR->GenerateQuadVerticesIndices(width, height);
   }
 
+  std::pair< std::vector<dfloat>, std::vector<unsigned int> > GenerateSphereVerticesIndices(
+    dfloat radius, size_t numSlices, size_t numStacks
+  )
+  {
+    return MESH_GENERATOR->GenerateSphereVerticesIndices(radius, numSlices, numStacks);
+  }
+
   std::unique_ptr<Mesh> GenerateMeshQuad(dfloat width, dfloat height);
   std::unique_ptr<Mesh> GenerateMeshBlock(dfloat width, dfloat height, dfloat length);
 

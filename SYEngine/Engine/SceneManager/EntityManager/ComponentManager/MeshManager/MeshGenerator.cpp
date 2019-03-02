@@ -155,3 +155,94 @@ std::pair< std::vector<dfloat>, std::vector<unsigned int> > MeshGenerator::Gener
 
   return std::make_pair(vertexArray, indexArray);
 }
+
+std::pair< std::vector<dfloat>, std::vector<unsigned int> > MeshGenerator::GenerateSphereVerticesIndices(dfloat radius, size_t numSlices, size_t numStacks)
+{
+  // Generate vertices vector
+  std::vector<dfloat> vertices;
+
+  // Create indices vector
+  std::vector<unsigned int>  indices;
+
+  /**
+    * Data format:
+    * x   y   z |  u    v   |  nx   ny   nz
+    */
+
+
+  dfloat x, y, z, xy;                              // vertex position
+  dfloat nx, ny, nz, lengthInv = 1.0f / radius;    // vertex normal
+  dfloat u, v;                                     // vertex texCoord
+
+  dfloat sectorStep = static_cast<dfloat>(2 * M_PI / numSlices);
+  dfloat stackStep = static_cast<dfloat>(M_PI / numStacks);
+  dfloat sectorAngle, stackAngle;
+
+  // Generate vertices for sphere
+  for (int i = 0; i <= numStacks; ++i)
+  {
+    stackAngle = static_cast<dfloat>(M_PI / 2 - i * stackStep);        // starting from pi/2 to -pi/2
+    xy = radius * cosf(stackAngle);             // r * cos(u)
+    z = radius * sinf(stackAngle);              // r * sin(u)
+
+    // add (sectorCount+1) vertices per stack
+    // the first and last vertices have same position and normal, but different tex coords
+    for (int j = 0; j <= numSlices; ++j)
+    {
+      sectorAngle = j * sectorStep;           // starting from 0 to 2pi
+
+      // vertex position (x, y, z)
+      x = xy * cosf(sectorAngle);             // r * cos(u) * cos(v)
+      y = xy * sinf(sectorAngle);             // r * cos(u) * sin(v)
+      vertices.push_back(x);
+      vertices.push_back(y);
+      vertices.push_back(z);
+
+      // vertex tex coord (s, t) range between [0, 1]
+      u = (dfloat)j / numSlices;
+      v = (dfloat)i / numStacks;
+      vertices.push_back(u);
+      vertices.push_back(v);
+
+      // normalized vertex normal (nx, ny, nz)
+      nx = x * lengthInv;
+      ny = y * lengthInv;
+      nz = z * lengthInv;
+      vertices.push_back(-nx);
+      vertices.push_back(-ny);
+      vertices.push_back(-nz);
+    }
+  }
+
+  // Generate indices for sphere
+  unsigned int k1, k2;
+  for (int i = 0; i < numStacks; ++i)
+  {
+    k1 = static_cast<unsigned int>(i * (numSlices + 1));     // beginning of current stack
+    k2 = static_cast<unsigned int>(k1 + numSlices + 1);      // beginning of next stack
+
+    for (int j = 0; j < numSlices; ++j, ++k1, ++k2)
+    {
+      // 2 triangles per sector excluding first and last stacks
+      // k1 => k2 => k1+1
+      if (i != 0)
+      {
+        indices.push_back(k1);
+        indices.push_back(k2);
+        indices.push_back(k1 + 1);
+      }
+
+      // k1+1 => k2 => k2+1
+      if (i != (numStacks - 1))
+      {
+        indices.push_back(k1 + 1);
+        indices.push_back(k2);
+        indices.push_back(k2 + 1);
+      }
+    }
+  }
+
+
+  return std::make_pair(vertices, indices);
+}
+

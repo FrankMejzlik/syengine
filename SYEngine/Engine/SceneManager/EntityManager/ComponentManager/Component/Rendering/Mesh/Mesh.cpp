@@ -142,6 +142,13 @@ void Mesh::MakeQuad(dfloat width, dfloat height)
   CreateMesh_(data.first, data.second, false);
 }
 
+void Mesh::MakeSphere(dfloat radius, size_t numSlices, size_t numStacks)
+{
+  auto data = GetMeshManagerPtr()->GenerateSphereVerticesIndices(radius, numSlices, numStacks);
+
+  CreateMesh_(data.first, data.second, false);
+}
+
 bool Mesh::CalculateAverageNormals(std::vector<dfloat>& vertices, std::vector<unsigned int>& indices)
 {
   for (size_t i = 0; i < _indexCount; i += 3)
