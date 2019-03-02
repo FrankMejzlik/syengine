@@ -129,6 +129,23 @@ public:
       }
     }
 
+    // Create paddles
+    {
+    MeshRenderer* pMeshRenderer; pMeshRenderer;
+    Entity* pEntity; pEntity;
+
+      pEntity = pScene->CreatePrism(
+        Vector3f(0.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+        Vector3f(0.0f, 0.0f, 0.0f),
+        Vector3f(-1.0f, -1.0f, -1.0f), Vector3f(1.5f, -1.5f, -1.0f), Vector3f(1.5f, 1.5f, -1.0f), Vector3f(-1.0f, 1.0f, -1.0f),
+        Vector3f(-1.0f, -1.0f, -0.0f), Vector3f(1.5f, -1.5f, 0.0f), Vector3f(1.5f, 1.5f, -0.0f), Vector3f(-1.0f, 1.0f, 0.0f),
+        true, // Is static
+        0.0f  // No mass
+      );
+
+    }
+
+
     // Create ball
     {
       Entity* pSphere;

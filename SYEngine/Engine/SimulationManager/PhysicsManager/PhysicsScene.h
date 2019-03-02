@@ -63,6 +63,7 @@ private:
 
   PhysicsEntity* AddBlockColliderRigidbody(Rigidbody* pBody, Collider* pCollider);
   PhysicsEntity* AddSphereColliderRigidbody(Rigidbody* pBody, Collider* pCollider);
+  PhysicsEntity* AddConvexHullColliderRigidbody(Rigidbody* pBody, Collider* pCollider);
 
   void SyncPhysicsToGraphics();
 

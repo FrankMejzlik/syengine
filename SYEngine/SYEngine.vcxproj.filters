@@ -187,6 +187,7 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\SphereCollider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material\Shininess.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\ConvexHullCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -406,6 +407,7 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material\Shininess.h" />
     <ClInclude Include="scripts\_SceneBuilder.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\ConvexHullCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

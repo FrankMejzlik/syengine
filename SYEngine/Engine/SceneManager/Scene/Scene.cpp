@@ -21,6 +21,7 @@
 #include "EngineContext.h"
 #include "SceneContext.h"
 #include "SphereCollider.h"
+#include "ConvexHullCollider.h"
 
 using namespace SYE;
 
@@ -218,6 +219,62 @@ Entity* Scene::CreateBlock(
   return pNewEntity;
 }
 
+Entity* Scene::CreatePrism(
+  Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+  Vector3f origin,
+  const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
+  const Vector3f& p5, const Vector3f& p6, const Vector3f& p7, const Vector3f& p8,
+  bool isStatic,
+  dfloat mass
+)
+{
+  UNREFERENCED_PARAMETER(origin);
+  UNREFERENCED_PARAMETER(mass);
+
+  // Add new Entity to Scene instance
+  Entity* pNewEntity = AddEntity<Entity>();
+  {
+    pNewEntity->SetIsStatic(isStatic);
+
+    // Add Transform Component
+    Transform* pTransform = pNewEntity->AddComponent<Transform>();
+    //pTransform->SetOrigin(origin);
+    pTransform->SetPosition(positionVector);
+    pTransform->SetRotation(rotationVector);
+    pTransform->SetScale(scaleVector);
+
+    // Add MeshRenderer Component
+    MeshRenderer* pMeshRenderer = pNewEntity->AddComponent<MeshRenderer>();
+    {
+      Mesh* pMesh = pMeshRenderer->AddMesh();
+      {
+        pMesh->ClearMesh();
+        pMesh->MakePrism(p1, p2, p3, p4, p5, p6, p7, p8);
+      }
+      Material* pMaterial = pMeshRenderer->AddMaterial();
+      pMaterial;
+
+      pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
+    }
+
+    // Add Rigigbody Component
+    Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();
+    pRigidBody->SetMass(mass);
+    {
+      // Add Collider
+      ConvexHullCollider* pConvHullCollider = pRigidBody->AddConvexHullCollider(p1, p2, p3, p4, p5, p6, p7, p8);
+      pConvHullCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
+      pConvHullCollider->SetLocalRotation(Vector3f(0.0f, 0.0f, 0.0f));
+      pConvHullCollider->SetLocalScale(Vector3f(1.0f, 1.0f, 1.0f));
+    }
+    pRigidBody->SaveComponent();
+  }
+  pNewEntity->SaveEntity();
+
+
+  return pNewEntity;
+}
+
 
 Entity* Scene::CreateSphere(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
@@ -399,7 +456,7 @@ size_t Scene::MapTypeToSlot(size_t type)
 
   case Component::eType::BLOCK_COLLIDER:
   case Component::eType::SPHERE_COLLIDER:
-  case Component::eType::CONVEX_MESH_COLLIDER:
+  case Component::eType::CONVEX_HULL_COLLIDER:
     return COMPONENT_PHYSICS_COLLIDER_SLOT;
     break;
 

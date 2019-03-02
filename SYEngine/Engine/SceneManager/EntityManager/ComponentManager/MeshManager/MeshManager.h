@@ -33,6 +33,15 @@ public:
   {
     return MESH_GENERATOR->GenerateBlockVerticesIndices(width, height, length);
   }
+
+  std::pair< std::vector<dfloat>, std::vector<unsigned int> > GeneratePrismVerticesIndices(
+    const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
+    const Vector3f& p5, const Vector3f& p6, const Vector3f& p7, const Vector3f& p8
+  )
+  {
+    return MESH_GENERATOR->GeneratePrismVerticesIndices(p1, p2, p3, p4, p5, p6, p7, p8);
+  }
+  
   std::pair< std::vector<dfloat>, std::vector<unsigned int> > GenerateQuadVerticesIndices(
     dfloat width, dfloat height
   )

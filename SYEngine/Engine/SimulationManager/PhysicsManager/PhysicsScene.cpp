@@ -11,6 +11,7 @@
 #include "PhysicsDebugRenderer.h"
 #include "PhysicsBody.h"
 #include "Transform.h"
+#include "ConvexHullCollider.h"
 
 using namespace SYE;
 
@@ -231,6 +232,11 @@ PhysicsEntity* PhysicsScene::AddRigidBody(Rigidbody* pBody)
     case static_cast<size_t>(Component::eType::SPHERE_COLLIDER) :
       return AddSphereColliderRigidbody(pBody, pCollider);
       break;
+
+    // ConvexHullCollider
+    case static_cast<size_t>(Component::eType::CONVEX_HULL_COLLIDER) :
+      return AddConvexHullColliderRigidbody(pBody, pCollider);
+      break;
   }
 
   return nullptr;
@@ -322,6 +328,8 @@ PhysicsEntity* PhysicsScene::AddBlockColliderRigidbody(Rigidbody* pBody, Collide
   return InsertPhysicsEntity(std::move(pPhysicsEntity));
 }
 
+
+
 PhysicsEntity* PhysicsScene::AddSphereColliderRigidbody(Rigidbody* pBody, Collider* pCollider)
 {
   SphereCollider* pSphereCollider = static_cast<SphereCollider*>(pCollider);
@@ -353,6 +361,51 @@ PhysicsEntity* PhysicsScene::AddSphereColliderRigidbody(Rigidbody* pBody, Collid
   return InsertPhysicsEntity(std::move(pPhysicsEntity));
   return nullptr;
 }
+
+PhysicsEntity* PhysicsScene::AddConvexHullColliderRigidbody(Rigidbody* pBody, Collider* pCollider)
+{
+  ConvexHullCollider* pConvHullCollider = static_cast<ConvexHullCollider*>(pCollider);
+
+  // Get Collider dimensions and scale
+  const std::vector<Vector3f>& vertices = pConvHullCollider->GetVerticesConstRef();
+  Vector3f scale = pConvHullCollider->GetWorldScaleConstRef();
+
+  std::vector<dfloat> verticesData;
+  verticesData.reserve(vertices.size() * 3);
+
+  // Create correct format vector
+  for (auto&& v : vertices)
+  {
+    verticesData.push_back(v.GetX());
+    verticesData.push_back(v.GetY());
+    verticesData.push_back(v.GetZ());
+  }
+
+  // Construct BT versions of those
+  btVector3 btScale(scale.GetX(), scale.GetY(), scale.GetZ());
+
+  // Allocate new box shape
+  //btConvexHullShape(const btScalar* points = 0, int numPoints = 0, int stride = sizeof(btVector3));
+  std::unique_ptr<btCollisionShape> pSphereShape = std::make_unique<btConvexHullShape>(verticesData.data(), static_cast<int>(vertices.size()), static_cast<int>(3 *sizeof(dfloat)));
+  
+  // Scale it propperly
+  pSphereShape->setLocalScaling(btScale);
+
+  // Instantiate new PhysicsEntity
+  std::unique_ptr<PhysicsEntity> pPhysicsEntity = std::make_unique<PhysicsEntity>(
+    pCollider,
+    pBody,
+    std::move(pSphereShape),
+    pBody->GetMass(),
+    Vector3f(0.0f, 1.0f, 0.0)
+    );
+
+  // Activate this PO inside physics scene
+  _pWorld->addRigidBody(static_cast<btRigidBody*>(pPhysicsEntity->GetCollisionObjectPtr()));
+
+  return InsertPhysicsEntity(std::move(pPhysicsEntity));
+}
+
 
 PhysicsEntity* PhysicsScene::InsertPhysicsEntity(std::unique_ptr<PhysicsEntity>&& pEntity)
 {

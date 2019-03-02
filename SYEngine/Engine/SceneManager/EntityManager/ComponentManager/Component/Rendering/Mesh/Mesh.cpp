@@ -135,6 +135,16 @@ void Mesh::MakeBlock(dfloat width, dfloat height, dfloat length)
   CreateMesh_(data.first, data.second, false);
 }
 
+void Mesh::MakePrism(
+  const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
+  const Vector3f& p5, const Vector3f& p6, const Vector3f& p7, const Vector3f& p8
+)
+{
+  auto data = GetMeshManagerPtr()->GeneratePrismVerticesIndices(p1, p2, p3, p4, p5, p6, p7, p8);
+
+  CreateMesh_(data.first, data.second, false);
+}
+
 void Mesh::MakeQuad(dfloat width, dfloat height)
 {
   auto data = GetMeshManagerPtr()->GenerateQuadVerticesIndices(width, height);

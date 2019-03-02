@@ -42,6 +42,9 @@ public:
   Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow, size_t sceneId);
   ~Scene() noexcept;
 
+  /**
+   * Creates Camera at provided position with provided orientation
+   */
   Entity* CreateCamera(
     Vector3f positionVector, 
     Vector3f startUpDirection, dfloat startYaw, dfloat startPitch,
@@ -57,6 +60,26 @@ public:
   Entity* CreateBlock(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     dfloat width, dfloat height, dfloat length,
+    bool isStatic = true,
+    dfloat mass = 0.0f
+  );
+
+  /**
+   * Creates prism that is defined by 8 vertices in model space
+   *
+   * Default origin point is p1.
+   *
+   * VERTEX ORDER:
+   *      p4 ------ p3      p8 ------ p7
+   *  +X: |         |   -X: |         |
+   *      |         |       |         |
+   *      p1 ------ p2      p5 ------ p6
+   */
+  Entity* CreatePrism(
+    Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+    Vector3f origin,
+    const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
+    const Vector3f& p5, const Vector3f& p6, const Vector3f& p7, const Vector3f& p8,
     bool isStatic = true,
     dfloat mass = 0.0f
   );

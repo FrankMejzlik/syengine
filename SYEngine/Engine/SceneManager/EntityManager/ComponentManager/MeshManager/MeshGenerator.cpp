@@ -130,6 +130,93 @@ std::pair< std::vector<dfloat>, std::vector<unsigned int> > MeshGenerator::Gener
   return std::make_pair(blockVertices, blockIndices);
 }
 
+std::pair< std::vector<dfloat>, std::vector<unsigned int> > MeshGenerator::GeneratePrismVerticesIndices(
+  const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
+  const Vector3f& p5, const Vector3f& p6, const Vector3f& p7, const Vector3f& p8
+)
+{
+  // Compute normals
+  Vector3f normTop = Cross((p3 - p4), (p8 - p4));
+  Vector3f normBottom = Cross((p2 - p1), (p5 - p1));
+
+  Vector3f normFront = Cross((p2 - p1), (p4 - p1));
+  Vector3f normBack = Cross((p7 - p8), (p5 - p8));
+
+  Vector3f normLeft = Cross((p8 - p4), (p1 - p4));
+  Vector3f normRight = Cross((p2 - p3), (p7 - p3));
+
+  // Generate vertices vector.
+  std::vector<dfloat> vertices =
+  {
+    /*
+    Data format:
+    x            y             z             u    v      nx     ny   nz
+    */
+    // Top 8734
+    p8.GetX(), p8.GetY(), p8.GetZ(),      0.0f, 0.0f,		normTop.GetX(), normTop.GetY(), normTop.GetZ(),
+    p7.GetX(), p7.GetY(), p7.GetZ(),		  1.0f, 0.0f,		normTop.GetX(), normTop.GetY(), normTop.GetZ(),
+    p3.GetX(), p3.GetY(), p3.GetZ(),		  1.0f, 1.0f,		normTop.GetX(), normTop.GetY(), normTop.GetZ(),
+    p4.GetX(), p4.GetY(), p4.GetZ(),		  0.0f, 1.0f,		normTop.GetX(), normTop.GetY(), normTop.GetZ(),
+
+    // Bottom 5621
+    p5.GetX(), p5.GetY(), p5.GetZ(),		  0.0f, 0.0f,		normBottom.GetX(), normBottom.GetY(), normBottom.GetZ(),
+    p6.GetX(), p6.GetY(), p6.GetZ(),		  1.0f, 0.0f,		normBottom.GetX(), normBottom.GetY(), normBottom.GetZ(),
+    p2.GetX(), p2.GetY(), p2.GetZ(),		  1.0f, 1.0f,		normBottom.GetX(), normBottom.GetY(), normBottom.GetZ(),
+    p1.GetX(), p1.GetY(), p1.GetZ(),		  0.0f, 1.0f,		normBottom.GetX(), normBottom.GetY(), normBottom.GetZ(),
+
+    // Front 4321
+    p4.GetX(), p4.GetY(), p4.GetZ(),		  0.0f, 0.0f,		normFront.GetX(), normFront.GetY(), normFront.GetZ(),
+    p3.GetX(), p3.GetY(), p3.GetZ(),		  1.0f, 0.0f,		normFront.GetX(), normFront.GetY(), normFront.GetZ(),
+    p2.GetX(), p2.GetY(), p2.GetZ(),		  1.0f, 1.0f,		normFront.GetX(), normFront.GetY(), normFront.GetZ(),
+    p1.GetX(), p1.GetY(), p1.GetZ(),		  0.0f, 1.0f,		normFront.GetX(), normFront.GetY(), normFront.GetZ(),
+
+    // Back 8567
+    p8.GetX(), p8.GetY(), p8.GetZ(),		  0.0f, 0.0f,		normBack.GetX(), normBack.GetY(), normBack.GetZ(),
+    p5.GetX(), p5.GetY(), p5.GetZ(),		  1.0f, 0.0f,		normBack.GetX(), normBack.GetY(), normBack.GetZ(),
+    p6.GetX(), p6.GetY(), p6.GetZ(),		  1.0f, 1.0f,		normBack.GetX(), normBack.GetY(), normBack.GetZ(),
+    p7.GetX(), p7.GetY(), p7.GetZ(),		  0.0f, 1.0f,		normBack.GetX(), normBack.GetY(), normBack.GetZ(),
+
+    // Left 8415
+    p8.GetX(), p8.GetY(), p8.GetZ(),		  0.0f, 0.0f,		normLeft.GetX(), normLeft.GetY(), normLeft.GetZ(),
+    p4.GetX(), p4.GetY(), p4.GetZ(),		  1.0f, 0.0f,		normLeft.GetX(), normLeft.GetY(), normLeft.GetZ(),
+    p1.GetX(), p1.GetY(), p1.GetZ(),		  1.0f, 1.0f,		normLeft.GetX(), normLeft.GetY(), normLeft.GetZ(),
+    p5.GetX(), p5.GetY(), p5.GetZ(),		  0.0f, 1.0f,		normLeft.GetX(), normLeft.GetY(), normLeft.GetZ(),
+
+    // Right 7623
+    p7.GetX(), p7.GetY(), p7.GetZ(),		  0.0f, 0.0f,		normRight.GetX(), normRight.GetY(), normRight.GetZ(),
+    p6.GetX(), p6.GetY(), p6.GetZ(),		  1.0f, 0.0f,		normRight.GetX(), normRight.GetY(), normRight.GetZ(),
+    p2.GetX(), p2.GetY(), p2.GetZ(),		  1.0f, 1.0f,		normRight.GetX(), normRight.GetY(), normRight.GetZ(),
+    p3.GetX(), p3.GetY(), p3.GetZ(),		  0.0f, 1.0f,		normRight.GetX(), normRight.GetY(), normRight.GetZ(),
+
+  };
+
+  // Create indices vector.
+  std::vector<unsigned int>  indices =
+  {
+    // Top
+    0, 1, 2,
+    2, 3, 0,
+    // Bottom
+    6, 5, 4, 
+    4, 7, 6,
+    // Front
+    8, 9, 10,
+    10, 11, 8,
+    // Back
+    12, 13, 14,
+    14, 15, 12,
+    // Left
+    16, 17, 18,
+    18, 19, 16,
+    // Right
+    20, 21, 22,
+    22, 23, 20
+  };
+
+
+  return std::make_pair(vertices, indices);
+}
+
 
 std::pair< std::vector<dfloat>, std::vector<unsigned int> > MeshGenerator::GenerateQuadVerticesIndices(dfloat width, dfloat height)
 {

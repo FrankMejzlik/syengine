@@ -39,6 +39,10 @@ public:
   virtual void ClearMesh();
 
   void MakeBlock(dfloat width, dfloat height, dfloat length);
+  void MakePrism(
+    const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
+    const Vector3f& p5, const Vector3f& p6, const Vector3f& p7, const Vector3f& p8
+  );
   void MakeQuad(dfloat width, dfloat height);
   void MakeSphere(dfloat radius, size_t numSlices, size_t numStacks);
   void MakeTriangle(dfloat a, dfloat b, dfloat c);

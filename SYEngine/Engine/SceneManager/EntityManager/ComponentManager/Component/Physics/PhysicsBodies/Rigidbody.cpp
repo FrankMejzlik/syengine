@@ -5,6 +5,7 @@
 
 #include "Scene.h"
 #include "PhysicsScene.h"
+#include "ConvexHullCollider.h"
 
 
 using namespace SYE;
@@ -41,6 +42,31 @@ BlockCollider* Rigidbody::AddBlockCollider(dfloat width, dfloat height, dfloat l
 
   _pCollider = static_cast<Collider*>(pBlockCollider);
     
+  return pBlockCollider;
+}
+
+ConvexHullCollider* Rigidbody::AddConvexHullCollider(
+  const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
+  const Vector3f& p5, const Vector3f& p6, const Vector3f& p7, const Vector3f& p8
+  )
+{
+  ConvexHullCollider* pBlockCollider = GetComponentManagerPtr()->CreateComponent<ConvexHullCollider>(_pOwnerEntity, this);
+  
+  std::vector<Vector3f> vec;
+  vec.push_back(p1);
+  vec.push_back(p2);
+  vec.push_back(p3);
+  vec.push_back(p4);
+  vec.push_back(p5);
+  vec.push_back(p6);
+  vec.push_back(p7);
+  vec.push_back(p8);
+
+  pBlockCollider->SetVertices(vec);
+  pBlockCollider->SetLocalPosition(Vector3f(0.0f, 0.0f, 0.0f));
+
+  _pCollider = static_cast<Collider*>(pBlockCollider);
+
   return pBlockCollider;
 }
 
