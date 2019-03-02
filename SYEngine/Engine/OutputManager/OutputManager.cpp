@@ -73,3 +73,8 @@ Window* OutputManager::ConstructWindow(eWindowType windowType, std::string_view 
 {
   return RENDERING_MANAGER->ConstructWindow(windowType, windowTitle, width, height);
 }
+
+bool OutputManager::DestroyWindow(Window* pWindow)
+{
+  return RENDERING_MANAGER->DestroyWindow(pWindow);
+}

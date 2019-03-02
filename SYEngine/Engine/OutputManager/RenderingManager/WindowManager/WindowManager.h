@@ -1,6 +1,7 @@
 #pragma once
 
-#include <vector>
+#include <map>
+#include <memory>
 
 #include "common.h"
 #include "BaseModule.h"
@@ -25,9 +26,10 @@ public:
 
 
   Window* ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height);
+  bool DestroyWindow(Window* pWindow);
 
 private:
-  std::vector<std::unique_ptr<Window>> _windows;
+  std::map< size_t, std::unique_ptr<Window> > _windows;
 };
 
 }

@@ -19,6 +19,8 @@ enum class eEngineError
   Null = 0,
   UnableToSetupMainModuleChannels = 1,
   SceneInitializationFailed = 2,
+  GraphicsApiInitializationFailed = 3,
+  WindowInitialilzationFailed = 4,
 
   UnableToLoadTextureFromFile = 500,
   MissingPointerToTargetWindowInstance = 501,

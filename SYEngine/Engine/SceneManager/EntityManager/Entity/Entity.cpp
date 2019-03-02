@@ -21,7 +21,7 @@ Entity::~Entity() noexcept
   // Delete all children Entities recursively
   for (auto&& childPair : _childEntities)
   {
-    DeleteEntity(childPair.second);
+    RemoveEntity(childPair.second);
   }
 
   // Destroy all child Component recursively
@@ -29,7 +29,7 @@ Entity::~Entity() noexcept
   {
     for (auto&& componentPair : slotMap)
     {
-      DeleteComponent(componentPair.second);
+      RemoveComponent(componentPair.second);
     }
   }
 }
@@ -100,7 +100,7 @@ const std::map<size_t, Entity*>& Entity::GetChildrenConstRef() const
   return _childEntities; 
 }
 
-bool Entity::DeleteComponent(Component* pComponentToDelete)
+bool Entity::RemoveComponent(Component* pComponentToDelete)
 {
   // Detach it from Entity
   if (!DetachComponent(pComponentToDelete))
@@ -128,7 +128,7 @@ bool Entity::DeleteComponent(Component* pComponentToDelete)
   return true;
 }
 
-bool Entity::DeleteEntity(Entity* pEntityToDelete)
+bool Entity::RemoveEntity(Entity* pEntityToDelete)
 {
   // Detach it from Scene
   if (!DetachEntity(pEntityToDelete))

@@ -73,7 +73,7 @@ std::pair<PhysicsBody*, Vector3f> Scene::Raycast(Vector3f from, Vector3f directi
 
 
 
-bool Scene::DeleteEntity(Entity* pEntityToDelete)
+bool Scene::RemoveEntity(Entity* pEntityToDelete)
 {
   // Detach it from Scene
   if (!DetachEntity(pEntityToDelete))

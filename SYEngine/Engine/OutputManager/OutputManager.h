@@ -32,7 +32,7 @@ public:
   void ProcessScene(dfloat deltaTime, Scene* pScene, Window* pTargetWindow);
   
   Window* ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height);
-
+  bool DestroyWindow(Window* pWindow);
 
 private:
   

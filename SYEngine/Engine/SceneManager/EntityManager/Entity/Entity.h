@@ -102,7 +102,7 @@ public:
 
     return pNewComponent;
   }
-  bool DeleteComponent(Component* pComponentToDelete);
+  bool RemoveComponent(Component* pComponentToDelete);
 
   template <typename EntityType>
   EntityType* AddEntity()
@@ -127,7 +127,7 @@ public:
 
     return pNewEntity;
   }
-  bool DeleteEntity(Entity* pEntityToDelete);
+  bool RemoveEntity(Entity* pEntityToDelete);
 
 protected:
   void RefreshQuickRefs();

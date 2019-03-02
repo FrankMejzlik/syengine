@@ -25,6 +25,8 @@ class RenderingManager :
   public BaseModule
 {
 public:
+  static void ErrorCallack(int error, const char* description);
+
   RenderingManager() = delete;
 
   RenderingManager(BaseModule& parentModule, EngineContext* pEngineContext);
@@ -33,7 +35,10 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  bool InitializeGraphicsApi();
+
   Window* ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height);
+  bool DestroyWindow(Window* pWindow);
 
   void RenderScene(Scene* pScene, Window* pTargetWindow);
 

@@ -60,12 +60,34 @@ Window* WindowManager::ConstructWindow(eWindowType windowType, std::string_view 
   UNREFERENCED_PARAMETER(width);
   UNREFERENCED_PARAMETER(windowType);
 
-  // Construct new Window instance and push it into vector.
-  _windows.push_back(std::make_unique<Window>(GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT));
+  // Instantiate new Window 
+  std::unique_ptr<Window> pWindow = std::make_unique<Window>(GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
-  // Get new window ptr.
-  Window* newWindow = _windows.back().get();
-  newWindow->Initialize();
+  // Try initializing this window
+  int initResult = pWindow->Initialize();
+  // Handle errors
+  if (initResult > 0)
+  { 
+    PUSH_ENGINE_ERROR(
+      eEngineError::WindowInitialilzationFailed,
+      "Window '" + std::to_string(pWindow->GetGuid()) + "' initialization failed.",
+      ""
+    );
 
-  return newWindow;
+    return nullptr;
+  }
+
+  // Insert this Window into table
+  auto result = _windows.insert(std::make_pair(pWindow->GetGuid(), std::move(pWindow)));
+  
+  // Return pointer to new Window
+  return result.first->second.get();
+}
+
+bool WindowManager::DestroyWindow(Window* pWindow)
+{
+  // Remove this Window from table
+  auto result = _windows.erase(pWindow->GetGuid());
+  
+  return (result > 0);
 }

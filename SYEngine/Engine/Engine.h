@@ -70,6 +70,8 @@ private:
   void CheckModuleStates();
   Scene* AddScene(Window* pTargetWindow, size_t sceneId);
   Window* AddWindow();
+  bool RemoveWindow(Window* pWindow);
+
   bool InitializeSceneInModules(Scene* pScene);
 
 

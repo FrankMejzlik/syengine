@@ -18,47 +18,27 @@ Window::Window(GLsizei windowWidth = 800, GLsizei windowHeight = 600) :
 
 int Window::Initialize()
 {
-  // Initialize GLFW
-  if (!glfwInit())
-  {
-    printf("GLFW init failed!\n");
-    glfwTerminate();
-    return 1;
-  }
-
-  // Setup GLFW window properties
-  // OpenGL version to 3.3
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  // Core profile = No backwards compatibility
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  // Allow forward compatiblity
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
   mainWindow = glfwCreateWindow(bufferWidth, bufferHeight, GAME_WINDOW_TITLE, NULL, NULL);
   if (!mainWindow)
   {
-    printf("GLFW window creation failed!\n");
+    DLog(eLogType::Error, "GLFW window creation failed!");
     glfwTerminate();
     return 2;
   }
   // Set window position
   glfwSetWindowPos(mainWindow, GAME_WINDOW_DEFAULT_POS_X, GAME_WINDOW_DEFAULT_POS_Y);
 
-  // Set context for GLEW to use
+  // Set context for GLEW to use to this window
   glfwMakeContextCurrent(mainWindow);
 
-  // Handle key + mouse
-  CreateCallbacks();
-  glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-  // Alow moder extension features
+  // Alow modern extension features
   glewExperimental = GL_TRUE;
 
-  if (glewInit() != GLEW_OK)
+  // Initialize GLEW
+  auto glewInitResult = glewInit();
+  if (glewInitResult != GLEW_OK)
   {
-    printf("GLEW init failed!\n");
-    glfwDestroyWindow(mainWindow);
+    DLog(eLogType::Error, "GLEW init failed!");
     glfwTerminate();
     return 3;
   }
@@ -67,22 +47,31 @@ int Window::Initialize()
   glEnable(GL_DEPTH_TEST);
 
 #if DISABLE_VSYNC
+
   // Disable VSync
   glfwSwapInterval(0);
+
 #endif
 
 #if BACK_FACE_CULLING
+
   glEnable(GL_CULL_FACE);
   glCullFace(GL_BACK);
 
 #endif
+
+  // Handle key + mouse
+  CreateCallbacks();
+  glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
   // Setup viewport size
   glViewport(0, 0, bufferWidth, bufferHeight);
 
   // Set instance that belongs to winwow
   glfwSetWindowUserPointer(mainWindow, this);
 
-  printf("Engine initialzied...\n");
+  DLog(eLogType::Success, "Engine initialzied...");
+
   return 0;
 }
 

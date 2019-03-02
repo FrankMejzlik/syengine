@@ -79,12 +79,29 @@ Scene* Engine::AddScene(Window* pTargetWindow, size_t sceneId)
 
 Window* Engine::AddWindow()
 {
-  return OUTPUT_MANAGER->ConstructWindow(
+  // Instantiate new Window
+  Window* pNewWindow = OUTPUT_MANAGER->ConstructWindow(
     eWindowType::MAIN_GAME_WINDOW, 
     WORLD_GAME_NAME, 
     GAME_WINDOW_DEFAULT_WIDTH, 
     GAME_WINDOW_DEFAULT_HEIGHT
   );
+
+  // Attach it to Engine
+  AttachWindow(pNewWindow);
+
+  return pNewWindow;
+}
+
+bool Engine::RemoveWindow(Window* pWindow)
+{
+  // Detach it to Engine
+  DetachWindow(pWindow);
+
+  // Destruct it
+  OUTPUT_MANAGER->DestroyWindow(pWindow);
+
+  return true;
 }
 
 bool Engine::InitializeSceneInModules(Scene* pScene)

@@ -14,6 +14,14 @@
 
 using namespace SYE;
 
+
+void RenderingManager::ErrorCallack(int error, const char* description)
+{
+  UNREFERENCED_PARAMETER(error);
+
+  DLog(eLogType::Error, "Error: %s", description);
+}
+
 RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEngineContext):
   BaseModule(parentModule, pEngineContext),
   _pPhysicsDebugRenderer(std::make_unique<PhysicsDebugRenderer>())
@@ -57,6 +65,17 @@ bool RenderingManager::Initialize()
   #endif
   }
 
+  // Initialize graphics API
+  if (!InitializeGraphicsApi())
+  {
+    PUSH_ENGINE_ERROR(
+      eEngineError::GraphicsApiInitializationFailed,
+      "Failed to initialize OpenGL (GLFW).",
+      ""
+    );
+
+    return false;
+  }
 
   SetModuleState(eModuleState::OK);
   DLog(eLogType::Success, "\t RenderingManager instance initialized.");
@@ -72,6 +91,34 @@ bool RenderingManager::Terminate()
   return true;
 }
 
+
+bool RenderingManager::InitializeGraphicsApi()
+{
+  // Register error callback
+  glfwSetErrorCallback(ErrorCallack);
+
+  // Initialize GLFW
+  if (!glfwInit())
+  {
+    printf("GLFW init failed!\n");
+    glfwTerminate();
+    return false;
+  }
+
+  // Setup GLFW window properties
+  // OpenGL version to 3.3
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  // Core profile = No backwards compatibility
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  // Allow forward compatiblity
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+  
+
+
+  return true;
+}
 Window* RenderingManager::ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height)
 {
   // Create new Window instance.
@@ -84,6 +131,11 @@ Window* RenderingManager::ConstructWindow(eWindowType windowType, std::string_vi
   UI_MANAGER->InitializeImGui(pNewWindow);
 
   return pNewWindow;
+}
+
+bool RenderingManager::DestroyWindow(Window* pWindow)
+{
+  return WINDOW_MANAGER->DestroyWindow(pWindow);
 }
 
 void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)

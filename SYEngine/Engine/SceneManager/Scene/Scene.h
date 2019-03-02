@@ -112,14 +112,12 @@ public:
     return pNewEntity;
   }
 
-  bool DeleteEntity(Entity* pEntityToDelete);
+  bool RemoveEntity(Entity* pEntityToDelete);
 
   /**
    * Casts ray from specified position in specified direction and returns <PBody hit, hit Point>
    */
   std::pair<PhysicsBody*, Vector3f> Raycast(Vector3f from, Vector3f direction) const;
-
-  
 
   Camera* GetEditorCamera() const;
 
