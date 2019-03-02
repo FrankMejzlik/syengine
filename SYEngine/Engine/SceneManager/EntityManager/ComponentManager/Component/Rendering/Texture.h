@@ -23,6 +23,7 @@ public:
   );
   
   bool LoadTexture(std::string_view texturePathFile);
+  bool LoadTexture(Vector3f colour);
   void UseTexture();
   void ClearTexture();
 

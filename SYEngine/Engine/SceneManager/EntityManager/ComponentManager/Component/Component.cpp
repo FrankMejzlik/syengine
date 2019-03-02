@@ -35,7 +35,8 @@ void Component::SetOwnerComponentPtr(Component* pComponent)
 
 void Component::SaveComponent()
 {
-  // Save all changes on this Component
+  // Refresh quick links
+  RefreshQuickRefs();
 }
 
 Entity* Component::GetOwnerEntityPtr() const

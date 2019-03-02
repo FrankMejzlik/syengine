@@ -69,6 +69,53 @@ bool Texture::LoadTexture(std::string_view texturePathFile)
   return true;
 }
 
+
+bool Texture::LoadTexture(Vector3f colour)
+{
+  // Fill in texture data
+  // R G B A
+  unsigned char textureData[] = { 
+    static_cast<unsigned char>(colour.GetX() * 255),
+    static_cast<unsigned char>(colour.GetY() * 255),
+    static_cast<unsigned char>(colour.GetZ() * 255),
+    static_cast<unsigned char>(1.0f * 255)
+  };
+
+  // Let OpenGL create new texture ID
+  glGenTextures(1, &textureID);
+
+  // Bind to this texture
+  glBindTexture(GL_TEXTURE_2D, textureID);
+
+  // Fill texture data into the GPU memory
+  glTexImage2D(
+    GL_TEXTURE_2D,
+    0,          // Mipmaps 
+    GL_RGBA,    // Data fomrat in GPU memory
+    1,
+    1,
+    0,          // Legacy border
+    GL_RGBA,    // Type on input
+    GL_UNSIGNED_BYTE,
+    textureData
+  );
+
+  // Generate mipmaps automaticaly
+  glGenerateMipmap(GL_TEXTURE_2D);
+
+  // Setup texture parameters
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
+  // Unbind from this texture
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  return true;
+}
+
 void Texture::UseTexture()
 {
   // TODO: Use all units

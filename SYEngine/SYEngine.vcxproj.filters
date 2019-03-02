@@ -186,6 +186,7 @@
     <ClCompile Include="Engine\Core\Abstract\ISceneContextInterface.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\SphereCollider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.cpp" />
+    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material\Shininess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -403,6 +404,7 @@
     <ClInclude Include="Engine\Core\Abstract\ISceneContextInterface.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\SphereCollider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.h" />
+    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material\Shininess.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

@@ -1,6 +1,10 @@
+
 #include "Material.h"
 
 #include "ComponentManager.h"
+
+#include "Shininess.h"
+
 
 using namespace SYE;
 
@@ -50,6 +54,21 @@ size_t Material::AddTexture()
 
   // Load default texture
   bool result = pTexture->LoadTexture(FILEPATH_DEFAULT_TEXTURE);
+  if (result == false)
+  {
+    return SIZE_T_ERROR_VALUE;
+  }
+
+  _textures.push_back(pTexture);
+
+  return _textures.size() - 1;
+}
+
+size_t Material::AddTexture(Vector3f colour)
+{
+  // Create new Texture Component
+  Texture* pTexture = GetComponentManagerPtr()->CreateComponent<Texture>(_pOwnerEntity, this);
+  bool result = pTexture->LoadTexture(colour);
   if (result == false)
   {
     return SIZE_T_ERROR_VALUE;

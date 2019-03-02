@@ -11,47 +11,10 @@
 #include "Shader.h"
 
 
-
-namespace SYE 
+namespace SYE
 {
 
-/**
- * Describes how light is reflected from surfaces.
- *
- * Used in: 
- * @see   class Material
- */
-class Shininess:
-  public Component
-{
-public:
-  Shininess() = delete;
-
-  /**
-   * Default constructor.
-   * shiny: 1.0f, 512
-   * dull: 0.3f  4
-   */
-  Shininess(
-    Entity* pOwnerEntity, Component* pOwnerComponent,
-    eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::SHININESS
-  ):
-    Component(pOwnerEntity, pOwnerComponent, false, true, slotIndex, type),
-    _specularIntensity(0.3f), _shininessIntensity(4)
-  {}
-
-  void SetSpecularIntensity(dfloat newValue) { _specularIntensity = newValue; }
-  void SetShininessIntensity(dfloat newValue) { _shininessIntensity = newValue; }
-  dfloat GetSpecularIntensity() const { return _specularIntensity; }
-  dfloat GetShininessIntensity() const { return _shininessIntensity; }
-
-private:
-  dfloat _specularIntensity;
-  dfloat _shininessIntensity;
-
-  
-};
-
+class Shininess;
 
 /**
  * Component describing how object sufaces look and how they
@@ -72,6 +35,7 @@ public:
   );
 
   size_t AddTexture();
+  size_t AddTexture(Vector3f colour);
   size_t AddTexture(std::string_view filePathToTexture);
   size_t AddTexture(Texture* pTexture);
 

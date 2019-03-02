@@ -115,6 +115,30 @@ Material* MeshRenderer::AddMaterial()
 }
 
 Material* MeshRenderer::AddMaterial(
+  Vector3f colour,
+  dfloat specularIntensity, dfloat shininessIntensity
+)
+{
+  // Create empty Material.
+  Material* pMaterial = GetComponentManagerPtr()->CreateComponent<Material>(_pOwnerEntity, this);
+  // Add default texture
+  pMaterial->AddTexture(colour);
+
+  // Add default shininess
+  pMaterial->AddShininess(specularIntensity, shininessIntensity);
+  pMaterial->AddTextureToShininessIndex(0ULL, 0ULL);
+
+  // Add default shader
+  pMaterial->AddShader();
+  pMaterial->AddTextureToShaderIndex(0ULL, 0ULL);
+
+  // Push it in
+  _materials.push_back(pMaterial);
+
+  return pMaterial;
+}
+
+Material* MeshRenderer::AddMaterial(
   std::string_view textureFilePath,
   dfloat specularIntensity, dfloat shininessIntensity,
   std::string_view shaderPathFile
@@ -178,4 +202,13 @@ void MeshRenderer::ClearAll()
   _meshes.clear();
   _materials.clear();
   _meshToMaterialIndex.clear();
+}
+
+void MeshRenderer::ClearMaterials()
+{
+  for (auto&& material : _materials)
+  {
+    GetComponentManagerPtr()->DestroyComponent(material);
+  }
+  _materials.clear();
 }

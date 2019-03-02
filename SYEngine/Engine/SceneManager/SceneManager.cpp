@@ -6,6 +6,7 @@
 #include "Script.h"
 
 #include "Rigidbody.h"
+#include "MeshRenderer.h"
 
 #include "script_includes.h"
 
@@ -168,29 +169,56 @@ Scene* SceneManager::LoadInitialScene(Scene* pScene)
 
 #if 1 // Small falling spheres
 
-  pScene->CreateSphere(
+  Entity* pSphere;
+  MeshRenderer* pMeshRenderer;
+
+  pSphere = pScene->CreateSphere(
     Vector3f(-10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 20ULL, 20ULL,
     false, 0.1f
   );
+  pMeshRenderer = pSphere->GetMeshRendererPtr();
+  if (pMeshRenderer != nullptr)
+  {
+    pMeshRenderer->ClearMaterials();
+    pMeshRenderer->AddMaterial(Vector3f(1.f, 1.0f, 0.0f), 1.0f, 1024.0f);
+  }
 
-  pScene->CreateSphere(
+  pSphere = pScene->CreateSphere(
     Vector3f(10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 20ULL, 20ULL,
     false, 0.1f
   );
+  pMeshRenderer = pSphere->GetMeshRendererPtr();
+  if (pMeshRenderer != nullptr)
+  {
+    pMeshRenderer->ClearMaterials();
+    pMeshRenderer->AddMaterial(Vector3f(0.0f, 1.0f, 0.0f), 0.1f, 32.0f);
+  }
 
-  pScene->CreateSphere(
+  pSphere = pScene->CreateSphere(
     Vector3f(-10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 20ULL, 20ULL,
     false, 0.1f
   );
+  pMeshRenderer = pSphere->GetMeshRendererPtr();
+  if (pMeshRenderer != nullptr)
+  {
+    pMeshRenderer->ClearMaterials();
+    pMeshRenderer->AddMaterial(Vector3f(0.0f, 0.0f, 1.0f), 0.1f, 32.0f);
+  }
 
-  pScene->CreateSphere(
-    Vector3f(10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+  pSphere = pScene->CreateSphere(
+    Vector3f(10.0f, 0.0f, 10.0f), Vector3f(1.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 20ULL, 20ULL,
     false, 0.1f
   );
+  pMeshRenderer = pSphere->GetMeshRendererPtr();
+  if (pMeshRenderer != nullptr)
+  {
+    pMeshRenderer->ClearAll();
+    pMeshRenderer->AddMaterial(Vector3f(0.0f, 0.0f, 0.0f), 0.1f, 32.0f);
+  }
 
 #endif
 

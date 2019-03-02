@@ -21,7 +21,6 @@ class Scene;
 class Entity;
 class ComponentManager;
 class PhysicsManager;
-class Component;
 
 class Component:
   public IGuidCounted, public IErrorLogging, 
@@ -45,6 +44,7 @@ public:
     CONVEX_MESH_COLLIDER = 102,
     MATERIAL = 110,
     SHININESS = 111,
+    BASIC_MATERIAL = 112,
     TEXTURE = 120,
     MESH_RENDERER = 130,
     PHYSICS_BODY = 139,

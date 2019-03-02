@@ -248,11 +248,11 @@ Entity* Scene::CreateSphere(
         pMesh->ClearMesh();
         pMesh->MakeSphere(radius, numSlices, numStacks);
       }
-      Material* pMaterial = pMeshRenderer->AddMaterial();
-      pMaterial;
+      pMeshRenderer->AddMaterial(Vector3f(1.0f, 1.0f, 1.0f), 1.0f, 512.0f);
 
       pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
     }
+    pMeshRenderer->SaveComponent();
 
     // Add Rigigbody Component
     Rigidbody* pRigidBody = pNewEntity->AddComponent<Rigidbody>();

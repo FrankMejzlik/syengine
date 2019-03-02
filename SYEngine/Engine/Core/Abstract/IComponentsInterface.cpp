@@ -5,6 +5,7 @@
 #include "PhysicsBody.h"
 #include "Rigidbody.h"
 #include "Softbody.h"
+#include "MeshRenderer.h"
 
 using namespace SYE;
 
@@ -27,6 +28,11 @@ void IComponentsInterface::RefreshQuickRefs()
     _pPhysicsBody = static_cast<PhysicsBody*>(_primaryComponentOnEntity[COMPONENT_PHYSICS_BODY_SLOT].begin()->second);
   }
 
+  if (!_primaryComponentOnEntity[COMPONENT_MESH_RENDERER_SLOT].empty())
+  {
+    _pMeshRenderer = static_cast<MeshRenderer*>(_primaryComponentOnEntity[COMPONENT_MESH_RENDERER_SLOT].begin()->second);
+  }
+
 }
 
 Transform* IComponentsInterface::GetTransformPtr() const
@@ -47,4 +53,9 @@ Rigidbody* IComponentsInterface::GetRigidbodyPtr() const
 Softbody* IComponentsInterface::GetSoftbodyPtr() const
 {
   return dynamic_cast<Softbody*>(_pPhysicsBody);
+}
+
+MeshRenderer* IComponentsInterface::GetMeshRendererPtr() const
+{
+  return _pMeshRenderer;
 }

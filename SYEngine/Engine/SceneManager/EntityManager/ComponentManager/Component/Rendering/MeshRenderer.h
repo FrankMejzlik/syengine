@@ -67,10 +67,15 @@ public:
   /**
    * Attaches new Material consisting of provided parts
    */
+  Material* AddMaterial(
+    Vector3f colour,
+    dfloat specularIntensity, dfloat shininessIntensity
+  );
   Material* AddMaterial(Texture* pTexture, Shininess* pShininess, Shader* pShader);
   bool AddMeshToMaterialIndex(size_t meshIndex, size_t materialIndex);
 
   void ClearAll();
+  void ClearMaterials();
 
 protected:
   std::vector<Mesh*> _meshes;

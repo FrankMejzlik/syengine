@@ -14,6 +14,7 @@ class Transform;
 class PhysicsBody;
 class Rigidbody;
 class Softbody;
+class MeshRenderer;
 
 /**
  * Interface for classes that needs to access EngineContext data
@@ -39,6 +40,7 @@ public:
   PhysicsBody* GetPhysicsBody() const;
   Rigidbody* GetRigidbodyPtr() const;
   Softbody* GetSoftbodyPtr() const;
+  MeshRenderer* GetMeshRendererPtr() const;
 
 private:
   /**
@@ -51,6 +53,7 @@ private:
 
   Transform* _pTransform;
   PhysicsBody* _pPhysicsBody;
+  MeshRenderer* _pMeshRenderer;
 
 };
 
