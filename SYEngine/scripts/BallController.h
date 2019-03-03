@@ -31,8 +31,8 @@ public:
     pBackBase(nullptr),
     _currDiffuseLightIntensity(0.001f),
     _currAmbientLightIntensity(0.0f),
-    _diffuseLightGworth(0.01f),
-    _ambientLightIntensity(0.0001f),
+    _diffuseLightGworth(0.0005f),
+    _ambientLightGrowth(0.0001f),
     _isDiffuseIntensityFull(false),
     _score(0ULL)
   {}
@@ -46,8 +46,8 @@ public:
    */
   virtual void OnInitializeScene()
   {
-    _pPhysicsEntity = GetRigidbodyPtr()->GetPhysicsEntity();
-    _pPointLight = GetPointLightPtr();
+    _pPhysicsEntity = _pOwnerComponent->GetRigidbodyPtr()->GetPhysicsEntity();
+    _pPointLight = _pOwnerComponent->GetPointLightPtr();
   }
 
   /**
@@ -75,7 +75,41 @@ public:
       }
     }
 
+    // Process keys
     ProcessKeyControl(deltaTime, pScene);
+  }
+
+  void ProcessBallLight()
+  {
+    Vector3f intensities;
+
+    // Until diffuse is full
+    if (!_isDiffuseIntensityFull)
+    {
+      // Calculate new inensity
+      _currDiffuseLightIntensity = _currDiffuseLightIntensity + _score * _diffuseLightGworth;
+
+      intensities = Vector3f(0.0f, _currDiffuseLightIntensity, 0.0f);
+
+      // If reached full diffuse
+      if (_currDiffuseLightIntensity > 1.0f)
+      {
+        _diffuseScore = _score;
+        _isDiffuseIntensityFull = true;
+      }
+
+    }
+    // Increase ambient part to make game inpossible to play in some time
+    else
+    {
+      // Calculate new inensity
+      _currAmbientLightIntensity = _currAmbientLightIntensity + (_score - _diffuseScore) * _ambientLightGrowth;
+
+      intensities = Vector3f(_currAmbientLightIntensity, _currDiffuseLightIntensity, 0.0f);
+    }
+
+    // Set it to light
+    _pPointLight->SetInensities(glm::vec3(intensities.GetX(), intensities.GetY(), intensities.GetZ()));
   }
 
   void TickScore()
@@ -83,6 +117,8 @@ public:
     ++_score;
 
     DLog(eLogType::Info, "Score: %d", _score);
+
+    ProcessBallLight();
   }
 
   void CloseStartingRoom()
@@ -157,6 +193,7 @@ private:
   Scene* _pScene;
 
   size_t _score;
+  size_t _diffuseScore;
 
   bool _isOutOfStartingRoom;
   bool _closingRoom;
@@ -168,7 +205,7 @@ private:
   dfloat _currAmbientLightIntensity;
   bool _isDiffuseIntensityFull;
   dfloat _diffuseLightGworth;
-  dfloat _ambientLightIntensity;
+  dfloat _ambientLightGrowth;
 
   PhysicsEntity* _pPhysicsEntity;
   PointLight* _pPointLight;

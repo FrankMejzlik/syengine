@@ -24,19 +24,7 @@ public:
     ScriptHandler* pScriptHander;
     Rigidbody* rb;
 
-    // Create Camera 
-    {
-      Entity* pCameraEntity = pScene->CreateCamera(
-        Vector3f(0.2f, -15.0f, 10.0f),
-        Vector3f(0.0f, 0.0f, 0.0f),
-        (dfloat)-M_PI_2, 0.57f, // Look at pinball maching under correct angle
-        true
-      );
-      // Add ScriptHanlder Component
-      pScriptHander = pCameraEntity->AddComponent<ScriptHandler>();
-      // Attach specific script to it
-      pScriptHander->AddScript<FirstPersonCameraController>();
-    }
+    
 
   #if 1
     // Construct pinball area
@@ -224,9 +212,37 @@ public:
      * Hitters
      */
     {
+      // Central
+      pBackBase = pScene->CreateSphere(
+        Vector3f(0.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.5f, 2.5f, 2.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(0.0f, 146.0f, 0.0f), 1.0f, 32.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(6.0f);
+        rb->SetTag(2ULL);
+      }
+      // Add PointLight Component
+      PointLight* pLight = pBackBase->AddComponent<PointLight>();
+      pLight->SetColour(glm::vec3(0.0f, 250.0f, 0.0f));
+      pLight->SetInensities(glm::vec3(0.00, 0.05f, 0.0f));
+      pLight->SetShadowDimensions(glm::vec3(2048, 2048, 0), 0.01f, 100.0f);
+      pLight->SetCoeficients(glm::vec3(0.8f, 0.6f, 0.8f));
+      pBackBase->SaveEntity();
+
+
       // Devil 1
       pBackBase = pScene->CreateSphere(
-        Vector3f(2.0f, 5.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
+        Vector3f(3.0f, 5.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
         0.5f, 20, 20,
         true, // Is static
         0.0f  // No mass
@@ -240,7 +256,7 @@ public:
       rb = pBackBase->GetRigidbodyPtr();
       if (rb != nullptr)
       {
-        rb->SetRestitution(3.0f);
+        rb->SetRestitution(4.0f);
         rb->SetTag(2ULL);
       }
 
@@ -248,7 +264,7 @@ public:
 
       // Devil 2
       pBackBase = pScene->CreateSphere(
-        Vector3f(-3.0f, 6.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
+        Vector3f(-3.0f, 5.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
         0.5f, 20, 20,
         true, // Is static
         0.0f  // No mass
@@ -262,13 +278,13 @@ public:
       rb = pBackBase->GetRigidbodyPtr();
       if (rb != nullptr)
       {
-        rb->SetRestitution(3.0f);
+        rb->SetRestitution(4.0f);
         rb->SetTag(2ULL);
       }
 
       // Devil 3
       pBackBase = pScene->CreateSphere(
-        Vector3f(-3.0f, -2.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
+        Vector3f(-4.0f, -3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
         0.5f, 20, 20,
         true, // Is static
         0.0f  // No mass
@@ -282,13 +298,13 @@ public:
       rb = pBackBase->GetRigidbodyPtr();
       if (rb != nullptr)
       {
-        rb->SetRestitution(3.0f);
+        rb->SetRestitution(4.0f);
         rb->SetTag(2ULL);
       }
 
       // Devil 4
       pBackBase = pScene->CreateSphere(
-        Vector3f(3.0f, -2.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
+        Vector3f(4.0f, -3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
         0.5f, 20, 20,
         true, // Is static
         0.0f  // No mass
@@ -302,55 +318,16 @@ public:
       rb = pBackBase->GetRigidbodyPtr();
       if (rb != nullptr)
       {
-        rb->SetRestitution(3.0f);
+        rb->SetRestitution(4.0f);
         rb->SetTag(2ULL);
       }
 
 
-      // Medium 1
-      pBackBase = pScene->CreateSphere(
-        Vector3f(3.0f, -1.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
-        0.5f, 20, 20,
-        true, // Is static
-        0.0f  // No mass
-      );
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(139.0f, 191.0f, 193.0f), 1.0f, 64.0f);
-      }
-      rb = pBackBase->GetRigidbodyPtr();
-      if (rb != nullptr)
-      {
-        rb->SetRestitution(6.0f);
-        rb->SetTag(2ULL);
-      }
-
-
-      // Medium 2
-      pBackBase = pScene->CreateSphere(
-        Vector3f(-3.0f, -1.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
-        0.5f, 20, 20,
-        true, // Is static
-        0.0f  // No mass
-      );
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(139.0f, 191.0f, 193.0f), 1.0f, 64.0f);
-      }
-      rb = pBackBase->GetRigidbodyPtr();
-      if (rb != nullptr)
-      {
-        rb->SetRestitution(6.0f);
-        rb->SetTag(2ULL);
-      }
+     
 
       // Medium 3
       pBackBase = pScene->CreateSphere(
-        Vector3f(1.0f, 3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
+        Vector3f(2.0f, 3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
         0.5f, 20, 20,
         true, // Is static
         0.0f  // No mass
@@ -364,13 +341,13 @@ public:
       rb = pBackBase->GetRigidbodyPtr();
       if (rb != nullptr)
       {
-        rb->SetRestitution(6.0f);
+        rb->SetRestitution(2.0f);
         rb->SetTag(2ULL);
       }
 
       // Medium 4
       pBackBase = pScene->CreateSphere(
-        Vector3f(-1.0f, 3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
+        Vector3f(-2.0f, 3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
         0.5f, 20, 20,
         true, // Is static
         0.0f  // No mass
@@ -384,7 +361,28 @@ public:
       rb = pBackBase->GetRigidbodyPtr();
       if (rb != nullptr)
       {
-        rb->SetRestitution(6.0f);
+        rb->SetRestitution(2.0f);
+        rb->SetTag(2ULL);
+      }
+
+
+      // Low 1
+      pBackBase = pScene->CreateSphere(
+        Vector3f(0.0f, -4.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.2f, 1.2f, 1.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(0.0f, 191.0f, 255.0f), 1.0f, 64.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(1.5f);
         rb->SetTag(2ULL);
       }
     }
@@ -481,11 +479,31 @@ public:
       pLight->SetInensities(glm::vec3(0.00, 0.0001f, 0.0f));
       pLight->SetShadowDimensions(glm::vec3(2048, 2048, 0), 0.01f, 100.0f);
       pLight->SetCoeficients(glm::vec3(0.02f, 0.06f, 0.08f));
+      pEntity->SaveEntity();
 
     }
  
 
   #endif
+
+    // Create Camera 
+    {
+      Entity* pCameraEntity = pScene->CreateCamera(
+        Vector3f(0.2f, -15.0f, 10.0f),
+        Vector3f(0.0f, 0.0f, 0.0f),
+        (dfloat)-M_PI_2, 0.57f, // Look at pinball maching under correct angle
+        true
+      );
+      // Add ScriptHanlder Component
+      pScriptHander = pCameraEntity->AddComponent<ScriptHandler>();
+      // Attach specific script to it
+      FirstPersonCameraController* pCamCtrler =  pScriptHander->AddScript<FirstPersonCameraController>();
+      // Set pointer to ball object
+      pCamCtrler->SetBallPtr(pEntity->GetRigidbodyPtr());
+
+    }
+
+
 
     // Create DirectionalLight
     pScene->CreateDirectionalLight(
