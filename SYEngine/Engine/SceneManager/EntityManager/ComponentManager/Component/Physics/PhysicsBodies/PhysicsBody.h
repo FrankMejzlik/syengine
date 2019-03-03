@@ -22,7 +22,11 @@ public:
   );
   ~PhysicsBody() noexcept;
 
+
   virtual void SaveComponent() override;
+  
+  void SetTag(size_t tag);
+  size_t GetTag() const;
 
   void SetCollider(Collider* pCollider);
   Collider* GetCollider() const { return _pCollider; }
@@ -59,6 +63,8 @@ protected:
   bool _isKinematic;
 
   dfloat _restitution;
+
+  size_t _tag;
 
 };
 

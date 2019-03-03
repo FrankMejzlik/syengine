@@ -35,6 +35,11 @@ public:
     return pScript;
   }
 
+  Script* GetAttachedScriptPtr() const
+  {
+    return _pScript;
+  }
+
   void ClearScript();
 
   void TriggerOnInitializeScene();

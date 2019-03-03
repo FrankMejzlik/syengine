@@ -223,27 +223,28 @@ public:
     /**
      * Hitters
      */
-
-     // Devil 1
-    pBackBase = pScene->CreateSphere(
-      Vector3f(2.0f, 5.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
-      0.5f, 20, 20,
-      true, // Is static
-      0.0f  // No mass
-    );
-    pMeshRenderer = pBackBase->GetMeshRendererPtr();
-    if (pMeshRenderer != nullptr)
     {
-      pMeshRenderer->ClearMaterials();
-      pMeshRenderer->AddMaterial(Vector3f(24.0f, 146.0f, 150.0f), 1.0f, 1024.0f);
-    }
-    rb = pBackBase->GetRigidbodyPtr();
-    if (rb != nullptr)
-    {
-      rb->SetRestitution(3.0f);
-    }
+      // Devil 1
+      pBackBase = pScene->CreateSphere(
+        Vector3f(2.0f, 5.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(24.0f, 146.0f, 150.0f), 1.0f, 1024.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(3.0f);
+        rb->SetTag(2ULL);
+      }
 
-    
+
 
       // Devil 2
       pBackBase = pScene->CreateSphere(
@@ -262,6 +263,7 @@ public:
       if (rb != nullptr)
       {
         rb->SetRestitution(3.0f);
+        rb->SetTag(2ULL);
       }
 
       // Devil 3
@@ -281,6 +283,7 @@ public:
       if (rb != nullptr)
       {
         rb->SetRestitution(3.0f);
+        rb->SetTag(2ULL);
       }
 
       // Devil 4
@@ -300,6 +303,7 @@ public:
       if (rb != nullptr)
       {
         rb->SetRestitution(3.0f);
+        rb->SetTag(2ULL);
       }
 
 
@@ -320,6 +324,7 @@ public:
       if (rb != nullptr)
       {
         rb->SetRestitution(6.0f);
+        rb->SetTag(2ULL);
       }
 
 
@@ -340,6 +345,7 @@ public:
       if (rb != nullptr)
       {
         rb->SetRestitution(6.0f);
+        rb->SetTag(2ULL);
       }
 
       // Medium 3
@@ -359,6 +365,7 @@ public:
       if (rb != nullptr)
       {
         rb->SetRestitution(6.0f);
+        rb->SetTag(2ULL);
       }
 
       // Medium 4
@@ -378,11 +385,14 @@ public:
       if (rb != nullptr)
       {
         rb->SetRestitution(6.0f);
+        rb->SetTag(2ULL);
       }
+    }
+
 
   #endif
     // Create paddles
-
+    {
       // Right paddle
       pEntity = pScene->CreatePrism(
         Vector3f(1.5f, -8.0f, -8.51f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
@@ -408,9 +418,7 @@ public:
       if (rb != nullptr)
       {
         rb->SetIsKinematic(true);
-
       }
-
 
       // Left paddle
       pEntity = pScene->CreatePrism(
@@ -438,7 +446,7 @@ public:
       {
         rb->SetIsKinematic(true);
       }
-
+    }
 
   #if 1
 
@@ -459,6 +467,8 @@ public:
       if (rb != nullptr)
       {
         rb->SetToContiniousCollision();
+        // Set tag to ball to detect hitter collisions (1 + 2 -> hitter + ball) for score
+        rb->SetTag(1ULL);
       }
       // Add ScriptHanlder Component
       pScriptHander = pEntity->AddComponent<ScriptHandler>();
@@ -468,7 +478,7 @@ public:
       // Add DirectionalLight Component
       PointLight* pLight = pEntity->AddComponent<PointLight>();
       pLight->SetColour(glm::vec3(255.0f, 30.0f, 30.0f));
-      pLight->SetInensities(glm::vec3(0.00, 0.01f, 0.0f));
+      pLight->SetInensities(glm::vec3(0.00, 0.0001f, 0.0f));
       pLight->SetShadowDimensions(glm::vec3(2048, 2048, 0), 0.01f, 100.0f);
       pLight->SetCoeficients(glm::vec3(0.02f, 0.06f, 0.08f));
 

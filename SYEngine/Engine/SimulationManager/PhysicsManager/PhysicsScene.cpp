@@ -12,6 +12,7 @@
 #include "PhysicsBody.h"
 #include "Transform.h"
 #include "ConvexHullCollider.h"
+#include "BallController.h"
 
 using namespace SYE;
 
@@ -22,7 +23,6 @@ PhysicsScene::PhysicsScene(Scene* pOwnerScene) noexcept:
 
 void PhysicsScene::Initialize()
 {
-
   // Create the collision configuration
   _pCollisionConfiguration = std::make_unique<btDefaultCollisionConfiguration>();
   // Create the dispatcher
@@ -50,41 +50,56 @@ void PhysicsScene::ProcessScene(dfloat deltaTime)
     _pWorld->stepSimulation(deltaTime, 10, 1/120.0f);
   }
 
-  //check collisions with player
-  //m_dynamicsWorld->contactTest(mPlayerObject, resultCallback);
+  // Check collisions
   auto disp = _pWorld->getDispatcher();
   int numManifolds = disp->getNumManifolds();
+
   for (int i = 0; i < numManifolds; i++)
   {
     btPersistentManifold* contactManifold = _pWorld->getDispatcher()->getManifoldByIndexInternal(i);
+    
     const btCollisionObject* obA = contactManifold->getBody0(); obA;
     const btCollisionObject* obB = contactManifold->getBody1(); obB;
 
-    Collider* obAPtr = static_cast<Collider*>(obA->getUserPointer()); obAPtr;
-    Collider* obBPtr = static_cast<Collider*>(obB->getUserPointer()); obBPtr;
+    // Get pointers to PhysicsBodies
+    PhysicsBody* obAPtr = static_cast<PhysicsBody*>(obA->getUserPointer()); obAPtr;
+    PhysicsBody* obBPtr = static_cast<PhysicsBody*>(obB->getUserPointer()); obBPtr;
 
-  #if LOG_PHYSICS_MANAGER_COLLISIONS
-    DLog(eLogType::Info, "Collision between objects with IDs: %d, %d", obA->getUserIndex(), obB->getUserIndex());
-  #endif
-    int numContacts = contactManifold->getNumContacts();
-    for (int j = 0; j<numContacts; j++)
+
+    // TODO: This should be in scripted part of game outside of engine
+
+    // If Ball + Hitter collision
+    // Sum of 3 means that it is ball + hitter pair
+    if (obAPtr->GetTag() + obBPtr->GetTag() == 3ULL)
     {
-      btManifoldPoint& pt = contactManifold->getContactPoint(j);
-      if (pt.getDistance()<0.f)
+      // Get num contacts
+      int numContacts = contactManifold->getNumContacts();
+      for (int j = 0; j < numContacts; j++)
       {
-        const btVector3& ptA = pt.getPositionWorldOnA(); ptA;
+        btManifoldPoint& pt = contactManifold->getContactPoint(j);
+        if (pt.getDistance() < 0.f)
+        {
+          PhysicsBody* pBall;
 
+          // Decde what is Ball object
+          if (obAPtr->GetTag() == 1ULL)
+          {
+            pBall = obAPtr;
+          }
+          else
+          {
+            pBall = obBPtr;
+          }
 
+          //const btVector3& ptA = pt.getPositionWorldOnA(); ptA;
+          //const btVector3& ptB = pt.getPositionWorldOnB(); ptB;
+          //const btVector3& normalOnB = pt.m_normalWorldOnB; normalOnB;
 
-        const btVector3& ptB = pt.getPositionWorldOnB(); ptB;
-        const btVector3& normalOnB = pt.m_normalWorldOnB; normalOnB;
+          // Tick on BallController script
+          BallController* pScript = static_cast<BallController*>(pBall->GetFirstScriptHandlerPtr()->GetAttachedScriptPtr());
+          pScript->TickScore();
 
-      #if LOG_PHYSICS_MANAGER_COLLISIONS
-        DLog(eLogType::Info, "contact %d:", j);
-        DLog(eLogType::Info, "A pos: (%f, %f, %f)", ptA.getX(), ptA.getY(), ptA.getX());
-        DLog(eLogType::Info, "B pos: (%f, %f, %f)", ptB.getX(), ptB.getY(), ptB.getZ());
-        DLog(eLogType::Info, "B normal: (%f, %f, %f)", normalOnB.getX(), normalOnB.getY(), normalOnB.getZ());
-      #endif
+        }
       }
     }
   }

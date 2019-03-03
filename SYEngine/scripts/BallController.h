@@ -1,19 +1,15 @@
 #pragma once
 
 #include "common.h"
-#include "Script.h"
-#include "MathLibrary.h"
-#include "Transform.h"
 #include "InputManager.h"
-#include "Scene.h"
-#include "Entity.h"
-#include "Window.h"
+#include "Script.h"
 #include "ScriptHandler.h"
 #include "PhysicsBody.h"
 #include "PhysicsEntity.h"
 #include "Rigidbody.h"
 #include "MeshRenderer.h"
 #include "MotionState.h"
+#include "PointLight.h"
 
 namespace SYE 
 {
@@ -32,7 +28,13 @@ public:
     _isOutOfStartingRoom(false),
     _pPhysicsEntity(nullptr),
     _closeDelay(1.0f),
-    pBackBase(nullptr)
+    pBackBase(nullptr),
+    _currDiffuseLightIntensity(0.001f),
+    _currAmbientLightIntensity(0.0f),
+    _diffuseLightGworth(0.01f),
+    _ambientLightIntensity(0.0001f),
+    _isDiffuseIntensityFull(false),
+    _score(0ULL)
   {}
   virtual ~BallController() noexcept {}
 
@@ -45,6 +47,7 @@ public:
   virtual void OnInitializeScene()
   {
     _pPhysicsEntity = GetRigidbodyPtr()->GetPhysicsEntity();
+    _pPointLight = GetPointLightPtr();
   }
 
   /**
@@ -73,6 +76,13 @@ public:
     }
 
     ProcessKeyControl(deltaTime, pScene);
+  }
+
+  void TickScore()
+  {
+    ++_score;
+
+    DLog(eLogType::Info, "Score: %d", _score);
   }
 
   void CloseStartingRoom()
@@ -145,13 +155,23 @@ public:
 private:
   Entity* pBackBase;
   Scene* _pScene;
+
+  size_t _score;
+
   bool _isOutOfStartingRoom;
   bool _closingRoom;
   dfloat _closeDelay;
   dfloat _launchStrength;
   dfloat _launchEnergyGrowth;
 
+  dfloat _currDiffuseLightIntensity;
+  dfloat _currAmbientLightIntensity;
+  bool _isDiffuseIntensityFull;
+  dfloat _diffuseLightGworth;
+  dfloat _ambientLightIntensity;
+
   PhysicsEntity* _pPhysicsEntity;
+  PointLight* _pPointLight;
 };
 
 };

@@ -15,6 +15,8 @@ class PhysicsBody;
 class Rigidbody;
 class Softbody;
 class MeshRenderer;
+class PointLight;
+class ScriptHandler;
 
 /**
  * Interface for classes that needs to access EngineContext data
@@ -41,6 +43,9 @@ public:
   Rigidbody* GetRigidbodyPtr() const;
   Softbody* GetSoftbodyPtr() const;
   MeshRenderer* GetMeshRendererPtr() const;
+  PointLight* GetPointLightPtr() const;
+  ScriptHandler* GetFirstScriptHandlerPtr() const;
+  std::map<size_t, Component*>& GetScriptHandlersRef();
 
 private:
   /**
@@ -51,10 +56,14 @@ private:
    */
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& _primaryComponentOnEntity;
 
+  // Singletons
   Transform* _pTransform;
   PhysicsBody* _pPhysicsBody;
   MeshRenderer* _pMeshRenderer;
+  PointLight* _pPointLight;
 
+  // Multitons
+  std::map<size_t, Component*> _pScriptHandlers;
 };
 
 }

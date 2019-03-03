@@ -22,15 +22,25 @@ PhysicsBody::PhysicsBody(
   _pCollider(nullptr),
   _mass(0.0f),
   _isKinematic(false),
-  _restitution(0.6f)
-{
-}
+  _restitution(0.6f),
+  _tag(0ULL)
+{}
 
 
 PhysicsBody::~PhysicsBody() noexcept
 {
   // Try to delete this existing PhysicsEntity (if exists)
   GetOwnerScenePtr()->GetPhysicsScenePtr()->RemovePhysicsEntity(this);
+}
+
+void PhysicsBody::SetTag(size_t tag)
+{
+  _tag = tag;
+}
+
+size_t PhysicsBody::GetTag() const
+{
+  return _tag;
 }
 
 void PhysicsBody::SetCollider(Collider* pCollider)
