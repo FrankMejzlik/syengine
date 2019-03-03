@@ -119,7 +119,7 @@ public:
       // Right bottom
       pBackBase = pScene->CreateBlock(
         Vector3f(4.5f, -9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        15.0f, 0.5f, 1.0f,
+        5.0f, 0.5f, 1.0f,
         true
       );
       // Change colour
@@ -129,6 +129,40 @@ public:
         pMeshRenderer->ClearMaterials();
         pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
       }
+
+
+      // Left bottom barier 
+      pBackBase = pScene->CreatePrism(
+        Vector3f(-7.0f, -9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+        Vector3f(0.0f, 0.0f, 0.0f),
+        Vector3f(0.0f, 0.0f, -1.0f), Vector3f(5.0f, 0.0f, -1.0f), Vector3f(3.5f, 2.5f, -1.0f), Vector3f(0.0f, 4.0f, -1.0f),
+        Vector3f(0.0f, 0.0f, -0.0f), Vector3f(5.0f, 0.0f, 0.0f), Vector3f(3.5f, 2.5f, -0.0f), Vector3f(0.0f, 4.0f, 0.0f),
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 1024.0f);
+      }
+
+      // Right bottom barier 
+      pBackBase = pScene->CreatePrism(
+        Vector3f(7.0f, -9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+        Vector3f(0.0f, 0.0f, 0.0f),
+        Vector3f(-5.0f, 0.0f, -1.0f), Vector3f(0.0f, 0.0f, -1.0f), Vector3f(0.0f, 4.0f, -1.0f), Vector3f(-3.5f, 2.5f, -1.0f),
+        Vector3f(-5.0f, 0.0f, -0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 4.0f, -0.0f), Vector3f(-3.5f, 2.5f, 0.0f),
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 1024.0f);
+      }
+
     }
 
   #endif
@@ -142,7 +176,7 @@ public:
 
       // Right paddle
       pEntity = pScene->CreatePrism(
-        Vector3f(2.0f, -8.0f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+        Vector3f(1.5f, -8.0f, -8.51f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         Vector3f(0.0f, 0.0f, 0.0f),
         Vector3f(-1.0f, -0.1f, -1.0f), Vector3f(1.5f, -0.2f, -1.0f), Vector3f(1.5f, 0.2f, -1.0f), Vector3f(-1.0f, 0.1f, -1.0f),
         Vector3f(-1.0f, -0.1f, -0.0f), Vector3f(1.5f, -0.2f, 0.0f), Vector3f(1.5f, 0.2f, -0.0f), Vector3f(-1.0f, 0.1f, 0.0f),
@@ -171,7 +205,7 @@ public:
 
       // Left paddle
       pEntity = pScene->CreatePrism(
-        Vector3f(-5.0f, -8.0f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+        Vector3f(-4.5f, -8.0f, -8.51f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         Vector3f(0.0f, 0.0f, 0.0f),
         Vector3f(1.5f, 0.2f, -1.0f), Vector3f(-1.0f, 0.1f, -1.0f), Vector3f(-1.0f, -0.1f, -1.0f), Vector3f(1.5f, -0.2f, -1.0f),
         Vector3f(1.5f, 0.2f, -0.0f), Vector3f(-1.0f, 0.1f, 0.0f), Vector3f(-1.0f, -0.1f, -0.0f), Vector3f(1.5f, -0.2f, 0.0f),

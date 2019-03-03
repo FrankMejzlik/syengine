@@ -22,7 +22,7 @@ PhysicsBody::PhysicsBody(
   _pCollider(nullptr),
   _mass(0.0f),
   _isKinematic(false),
-  _restitution(1.0f)
+  _restitution(0.6f)
 {
 }
 
