@@ -373,6 +373,7 @@
     <ClInclude Include="scripts\_SceneBuilder.h" />
     <ClInclude Include="scripts\RightPaddleController.h" />
     <ClInclude Include="scripts\LeftPaddleController.h" />
+    <ClInclude Include="scripts\BallController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\shaders\directional_shadow_map.frag" />

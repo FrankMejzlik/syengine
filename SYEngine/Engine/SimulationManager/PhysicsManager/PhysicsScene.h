@@ -52,12 +52,14 @@ public:
   PhysicsEntity* InsertPhysicsEntity(PhysicsBody* pBody);
   bool RemovePhysicsEntity(PhysicsBody* pBody);
 
+
+  void RemoveFromPhysicsScene(PhysicsEntity* pPhysEntity);
 private:
   void InsertInitialPhysicsEntities();
   
   
   bool DoesContain(size_t guid) const;
-
+  
   PhysicsEntity* AddRigidBody(Rigidbody* pBody);
   PhysicsEntity* AddSoftBody(Softbody* body);
 

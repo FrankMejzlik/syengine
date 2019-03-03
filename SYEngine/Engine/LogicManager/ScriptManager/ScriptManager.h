@@ -22,6 +22,7 @@ public:
   virtual bool Terminate() override;
 
   bool InitializeScene(Scene* pScene);
+  void TriggerOnInitializeScene(Scene* pScene);
   void ProcessScene(dfloat deltaTime, Scene* pScene);
 
 

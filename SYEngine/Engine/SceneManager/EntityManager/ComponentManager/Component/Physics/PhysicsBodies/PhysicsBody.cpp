@@ -26,6 +26,13 @@ PhysicsBody::PhysicsBody(
 {
 }
 
+
+PhysicsBody::~PhysicsBody() noexcept
+{
+  // Try to delete this existing PhysicsEntity (if exists)
+  GetOwnerScenePtr()->GetPhysicsScenePtr()->RemovePhysicsEntity(this);
+}
+
 void PhysicsBody::SetCollider(Collider* pCollider)
 {
   // Clear old Collider

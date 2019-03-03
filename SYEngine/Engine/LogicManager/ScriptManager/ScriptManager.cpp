@@ -55,7 +55,7 @@ bool ScriptManager::Terminate()
   return true;
 }
 
-bool ScriptManager::InitializeScene(Scene * pScene)
+void ScriptManager::TriggerOnInitializeScene(Scene* pScene)
 {
   // Trigger OnInitialize on Components
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
@@ -65,6 +65,11 @@ bool ScriptManager::InitializeScene(Scene * pScene)
   {
     static_cast<ScriptHandler*>(script.second)->TriggerOnInitializeScene();
   }
+}
+
+bool ScriptManager::InitializeScene(Scene* pScene)
+{
+  UNREFERENCED_PARAMETER(pScene);
 
   return true;
 }

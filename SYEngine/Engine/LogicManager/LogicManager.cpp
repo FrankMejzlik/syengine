@@ -59,6 +59,11 @@ bool LogicManager::Terminate()
   return true;
 }
 
+void LogicManager::TriggerOnInitScene(Scene* pScene)
+{
+  SCRIPT_MANAGER->TriggerOnInitializeScene(pScene);
+}
+
 bool LogicManager::InitializeScene(Scene* pScene)
 {
   bool result = true;

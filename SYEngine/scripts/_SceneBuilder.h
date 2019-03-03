@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "MeshRenderer.h"
 #include "Rigidbody.h"
+#include "PointLight.h"
 
 #include "script_includes.h"
 
@@ -16,6 +17,13 @@ class _SceneBuilder
 public:
   void SetupScene(Scene* pScene)
   {
+
+    MeshRenderer* pMeshRenderer; pMeshRenderer;
+    Entity* pEntity; pEntity;
+    Transform* pTransform;
+    ScriptHandler* pScriptHander;
+    Rigidbody* rb;
+
     // Create Camera 
     {
       Entity* pCameraEntity = pScene->CreateCamera(
@@ -25,154 +33,355 @@ public:
         true
       );
       // Add ScriptHanlder Component
-      ScriptHandler* pScriptHander = pCameraEntity->AddComponent<ScriptHandler>();
+      pScriptHander = pCameraEntity->AddComponent<ScriptHandler>();
       // Attach specific script to it
       pScriptHander->AddScript<FirstPersonCameraController>();
     }
 
   #if 1
     // Construct pinball area
-    {
-      MeshRenderer* pMeshRenderer;
+
 
       // Back base of playfield
-      Entity* pBackBase = pScene->CreateBlock(
-        Vector3f(0.0f, 0.0f, -10.0f), Vector3f((dfloat)M_PI_2, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        14.0f, 1.0f, 20.0f,
-        true
-      );
-      // Change colour
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
-      }
-
-      // Create front invisible wall to prevent ball from falling out
-      Entity* pInvisibleBlock = pScene->CreateBlock(
-        Vector3f(0.0f, 0.0f, -8.0f), Vector3f((dfloat)M_PI_2, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        14.0f, 1.0f, 20.0f,
-        true
-      );
-      // Remove MeshRenderer to serve as invisible wall
-      pInvisibleBlock->RemoveComponent(pInvisibleBlock->GetMeshRendererPtr());
-
-
-
-      // Top border
-      pBackBase = pScene->CreateBlock(
-        Vector3f(0.0f, 9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        14.0f, 0.5f, 1.0f,
-        true
-      );
-      // Change colour
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
-      }
-
-      // Left border
-      pBackBase = pScene->CreateBlock(
-        Vector3f(-6.75f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        0.5f, 19.0f, 1.0f,
-        true
-      );
-      // Change colour
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
-      }
-
-      // Right border
-      pBackBase = pScene->CreateBlock(
-        Vector3f(6.75f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        0.5f, 19.0f, 1.0f,
-        true
-      );
-      // Change colour
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
-      }
-
-      // Left bottom
-      pBackBase = pScene->CreateBlock(
-        Vector3f(-4.5f, -9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        5.0f, 0.5f, 1.0f,
-        true
-      );
-      // Change colour
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
-      }
-
-      // Right bottom
-      pBackBase = pScene->CreateBlock(
-        Vector3f(4.5f, -9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        5.0f, 0.5f, 1.0f,
-        true
-      );
-      // Change colour
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
-      }
-
-
-      // Left bottom barier 
-      pBackBase = pScene->CreatePrism(
-        Vector3f(-7.0f, -9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        Vector3f(0.0f, 0.0f, 0.0f),
-        Vector3f(0.0f, 0.0f, -1.0f), Vector3f(5.0f, 0.0f, -1.0f), Vector3f(3.5f, 2.5f, -1.0f), Vector3f(0.0f, 4.0f, -1.0f),
-        Vector3f(0.0f, 0.0f, -0.0f), Vector3f(5.0f, 0.0f, 0.0f), Vector3f(3.5f, 2.5f, -0.0f), Vector3f(0.0f, 4.0f, 0.0f),
-        true, // Is static
-        0.0f  // No mass
-      );
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 1024.0f);
-      }
-
-      // Right bottom barier 
-      pBackBase = pScene->CreatePrism(
-        Vector3f(7.0f, -9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        Vector3f(0.0f, 0.0f, 0.0f),
-        Vector3f(-5.0f, 0.0f, -1.0f), Vector3f(0.0f, 0.0f, -1.0f), Vector3f(0.0f, 4.0f, -1.0f), Vector3f(-3.5f, 2.5f, -1.0f),
-        Vector3f(-5.0f, 0.0f, -0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 4.0f, -0.0f), Vector3f(-3.5f, 2.5f, 0.0f),
-        true, // Is static
-        0.0f  // No mass
-      );
-      pMeshRenderer = pBackBase->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 1024.0f);
-      }
-
+    Entity* pBackBase = pScene->CreateBlock(
+      Vector3f(0.0f, 0.0f, -10.0f), Vector3f((dfloat)M_PI_2, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      14.0f, 1.0f, 20.0f,
+      true
+    );
+    // Change colour
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 0.0f, 1024.0f);
     }
+    
+    // Create front invisible wall to prevent ball from falling out
+    Entity* pInvisibleBlock = pScene->CreateBlock(
+      Vector3f(0.0f, 0.0f, -8.0f), Vector3f((dfloat)M_PI_2, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      14.0f, 1.0f, 20.0f,
+      true
+    );
+    // Remove MeshRenderer to serve as invisible wall
+    pInvisibleBlock->RemoveComponent(pInvisibleBlock->GetMeshRendererPtr());
+
+
+
+    // Top border
+    pBackBase = pScene->CreateBlock(
+      Vector3f(0.0f, 9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      14.0f, 0.5f, 1.0f,
+      true
+    );
+    // Change colour
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
+    }
+
+    // Left border
+    pBackBase = pScene->CreateBlock(
+      Vector3f(-6.75f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      0.5f, 19.0f, 1.0f,
+      true
+    );
+    // Change colour
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
+    }
+
+    // Right border
+    pBackBase = pScene->CreateBlock(
+      Vector3f(6.75f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      0.5f, 19.0f, 1.0f,
+      true
+    );
+    // Change colour
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
+    }
+
+    // Left bottom
+    pBackBase = pScene->CreateBlock(
+      Vector3f(-4.5f, -9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      5.0f, 0.5f, 1.0f,
+      true
+    );
+    // Change colour
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
+    }
+
+    // Right bottom
+    pBackBase = pScene->CreateBlock(
+      Vector3f(4.5f, -9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      5.0f, 0.5f, 1.0f,
+      true
+    );
+    // Change colour
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
+    }
+
+
+    // Right top corner
+    pBackBase = pScene->CreatePrism(
+      Vector3f(6.5f, 9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      Vector3f(0.0f, 0.0f, 0.0f),
+      Vector3f(-3.0f, 0.0f, -1.0f), Vector3f(-0.0f, -3.0f, -1.0f), Vector3f(-0.0f, 0.0f, -1.0f), Vector3f(-1.0f, 0.0f, -1.0f),
+      Vector3f(-3.0f, 0.0f, -0.0f), Vector3f(-0.0f, -3.0f, 0.0f), Vector3f(-0.0f, 0.0f, -0.0f), Vector3f(-1.0f, 0.0f, 0.0f),
+      true, // Is static
+      0.0f  // No mass
+    );
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 64.0f);
+    }
+
+
+    // Left bottom barier 
+    pBackBase = pScene->CreatePrism(
+      Vector3f(-7.0f, -9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      Vector3f(0.0f, 0.0f, 0.0f),
+      Vector3f(0.0f, 0.0f, -1.0f), Vector3f(5.0f, 0.0f, -1.0f), Vector3f(3.5f, 2.5f, -1.0f), Vector3f(0.0f, 4.0f, -1.0f),
+      Vector3f(0.0f, 0.0f, -0.0f), Vector3f(5.0f, 0.0f, 0.0f), Vector3f(3.5f, 2.5f, -0.0f), Vector3f(0.0f, 4.0f, 0.0f),
+      true, // Is static
+      0.0f  // No mass
+    );
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 1024.0f);
+    }
+
+    // Right bottom barier 
+    pBackBase = pScene->CreatePrism(
+      Vector3f(7.0f, -9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      Vector3f(0.0f, 0.0f, 0.0f),
+      Vector3f(-5.0f, 0.0f, -1.0f), Vector3f(-2.0f, 0.0f, -1.0f), Vector3f(-2.0f, 4.0f, -1.0f), Vector3f(-3.5f, 2.5f, -1.0f),
+      Vector3f(-5.0f, 0.0f, -0.0f), Vector3f(-2.0f, 0.0f, 0.0f), Vector3f(-2.0f, 4.0f, -0.0f), Vector3f(-3.5f, 2.5f, 0.0f),
+      true, // Is static
+      0.0f  // No mass
+    );
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(127.0f, 140.0f, 129.0f), 1.0f, 1024.0f);
+    }
+
+
+    /**
+     * Mid blockers
+     */
+     // #1
+    //pBackBase = pScene->CreateBlock(
+    //  Vector3f(2.0f, -3.75f, -9.0f), Vector3f(0.0f, 0.0f, (dfloat)M_PI_4 * 1.5f), Vector3f(1.0f, 1.0f, 1.0f),
+    //  3.0f, 0.2f, 1.0f,
+    //  true
+    //);
+    //// Change colour
+    //pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    //if (pMeshRenderer != nullptr)
+    //{
+    //  pMeshRenderer->ClearMaterials();
+    //  pMeshRenderer->AddMaterial(Vector3f(027.0f, 240.0f, 229.0f), 1.0f, 64.0f);
+    //}
+
+    //// #2
+    //pBackBase = pScene->CreateBlock(
+    //  Vector3f(-2.0f, -3.75f, -9.0f), Vector3f(0.0f, 0.0f, (dfloat)M_PI_4 * -1.5f), Vector3f(1.0f, 1.0f, 1.0f),
+    //  3.0f, 0.2f, 1.0f,
+    //  true
+    //);
+    //// Change colour
+    //pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    //if (pMeshRenderer != nullptr)
+    //{
+    //  pMeshRenderer->ClearMaterials();
+    //  pMeshRenderer->AddMaterial(Vector3f(027.0f, 240.0f, 229.0f), 1.0f, 64.0f);
+    //}
+
+
+    /**
+     * Hitters
+     */
+
+     // Devil 1
+    pBackBase = pScene->CreateSphere(
+      Vector3f(2.0f, 5.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
+      0.5f, 20, 20,
+      true, // Is static
+      0.0f  // No mass
+    );
+    pMeshRenderer = pBackBase->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
+    {
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(24.0f, 146.0f, 150.0f), 1.0f, 1024.0f);
+    }
+    rb = pBackBase->GetRigidbodyPtr();
+    if (rb != nullptr)
+    {
+      rb->SetRestitution(3.0f);
+    }
+
+    
+
+      // Devil 2
+      pBackBase = pScene->CreateSphere(
+        Vector3f(-3.0f, 6.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(24.0f, 146.0f, 150.0f), 1.0f, 1024.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(3.0f);
+      }
+
+      // Devil 3
+      pBackBase = pScene->CreateSphere(
+        Vector3f(-3.0f, -2.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(24.0f, 146.0f, 150.0f), 1.0f, 1024.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(3.0f);
+      }
+
+      // Devil 4
+      pBackBase = pScene->CreateSphere(
+        Vector3f(3.0f, -2.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(24.0f, 146.0f, 150.0f), 1.0f, 1024.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(3.0f);
+      }
+
+
+      // Medium 1
+      pBackBase = pScene->CreateSphere(
+        Vector3f(3.0f, -1.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(139.0f, 191.0f, 193.0f), 1.0f, 64.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(6.0f);
+      }
+
+
+      // Medium 2
+      pBackBase = pScene->CreateSphere(
+        Vector3f(-3.0f, -1.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(139.0f, 191.0f, 193.0f), 1.0f, 64.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(6.0f);
+      }
+
+      // Medium 3
+      pBackBase = pScene->CreateSphere(
+        Vector3f(1.0f, 3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(139.0f, 191.0f, 193.0f), 1.0f, 64.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(6.0f);
+      }
+
+      // Medium 4
+      pBackBase = pScene->CreateSphere(
+        Vector3f(-1.0f, 3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
+        0.5f, 20, 20,
+        true, // Is static
+        0.0f  // No mass
+      );
+      pMeshRenderer = pBackBase->GetMeshRendererPtr();
+      if (pMeshRenderer != nullptr)
+      {
+        pMeshRenderer->ClearMaterials();
+        pMeshRenderer->AddMaterial(Vector3f(139.0f, 191.0f, 193.0f), 1.0f, 64.0f);
+      }
+      rb = pBackBase->GetRigidbodyPtr();
+      if (rb != nullptr)
+      {
+        rb->SetRestitution(6.0f);
+      }
 
   #endif
     // Create paddles
-    {
-      MeshRenderer* pMeshRenderer; pMeshRenderer;
-      Entity* pEntity; pEntity;
-      Transform* pTransform;
-      ScriptHandler* pScriptHander;
-      Rigidbody* rb;
 
       // Right paddle
       pEntity = pScene->CreatePrism(
@@ -229,54 +438,42 @@ public:
       {
         rb->SetIsKinematic(true);
       }
-    }
+
 
   #if 1
 
     // Create ball
     {
-      Entity* pSphere;
-      MeshRenderer* pMeshRenderer;
-      Rigidbody* rb;
-
-      pSphere = pScene->CreateSphere(
-        Vector3f(2.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      pEntity = pScene->CreateSphere(
+        Vector3f(6.0f, -8.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         0.5f, 20ULL, 20ULL,
         false, 0.1f
       );
-      pMeshRenderer = pSphere->GetMeshRendererPtr();
+      pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
         pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(255.0f, 255.0f, 0.0f), 1.0f, 512.0f);
+        pMeshRenderer->AddMaterial(Vector3f(66.0f, 0.0f, 0.0f), 1.0f, 512.0f);
       }
-
-      rb = pSphere->GetRigidbodyPtr();
+      rb = pEntity->GetRigidbodyPtr();
       if (rb != nullptr)
       {
         rb->SetToContiniousCollision();
       }
+      // Add ScriptHanlder Component
+      pScriptHander = pEntity->AddComponent<ScriptHandler>();
+      // Attach specific script to it
+      pScriptHander->AddScript<BallController>();
 
-      pSphere = pScene->CreateSphere(
-      Vector3f(-2.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-      0.5f, 20ULL, 20ULL,
-      false, 0.1f
-      );
-      pMeshRenderer = pSphere->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(255.0f, 255.0f, 0.0f), 1.0f, 512.0f);
-      }
+      // Add DirectionalLight Component
+      PointLight* pLight = pEntity->AddComponent<PointLight>();
+      pLight->SetColour(glm::vec3(255.0f, 30.0f, 30.0f));
+      pLight->SetInensities(glm::vec3(0.00, 0.01f, 0.0f));
+      pLight->SetShadowDimensions(glm::vec3(2048, 2048, 0), 0.01f, 100.0f);
+      pLight->SetCoeficients(glm::vec3(0.02f, 0.06f, 0.08f));
 
-      rb = pSphere->GetRigidbodyPtr();
-      if (rb != nullptr)
-      {
-        rb->SetToContiniousCollision();
-      }
-
-      
     }
+ 
 
   #endif
 
@@ -287,23 +484,23 @@ public:
       Vector3f(1.0f, 1.0f, 1.0f),          // scale vector
 
       Vector3f(1.0f, 1.0f, 1.0f),          // Colour vector
-      Vector3f(0.7f, 0.5f, 0.1f),          // Intensities
+      Vector3f(0.0f, 0.5f, 0.1f),          // Intensities
       Vector3u(2048, 2048, 0),              // Shadow dimensions
       Vector3f(7.0f, -5.0f, -3.0f)
     );
 
     // Create PointLight
-    pScene->CreatePointLight(
-      Vector3f(0.0f, 0.0f, -5.0f),       // Position vector
-      Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
-      Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
+    //pScene->CreatePointLight(
+    //  Vector3f(0.0f, 0.0f, -5.0f),       // Position vector
+    //  Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
+    //  Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
 
-      Vector3f(1.0f, 0.0f, 0.0f),        // Colour vector
-      Vector3f(0.0f, 1.0f, 0.0f),        // Intensities
-      Vector3u(2048, 2048, 0),            // Shadow dimensions
-      0.01f, 100.0f,                     // Plane dimensions
-      Vector3f(0.02f, 0.06f, 0.03f)      // Coefficients
-    );
+    //  Vector3f(1.0f, 0.0f, 0.0f),        // Colour vector
+    //  Vector3f(0.0f, 1.0f, 0.0f),        // Intensities
+    //  Vector3u(2048, 2048, 0),            // Shadow dimensions
+    //  0.01f, 100.0f,                     // Plane dimensions
+    //  Vector3f(0.02f, 0.06f, 0.03f)      // Coefficients
+    //);
 
     // Create SpotLight
     pScene->CreateSpotLight(
@@ -312,12 +509,28 @@ public:
       Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
 
       Vector3f(1.0f, 0.0f, 1.0f),        // Colour vector
-      Vector3f(0.0f, 1.0f, 0.5f),        // Intensities
+      Vector3f(0.8f, 1.0f, 1.0f),        // Intensities
       Vector3u(2048, 2048, 0),  // Shadow dimensions
       0.01f, 100.0f,           // Plane dimensions
-      Vector3f(0.02f, 0.003f, 0.008f),      // Coefficients
+      Vector3f(0.01f, 0.02f, 0.03f),      // Coefficients
 
       Vector3f(1.0f, -1.0f, -1.0f),      // Light direction
+      35.0f                                // Cone angle (degrees)
+    );
+
+    // Create SpotLight
+    pScene->CreateSpotLight(
+      Vector3f(8.0f, 11.0f, -2.0f),       // Position vector
+      Vector3f(0.0f, 0.0f, 0.0f),        // rotation vector
+      Vector3f(1.0f, 1.0f, 1.0f),        // scale vector
+
+      Vector3f(0.01f, 0.5f, 0.6f),        // Colour vector
+      Vector3f(0.8f, 1.0f, 1.0f),        // Intensities
+      Vector3u(2048, 2048, 0),  // Shadow dimensions
+      0.01f, 100.0f,           // Plane dimensions
+      Vector3f(0.01f, 0.02f, 0.03f),      // Coefficients
+
+      Vector3f(-1.0f, -1.0f, -2.0f),      // Light direction
       35.0f                                // Cone angle (degrees)
     );
 
@@ -325,20 +538,17 @@ public:
 
   #if 1 // Draw coordinate gizmos
 
-    Entity* pEntity;
-    MeshRenderer* pMR;
-
     // X - red
     pEntity = pScene->CreateBlock(
       Vector3f(1.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, (dfloat)M_PI_2), Vector3f(1.0f, 1.0f, 1.0f),
       0.2f, 2.0f, 0.2f,
       true
     );
-    pMR = pEntity->GetMeshRendererPtr();
-    if (pMR != nullptr)
+    pMeshRenderer = pEntity->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
     {
-      pMR->ClearMaterials();
-      pMR->AddMaterial(Vector3f(1.f, 0.0f, 0.0f), 1.0f, 1024.0f);
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(1.f, 0.0f, 0.0f), 1.0f, 1024.0f);
     }
 
     // Y - green
@@ -347,11 +557,11 @@ public:
       0.2f, 2.0f, 0.2f,
       true
     );
-    pMR = pEntity->GetMeshRendererPtr();
-    if (pMR != nullptr)
+    pMeshRenderer = pEntity->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
     {
-      pMR->ClearMaterials();
-      pMR->AddMaterial(Vector3f(0.f, 1.0f, 0.0f), 1.0f, 1024.0f);
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(0.f, 1.0f, 0.0f), 1.0f, 1024.0f);
     }
 
 
@@ -361,11 +571,11 @@ public:
       0.2f, 2.0f, 0.2f,
       true
     );
-    pMR = pEntity->GetMeshRendererPtr();
-    if (pMR != nullptr)
+    pMeshRenderer = pEntity->GetMeshRendererPtr();
+    if (pMeshRenderer != nullptr)
     {
-      pMR->ClearMaterials();
-      pMR->AddMaterial(Vector3f(0.f, 0.0f, 1.0f), 1.0f, 1024.0f);
+      pMeshRenderer->ClearMaterials();
+      pMeshRenderer->AddMaterial(Vector3f(0.f, 0.0f, 1.0f), 1.0f, 1024.0f);
     }
 
   #endif
@@ -421,51 +631,48 @@ public:
 
   #if 1 // Small falling spheres
 
-    Entity* pSphere;
-    MeshRenderer* pMeshRenderer;
-
-    pSphere = pScene->CreateSphere(
+    pEntity = pScene->CreateSphere(
       Vector3f(-10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
       1.0f, 20ULL, 20ULL,
       false, 0.1f
     );
-    pMeshRenderer = pSphere->GetMeshRendererPtr();
+    pMeshRenderer = pEntity->GetMeshRendererPtr();
     if (pMeshRenderer != nullptr)
     {
       pMeshRenderer->ClearMaterials();
       pMeshRenderer->AddMaterial(Vector3f(1.f, 1.0f, 0.0f), 1.0f, 1024.0f);
     }
 
-    pSphere = pScene->CreateSphere(
+    pEntity = pScene->CreateSphere(
       Vector3f(10.0f, 0.0f, -10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
       1.0f, 20ULL, 20ULL,
       false, 0.1f
     );
-    pMeshRenderer = pSphere->GetMeshRendererPtr();
+    pMeshRenderer = pEntity->GetMeshRendererPtr();
     if (pMeshRenderer != nullptr)
     {
       pMeshRenderer->ClearMaterials();
       pMeshRenderer->AddMaterial(Vector3f(0.0f, 1.0f, 0.0f), 0.1f, 32.0f);
     }
 
-    pSphere = pScene->CreateSphere(
+    pEntity = pScene->CreateSphere(
       Vector3f(-10.0f, 0.0f, 10.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
       1.0f, 20ULL, 20ULL,
       false, 0.1f
     );
-    pMeshRenderer = pSphere->GetMeshRendererPtr();
+    pMeshRenderer = pEntity->GetMeshRendererPtr();
     if (pMeshRenderer != nullptr)
     {
       pMeshRenderer->ClearMaterials();
       pMeshRenderer->AddMaterial(Vector3f(0.0f, 0.0f, 1.0f), 0.1f, 32.0f);
     }
 
-    pSphere = pScene->CreateSphere(
+    pEntity = pScene->CreateSphere(
       Vector3f(10.0f, 0.0f, 10.0f), Vector3f(1.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
       1.0f, 20ULL, 20ULL,
       false, 0.1f
     );
-    pMeshRenderer = pSphere->GetMeshRendererPtr();
+    pMeshRenderer = pEntity->GetMeshRendererPtr();
     if (pMeshRenderer != nullptr)
     {
       pMeshRenderer->ClearAll();

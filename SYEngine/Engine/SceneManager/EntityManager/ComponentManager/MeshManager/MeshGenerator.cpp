@@ -137,7 +137,7 @@ std::pair< std::vector<dfloat>, std::vector<unsigned int> > MeshGenerator::Gener
 {
   // Compute normals
   Vector3f normTop = Cross((p3 - p4), (p8 - p4));
-  Vector3f normBottom = Cross((p2 - p1), (p5 - p1));
+  Vector3f normBottom = Cross((p5- p1), (p2 - p1));
 
   Vector3f normFront = Cross((p2 - p1), (p4 - p1));
   Vector3f normBack = Cross((p7 - p8), (p5 - p8));

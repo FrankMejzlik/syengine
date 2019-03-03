@@ -12,16 +12,19 @@
 #include "Entity.h"
 #include "Collider.h"
 #include "PhysicsBody.h"
+#include "PhysicsScene.h"
 
 using namespace SYE;
 
 PhysicsEntity::PhysicsEntity(
-  Collider* pCollider, 
+  PhysicsScene* pPhysScene,
+  Collider* pCollider,
   PhysicsBody* pPhysicsBody,
   std::unique_ptr<btCollisionShape>&& pCollisionShape,
   dfloat mass,
   const Vector3f& color
-) noexcept :
+) :
+  _pOwnerPhysScene(pPhysScene),
   _pOwnerEntity(pPhysicsBody->GetOwnerEntityPtr()),
   _pCollider(pCollider),
   _pPhysicsBody(pPhysicsBody),
@@ -86,11 +89,32 @@ PhysicsEntity::PhysicsEntity(
 
 }
 
+
+PhysicsEntity::~PhysicsEntity() noexcept
+{
+  _pOwnerPhysScene->RemoveFromPhysicsScene(this);
+}
+
+void PhysicsEntity::SetLinearVelocity(const Vector3f& velocity)
+{
+
+  auto ptr = _pCollisionObject.get();
+  btRigidBody* pRb = static_cast<btRigidBody*>(ptr);
+
+  if (pRb)
+  {
+    //pRb->setLinearVelocity(velocity);
+
+    pRb->applyCentralForce(velocity);
+    pRb->activate();
+  }
+}
 void PhysicsEntity::SetKinematic()
 {
   _pCollisionObject->setCollisionFlags(_pCollisionObject->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
   _pCollisionObject->setActivationState(DISABLE_DEACTIVATION);
 }
+
 
 void PhysicsEntity::SetRestitution(dfloat newValeue)
 {

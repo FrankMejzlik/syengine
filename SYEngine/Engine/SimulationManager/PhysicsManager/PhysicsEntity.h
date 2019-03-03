@@ -17,6 +17,7 @@ namespace SYE
 class Entity;
 class Collider;
 class PhysicsBody;
+class PhysicsScene;
 
 /**
  * Represents one instance of Physical Entity inside physics scene
@@ -31,12 +32,14 @@ class PhysicsEntity:
 public:
   PhysicsEntity() = delete;
   PhysicsEntity(
+    PhysicsScene* pPhysScene,
     Collider* pCollider, 
     PhysicsBody* pPhysicsBody,
     std::unique_ptr<btCollisionShape>&& pCollisionShape,
     dfloat mass,
     const Vector3f& color
-  ) noexcept;
+  );
+  ~PhysicsEntity() noexcept;
 
   size_t GetOwnerEntityGuid() const;
   void SetLocalInertia(const Vector3f& localInertia);
@@ -50,6 +53,8 @@ public:
 
   void SetKinematic();
 
+  void SetLinearVelocity(const Vector3f& velocity);
+
   MotionState* GetMotionState()
   {
     return _pMotionState.get();
@@ -62,6 +67,7 @@ public:
 
   // Attributes
 private:
+  PhysicsScene* _pOwnerPhysScene;
   Entity* _pOwnerEntity;
   Collider* _pCollider;
   PhysicsBody* _pPhysicsBody;

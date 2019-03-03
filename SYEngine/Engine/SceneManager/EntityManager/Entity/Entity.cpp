@@ -26,11 +26,18 @@ Entity::~Entity() noexcept
   }
 
   // Destroy all child Component recursively
-  for (auto&& slotMap : _primaryComponentSlots)
+  for (auto& slotMap : _primaryComponentSlots)
   {
-    for (auto&& componentPair : slotMap)
+    // If empty
+    if (slotMap.empty())
     {
-      RemoveComponent(componentPair.second);
+      continue;
+    }
+
+    while (!slotMap.empty())
+    {
+      auto item = slotMap.begin();
+      RemoveComponent(item->second);
     }
   }
 }

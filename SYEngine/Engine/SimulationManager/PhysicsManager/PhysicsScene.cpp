@@ -134,13 +134,18 @@ void PhysicsScene::SyncPhysicsToGraphics()
       orn.getEulerZYX(rotZ, rotY, rotX);
 
 
-      PhysicsBody* pPhysBody = static_cast<PhysicsBody*>(colObj->getUserPointer());
+      void* ptr = colObj->getUserPointer();
+      PhysicsBody* pPhysBody = (PhysicsBody*)(ptr);
 
-      // Sync only non kinematic objects
-      if (!pPhysBody->IsKinematic())
+      if (pPhysBody)
       {
-        pPhysBody->GetTransformPtr()->SetPosition(pos);
-        pPhysBody->GetTransformPtr()->SetRotation(Vector3f(rotX, rotY, rotZ));
+
+        // Sync only non kinematic objects
+        if (!pPhysBody->IsKinematic())
+        {
+          pPhysBody->GetTransformPtr()->SetPosition(pos);
+          pPhysBody->GetTransformPtr()->SetRotation(Vector3f(rotX, rotY, rotZ));
+        }
       }
 
     }
@@ -202,6 +207,11 @@ PhysicsEntity* PhysicsScene::InsertPhysicsEntity(PhysicsBody* pBody)
   static_cast<PhysicsBody*>(pBody)->SetPhysicsEntity(pNewPhysEntity);
 
   return pNewPhysEntity;
+}
+
+void PhysicsScene::RemoveFromPhysicsScene(PhysicsEntity* pPhysEntity)
+{
+  _pWorld->removeCollisionObject(pPhysEntity->GetCollisionObjectPtr());
 }
 
 bool PhysicsScene::DoesContain(size_t guid) const
@@ -318,6 +328,7 @@ PhysicsEntity* PhysicsScene::AddBlockColliderRigidbody(Rigidbody* pBody, Collide
 
   // Instantiate new PhysicsEntity
   std::unique_ptr<PhysicsEntity> pPhysicsEntity = std::make_unique<PhysicsEntity>(
+    this,
     pCollider,
     pBody,
     std::move(pBoxShape),
@@ -351,6 +362,7 @@ PhysicsEntity* PhysicsScene::AddSphereColliderRigidbody(Rigidbody* pBody, Collid
 
   // Instantiate new PhysicsEntity
   std::unique_ptr<PhysicsEntity> pPhysicsEntity = std::make_unique<PhysicsEntity>(
+    this,
     pCollider,
     pBody,
     std::move(pSphereShape),
@@ -396,6 +408,7 @@ PhysicsEntity* PhysicsScene::AddConvexHullColliderRigidbody(Rigidbody* pBody, Co
 
   // Instantiate new PhysicsEntity
   std::unique_ptr<PhysicsEntity> pPhysicsEntity = std::make_unique<PhysicsEntity>(
+    this,
     pCollider,
     pBody,
     std::move(pSphereShape),

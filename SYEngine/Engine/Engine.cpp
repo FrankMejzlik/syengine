@@ -161,6 +161,9 @@ bool Engine::Run()
   // TODO: Make Scene method for loading from script file
   SCENE_MANAGER->LoadInitialScene(pScene);
 
+  // Trigger OnInitScene in scripts
+  LOGIC_MANAGER->TriggerOnInitScene(pScene);
+
   // TODO: Implement with TimeManager class
   auto prev = std::chrono::high_resolution_clock::now();
   dfloat deltaTime = 0.0f;

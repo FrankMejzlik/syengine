@@ -20,6 +20,7 @@ public:
     Entity* pOwnerEntity, Component* pOwnerComponent,
     eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::PHYSICS_BODY
   );
+  ~PhysicsBody() noexcept;
 
   virtual void SaveComponent() override;
 
