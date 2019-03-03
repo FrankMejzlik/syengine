@@ -48,6 +48,13 @@ public:
   PhysicsBody* GetPhysicsBodyPtr() const { return _pPhysicsBody;}
   void SetWorldTransform(Vector3f position, glm::quat rotation);
 
+  void SetKinematic();
+
+  MotionState* GetMotionState()
+  {
+    return _pMotionState.get();
+  }
+
   void SetCccThreshold()
   {
     

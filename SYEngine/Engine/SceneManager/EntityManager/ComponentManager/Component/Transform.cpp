@@ -97,7 +97,7 @@ void Transform::UpdatePhysBody()
   glm::vec4 perspective;
   glm::decompose(worldTransform, scale, rotation, translation, skew, perspective);
 
-
+ 
   pBody->GetPhysicsEntity()->SetWorldTransform(translation, rotation);
 }
 

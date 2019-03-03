@@ -165,8 +165,7 @@ public:
       if (rb != nullptr)
       {
         rb->SetIsKinematic(true);
-        rb->SetToContiniousCollision();
-       
+
       }
 
 
@@ -207,7 +206,7 @@ public:
       Rigidbody* rb;
 
       pSphere = pScene->CreateSphere(
-        Vector3f(4.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+        Vector3f(2.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         0.5f, 20ULL, 20ULL,
         false, 0.1f
       );
@@ -225,7 +224,7 @@ public:
       }
 
       pSphere = pScene->CreateSphere(
-      Vector3f(-4.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
+      Vector3f(-2.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
       0.5f, 20ULL, 20ULL,
       false, 0.1f
       );
@@ -242,23 +241,7 @@ public:
         rb->SetToContiniousCollision();
       }
 
-      pSphere = pScene->CreateSphere(
-        Vector3f(4.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        0.5f, 20ULL, 20ULL,
-        false, 0.1f
-      );
-      pMeshRenderer = pSphere->GetMeshRendererPtr();
-      if (pMeshRenderer != nullptr)
-      {
-        pMeshRenderer->ClearMaterials();
-        pMeshRenderer->AddMaterial(Vector3f(255.0f, 255.0f, 0.0f), 1.0f, 512.0f);
-      }
-
-      rb = pSphere->GetRigidbodyPtr();
-      if (rb != nullptr)
-      {
-        rb->SetToContiniousCollision();
-      }
+      
     }
 
   #endif

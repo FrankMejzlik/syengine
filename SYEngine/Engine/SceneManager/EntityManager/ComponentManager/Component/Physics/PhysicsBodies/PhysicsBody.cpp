@@ -114,6 +114,9 @@ void PhysicsBody::SetToContiniousCollision()
 void PhysicsBody::SetIsKinematic(bool isKinematic)
 {
   _isKinematic = isKinematic;
+
+  _pPhysEntity->SetKinematic();
+
 }
 
 bool PhysicsBody::IsDynamic() const

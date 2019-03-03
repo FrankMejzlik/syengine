@@ -80,10 +80,16 @@ PhysicsEntity::PhysicsEntity(
   // If should be kinematic
   if (_pPhysicsBody->IsKinematic())
   {
-    //_pCollisionObject->setCollisionFlags(_pCollisionObject->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
-    //_pCollisionObject->setActivationState(DISABLE_DEACTIVATION);
+    _pCollisionObject->setCollisionFlags(_pCollisionObject->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+    _pCollisionObject->setActivationState(DISABLE_DEACTIVATION);
   }
 
+}
+
+void PhysicsEntity::SetKinematic()
+{
+  _pCollisionObject->setCollisionFlags(_pCollisionObject->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+  _pCollisionObject->setActivationState(DISABLE_DEACTIVATION);
 }
 
 void PhysicsEntity::SetRestitution(dfloat newValeue)
@@ -112,7 +118,10 @@ void PhysicsEntity::SetWorldTransform(Vector3f position, glm::quat rotation)
   btQuaternion orient(rotation.x, rotation.y, rotation.z, rotation.w);
   btTransform transform(orient, position);
 
-  _pCollisionObject->setWorldTransform(transform);
+  _pMotionState->setWorldTransform(transform);
+
+  //_pMotionState->setWorldTransform();
+  ///_pCollisionObject->setWorldTransform(transform);
 }
 
 void PhysicsEntity::SetLocalInertia(const Vector3f& localInertia)
