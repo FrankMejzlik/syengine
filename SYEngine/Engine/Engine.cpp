@@ -180,7 +180,7 @@ bool Engine::Run()
      ).count()) / 1000000;
     // Save now time for next frame calculation.
     prev = now;
-    // TODO: Implement in TimeStamp class.
+    // TODO: Implement in TimeManager class
 
     // Do ImGUI stuff.
     ProcessImGui();
