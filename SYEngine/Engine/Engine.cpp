@@ -173,11 +173,13 @@ bool Engine::Run()
   {
     // TODO: Implement in TimeStamp class.
     // Get delta time.
+
+    auto now = std::chrono::high_resolution_clock::now();
     deltaTime = static_cast<dfloat>(std::chrono::duration_cast<std::chrono::microseconds>(
-      std::chrono::high_resolution_clock::now() - prev
+      now - prev
      ).count()) / 1000000;
     // Save now time for next frame calculation.
-    prev = std::chrono::high_resolution_clock::now();
+    prev = now;
     // TODO: Implement in TimeStamp class.
 
     // Do ImGUI stuff.
