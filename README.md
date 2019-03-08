@@ -12,16 +12,16 @@ Primary Components are specific classes with specific functionalities and respon
 ENTITY
 - Transform
 - MeshRenderer
--- Mesh
--- Material
---- Texture
---- Shininess
---- Shader
-- Rigidbody
--- SphereCollider
---- Mesh
-- ScriptHandler
--- BallController (inherits from Script class)
+    - Mesh
+    - Material
+        - Texture
+        - Shininess
+        - Shader
+    - Rigidbody
+    - SphereCollider
+        - Mesh
+    - ScriptHandler
+        - BallController (inherits from Script class)
 
 ### Current Primary Components:
 ##### Transform
