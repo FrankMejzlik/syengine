@@ -10,18 +10,18 @@ Primary Components are specific classes with specific functionalities and respon
 
 ### Example hierarchy
 ENTITY
-    -> Transform
-    -> MeshRenderer
-    ------>> Mesh
-    ------>> Material
-    ---------->>> Texture
-    ---------->>> Shininess
-    ---------->>> Shader
-    -> Rigidbody
-    ------>> SphereCollider
-    ---------->>> Mesh
-    -> ScriptHandler
-        ------->> BallController (inherits from Script class)
+- Transform
+- MeshRenderer
+-- Mesh
+-- Material
+--- Texture
+--- Shininess
+--- Shader
+- Rigidbody
+-- SphereCollider
+--- Mesh
+- ScriptHandler
+-- BallController (inherits from Script class)
 
 ### Current Primary Components:
 ##### Transform
@@ -31,6 +31,6 @@ ENTITY
 ##### Rigidbody
 
 
-*There are implemented some shorthands for frequently used standard Entities like Camera, Block, Sphere etc. You can find **Create{Something}** methods in [Scene class](docs/auto/index.html).*
+*There are implemented some shorthands for frequently used standard Entities like Camera, Block, Sphere etc. You can find **Create{Something}** methods in [Scene class](docs/auto/html/class_s_y_e_1_1_scene.html).*
 
 
