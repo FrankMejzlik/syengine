@@ -12,11 +12,13 @@ Manual {#manual}
     For now SYEngine sources are available only for MSVC compiler and Visual Studio IDE and result executables only for Windows 7+ OS.
 
 # MSVC
-1) Checkout repository to your computer
-2) Download [externals](http://devwesp.com/download/external.zip)
-    a) Extract 'external' directory into 'SYEngine' directory inside repository directory (e.g. C:/SYEngine/SYEngine/) so 'external' directory lies next to 'SYEngine.vcxproj' file.
-3) Download [resources](http://devwesp.com/download/resource.zip)
-    a) Extract 'resource' directory into 'SYEngine' directory inside repository directory (e.g. C:/SYEngine/SYEngine/) so 'resource' directory lies next to 'SYEngine.vcxproj' file.
+-# Checkout repository to your computer
+-# Download [externals](http://devwesp.com/download/external.zip)
+    -# Extract 'external' directory into 'SYEngine' directory inside repository directory (e.g. C:/SYEngine/SYEngine/) so 'external' directory lies next to 'SYEngine.vcxproj' file.
+-# Download [resources](http://devwesp.com/download/resource.zip)
+    -# Extract 'resource' directory into 'SYEngine' directory inside repository directory (e.g. C:/SYEngine/SYEngine/) so 'resource' directory lies next to 'SYEngine.vcxproj' file.
+-# Open SYEngine.sln in Visual Studio IDE
+-# Build and run
 
 
 

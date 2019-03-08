@@ -43,7 +43,51 @@ public:
   ~Scene() noexcept;
 
   /**
-   * Creates Camera at provided position with provided orientation
+   * Creates Camera at provided position with provided orientation.
+   @section Timeline-usage Basic usage
+
+   Construct the timeline on initialization so the instance is available for
+   whole lifetime of the application. Call @ref start() before first draw event is
+   performed, after everything is properly initialized.
+
+   @note When timeline is started, it immediately starts measuring frame time.
+   Be prepared that time of first frame will be much longer than time of
+   following frames. It mainly depends on where you called @ref start() in
+   your initialization routine, but can be also affected by driver- and
+   GPU-specific lazy texture binding, shader recompilations etc.
+
+   In your draw event implementation don't forget to call @ref nextFrame() after
+   buffer swap. You can use @ref previousFrameDuration() to compute animation
+   speed. To limit application framerate you can use
+   @ref Platform::Sdl2Application::setSwapInterval() "Platform::*Application::setSwapInterval()" or
+   @ref Platform::Sdl2Application::setMinimalLoopPeriod() "Platform::*Application::setMinimalLoopPeriod()".
+   Note that on @ref CORRADE_TARGET_EMSCRIPTEN "Emscripten" the framerate is
+   governed by browser and you can't do anything about it.
+
+   Example usage:
+
+   @code{.cpp}
+   MyApplication::MyApplication(const Arguments& arguments): Platform::Application{arguments} {
+   // Initialization ...
+
+   // Enable VSync or set minimal loop period for the application, if
+   // needed/applicable ...
+
+   timeline.start();
+   }
+
+   void MyApplication::drawEvent() {
+   // Distance of object travelling at speed of 15 units per second
+   Float distance = 15.0f*timeline.previousFrameDuration();
+
+   // Move object, draw ...
+
+   swapBuffers();
+   redraw();
+   timeline.nextFrame();
+   }
+   @endcode
+
    */
   Entity* CreateCamera(
     Vector3f positionVector, 

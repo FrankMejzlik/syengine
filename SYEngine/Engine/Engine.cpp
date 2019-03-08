@@ -174,7 +174,7 @@ bool Engine::Run()
     // TODO: Implement in TimeStamp class.
     // Get delta time.
 
-    auto now = std::chrono::high_resolution_clock::now();
+    auto now = std::chrono::high_resolution_clock::now(); 
     deltaTime = static_cast<dfloat>(std::chrono::duration_cast<std::chrono::microseconds>(
       now - prev
      ).count()) / 1000000;
