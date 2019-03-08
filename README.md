@@ -3,34 +3,19 @@
 
 In scripts, you have access to all Managers and primary Components, that are attached to certain Entity, therefore you're free to code whatever behaviour you need.
 
-# Brief scripting concepts
-Game (**Scene**) consists of **Entities**.
-Entities are defined by their **Primary Components**, Entity without Components is nothing but useless data in memory.
-Primary Components are specific classes with specific functionalities and responsibilities and can have **SubComponents**
+# Development notice
+This engine is not (yet) top priority project for us. It is more of a playgound for us in sense that it is used primarily for learning purposes and it is "just" long term project that we will push forward from time to time and maybe in future it will even become useful.
 
-### Example hierarchy
-ENTITY
-- Transform
-- MeshRenderer
-    - Mesh
-    - Material
-        - Texture
-        - Shininess
-        - Shader
-    - Rigidbody
-    - SphereCollider
-        - Mesh
-    - ScriptHandler
-        - BallController (inherits from Script class)
+# Documentation
+* [Building SYEngine (only MSVC for now)](/docs/html/manual.html)
+How to get this engine up and running.
+* Engine concepts
+Get to know how things are implemented and why.
+* Scripting your game
+* [API Reference](/docs/html/index.html)
 
-### Current Primary Components:
-##### Transform
-##### Camera
-##### MeshRenderer
-##### ScriptHandler
-##### Rigidbody
+# Contribution
+Any feedback to design/implementation is warmly welcome!
 
-
-*There are implemented some shorthands for frequently used standard Entities like Camera, Block, Sphere etc. You can find **Create{Something}** methods in [Scene class](docs/auto/html/class_s_y_e_1_1_scene.html).*
-
-
+# License
+This engine is licensed under [MIT License](https://opensource.org/licenses/MIT/).
