@@ -53,7 +53,7 @@ public:
     _up(Vector3f(0.0f, 1.0f, 0.0f)),
     _firstPersonTurnSpeed(0.01f),
     _editorModeTurnSpeed(0.05f),
-    _isFirstPerson(false)
+    _isFirstPerson(true)
   {}
   virtual ~FirstPersonCameraController() noexcept {}
 

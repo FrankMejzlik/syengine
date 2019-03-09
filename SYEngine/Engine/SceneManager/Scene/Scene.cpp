@@ -134,6 +134,37 @@ Entity* Scene::CreateCamera(
   return pNewEntity;
 }
 
+Entity* Scene::CreateTerrain(
+  Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+  std::vector<dfloat> vertices, std::vector<unsigned int> indices
+)
+{
+  // Add new Entity to Scene instance
+  Entity* pNewEntity = AddEntity<Entity>();
+
+  // Add Transform Component
+  Transform* pTransform = pNewEntity->AddComponent<Transform>();
+  pTransform->SetPosition(positionVector);
+  pTransform->SetRotation(rotationVector);
+  pTransform->SetScale(scaleVector);
+
+  // Add MeshRenderer Component
+  MeshRenderer* pMeshRenderer = pNewEntity->AddComponent<MeshRenderer>();
+  {
+    Mesh* pMesh = pMeshRenderer->AddMesh();
+    {
+      pMesh->ClearMesh();
+      pMesh->DefineMesh(vertices, indices);
+    }
+    Material* pMaterial = pMeshRenderer->AddMaterial();
+    pMaterial;
+
+    pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
+  }
+
+  return pNewEntity;
+}
+
 Entity* Scene::CreateQuad(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   dfloat width, dfloat height,

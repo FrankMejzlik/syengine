@@ -95,6 +95,18 @@ public:
     bool isEditor = true
   );
 
+  /**
+   * Creates Entity representing terrain
+   *
+   * Primary Components:
+   *    Transform
+   *    MeshRenderer
+   */
+  Entity* CreateTerrain(
+    Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
+    std::vector<dfloat> vertices, std::vector<unsigned int> indices
+  );
+
   Entity* CreateQuad(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     dfloat width, dfloat height,
