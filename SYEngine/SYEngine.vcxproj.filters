@@ -180,7 +180,6 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\PhysicsBody.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Softbody.cpp" />
     <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.cpp" />
-    <ClCompile Include="PhysicsDebugRenderer.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IEngineContextInterface.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IComponentsInterface.cpp" />
     <ClCompile Include="Engine\Core\Abstract\ISceneContextInterface.cpp" />
@@ -188,6 +187,7 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\BlockCollider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material\Shininess.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\ConvexHullCollider.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\PhysicsDebugRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -399,7 +399,6 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\PhysicsBody.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\Softbody.h" />
     <ClInclude Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.h" />
-    <ClInclude Include="PhysicsDebugRenderer.h" />
     <ClInclude Include="Engine\Core\Abstract\IEngineContextInterface.h" />
     <ClInclude Include="Engine\Core\Abstract\IComponentsInterface.h" />
     <ClInclude Include="Engine\Core\Abstract\ISceneContextInterface.h" />
@@ -415,6 +414,7 @@
     <ClInclude Include="scripts\generic_script_includes.h" />
     <ClInclude Include="Game\scripts\_SceneBuilder.h" />
     <ClInclude Include="Game\scripts\game_script_includes.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\PhysicsDebugRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

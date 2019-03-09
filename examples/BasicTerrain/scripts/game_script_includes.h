@@ -7,14 +7,14 @@
  *  Generate this file programically.
  */
 
-// Adds basic movement and turning capiblites to Entity with Camera Component.
+ // Adds basic movement and turning capiblites to Entity with Camera Component.
 #include "FirstPersonCameraController.h"
 
-// Right paddle logic
+ // Right paddle logic
 #include "RightPaddleController.h"
 
-// Left paddle logic
+ // Left paddle logic
 #include "LeftPaddleController.h"
 
-// Logic of play ball
+ // Logic of play ball
 #include "BallController.h"
