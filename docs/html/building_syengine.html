@@ -94,18 +94,35 @@ $(document).ready(function(){initNavTree('building_syengine.html','');});
 <h1><a class="anchor" id="msvc"></a>
 MSVC</h1>
 <ol type="1">
-<li>Checkout repository to your computer</li>
+<li>Checkout <a href="https://gitlab.com/sye-tech/SYEngine">SYEngine repository</a> to your computer.</li>
 <li>Download <a href="http://devwesp.com/download/external.zip">externals</a><ol type="a">
-<li>Extract 'external' directory into 'SYEngine' directory inside repository directory (e.g. C:/SYEngine/SYEngine/) so 'external' directory lies next to 'SYEngine.vcxproj' file.</li>
+<li>Extract <code>external</code> directory into 'SYEngine' directory inside repository directory (e.g. <code>C:/SYEngine/SYEngine/</code>) so <code>external</code> directory lies next to 'SYEngine.vcxproj' file.</li>
 </ol>
 </li>
 <li>Download <a href="http://devwesp.com/download/resource.zip">resources</a><ol type="a">
-<li>Extract 'resource' directory into 'SYEngine' directory inside repository directory (e.g. C:/SYEngine/SYEngine/) so 'resource' directory lies next to 'SYEngine.vcxproj' file.</li>
+<li>Extract 'resource' directory into 'SYEngine' directory inside repository directory (e.g. <code>C:/SYEngine/SYEngine/</code>) so <code>resource</code> directory lies next to 'SYEngine.vcxproj' file.</li>
 </ol>
 </li>
-<li>Open SYEngine.sln in Visual Studio IDE</li>
-<li>Build and run </li>
+<li>Inside <code>{repo_root}/SYEngine/</code> create **'{repo_root}/SYEngine/Game/'** directory and place there some game logic.<ol type="a">
+<li>Good starting point are our examples (<code>**{repo_root}/examples**</code>) - just choose example open it's directory and <b>copy all contents into <code>{repo_root}/SYEngine/Game/</code> directory</b>.</li>
+<li>Inside <code>{repo_root}/SYEngine/Game/</code> there must be <code>{repo_root}/SYEngine/Game/scripts/</code> directory with <code>**_SceneBuilder.h**</code> file, which contains implementation of _SceneBuilder class that inherits from <a class="el" href="class_s_y_e_1_1___scene_builder_base.html" title="Class responsible for building initial Scene instance before launch.">SYE::_SceneBuilderBase</a>.</li>
+<li>Inside <code>{repo_root}/SYEngine/Game/</code> there also should be file <code>**game_script_includes.h**</code> that includes Scripts you want to use (both yours and those we provided with engine).</li>
 </ol>
+</li>
+<li>Build and run.</li>
+</ol>
+<p>It should compile without any errors or warnings and game whose logic you copied inside 'Game' directory sould be running.</p>
+<dl class="section note"><dt>Note</dt><dd>Sometimes it is necessary to manualy recompile 'SceneManager.cpp' source, because VS won't see any changes in files.</dd></dl>
+<h2>Now you have two choices:</h2>
+<ol type="1">
+<li>You don't plan to edit any of engine code</li>
+<li>You want to extend/edit/remove sone of engine code</li>
+</ol>
+<h3>1) Just scripting</h3>
+<p>If so, feel free to create your own repository inside 'Game' directory and version control your code. When new version of SYEngine comes out you just pull new version and that's it.</p>
+<dl class="section note"><dt>Note</dt><dd>Maybe you'd need to 'Include into project' your files, because they won't be present in newly pulled .vcproj file.</dd></dl>
+<h3>2) Edit engine code</h3>
+<p>If you want to extend/edit/remove engine code, feel free to do so, but remember that when we release new version of engine, updating your code will be very complicated. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

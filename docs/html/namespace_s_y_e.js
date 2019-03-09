@@ -1,6 +1,6 @@
 var namespace_s_y_e =
 [
-    [ "_SceneBuilder", "class_s_y_e_1_1___scene_builder.html", "class_s_y_e_1_1___scene_builder" ],
+    [ "_SceneBuilderBase", "class_s_y_e_1_1___scene_builder_base.html", "class_s_y_e_1_1___scene_builder_base" ],
     [ "AiManager", "class_s_y_e_1_1_ai_manager.html", "class_s_y_e_1_1_ai_manager" ],
     [ "AnimationManager", "class_s_y_e_1_1_animation_manager.html", "class_s_y_e_1_1_animation_manager" ],
     [ "AudioManager", "class_s_y_e_1_1_audio_manager.html", "class_s_y_e_1_1_audio_manager" ],

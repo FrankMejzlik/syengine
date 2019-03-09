@@ -20,6 +20,5 @@ var searchData=
   ['softbody',['Softbody',['../class_s_y_e_1_1_softbody.html',1,'SYE']]],
   ['soundmanager',['SoundManager',['../class_s_y_e_1_1_sound_manager.html',1,'SYE']]],
   ['spherecollider',['SphereCollider',['../class_s_y_e_1_1_sphere_collider.html',1,'SYE']]],
-  ['spotlight',['SpotLight',['../class_s_y_e_1_1_spot_light.html',1,'SYE']]],
-  ['stbi_5fio_5fcallbacks',['stbi_io_callbacks',['../structstbi__io__callbacks.html',1,'']]]
+  ['spotlight',['SpotLight',['../class_s_y_e_1_1_spot_light.html',1,'SYE']]]
 ];

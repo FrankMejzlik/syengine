@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"struct_common_parameter_interface.html#ab965f27f36242a02480a94f0eea853f4":[2,0,12,0],
 "struct_common_parameter_interface.html#aba5b3e21b04da28b2170b79c484d4c53":[2,0,12,6],
 "struct_common_parameter_interface.html#af351c38ea43d426d77bbc34a8e2eeb56":[2,0,12,3],
 "struct_common_render_interface.html":[2,0,13],
@@ -226,9 +227,5 @@ var NAVTREEINDEX6 =
 "structb3g_window_construction_info.html#ad2abefe1cee24d539b14a9ab226f8e93":[2,0,1,6],
 "structb3g_window_construction_info.html#ad4683d891fd7b0e1a24908076619f7e6":[2,0,1,8],
 "structb3g_window_construction_info.html#ae1ce42f684eef42bf0798276e5b6c05d":[2,0,1,0],
-"structstbi__io__callbacks.html":[2,0,24],
-"structstbi__io__callbacks.html#a257aac5480a90a6c4b8fbe86c1b01068":[2,0,24,2],
-"structstbi__io__callbacks.html#a319639db2f76e715eed7a7a974136832":[2,0,24,0],
-"structstbi__io__callbacks.html#a623e46b3a2a019611601409926283a88":[2,0,24,1],
 "typedefs_8h_source.html":[3,0,0,1,0,12]
 };

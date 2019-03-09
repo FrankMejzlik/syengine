@@ -9,7 +9,7 @@ var searchData=
   ['scripting_20your_20game',['Scripting your game',['../scripting_your_game.html',1,'manual']]],
   ['scriptmanager',['ScriptManager',['../class_s_y_e_1_1_script_manager.html',1,'SYE']]],
   ['setcameraupaxis',['setCameraUpAxis',['../struct_common_camera_interface.html#a8f9464078b2adfb528baeba1c5b95237',1,'CommonCameraInterface']]],
-  ['setupscene',['SetupScene',['../class_s_y_e_1_1___scene_builder.html#aca66db9d4439385c034f44c166ba8d6b',1,'SYE::_SceneBuilder']]],
+  ['setupscene',['SetupScene',['../class_s_y_e_1_1___scene_builder_base.html#aefa3975a39fc7afb72278ed932ffc71e',1,'SYE::_SceneBuilderBase']]],
   ['setworldtransform',['SetWorldTransform',['../class_s_y_e_1_1_physics_entity.html#a7b163bb7c6ab3d71d9c1b81bff9b495d',1,'SYE::PhysicsEntity']]],
   ['shader',['Shader',['../class_s_y_e_1_1_shader.html',1,'SYE']]],
   ['shadermanager',['ShaderManager',['../class_s_y_e_1_1_shader_manager.html',1,'SYE']]],
@@ -26,6 +26,5 @@ var searchData=
   ['soundmanager',['SoundManager',['../class_s_y_e_1_1_sound_manager.html',1,'SYE']]],
   ['spherecollider',['SphereCollider',['../class_s_y_e_1_1_sphere_collider.html',1,'SYE']]],
   ['spotlight',['SpotLight',['../class_s_y_e_1_1_spot_light.html',1,'SYE']]],
-  ['stbi_5fio_5fcallbacks',['stbi_io_callbacks',['../structstbi__io__callbacks.html',1,'']]],
   ['sye',['SYE',['../namespace_s_y_e.html',1,'']]]
 ];

@@ -1,6 +1,6 @@
 var hierarchy =
 [
-    [ "SYE::_SceneBuilder", "class_s_y_e_1_1___scene_builder.html", null ],
+    [ "SYE::_SceneBuilderBase", "class_s_y_e_1_1___scene_builder_base.html", null ],
     [ "b3gWindowConstructionInfo", "structb3g_window_construction_info.html", null ],
     [ "SYE::BaseEngine", "class_s_y_e_1_1_base_engine.html", [
       [ "SYE::Engine", "class_s_y_e_1_1_engine.html", null ]
@@ -157,7 +157,6 @@ var hierarchy =
     ] ],
     [ "SliderParams", "struct_slider_params.html", null ],
     [ "SYE::SoundManager", "class_s_y_e_1_1_sound_manager.html", null ],
-    [ "stbi_io_callbacks", "structstbi__io__callbacks.html", null ],
     [ "SYE::TimeManager", "class_s_y_e_1_1_time_manager.html", null ],
     [ "SYE::TimeStamp", "class_s_y_e_1_1_time_stamp.html", null ],
     [ "SYE::Ui", "class_s_y_e_1_1_ui.html", null ],

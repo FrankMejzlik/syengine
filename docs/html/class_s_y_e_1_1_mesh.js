@@ -5,7 +5,7 @@ var class_s_y_e_1_1_mesh =
     [ "~Mesh", "class_s_y_e_1_1_mesh.html#a508b14c30f81bdc95a94ec112ff1d8e2", null ],
     [ "CalculateAverageNormals", "class_s_y_e_1_1_mesh.html#aa40f0f74cc790408a54d729abee2bd7b", null ],
     [ "ClearMesh", "class_s_y_e_1_1_mesh.html#afa7292342a61bc1cca667be6c00d73d2", null ],
-    [ "CreateMesh_", "class_s_y_e_1_1_mesh.html#a6facb043edecb6395e2e3dcf3db27ac7", null ],
+    [ "DefineMesh", "class_s_y_e_1_1_mesh.html#a96aa0834efd5fa6871279cecc886b256", null ],
     [ "GetIndices", "class_s_y_e_1_1_mesh.html#af98bc60e2716d71b2ea9d78150630f46", null ],
     [ "GetVertices", "class_s_y_e_1_1_mesh.html#a9e66c2340f71d76dda1fd4a72bcb8777", null ],
     [ "MakeBlock", "class_s_y_e_1_1_mesh.html#a95b89ff6dab694fb05d5fd0a8dccfc24", null ],

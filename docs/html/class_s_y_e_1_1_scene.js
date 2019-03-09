@@ -5,7 +5,7 @@ var class_s_y_e_1_1_scene =
     [ "~Scene", "class_s_y_e_1_1_scene.html#a40e3f94940a8b5e37fd1c0246b4a2e79", null ],
     [ "AddEntity", "class_s_y_e_1_1_scene.html#a88b18f78091ab4c47fb414f0460c93f7", null ],
     [ "CreateBlock", "class_s_y_e_1_1_scene.html#aeff45aede7b7854c0d01c486784fe9c7", null ],
-    [ "CreateCamera", "class_s_y_e_1_1_scene.html#adff0755047901f072e3cbce823fad356", null ],
+    [ "CreateCamera", "class_s_y_e_1_1_scene.html#a20b661fc5eb2f6dd63e55032fe3db4a9", null ],
     [ "CreateDirectionalLight", "class_s_y_e_1_1_scene.html#a116d5f65339533b9266cb3e8b7800739", null ],
     [ "CreatePointLight", "class_s_y_e_1_1_scene.html#ad2154cfe529c2984822e9d349ce2bf11", null ],
     [ "CreatePrism", "class_s_y_e_1_1_scene.html#a3b1e8edbb5ba13ca80fd6f641b4802f2", null ],

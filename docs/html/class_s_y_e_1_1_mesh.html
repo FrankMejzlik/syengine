@@ -114,9 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2d067b128b5eb656e27a3b7669523c20"><td class="memItemLeft" align="right" valign="top"><a id="a2d067b128b5eb656e27a3b7669523c20"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Mesh</b> (<a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *pOwnerEntity, <a class="el" href="class_s_y_e_1_1_component.html">Component</a> *pOwnerComponent, eSlotIndex slotIndex=UNDEFINED, Component::eType type=eType::MESH)</td></tr>
 <tr class="separator:a2d067b128b5eb656e27a3b7669523c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6facb043edecb6395e2e3dcf3db27ac7"><td class="memItemLeft" align="right" valign="top"><a id="a6facb043edecb6395e2e3dcf3db27ac7"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>CreateMesh_</b> (std::vector&lt; dfloat &gt; vertices, std::vector&lt; unsigned int &gt; indices, bool calculateAverageNormals=false)</td></tr>
-<tr class="separator:a6facb043edecb6395e2e3dcf3db27ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96aa0834efd5fa6871279cecc886b256"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_mesh.html#a96aa0834efd5fa6871279cecc886b256">DefineMesh</a> (std::vector&lt; dfloat &gt; vertices, std::vector&lt; unsigned int &gt; indices, bool calculateAverageNormals=false)</td></tr>
+<tr class="separator:a96aa0834efd5fa6871279cecc886b256"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75ccdfd3c16df862abb90d6046abcdb4"><td class="memItemLeft" align="right" valign="top"><a id="a75ccdfd3c16df862abb90d6046abcdb4"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>RenderMesh</b> ()</td></tr>
 <tr class="separator:a75ccdfd3c16df862abb90d6046abcdb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -439,6 +438,52 @@ Additional Inherited Members</h2></td></tr>
  }</td></tr>
 <tr class="separator:a6d5dd3e14473cb20d69e798da80ee92b inherit pub_types_class_s_y_e_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a96aa0834efd5fa6871279cecc886b256"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96aa0834efd5fa6871279cecc886b256">&#9670;&nbsp;</a></span>DefineMesh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Mesh::DefineMesh </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; dfloat &gt;&#160;</td>
+          <td class="paramname"><em>vertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; unsigned int &gt;&#160;</td>
+          <td class="paramname"><em>indices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>calculateAverageNormals</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Resets and populates this <a class="el" href="class_s_y_e_1_1_mesh.html">Mesh</a> instance with provided vertices and indices data</p>
+<p>This creates generates VAO with VBO and IBO and sends data as STATIC to GPU.</p>
+<p>Vertices MUST be in format: x, y, z, u, v, nx, ny, nz </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="ab4f2802beee3d3aa2fc627bf6afe4fe2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab4f2802beee3d3aa2fc627bf6afe4fe2">&#9670;&nbsp;</a></span>normalOffset</h2>

@@ -23,6 +23,5 @@ var annotated_dup =
     [ "GfxVertexFormat1", "struct_gfx_vertex_format1.html", "struct_gfx_vertex_format1" ],
     [ "GUIHelperInterface", "struct_g_u_i_helper_interface.html", "struct_g_u_i_helper_interface" ],
     [ "MyOverlapFilterCallback2", "struct_my_overlap_filter_callback2.html", "struct_my_overlap_filter_callback2" ],
-    [ "SliderParams", "struct_slider_params.html", "struct_slider_params" ],
-    [ "stbi_io_callbacks", "structstbi__io__callbacks.html", "structstbi__io__callbacks" ]
+    [ "SliderParams", "struct_slider_params.html", "struct_slider_params" ]
 ];

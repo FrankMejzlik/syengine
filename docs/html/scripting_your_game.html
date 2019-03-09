@@ -90,7 +90,71 @@ $(document).ready(function(){initNavTree('scripting_your_game.html','');});
 <div class="title">Scripting your game </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"></div></div><!-- PageDoc -->
+<div class="textblock"><dl class="section note"><dt>Note</dt><dd>At this point you should have some demo engine with some example game logic working. If not, just follow steps in <a class="el" href="building_syengine.html">Building SYEngine</a>.</dd></dl>
+<p>Engine is designed to allow users to write whole game without need of altering any of it's code (but feel free to do so). Therefore your playgournd should be only <code>Game</code> directory.</p>
+<p>That is where whole logic of your game will exist and engine won't disturb you there in any way. You will be able to update engine with just pulling from repository in future (and maybe rewrite some calls we changed).</p>
+<p>Inside <code>Game</code> there is <code>scripts</code> directory, where you will place all your Scripts. Scripts are just C++ classes that engine will compile and use them as you tell him to.</p>
+<p>Beside this direcotry, you can do whatever you want to - create whole C++ project structures and use them in scripts or whatever.</p>
+<p>But let's go one step at a time.</p>
+<h1><a class="anchor" id="scripting_your_game_building_scene"></a>
+Initial building Scene</h1>
+<p>Before your game will be launched for the first time, you have to setup Scene properly. Scene is representing whole one game level or world.</p>
+<p>There is special class <code>_SceneBuilder</code> inside <code>_SceneBuilder.h</code> file. This class has to override method <a class="el" href="class_s_y_e_1_1___scene_builder_base.html#aefa3975a39fc7afb72278ed932ffc71e">SYE::_SceneBuilderBase::SetupScene()</a>.</p>
+<p>This method will be called exactly once before main game loop starts running. Use this method to place Entities into the world and to attach Components on those Entities.</p>
+<h1><a class="anchor" id="scripting_your_game_writing_custom_scripts"></a>
+Writing custom scripts</h1>
+<p>Every script has to inherit from <a class="el" href="class_s_y_e_1_1_script.html">SYE::Script</a> class. This class contains two important methods you can override:</p>
+<p>SYE::Script::OnInitializeScene() This method is called at most once when Scene is being initialized. Use this to do thing you want to do before main game loop starts.</p>
+<p>SYE::Script::OnProcessFrame() This method is called every frame. Use this to update game logic.</p>
+<h2>Inside Script you have access to:</h2>
+<dl class="section note"><dt>Note</dt><dd>Many of those Manager aren't implemented yet.</dd></dl>
+<h3>Managers</h3>
+<ul>
+<li><a class="el" href="class_s_y_e_1_1_input_manager.html">InputManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_entity_manager.html">EntityManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_network_manager.html">NetworkManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_output_manager.html">OutputManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_script_handler.html">ScriptHandler</a></li>
+<li><a class="el" href="class_s_y_e_1_1_scene_manager.html">SceneManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_simulation_manager.html">SimulationManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_audio_manager.html">AudioManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_component_manager.html">ComponentManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_keyboard_manager.html">KeyboardManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_mouse_manager.html">MouseManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_physics_manager.html">PhysicsManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_material_manager.html">MaterialManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_mesh_manager.html">MeshManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_shader_manager.html">ShaderManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_shadow_manager.html">ShadowManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_texture_manager.html">TextureManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_window_manager.html">WindowManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_model_manager.html">ModelManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_ui_manager.html">UiManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_ai_manager.html">AiManager</a></li>
+<li><a class="el" href="class_s_y_e_1_1_script_manager.html">ScriptManager</a></li>
+</ul>
+<p>Get them using <code>Get{name_of_manager}Ptr()</code>, e.g. <code>GetEntityManagerPtr()</code>. All getters can be found <a class="el" href="class_s_y_e_1_1_i_engine_context_interface.html">here</a>.</p>
+<h3>Entity's Primary Components</h3>
+<ul>
+<li><a class="el" href="class_s_y_e_1_1_transform.html">Transform</a></li>
+<li><a class="el" href="class_s_y_e_1_1_mesh_renderer.html">MeshRenderer</a></li>
+<li><a class="el" href="class_s_y_e_1_1_camera.html">Camera</a></li>
+<li><a class="el" href="class_s_y_e_1_1_rigidbody.html">Rigidbody</a></li>
+<li><a class="el" href="class_s_y_e_1_1_script_handler.html">ScriptHandler</a></li>
+<li><a class="el" href="class_s_y_e_1_1_directional_light.html">DirectionalLight</a></li>
+<li><a class="el" href="class_s_y_e_1_1_spot_light.html">SpotLight</a></li>
+<li><a class="el" href="class_s_y_e_1_1_point_light.html">PointLight</a></li>
+</ul>
+<p>Get them using <code>Get{name_of_component}Ptr()</code>, e.g. <code>GetTransformPtr()</code>. All getters can be found <a class="el" href="class_s_y_e_1_1_i_components_interface.html">here</a>.</p>
+<p>You can use all their public methods as you want.</p>
+<h1><a class="anchor" id="scripting_your_game_building_scene"></a>
+Initial building Scene</h1>
+<p>When main game loop starts it will in each frame iteration loop though all active Entities and it's Components and call their "updating" methods (e.g. <code>OnProcessFrame()</code> on Scripts).</p>
+<p>If you placed some ScriptHandlers with Scripts attached on some Entities, their <code>OnProcessFrame()</code> method will be called.</p>
+<dl class="section note"><dt>Note</dt><dd>Take a look at our examples in <code>{repo_root}/examples</code> where you'll find well commented code that builds Scene.</dd>
+<dd>
+If you want inspiration how Scripts are written, take a look inside <code>{repo_root}/SYEngine/scripts/</code> directory where our generic scripts are written. </dd></dl>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
