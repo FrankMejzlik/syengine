@@ -11,8 +11,6 @@
 // Build initial scene in this script's SetupScene method
 #include "_SceneBuilder.h"
 
-#include "script_includes.h"
-
 Scene* SceneManager::_pActiveScene = nullptr;
 
 Scene* SceneManager::GetActiveScene()

@@ -92,7 +92,7 @@ public:
   Entity* CreateCamera(
     Vector3f positionVector, 
     Vector3f startUpDirection, dfloat startYaw, dfloat startPitch,
-    bool isEditor = false
+    bool isEditor = true
   );
 
   Entity* CreateQuad(

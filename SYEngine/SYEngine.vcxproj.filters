@@ -411,6 +411,10 @@
     <ClInclude Include="scripts\RightPaddleController.h" />
     <ClInclude Include="scripts\LeftPaddleController.h" />
     <ClInclude Include="scripts\BallController.h" />
+    <ClInclude Include="scripts\_SceneBuilderBase.h" />
+    <ClInclude Include="scripts\generic_script_includes.h" />
+    <ClInclude Include="Game\scripts\_SceneBuilder.h" />
+    <ClInclude Include="Game\scripts\game_script_includes.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

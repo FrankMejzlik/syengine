@@ -3,7 +3,7 @@
 
 #include "Script.h"
 
-#include "script_includes.h"
+#include "generic_script_includes.h"
 
 using namespace SYE;
 

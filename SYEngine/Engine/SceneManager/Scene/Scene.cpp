@@ -106,7 +106,7 @@ bool Scene::RemoveEntity(Entity* pEntityToDelete)
 Entity* Scene::CreateCamera(
   Vector3f positionVector, 
   Vector3f startUpDirection, dfloat startYaw, dfloat startPitch,
-  bool isEditor = false
+  bool isEditor
 )
 {
   UNREFERENCED_PARAMETER(startUpDirection);

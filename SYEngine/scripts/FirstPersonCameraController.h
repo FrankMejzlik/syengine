@@ -96,8 +96,11 @@ public:
     // If normal play camera mode
     if (!_isFirstPerson)
     {
-      // Do action camera
-      ProcessActionCamera(deltaTime, pScene);
+      if (_pBall != nullptr)
+      {
+        // Do action camera
+        ProcessActionCamera(deltaTime, pScene);
+      }
     }
     // If free first person
     else

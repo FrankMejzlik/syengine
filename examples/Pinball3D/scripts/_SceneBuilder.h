@@ -5,6 +5,7 @@
 * @breif Class @ref SYE::_SceneBuilder implementation
 */
 
+#include "_SceneBuilderBase.h"
 #include "Script.h"
 #include "Scene.h"
 #include "Entity.h"
@@ -12,46 +13,50 @@
 #include "Rigidbody.h"
 #include "PointLight.h"
 
-#include "script_includes.h"
+// Include all scripts you're gonna use
+#include "game_script_includes.h"
 
 namespace SYE
 {
 
 /**
- * @brief   Class responsible for building initial Scene instance before launch
+ * Class responsible for building initial Scene instance before launch
+ *
+ * This is derrived class of abstract _SceneBuilderBase. This is concrete implementation
+ * for concrete game that is being scripted.
+ * 
  */
-class _SceneBuilder
+class _SceneBuilder:
+  public _SceneBuilderBase
 {
 public:
   /**
-   * Builds initial scene.
+   * Builds initial scene
    *
    * This is special script that is executed exactly once before game itself starts.
    *
    * @param   Scene*  Pointer to Scene instance we are building
    * @return  void
    */
-  void SetupScene(Scene* pScene)
+  virtual void SetupScene(Scene* pScene) override
   {
-    // Local variables used for building Scene
-    MeshRenderer* pMeshRenderer;
-    Entity* pEntity;
-    Transform* pTransform;
-    ScriptHandler* pScriptHander;
-    Rigidbody* pRigidbody;
-
     // Create lights
     ConstructLighting(pScene);
 
     // Create playground machine
     ConstructPinballMachine(pScene);
 
+    // Create hitters
+    ConstructHitters(pScene);
+
     // Create player paddles
     CreatePaddles(pScene);
-    
-    CreateCameras(pScene);
 
+    // Create ball
     CreateBalls(pScene);
+    
+    // Create Scene 
+    CreateCameras(pScene);
 
   }
 
@@ -63,7 +68,7 @@ private:
    *  @param  Scene*  Pointer to scene instance we're building
    *  @return void
    */
-  void CreateCameras(Scene* pScene)
+  void CreateBalls(Scene* pScene)
   {
     // Local variables used for building Scene
     Entity* pEntity;
@@ -116,6 +121,9 @@ private:
 
     // Save all edits done on this Entity
     pEntity->SaveEntity();
+
+    // Save this Entity
+    _pBallEntity = pEntity;
   }
 
   /** 
@@ -150,7 +158,7 @@ private:
     FirstPersonCameraController* pCamController = pScriptHander->AddScript<FirstPersonCameraController>();
 
     // Set pointer to ball object to Script
-    pCamController->SetBallPtr(pEntity->GetRigidbodyPtr());
+    pCamController->SetBallPtr(_pBallEntity->GetRigidbodyPtr());
 
     // Save all edits done on this Entity
     pEntity->SaveEntity();
@@ -201,9 +209,6 @@ private:
     // Local variables used for building Scene
     MeshRenderer* pMeshRenderer;
     Entity* pEntity;
-    Transform* pTransform;
-    Rigidbody* pRigidbody;
-
 
     /*
       * Back base of playfield
@@ -553,8 +558,6 @@ private:
     // Local variables used for building Scene
     MeshRenderer* pMeshRenderer;
     Entity* pEntity;
-    Transform* pTransform;
-    ScriptHandler* pScriptHander;
     Rigidbody* pRigidbody;
 
 
@@ -764,7 +767,6 @@ private:
   void CreatePaddles(Scene* pScene)
   {
     // Local variables used for building Scene
-    MeshRenderer* pMeshRenderer;
     Entity* pEntity;
     Transform* pTransform;
     ScriptHandler* pScriptHander;
@@ -824,6 +826,10 @@ private:
       pRigidbody->SetIsKinematic(true);
     }
   }
+
+  protected:
+    /** Pointer to Entity that represents ball */
+    Entity* _pBallEntity;
 
 };
 
