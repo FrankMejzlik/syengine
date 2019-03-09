@@ -21,6 +21,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="custom_styles.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -92,13 +93,20 @@ $(document).ready(function(){initNavTree('class_s_y_e_1_1___scene_builder.html',
 <div class="title">SYE::_SceneBuilder Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class responsible for building initial <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> instance before launch.  
+ <a href="class_s_y_e_1_1___scene_builder.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="___scene_builder_8h_source.html">_SceneBuilder.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aca66db9d4439385c034f44c166ba8d6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1___scene_builder.html#aca66db9d4439385c034f44c166ba8d6b">SetupScene</a> (<a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *pScene)</td></tr>
 <tr class="separator:aca66db9d4439385c034f44c166ba8d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class responsible for building initial <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> instance before launch. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aca66db9d4439385c034f44c166ba8d6b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aca66db9d4439385c034f44c166ba8d6b">&#9670;&nbsp;</a></span>SetupScene()</h2>
 
@@ -122,8 +130,15 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Mid blockers</p>
-<p>Hitters</p>
+<p>Builds initial scene.</p>
+<p>This is special script that is executed exactly once before game itself starts.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Scene*</td><td>Pointer to <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> instance we are building </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>

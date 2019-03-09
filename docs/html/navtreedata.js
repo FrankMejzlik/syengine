@@ -53,13 +53,13 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"___scene_builder_8h_source.html",
-"class_s_y_e_1_1_collider.html#a0001cf752419b7a1d8271aafe0cc9b62",
-"class_s_y_e_1_1_i_components_interface.html#ace6da526d4f18efef9ea27424938ac7f",
-"class_s_y_e_1_1_model_manager.html#a423009203fcefab7ff63f93cfaad5899",
-"class_s_y_e_1_1_shader.html#a6b0fdff4995f639efd59f2a29c897030",
-"class_s_y_e_1_1_window.html#af0e8c3dcc20b7ddcaf63506363a22821",
-"struct_common_render_interface.html#a2788a9f07b4a9087a6c33909b5751e81"
+"___scene_builder_8h.html",
+"class_s_y_e_1_1_camera.html#ae9ae6a55a051f85908973f72b8775005",
+"class_s_y_e_1_1_i_components_interface.html#a907886143cc05060b7f928a942f94f47",
+"class_s_y_e_1_1_model_manager.html#a2f71c21882d33dc9b8ffc8d593423f02",
+"class_s_y_e_1_1_shader.html#a5718b7791ec234b3e35d79e4ceb3d0da",
+"class_s_y_e_1_1_window.html#ad7af19105babca964728439c1b9bec1b",
+"struct_common_parameter_interface.html#aba5b3e21b04da28b2170b79c484d4c53"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

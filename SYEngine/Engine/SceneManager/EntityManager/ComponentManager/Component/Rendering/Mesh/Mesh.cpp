@@ -17,7 +17,7 @@ Mesh::~Mesh()
   ClearMesh();
 }
 
-void Mesh::CreateMesh_(
+void Mesh::DefineMesh(
   std::vector<dfloat> vertices, std::vector<unsigned int> indices, 
   bool calculateAverageNormals  
 )
@@ -43,7 +43,7 @@ void Mesh::CreateMesh_(
   glBindBuffer(GL_ARRAY_BUFFER, _VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * _vertexCount, &(vertices[0]), GL_STATIC_DRAW);
 
-  // Define how one vertex data look like for 
+  // x, y, z
   glVertexAttribPointer(
     0,                          // Pointer ID 
     3,                          // Number of data send in - x,y,z = 3
@@ -54,7 +54,7 @@ void Mesh::CreateMesh_(
   );
   glEnableVertexAttribArray(0);
 
-  // Define attrib pointer for two additional data on each vertex
+  // u, v
   glVertexAttribPointer(
     1,
     2,
@@ -65,6 +65,7 @@ void Mesh::CreateMesh_(
   );
   glEnableVertexAttribArray(1); 
 
+  // nx, ny, nz
   glVertexAttribPointer(
     2,
     3,
@@ -132,7 +133,7 @@ void Mesh::MakeBlock(dfloat width, dfloat height, dfloat length)
 {
   auto data = GetMeshManagerPtr()->GenerateBlockVerticesIndices(width, height, length);
   
-  CreateMesh_(data.first, data.second, false);
+  DefineMesh(data.first, data.second, false);
 }
 
 void Mesh::MakePrism(
@@ -142,21 +143,21 @@ void Mesh::MakePrism(
 {
   auto data = GetMeshManagerPtr()->GeneratePrismVerticesIndices(p1, p2, p3, p4, p5, p6, p7, p8);
 
-  CreateMesh_(data.first, data.second, false);
+  DefineMesh(data.first, data.second, false);
 }
 
 void Mesh::MakeQuad(dfloat width, dfloat height)
 {
   auto data = GetMeshManagerPtr()->GenerateQuadVerticesIndices(width, height);
 
-  CreateMesh_(data.first, data.second, false);
+  DefineMesh(data.first, data.second, false);
 }
 
 void Mesh::MakeSphere(dfloat radius, size_t numSlices, size_t numStacks)
 {
   auto data = GetMeshManagerPtr()->GenerateSphereVerticesIndices(radius, numSlices, numStacks);
 
-  CreateMesh_(data.first, data.second, false);
+  DefineMesh(data.first, data.second, false);
 }
 
 bool Mesh::CalculateAverageNormals(std::vector<dfloat>& vertices, std::vector<unsigned int>& indices)

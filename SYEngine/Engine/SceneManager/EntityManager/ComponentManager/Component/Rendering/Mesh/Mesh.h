@@ -29,8 +29,15 @@ public:
   );
   virtual ~Mesh() noexcept;
 
-
-  virtual void CreateMesh_(
+  /**
+   * Resets and populates this Mesh instance with provided vertices and indices data
+   *
+   * This creates generates VAO with VBO and IBO and sends data as STATIC to GPU.
+   *
+   * Vertices MUST be in format:
+   *    x, y, z,    u, v,     nx, ny, nz
+   */
+  virtual void DefineMesh(
     std::vector<dfloat> vertices, std::vector<unsigned int> indices, 
     bool calculateAverageNormals = false
   );

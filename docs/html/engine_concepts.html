@@ -21,6 +21,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="custom_styles.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -89,9 +90,13 @@ $(document).ready(function(){initNavTree('engine_concepts.html','');});
 <div class="title">Engine concepts </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1>Brief concepts</h1>
-<p>Game (<b>Scene</b>) consists of <b>Entities</b>. Entities are defined by their <b>Primary Components</b>, Entity without Components is nothing but useless data in memory. Primary Components are specific classes with specific functionalities and responsibilities and can have <b>SubComponents</b></p>
-<h2>Example hierarchy</h2>
+<div class="textblock"><h1><a class="anchor" id="basic_scene_composition"></a>
+"Basic Scene composition"</h1>
+<p>Game (<b>Scene</b>) consists of <b>Entities</b>.</p>
+<p>Entities are defined by their <a class="el" href="engine_concepts.html#primary_components">Primary Components</a>, Entity without Components is nothing but useless data in memory.</p>
+<p><a class="el" href="engine_concepts.html#primary_components">Primary Components</a> are specific classes with specific functionalities and responsibilities. Some of them have <a class="el" href="engine_concepts.html#sub_components">SubComponents</a> attached to them.</p>
+<h2><a class="anchor" id="example_hierarchy"></a>
+"Example hierarchy"</h2>
 <ul>
 <li>Entity<ul>
 <li>Transform</li>
@@ -117,13 +122,34 @@ $(document).ready(function(){initNavTree('engine_concepts.html','');});
 </ul>
 </li>
 </ul>
-<h2>Primary Components:</h2>
-<h3>Transform</h3>
-<h3>Camera</h3>
-<h3>MeshRenderer</h3>
-<h3>ScriptHandler</h3>
-<h3>Rigidbody</h3>
-<p><em>There are implemented some shorthands for frequently used standard Entities like Camera, Block, Sphere etc. You can find <b>Create{Something}</b> methods in <a href="docs/auto/html/class_s_y_e_1_1_scene.html">Scene class</a>.</em> </p>
+<h2><a class="anchor" id="engine_diagram"></a>
+Engine Scene/Entity/Component diagram</h2>
+<div class="image">
+<img src="engine_composition_diagram.jpg" alt="engine_composition_diagram.jpg"/>
+<div class="caption">
+Engine composition</div></div>
+ <h2><a class="anchor" id="primary_components"></a>
+Primary Components</h2>
+<ul>
+<li><a class="el" href="class_s_y_e_1_1_transform.html">Transform</a></li>
+<li><a class="el" href="class_s_y_e_1_1_mesh_renderer.html">MeshRenderer</a></li>
+<li><a class="el" href="class_s_y_e_1_1_camera.html">Camera</a></li>
+<li><a class="el" href="class_s_y_e_1_1_rigidbody.html">Rigidbody</a></li>
+<li><a class="el" href="class_s_y_e_1_1_script_handler.html">ScriptHandler</a></li>
+<li><a class="el" href="class_s_y_e_1_1_directional_light.html">DirectionalLight</a></li>
+<li><a class="el" href="class_s_y_e_1_1_spot_light.html">SpotLight</a></li>
+<li><a class="el" href="class_s_y_e_1_1_point_light.html">PointLight</a></li>
+</ul>
+<h2><a class="anchor" id="sub_components"></a>
+"SubComponents"</h2>
+<ul>
+<li><a class="el" href="class_s_y_e_1_1_collider.html">Collider</a></li>
+<li><a class="el" href="class_s_y_e_1_1_script.html">Script</a></li>
+<li><a class="el" href="class_s_y_e_1_1_camera.html">Camera</a></li>
+<li><a class="el" href="class_s_y_e_1_1_shininess.html">Shininess</a></li>
+<li><a class="el" href="class_s_y_e_1_1_texture.html">Texture</a></li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>There are implemented some shorthands for frequently used standard Entities like Camera, Block, Sphere etc. You can find Create{Something} methods in <a class="el" href="class_s_y_e_1_1_scene.html">SYE::Scene</a> class. </dd></dl>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

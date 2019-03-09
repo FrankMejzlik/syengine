@@ -1,5 +1,6 @@
 var NAVTREEINDEX0 =
 {
+"___scene_builder_8h.html":[3,0,0,3,0],
 "___scene_builder_8h_source.html":[3,0,0,3,0],
 "_ai_manager_8h_source.html":[3,0,0,1,3,0,0],
 "_animation_manager_8h_source.html":[3,0,0,1,7,0,0],
@@ -108,6 +109,7 @@ var NAVTREEINDEX0 =
 "_window_manager_8h_source.html":[3,0,0,1,5,1,2,0],
 "annotated.html":[2,0],
 "building_syengine.html":[0,0],
+"building_syengine.html#msvc":[0,0,0],
 "class_common_example_interface.html":[2,0,7],
 "class_common_example_interface.html#a16807138dd534e13afdf816473859208":[2,0,7,15],
 "class_common_example_interface.html#a21b576bebd2c258c522741ea55fde7d3":[2,0,7,13],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "class_s_y_e_1_1_camera.html#aa126ccbe77dddec05e6fe7fd6f951405":[2,0,0,9,17],
 "class_s_y_e_1_1_camera.html#aa99b2bd5e7fa1e57572a2baae52a1fbc":[2,0,0,9,11],
 "class_s_y_e_1_1_camera.html#ab79aef1af430d2b1a7810ba4333f9638":[2,0,0,9,12],
-"class_s_y_e_1_1_camera.html#ad62a0c2d7903d4443816571c46fc9e4e":[2,0,0,9,4],
-"class_s_y_e_1_1_camera.html#ae9ae6a55a051f85908973f72b8775005":[2,0,0,9,20],
-"class_s_y_e_1_1_collider.html":[2,0,0,10]
+"class_s_y_e_1_1_camera.html#ad62a0c2d7903d4443816571c46fc9e4e":[2,0,0,9,4]
 };
