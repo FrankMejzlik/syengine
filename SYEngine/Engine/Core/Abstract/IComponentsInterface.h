@@ -17,6 +17,7 @@ class Softbody;
 class MeshRenderer;
 class PointLight;
 class ScriptHandler;
+class SpotLight;
 
 /**
  * Interface for classes that needs to access EngineContext data
@@ -45,6 +46,7 @@ public:
   MeshRenderer* GetMeshRendererPtr() const;
   PointLight* GetPointLightPtr() const;
   ScriptHandler* GetFirstScriptHandlerPtr() const;
+  SpotLight* GetSpotLightPtr() const;
   std::map<size_t, Component*>& GetScriptHandlersRef();
 
 private:
@@ -61,6 +63,7 @@ private:
   PhysicsBody* _pPhysicsBody;
   MeshRenderer* _pMeshRenderer;
   PointLight* _pPointLight;
+  SpotLight* _pSpotLight;
 
   // Multitons
   std::map<size_t, Component*> _pScriptHandlers;

@@ -8,6 +8,7 @@
 #include "MeshRenderer.h"
 #include "PointLight.h"
 #include "ScriptHandler.h"
+#include "SpotLight.h"
 
 using namespace SYE;
 
@@ -38,6 +39,11 @@ void IComponentsInterface::RefreshQuickRefs()
   if (!_primaryComponentOnEntity[COMPONENT_POINT_LIGHT_SOURCE_SLOT].empty())
   {
     _pPointLight = static_cast<PointLight*>(_primaryComponentOnEntity[COMPONENT_POINT_LIGHT_SOURCE_SLOT].begin()->second);
+  }
+
+  if (!_primaryComponentOnEntity[COMPONENT_SPOT_LIGHT_SOURCE_SLOT].empty())
+  {
+	  _pSpotLight = static_cast<SpotLight*>(_primaryComponentOnEntity[COMPONENT_SPOT_LIGHT_SOURCE_SLOT].begin()->second);
   }
 
   if (!_primaryComponentOnEntity[COMPONENT_SCRIPT_HANDLER_SLOT].empty())
@@ -74,6 +80,11 @@ MeshRenderer* IComponentsInterface::GetMeshRendererPtr() const
 PointLight* IComponentsInterface::GetPointLightPtr() const
 {
   return _pPointLight;
+}
+
+SpotLight* IComponentsInterface::GetSpotLightPtr() const
+{
+	return _pSpotLight;
 }
 
 ScriptHandler* IComponentsInterface::GetFirstScriptHandlerPtr() const

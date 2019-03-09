@@ -6,7 +6,7 @@
 
 #define COMPONENTS_NUM_SLOTS 10
 
-#define COMPONENT_SLOT_SINGLETONS 1, 2, 3, 4, 5, 7, 8
+#define COMPONENT_SLOT_SINGLETONS 1, 2, 3, 4, 7, 8
 #define COMPONENT_SLOT_SINGLETONS_COUNT 7
 
 /** List of slots that can have only one Component */
