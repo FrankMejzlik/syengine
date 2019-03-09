@@ -257,6 +257,7 @@
     <ClCompile Include="Engine\SimulationManager\PhysicsManager\MotionState.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\PhysicsBody.cpp" />
     <ClCompile Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.cpp" />
+    <ClCompile Include="Game\**\*.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Abstract\IEngineContextInterface.h" />
@@ -265,8 +266,6 @@
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\SphereCollider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\ConvexHullCollider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material\Shininess.h" />
-    <ClInclude Include="Game\scripts\game_script_includes.h" />
-    <ClInclude Include="Game\scripts\_SceneBuilder.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\PhysicsDebugRenderer.h" />
     <ClInclude Include="Engine\Core\config_components.h" />
     <ClInclude Include="Engine\LogicManager\ScriptManager\ScriptManager.h" />
@@ -378,6 +377,7 @@
     <ClInclude Include="scripts\LeftPaddleController.h" />
     <ClInclude Include="scripts\BallController.h" />
     <ClInclude Include="scripts\_SceneBuilderBase.h" />
+    <ClInclude Include="Game\**\*.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\shaders\directional_shadow_map.frag" />

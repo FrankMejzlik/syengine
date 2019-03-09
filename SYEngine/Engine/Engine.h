@@ -49,7 +49,7 @@ class Engine :
 {
 public:
   Engine() = delete;
-  Engine(ProcessInstance* instance) noexcept;
+  Engine(ProcessInstance* instance = nullptr) noexcept;
   virtual ~Engine() noexcept;
 
   virtual bool Initialize() override;
