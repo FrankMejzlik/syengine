@@ -39,6 +39,29 @@ public:
   virtual ~BallController() noexcept {}
 
 
+  virtual void OnCollision(const PhysicsBody::Collision& collision)
+  {
+    PhysicsBody* obAPtr = GetRigidbodyPtr();
+    PhysicsBody* obBPtr = collision.m_pOther;
+
+    if (obAPtr == nullptr || obBPtr == nullptr)
+    {
+      PUSH_ENGINE_ERROR(
+        eEngineError::CollisionWithoutColidingObjects, 
+        "Collision of bodies on Entity " + std::to_string(_pOwnerEntity->GetGuid()) + " has missing pointer to objects.", 
+        ""
+      );
+      return;
+    }
+
+    // If Ball + Hitter collision
+    // Sum of 3 means that it is ball + hitter pair
+    if (obAPtr->GetTag() + obBPtr->GetTag() == 3ULL)
+    {
+      TickScore();
+    }
+  }
+
   /**
    * Initialize this script
    *

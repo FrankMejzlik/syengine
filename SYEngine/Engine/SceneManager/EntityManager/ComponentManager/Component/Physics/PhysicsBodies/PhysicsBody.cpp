@@ -7,6 +7,8 @@
 #include "PhysicsScene.h"
 #include "Transform.h"
 #include "PhysicsEntity.h"
+#include "ScriptHandler.h"
+#include "Script.h"
 
 using namespace SYE;
 
@@ -41,6 +43,19 @@ void PhysicsBody::SetTag(size_t tag)
 size_t PhysicsBody::GetTag() const
 {
   return _tag;
+}
+
+void PhysicsBody::TriggerOnCollision(const Collision& collision)
+{
+  auto scriptHandlers = GetScriptHandlersRef();
+
+  // Loop through all ScriptHandlers and trigger their collision methods
+  for (auto&& scriptHandlerPair : scriptHandlers)
+  {
+    ScriptHandler* pSH = static_cast<ScriptHandler*>(scriptHandlerPair.second);
+
+    pSH->GetAttachedScriptPtr()->OnCollision(collision);
+  }
 }
 
 void PhysicsBody::SetCollider(Collider* pCollider)

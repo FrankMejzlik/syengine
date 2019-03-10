@@ -17,3 +17,9 @@ Script::Script(
 
 Script::~Script() noexcept
 {}
+
+void Script::OnCollision(const PhysicsBody::Collision& collision)
+{
+  UNREFERENCED_PARAMETER(collision);
+}
+  

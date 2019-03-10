@@ -14,6 +14,17 @@ class Transform;
 class PhysicsBody:
   public Component
 {
+  // Structures
+public:
+  struct Collision
+  {
+    PhysicsBody* m_pOther;
+    Vector3f m_pointOnThis;
+    Vector3f m_pointOnOther;
+    Vector3f m_normalOnOther;
+  };
+
+  // Methods
 public:
   PhysicsBody() = delete;
   PhysicsBody(
@@ -27,6 +38,8 @@ public:
   
   void SetTag(size_t tag);
   size_t GetTag() const;
+
+  void TriggerOnCollision(const Collision& collision);
 
   void SetCollider(Collider* pCollider);
   Collider* GetCollider() const { return _pCollider; }

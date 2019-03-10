@@ -27,6 +27,7 @@ enum class eEngineError
   PhysicalSceneNotSet = 502,
   PhysicsWorldNotSet = 503,
   PhysicsLibRaycastWeirdResult = 504,
+  CollisionWithoutColidingObjects = 505,
 
   AttachingMultipleSingletonSlotComponents = 1000,
   DuplicateComponentOnEntity = 1001,

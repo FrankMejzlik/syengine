@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "PhysicsBody.h"
 
 namespace SYE 
 {
@@ -21,6 +22,12 @@ public:
   );
   virtual ~Script() noexcept;
 
+  /*!
+   * This function is called whenever some PhysicsBody on Entity we're attached to is in collision
+   * 
+   * \param collision Reference to structure containing all needed data about this collision.
+   */
+  virtual void OnCollision(const PhysicsBody::Collision& collision);
   virtual void OnInitializeScene() = 0;
   virtual void OnProcessFrame(dfloat deltaTime, Scene* pScene) = 0;
 

@@ -37,27 +37,36 @@ void PhysicsScene::Initialize()
   // Set gravity
   _pWorld->setGravity(btVector3(0.0f, -9.80665f, 0.0f));
 
-  // Create initial physics objects for Scene
-  //InsertInitialPhysicsEntities();
 }
 
 void PhysicsScene::ProcessScene(dfloat deltaTime)
 {
-  UNREFERENCED_PARAMETER(deltaTime);
-
+  // Simulate this frame
   if (_pWorld)
   {
-    _pWorld->stepSimulation(deltaTime, 10, 1/120.0f);
+    _pWorld->stepSimulation(deltaTime, 10);
   }
 
-  // Check collisions
+  // Process collisions
+  ProcessCollisions();
+  
+  // Sync it
+  SyncPhysicsToGraphics();
+}
+
+void PhysicsScene::ProcessCollisions() const
+{
+  // Get dispatcher and manifolds
   auto disp = _pWorld->getDispatcher();
   int numManifolds = disp->getNumManifolds();
 
+  // Iteratre though all possible collisions
   for (int i = 0; i < numManifolds; i++)
   {
+    // Get contact manifold
     btPersistentManifold* contactManifold = _pWorld->getDispatcher()->getManifoldByIndexInternal(i);
-    
+
+    // Get collision objects
     const btCollisionObject* obA = contactManifold->getBody0(); obA;
     const btCollisionObject* obB = contactManifold->getBody1(); obB;
 
@@ -65,50 +74,32 @@ void PhysicsScene::ProcessScene(dfloat deltaTime)
     PhysicsBody* obAPtr = static_cast<PhysicsBody*>(obA->getUserPointer()); obAPtr;
     PhysicsBody* obBPtr = static_cast<PhysicsBody*>(obB->getUserPointer()); obBPtr;
 
+    // Get num contacts
+    int numContacts = contactManifold->getNumContacts();
 
-    // TODO: This should be in scripted part of game outside of engine
-
-    // If Ball + Hitter collision
-    // Sum of 3 means that it is ball + hitter pair
-    if (obAPtr->GetTag() + obBPtr->GetTag() == 3ULL)
+    // Iterate through all contacts
+    for (int j = 0; j < numContacts; j++)
     {
-      // Get num contacts
-      int numContacts = contactManifold->getNumContacts();
-      for (int j = 0; j < numContacts; j++)
+      // Fetch contact point
+      btManifoldPoint& pt = contactManifold->getContactPoint(j);
+      if (pt.getDistance() < 0.f)
       {
-        btManifoldPoint& pt = contactManifold->getContactPoint(j);
-        if (pt.getDistance() < 0.f)
-        {
-          PhysicsBody* pBall;
+        // Extract data about collision
+        const btVector3& ptA = pt.getPositionWorldOnA();
+        const btVector3& ptB = pt.getPositionWorldOnB();
+        const btVector3& normalOnB = pt.m_normalWorldOnB;
 
-          // Decde what is Ball object
-          if (obAPtr->GetTag() == 1ULL)
-          {
-            pBall = obAPtr;
-          }
-          else
-          {
-            pBall = obBPtr;
-          }
+        // Create new collision structs
+        PhysicsBody::Collision collisionA = { obBPtr, ptA, ptB, normalOnB };
+        PhysicsBody::Collision collisionB = { obAPtr, ptB, ptA, normalOnB };
 
-          //const btVector3& ptA = pt.getPositionWorldOnA(); ptA;
-          //const btVector3& ptB = pt.getPositionWorldOnB(); ptB;
-          //const btVector3& normalOnB = pt.m_normalWorldOnB; normalOnB;
+        // Trigger those collisions wheerever it is needed
+        obAPtr->TriggerOnCollision(std::move(collisionA));
+        obBPtr->TriggerOnCollision(std::move(collisionB));
 
-          // Tick on BallController script
-          BallController* pScript = static_cast<BallController*>(pBall->GetFirstScriptHandlerPtr()->GetAttachedScriptPtr());
-          pScript->TickScore();
-
-        }
       }
     }
   }
-
-  // Draw debug physics info
-  //_pWorld->debugDrawWorld();
-
-  // Sync it
-  SyncPhysicsToGraphics();
 }
 
 void PhysicsScene::DrawDebug(GLuint shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix)
@@ -167,26 +158,6 @@ void PhysicsScene::SyncPhysicsToGraphics()
   }
 }
 
-void PhysicsScene::InsertInitialPhysicsEntities()
-{
-  // Get active PhysicsBodies - RigidBody, SoftBody
-  auto physicsBodies = _pOwnerScene->GetActivePrimaryComponentSlotsRef()[COMPONENT_PHYSICS_BODY_SLOT];
-
-  // Iteratre through all active PhysicsBodies
-  for (auto&& bodyPair : physicsBodies)
-  {
-    Component* pBody = bodyPair.second;
-
-    // Check if this Body is in scene already
-    if (DoesContain(pBody->GetGuid()))
-    {
-      continue;
-    }
-    InsertPhysicsEntity(static_cast<PhysicsBody*>(pBody));
-  }
-
-}
-
 bool PhysicsScene::RemovePhysicsEntity(PhysicsBody* pBody)
 {
   auto result = _entityToPhysicsEntitiyMap.erase(pBody->GetOwnerEntityPtr()->GetGuid());
@@ -229,18 +200,6 @@ void PhysicsScene::RemoveFromPhysicsScene(PhysicsEntity* pPhysEntity)
   _pWorld->removeCollisionObject(pPhysEntity->GetCollisionObjectPtr());
 }
 
-bool PhysicsScene::DoesContain(size_t guid) const
-{
-  // Try to find this key
-  const auto result = _entityToPhysicsEntitiyMap.find(guid);
-
-  if (result == _entityToPhysicsEntitiyMap.end())
-  {
-    return false;
-  }
-
-  return true;
-}
 
 PhysicsEntity* PhysicsScene::AddRigidBody(Rigidbody* pBody)
 {
