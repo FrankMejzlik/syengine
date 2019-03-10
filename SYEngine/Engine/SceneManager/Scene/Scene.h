@@ -52,7 +52,7 @@ public:
    * \param positionVector  Position of camera. 
    * \param initialYaw  Initial yaw angle (in degrees) camera will start with.
    * \param startPitch  Initial pitch angle (in degrees) camera will start with.
-   *    @note  Yaw, pitch and roll are applied always in order yaw, pitch, roll.
+   *    \note  Yaw, pitch and roll are applied always in order yaw, pitch, roll.
    * \return  Pointer to newly added Entity.
    */
   Entity* AddCamera(

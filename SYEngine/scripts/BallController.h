@@ -124,7 +124,7 @@ public:
   void CloseStartingRoom()
   {
     // Spawn blocking door to starting chamber
-    pBackBase = _pScene->CreatePrism(
+    pBackBase = _pScene->AddPrism(
       Vector3f(5.0f, -6.0f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
       Vector3f(0.0f, 0.0f, 0.0f),
       Vector3f(0.0f, 0.0f, -1.0f), Vector3f(2.0f, 2.0f, -1.0f), Vector3f(2.0f, 2.5f, -1.0f), Vector3f(0.0f, 0.5f, -1.0f),
