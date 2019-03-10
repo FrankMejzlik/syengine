@@ -7,10 +7,10 @@ using namespace SYE;
 
 #include <iostream>
 
-void PhysicsDebugRenderer::SetMatrices(GLuint shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) 
+void PhysicsDebugRenderer::SetMatrices(size_t shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) 
 {
-  glUniformMatrix4fv(glGetUniformLocation(shaderId, "projection"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-  glUniformMatrix4fv(glGetUniformLocation(shaderId, "view"), 1, GL_FALSE, glm::value_ptr(viewMatrix));
+  glUniformMatrix4fv(glGetUniformLocation(static_cast<GLuint>(shaderId), "projection"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+  glUniformMatrix4fv(glGetUniformLocation(static_cast<GLuint>(shaderId), "view"), 1, GL_FALSE, glm::value_ptr(viewMatrix));
 }
 
 void PhysicsDebugRenderer::drawLine(const btVector3& from, const btVector3 &to, const btVector3 &color)

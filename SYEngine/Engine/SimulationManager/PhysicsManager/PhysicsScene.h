@@ -3,16 +3,14 @@
 #include <memory>
 #include <map>
 
-#include <GL/glew.h>
-
 #pragma warning (push, 0)
 #include "btBulletDynamicsCommon.h"
 #include "BulletDynamics/Dynamics/btDynamicsWorld.h"
 #include "BulletDynamics/ConstraintSolver/btConstraintSolver.h"
 #pragma warning(pop)
 
-#include "IErrorLogging.h"
 #include "common.h"
+#include "IErrorLogging.h"
 #include "PhysicsEntity.h"
 
 namespace SYE
@@ -68,7 +66,7 @@ public:
    * \param viewMatrix  Camera view matrix.
    * \param projectionMatrix  Camera projection matrix.
    */
-  void DrawDebug(GLuint shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+  void DrawDebug(size_t shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
   /*!
    * Casts ray from provided point in world to specified direction and 

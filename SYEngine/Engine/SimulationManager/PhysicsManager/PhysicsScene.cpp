@@ -102,7 +102,7 @@ void PhysicsScene::ProcessCollisions() const
   }
 }
 
-void PhysicsScene::DrawDebug(GLuint shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix)
+void PhysicsScene::DrawDebug(size_t shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix)
 {
   _pDebugRenderer->SetMatrices(shaderId, viewMatrix, projectionMatrix);
 

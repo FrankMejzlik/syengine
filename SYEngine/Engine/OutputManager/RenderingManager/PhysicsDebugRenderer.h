@@ -28,7 +28,7 @@ public:
   virtual void  reportErrorWarning(const char* warningString) override;
   virtual void  draw3dText(const btVector3& location, const char* textString) override;
 
-  void SetMatrices(GLuint shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+  void SetMatrices(size_t shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
   void ToggleDebugFlag(int flag);
 
