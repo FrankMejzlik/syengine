@@ -408,6 +408,7 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     <ClInclude Include="Engine\SimulationManager\PhysicsManager\MotionState.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\PhysicsBodies\PhysicsBody.h" />
     <ClInclude Include="Engine\SimulationManager\PhysicsManager\PhysicsEntity.h" />
+    <ClInclude Include="scripts\GeneralInputHandler.h" />
     <ClInclude Include="scripts\generic_script_includes.h" />
     <ClInclude Include="scripts\script_includes.h" />
     <ClInclude Include="scripts\FirstPersonCameraController.h" />

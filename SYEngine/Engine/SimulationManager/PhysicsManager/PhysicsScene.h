@@ -190,9 +190,6 @@ private:
   //! Debug renderer for physics
   PhysicsDebugRenderer* _pDebugRenderer;
 
-  //!  Mapping Entity GUID to existing PhysicsEntities
-  std::map< size_t, std::unique_ptr<PhysicsEntity> > _entityToPhysicsEntitiyMap;
-
   //!  How broadphase is solved
   std::unique_ptr<btBroadphaseInterface> _pBroadphaseInterface;
 
@@ -208,6 +205,8 @@ private:
   //!  Dynamic physics world
   std::unique_ptr<btDynamicsWorld> _pWorld;
 
+  //!  Mapping Entity GUID to existing PhysicsEntities
+  std::map< size_t, std::unique_ptr<PhysicsEntity> > _entityToPhysicsEntitiyMap;
 };
 
 };

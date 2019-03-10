@@ -70,7 +70,6 @@ public:
   AiManager* GetAiManagerPtr() const;
   ScriptManager* GetScriptManagerPtr() const;
 
-
 private:
   /** Context of Engine instance */
   EngineContext* _pEngineContext;

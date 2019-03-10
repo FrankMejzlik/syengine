@@ -16,6 +16,9 @@ class PhysicsBody:
 {
   // Structures
 public:
+  /*!
+   * Structure representing data about specific collision between objects 
+   */
   struct Collision
   {
     PhysicsBody* m_pOther;
@@ -61,22 +64,25 @@ public:
   void SetPhysicsEntity(PhysicsEntity* pPhysEntity);
   PhysicsEntity* GetPhysicsEntity() const;
   
+
   // Attributes
 protected:
-  /** Collider for this body */
+  //! Collider for this body 
   Collider* _pCollider;
 
-  /** Pointer to PhysicsEntity instance used for simulation */
+  //! Pointer to PhysicsEntity instance used for simulation 
   PhysicsEntity* _pPhysEntity;
 
-  /** Mass of this body */
+  //! Mass of this body 
   dfloat _mass;
 
-  /** If is kinematic (must also have zero mass)*/
+  //! If is kinematic (must also have zero mass)
   bool _isKinematic;
 
+  //! How much kinematic energy is absorbed/increased back
   dfloat _restitution;
 
+  //! Tag of this body used for collision detection filtering
   size_t _tag;
 
 };

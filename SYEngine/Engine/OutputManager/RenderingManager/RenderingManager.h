@@ -37,6 +37,9 @@ public:
 
   bool InitializeGraphicsApi();
 
+  void TogglePhysicsDrawWireframe();
+  void TogglePhysicsDrawAABBs();
+
   Window* ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height);
   bool DestroyWindow(Window* pWindow);
 
@@ -45,8 +48,6 @@ public:
   void DirectionalShadowMapPass(Scene* pScene);
   void OmniShadowMapPass(Scene* pScene);
   void FinalMainRenderPass(Scene* pScene);
-
-  void ProcessDebugInput(Scene* pScene);
 
   PhysicsDebugRenderer* GetPhysicsDebugRendererPtr() const { return _pPhysicsDebugRenderer.get(); }
 

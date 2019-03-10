@@ -20,3 +20,6 @@
 
 // Logic of play ball
 #include "BallController.h"
+
+// Logic for general input e.g. Esc to quit game
+#include "GeneralInputHandler.h"

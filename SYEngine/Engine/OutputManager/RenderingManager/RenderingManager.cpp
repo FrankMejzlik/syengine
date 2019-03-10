@@ -119,6 +119,19 @@ bool RenderingManager::InitializeGraphicsApi()
 
   return true;
 }
+
+void RenderingManager::TogglePhysicsDrawWireframe()
+{
+  // Toggle Wireframe physics debug draw
+  _pPhysicsDebugRenderer->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
+}
+
+void RenderingManager::TogglePhysicsDrawAABBs()
+{
+  // Toggle AABB draw
+  _pPhysicsDebugRenderer->ToggleDebugFlag(btIDebugDraw::DBG_DrawAabb);
+}
+
 Window* RenderingManager::ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height)
 {
   // Create new Window instance.
@@ -140,9 +153,6 @@ bool RenderingManager::DestroyWindow(Window* pWindow)
 
 void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 {
-  // Check debugging input
-  ProcessDebugInput(pScene);
-
   // Calculate directional light shadow maps
   DirectionalShadowMapPass(pScene);
 
@@ -418,21 +428,4 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   }
 
   glBindFramebuffer(GL_FRAMEBUFFER, 0);  
-}
-
-void RenderingManager::ProcessDebugInput(Scene* pScene)
-{
-  InputManager* pInputManager = pScene->GetInputManagerPtr();
-
-  // If F1 pressed
-  if (pInputManager->IsOnKeyboardKeyDown(INPUT_KEY_F1))
-  {
-    // Toggle Wireframe physics debug draw
-    _pPhysicsDebugRenderer->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
-  }
-  else if (pInputManager->IsOnKeyboardKeyDown(INPUT_KEY_F2))
-  {
-    // Toggle AABB draw
-    _pPhysicsDebugRenderer->ToggleDebugFlag(btIDebugDraw::DBG_DrawAabb);
-  }
 }
