@@ -5,13 +5,11 @@
 
 #pragma warning (push, 0)
 #include "btBulletDynamicsCommon.h"
-#include "BulletDynamics/Dynamics/btDynamicsWorld.h"
-#include "BulletDynamics/ConstraintSolver/btConstraintSolver.h"
 #pragma warning(pop)
 
 #include "common.h"
+#include "MathLibrary.h"
 #include "IErrorLogging.h"
-#include "PhysicsEntity.h"
 
 namespace SYE
 {
@@ -66,7 +64,7 @@ public:
    * \param viewMatrix  Camera view matrix.
    * \param projectionMatrix  Camera projection matrix.
    */
-  void DrawDebug(size_t shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+  void DrawDebug(size_t shaderId, const Matrix4f& viewMatrix, const Matrix4f& projectionMatrix);
 
   /*!
    * Casts ray from provided point in world to specified direction and 
@@ -194,9 +192,6 @@ private:
 
   //!  Mapping Entity GUID to existing PhysicsEntities
   std::map< size_t, std::unique_ptr<PhysicsEntity> > _entityToPhysicsEntitiyMap;
-
-  //!  Clock for time tracking purposes
-  btClock _clock;
 
   //!  How broadphase is solved
   std::unique_ptr<btBroadphaseInterface> _pBroadphaseInterface;

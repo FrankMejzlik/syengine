@@ -1,18 +1,15 @@
+
 #include "PhysicsScene.h"
 
-#include "MotionState.h"
-#include "Scene.h"
-#include "Collider.h"
-#include "PhysicsBody.h"
+#include "PhysicsEntity.h"
 #include "Rigidbody.h"
 #include "Softbody.h"
 #include "BlockCollider.h"
 #include "SphereCollider.h"
-#include "PhysicsDebugRenderer.h"
-#include "PhysicsBody.h"
-#include "Transform.h"
 #include "ConvexHullCollider.h"
-#include "BallController.h"
+#include "PhysicsDebugRenderer.h"
+#include "Transform.h"
+
 
 using namespace SYE;
 
@@ -36,7 +33,6 @@ void PhysicsScene::Initialize()
 
   // Set gravity
   _pWorld->setGravity(btVector3(0.0f, -9.80665f, 0.0f));
-
 }
 
 void PhysicsScene::ProcessScene(dfloat deltaTime)
@@ -50,7 +46,7 @@ void PhysicsScene::ProcessScene(dfloat deltaTime)
   // Process collisions
   ProcessCollisions();
   
-  // Sync it
+  // Sync it witch normal Scene
   SyncPhysicsToGraphics();
 }
 
@@ -102,7 +98,7 @@ void PhysicsScene::ProcessCollisions() const
   }
 }
 
-void PhysicsScene::DrawDebug(size_t shaderId, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix)
+void PhysicsScene::DrawDebug(size_t shaderId, const Matrix4f& viewMatrix, const Matrix4f& projectionMatrix)
 {
   _pDebugRenderer->SetMatrices(shaderId, viewMatrix, projectionMatrix);
 
