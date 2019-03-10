@@ -103,38 +103,34 @@ bool Scene::RemoveEntity(Entity* pEntityToDelete)
   return true;
 }
 
-Entity* Scene::CreateCamera(
+Entity* Scene::AddCamera(
   Vector3f positionVector, 
-  Vector3f startUpDirection, dfloat startYaw, dfloat startPitch,
-  bool isEditor
+  dfloat initialYaw, dfloat initialPitch
 )
 {
-  UNREFERENCED_PARAMETER(startUpDirection);
-
   // Call EntityManager to create new Quad Entity.
   Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this, nullptr);
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();
   pTransform->SetPosition(positionVector);
-  pTransform->SetRotation(Vector3f(startYaw, startPitch, 0.0f));
+  pTransform->SetRotation(Vector3f(initialYaw, initialPitch, 0.0f));
 
   // Add Camera Component
   Camera* pCamera = pNewEntity->AddComponent<Camera>();
-  if (isEditor)
-  {
-    pCamera->SetCameraMode(Camera::eCameraModes::EDITOR_CAMERA);
 
-    // TODO: Remove this
-    _pEditorCamera = pCamera;
-  }
+  pCamera->SetCameraMode(Camera::eCameraModes::EDITOR_CAMERA);
+
+  // TODO: Remove this
+  _pEditorCamera = pCamera;
+  
   
 
 
   return pNewEntity;
 }
 
-Entity* Scene::CreateTerrain(
+Entity* Scene::AddTerrain(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   std::vector<dfloat> vertices, std::vector<unsigned int> indices
 )
@@ -165,7 +161,7 @@ Entity* Scene::CreateTerrain(
   return pNewEntity;
 }
 
-Entity* Scene::CreateQuad(
+Entity* Scene::AddQuad(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   dfloat width, dfloat height,
   bool isStatic
@@ -200,7 +196,7 @@ Entity* Scene::CreateQuad(
 }
 
 
-Entity* Scene::CreateBlock(
+Entity* Scene::AddBlock(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   dfloat width, dfloat height, dfloat length,
   bool isStatic,
@@ -250,7 +246,7 @@ Entity* Scene::CreateBlock(
   return pNewEntity;
 }
 
-Entity* Scene::CreatePrism(
+Entity* Scene::AddPrism(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   Vector3f origin,
   const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
@@ -307,7 +303,7 @@ Entity* Scene::CreatePrism(
 }
 
 
-Entity* Scene::CreateSphere(
+Entity* Scene::AddSphere(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   dfloat radius, size_t numSlices, size_t numStacks,
   bool isStatic,
@@ -357,7 +353,7 @@ Entity* Scene::CreateSphere(
   return pNewEntity;
 }
 
-Entity* Scene::CreateDirectionalLight(
+Entity* Scene::AddDirectionalLight(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
   Vector3f direction,
@@ -386,7 +382,7 @@ Entity* Scene::CreateDirectionalLight(
   return pNewEntity;
 }
 
-Entity* Scene::CreatePointLight(
+Entity* Scene::AddPointLight(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
   dfloat nearPlane, dfloat farPlane,
@@ -417,7 +413,7 @@ Entity* Scene::CreatePointLight(
 }
 
 
-Entity* Scene::CreateSpotLight(
+Entity* Scene::AddSpotLight(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
   dfloat nearPlane, dfloat farPlane,
@@ -504,7 +500,7 @@ size_t Scene::MapTypeToSlot(size_t type)
 void Scene::ShootBox(const Vector3f& cameraPosition, const Vector3f& direction) 
 {
   // Create new Entity
-  Entity* pBox = CreateBlock(
+  Entity* pBox = AddBlock(
     cameraPosition, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
     1.0f, 1.0f, 1.0f,
     false,

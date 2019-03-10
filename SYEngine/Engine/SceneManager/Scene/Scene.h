@@ -42,78 +42,60 @@ public:
   Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow, size_t sceneId);
   ~Scene() noexcept;
 
-  /**
-   * Creates Camera at provided position with provided orientation.
-   @section Timeline-usage Basic usage
-
-   Construct the timeline on initialization so the instance is available for
-   whole lifetime of the application. Call @ref start() before first draw event is
-   performed, after everything is properly initialized.
-
-   @note When timeline is started, it immediately starts measuring frame time.
-   Be prepared that time of first frame will be much longer than time of
-   following frames. It mainly depends on where you called @ref start() in
-   your initialization routine, but can be also affected by driver- and
-   GPU-specific lazy texture binding, shader recompilations etc.
-
-   In your draw event implementation don't forget to call @ref nextFrame() after
-   buffer swap. You can use @ref previousFrameDuration() to compute animation
-   speed. To limit application framerate you can use
-   @ref Platform::Sdl2Application::setSwapInterval() "Platform::*Application::setSwapInterval()" or
-   @ref Platform::Sdl2Application::setMinimalLoopPeriod() "Platform::*Application::setMinimalLoopPeriod()".
-   Note that on @ref CORRADE_TARGET_EMSCRIPTEN "Emscripten" the framerate is
-   governed by browser and you can't do anything about it.
-
-   Example usage:
-
-   @code{.cpp}
-   MyApplication::MyApplication(const Arguments& arguments): Platform::Application{arguments} {
-   // Initialization ...
-
-   // Enable VSync or set minimal loop period for the application, if
-   // needed/applicable ...
-
-   timeline.start();
-   }
-
-   void MyApplication::drawEvent() {
-   // Distance of object travelling at speed of 15 units per second
-   Float distance = 15.0f*timeline.previousFrameDuration();
-
-   // Move object, draw ...
-
-   swapBuffers();
-   redraw();
-   timeline.nextFrame();
-   }
-   @endcode
-
+  /*!
+   * Adds Entity to this Scene behaving like standard Camera
+   * 
+   * PRIMARY COMPONENTS:
+   *  \ref SYE::Transform
+   *  \ref SYE::Camera
+   * 
+   * \param positionVector  Position of camera. 
+   * \param initialYaw  Initial yaw angle (in degrees) camera will start with.
+   * \param startPitch  Initial pitch angle (in degrees) camera will start with.
+   *    @note  Yaw, pitch and roll are applied always in order yaw, pitch, roll.
+   * \return  Pointer to newly added Entity.
    */
-  Entity* CreateCamera(
+  Entity* AddCamera(
     Vector3f positionVector, 
-    Vector3f startUpDirection, dfloat startYaw, dfloat startPitch,
-    bool isEditor = true
+    dfloat initialYaw, dfloat initialPitch
   );
 
-  /**
-   * Creates Entity representing terrain
-   *
-   * Primary Components:
-   *    Transform
-   *    MeshRenderer
+  /*!
+   * Adds to this Scene Entity representing terrain
+   * 
+   * PRIMARY COMPONENTS:
+   *  \ref SYE::Transform
+   *  \ref SYE::MeshRenderer
+   * 
+   * \param positionVector
+   * \param rotationVector
+   * \param scaleVector
+   * \param vertices
+   * \param indices
+   * \return  Pointer to newly added Entity.
    */
-  Entity* CreateTerrain(
+  Entity* AddTerrain(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     std::vector<dfloat> vertices, std::vector<unsigned int> indices
   );
 
-  Entity* CreateQuad(
+
+  Entity* AddQuad(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     dfloat width, dfloat height,
     bool isStatic
   );
 
-  Entity* CreateBlock(
+
+  /**
+   * Creates Entity representing block
+   *
+   * PRIMARY COMPONENTS:
+   *    @ref SYE::Transform
+   *    @ref SYE::MeshRenderer
+   *    @ref SYE::Rigidbody
+   */
+  Entity* AddBlock(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     dfloat width, dfloat height, dfloat length,
     bool isStatic = true,
@@ -131,7 +113,7 @@ public:
    *      |         |       |         |
    *      p1 ------ p2      p5 ------ p6
    */
-  Entity* CreatePrism(
+  Entity* AddPrism(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     Vector3f origin,
     const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
@@ -140,21 +122,21 @@ public:
     dfloat mass = 0.0f
   );
 
-  Entity* CreateSphere(
+  Entity* AddSphere(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     dfloat radius, size_t numSlices, size_t numStacks,
     bool isStatic = true,
     dfloat mass = 0.0f
   );
 
-  Entity* CreateDirectionalLight(
+  Entity* AddDirectionalLight(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
     Vector3f direction,
     bool isStatic = true
   );
 
-  Entity* CreatePointLight(
+  Entity* AddPointLight(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
     dfloat nearPlane, dfloat farPlane,
@@ -162,7 +144,7 @@ public:
     bool isStatic = true
   );
 
-  Entity* CreateSpotLight(
+  Entity* AddSpotLight(
     Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
     Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
     dfloat nearPlane, dfloat farPlane,
