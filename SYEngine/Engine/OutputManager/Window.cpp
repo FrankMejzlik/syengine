@@ -4,6 +4,7 @@
 #include "Window.h"
 
 #include "EngineContext.h"
+#include "Camera.h"
 
 using namespace SYE;
 
@@ -81,8 +82,12 @@ Window::~Window()
 }
 
 
-void Window::BindAsRenderTarget()
+void Window::SetAsRenderTarget(Camera* pCamera)
 {
+
+  pCamera->SetTargetWindow(this);
+
+
   // Tell OpenGL to render to window
   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 

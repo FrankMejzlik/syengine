@@ -59,6 +59,8 @@ bool OutputManager::InitializeScene(Scene* pScene)
 {
   UNREFERENCED_PARAMETER(pScene);
 
+  RENDERING_MANAGER->InitializeScene(pScene);
+
   return true;
 }
 

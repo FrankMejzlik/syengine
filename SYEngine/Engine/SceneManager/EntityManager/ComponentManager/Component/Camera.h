@@ -18,6 +18,7 @@ namespace SYE
 
 class Window;
 class Transform;
+class Texture;
 
 class Camera:
   public Component
@@ -53,6 +54,21 @@ public:
   Vector3f GetCameraPosition() const;
   Vector3f GetCameraDirection() const;
 
+  void SetTargetWindow(Window* pWindow) 
+  {
+    _pTargetTexture = nullptr;
+    _pTargetWindow = pWindow;
+
+    _isPerspectiveProjectionMatrixCalculated = false;
+  }
+  void SetTargetTexture(Texture* pTexture) 
+  {
+    _pTargetWindow = nullptr;
+    _pTargetTexture = pTexture;
+
+    _isPerspectiveProjectionMatrixCalculated = false;
+  }
+
 private:
   void CalculateViewMatrix();
   void CalculateOrthoProjectionMatrix();
@@ -64,6 +80,10 @@ private:
 protected:
   /** Window instance this Camera is working for */
   Window* _pTargetWindow;
+
+
+
+  Texture* _pTargetTexture;
 
   /** Current view matrix for this Camera */
   glm::mat4 _viewMatrix;

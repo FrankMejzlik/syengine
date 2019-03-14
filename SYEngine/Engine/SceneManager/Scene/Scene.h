@@ -15,7 +15,6 @@
 #include "IErrorLogging.h"
 #include "IGuidCounted.h"
 #include "SceneContext.h"
-
 #include "MathLibrary.h"
 
 
@@ -29,6 +28,8 @@ class PhysicsBody;
 class Entity;
 class Component;
 class Engine;
+class Texture;
+class Shininess;
 
 /**
  * Every Scene MUST have it's EntityController to call to.
@@ -41,6 +42,11 @@ public:
   Scene() = delete;
   Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow, size_t sceneId);
   ~Scene() noexcept;
+
+  Texture* GetRenderTargetTexturePtr()
+  {
+    return _renderTargetTexture;
+  }
 
   /*!
    * Adds Entity to this Scene behaving like standard Camera
@@ -154,7 +160,8 @@ public:
     bool isStatic = true
   );
 
-
+  Entity* pGenericEntity;
+  Entity* pGenericEntity2;
 
   template <typename EntityType>
   EntityType* AddEntity()
@@ -212,7 +219,8 @@ public:
    */
   bool UnregisterComponent(Component* pComponent);
 
-
+  Texture* _renderTargetTexture;
+  Shininess* _shininess;
 
 private:
   size_t MapTypeToSlot(size_t type);
@@ -225,6 +233,7 @@ private:
     */
   bool DetachEntity(Entity* pEntity);
 
+  
 
   // Attributes
 private:
@@ -255,6 +264,8 @@ private:
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> _activeComponentBySlots;
 
  
+
+
 };
 
 } // namespace SYE

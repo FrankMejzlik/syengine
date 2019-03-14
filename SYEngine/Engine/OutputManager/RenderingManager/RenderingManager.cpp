@@ -11,6 +11,12 @@
 #include "Camera.h"
 #include "PhysicsDebugRenderer.h"
 #include "PhysicsScene.h"
+#include "Texture.h"
+#include "Material.h"
+#include "Mesh.h"
+
+
+#include "Entity.h"
 
 using namespace SYE;
 
@@ -24,6 +30,10 @@ RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEng
   BaseModule(parentModule, pEngineContext),
   _pPhysicsDebugRenderer(std::make_unique<PhysicsDebugRenderer>())
 {
+
+  quad = nullptr;
+
+
   // Add submodules for this module.
   _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_unique<WindowManager>(*this, _pEngineContext)));
   
@@ -111,8 +121,17 @@ bool RenderingManager::InitializeGraphicsApi()
   // Allow forward compatiblity
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
+
+  return true;
+}
+
+bool RenderingManager::InitializeScene(Scene* pScene)
+{
+  UNREFERENCED_PARAMETER(pScene);
+
   
 
+  
 
   return true;
 }
@@ -148,8 +167,14 @@ bool RenderingManager::DestroyWindow(Window* pWindow)
   return WINDOW_MANAGER->DestroyWindow(pWindow);
 }
 
+void RenderingManager::TempRender()
+{
+  
+}
+
 void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 {
+
   // Calculate directional light shadow maps
   DirectionalShadowMapPass(pScene);
 
@@ -163,6 +188,7 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 
   // Render actual scene with computed shadow maps
   FinalMainRenderPass(pScene);
+
 
   // Run ImGUI draw.
   //UI_MANAGER->DrawImGui();
@@ -184,6 +210,10 @@ void RenderingManager::CreateShaders()
 
   const char* vShader = "shaders/shader.vert";
   const char* fShader = "shaders/shader.frag";
+
+  const char* vShader2 = "shaders/shader_plain.vert";
+  const char* fShader2 = "shaders/shader_plain.frag";
+
   const char* vDLShader = "shaders/directional_shadow_map.vert";
   const char* fDLShader = "shaders/directional_shadow_map.frag";
   const char* vODLShader = "shaders/omni_shadow_map.vert";
@@ -195,6 +225,8 @@ void RenderingManager::CreateShaders()
   std::unique_ptr<Shader> pMainShader = std::make_unique<Shader>(nullptr, nullptr);
   pMainShader->CreateFromFiles(vShader, fShader);
   _shaders.push_back(std::move(pMainShader));
+
+  
 
   // Directional light shader
   std::unique_ptr<Shader> pDLShader = std::make_unique<Shader>(nullptr, nullptr);
@@ -210,6 +242,11 @@ void RenderingManager::CreateShaders()
   std::unique_ptr<Shader> pLineShader = std::make_unique<Shader>(nullptr, nullptr);
   pLineShader->CreateFromFiles(lineVertexShader, lineFragShader);
   _shaders.push_back(std::move(pLineShader));
+
+  // PLain shader
+  std::unique_ptr<Shader> pMainShader2 = std::make_unique<Shader>(nullptr, nullptr);
+  pMainShader2->CreateFromFiles(vShader2, fShader2);
+  _shaders.push_back(std::move(pMainShader2));
 
 }
 
@@ -247,12 +284,14 @@ void RenderingManager::DirectionalShadowMapPass(Scene* pScene)
     //_shaders[1]->Validate();
     // Render objects in scene with their own shaders
 
+
     for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
     {
       MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
 
       mashRenderer->Render(ul_model_, ul_specularIntensity_, ul_shininess_);
     }
+
   }
 
   // Deatach from framebuffer
@@ -297,6 +336,7 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     //_shaders[1]->Validate();
     // Render objects in scene with their own shaders
 
+
     for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
     {
       MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
@@ -338,6 +378,7 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     //_shaders[1]->Validate();
     // Render objects in scene with their own shaders
 
+
     for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
     {
       MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
@@ -364,12 +405,15 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
     mainLight = nullptr;
   }
   
+  // xoxo
+  pScene->GetRenderTargetTexturePtr()->SetAsRenderTarget();
+  // xoxo
 
   // Set correct viewport, just to be sure
-  glViewport(0, 0, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
+  //glViewport(0, 0, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
   // Clear window
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
@@ -425,4 +469,45 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   }
 
   glBindFramebuffer(GL_FRAMEBUFFER, 0);  
+
+
+  pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene->GetEditorCamera());
+
+  _shaders[4]->UseShader();
+
+  uniformProjection = _shaders[4]->GetProjectionLocation();
+  uniformView = _shaders[4]->GetViewLocation();
+  uniformEyePosition = _shaders[4]->GetEyePosition();
+  ul_model = _shaders[4]->GetModelLocation();
+ ul_specularIntensity = _shaders[4]->GetSpecularIntensityLocation();
+   ul_shininess = _shaders[4]->GetShininessLocation();
+
+
+  // Set values in shader uniforms
+  glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->GetPerspectiveProjectionMatrixConstRef()));
+  glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->GetViewMatrixConstRef()));
+  glUniform3f(uniformEyePosition, 
+    pScene->GetEditorCamera()->GetCameraPosition().GetX(), 
+    pScene->GetEditorCamera()->GetCameraPosition().GetY(), 
+    pScene->GetEditorCamera()->GetCameraPosition().GetZ()
+  );
+
+  // Set up all lights to scene.
+  if (mainLight)
+  {
+    _shaders[4]->SetDirectionalLight(mainLight);
+  }
+  _shaders[4]->SetPointLights(components[COMPONENT_POINT_LIGHT_SOURCE_SLOT], 3, 0ULL); // Offset 0.
+  _shaders[4]->SetSpotLights(components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT], 3 + pointLightCount, pointLightCount); // Offset by number of point lights.
+  if (mainLight)
+  {
+    auto lightTranforms = mainLight->CalculateLightTransformMatrix();
+    _shaders[4]->SetDirectionalLightTransform(&lightTranforms);
+  }
+
+  _shaders[4]->SetTexture(1);
+
+  pScene->pGenericEntity2->GetMeshRendererPtr()->Render(ul_model, ul_specularIntensity, ul_shininess);
+
+
 }

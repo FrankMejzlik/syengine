@@ -19,6 +19,9 @@ namespace SYE
 {
 
 class PhysicsDebugRenderer;
+class Mesh;
+class Entity;
+
 
 class RenderingManager :
   public BaseModule
@@ -31,10 +34,15 @@ public:
   RenderingManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~RenderingManager();
 
+  Mesh* quad;
+  Entity* entity;
+
+  void TempRender();
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
   bool InitializeGraphicsApi();
+  bool InitializeScene(Scene* pScene);
 
   void TogglePhysicsDrawWireframe();
   void TogglePhysicsDrawAABBs();

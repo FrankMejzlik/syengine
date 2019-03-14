@@ -28,6 +28,7 @@ enum class eEngineError
   PhysicsWorldNotSet = 503,
   PhysicsLibRaycastWeirdResult = 504,
   CollisionWithoutColidingObjects = 505,
+  IncompleteFrameBufferInRenderingToTextures = 506,
 
   AttachingMultipleSingletonSlotComponents = 1000,
   DuplicateComponentOnEntity = 1001,
@@ -44,6 +45,8 @@ enum class eEngineError
   AttachingAlreadyExistingEntityToEntity = 1012,
   AttachingAlreadyExistingEntityToScene = 1013,
   TryingToDeleteNonExistentEntityFromEntity = 1014,
+  TryingToUseNonExistingTextureOnMaterial = 1015,
+  GettingIdOfEmptyTexture = 1016,
 };
 
 class EngineError

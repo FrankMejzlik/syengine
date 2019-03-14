@@ -22,6 +22,7 @@
 #include "SceneContext.h"
 #include "SphereCollider.h"
 #include "ConvexHullCollider.h"
+#include "Texture.h"
 
 using namespace SYE;
 
@@ -31,9 +32,12 @@ Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWind
   _pEngine(pEngine),
   _pMainWindow(pTargetWindow),
   _pEditorCamera(nullptr)
+  
 {
   // Attach this engine to Engine
   _pEngine->AttachScene(this);
+
+  
 
   DLog(eLogType::Success, "Scene %d instantiated.", _pSceneContext->GetSceneId());
 }

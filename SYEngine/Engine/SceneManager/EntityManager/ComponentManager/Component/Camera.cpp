@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "Entity.h"
 #include "Transform.h"
+#include "Texture.h"
 
 using namespace SYE;
 
@@ -17,7 +18,8 @@ Camera::Camera(
     true, true,
     slotIndex, type
   ),
-  _pTargetWindow(pOwnerEntity->GetOwnerScenePtr()->GetMainWindowPtr()),
+  _pTargetWindow(nullptr),
+  _pTargetTexture(nullptr),
   _upDirection(Vector3f(0.0f, 1.0f, 0.0f)),
   _mode(eCameraModes::NORMAL),
   _isOrthoProjectionMatrixCalculated(false),
@@ -27,10 +29,10 @@ Camera::Camera(
   _farPlane(100.0f)
 {
 
-  if (_pTargetWindow == nullptr)
+ /* if (_pTargetWindow == nullptr)
   {
     PUSH_EDITOR_ERROR(eEngineError::MissingPointerToTargetWindowInstance, "Unable to get pointer to target Window instance.", "");
-  }
+  }*/
 }
 Vector3f Camera::GetCameraPosition() const
 {
@@ -122,12 +124,25 @@ void Camera::CalculateOrthoProjectionMatrix()
 
 void Camera::CalculatePerspectiveProjectionMatrix()
 {
-  // Calculate projeciton matrix
-  _perspectiveProjectionMatrix = glm::perspective(
-    static_cast<dfloat>(45.0f * DEG_TO_RAD),
-    (GLfloat)(_pTargetWindow->GetBufferWidth()) / _pTargetWindow->GetBufferHeight(),
-    _nearPlane, _farPlane
-  );
+
+  if (_pTargetWindow)
+  {
+// Calculate projeciton matrix
+    _perspectiveProjectionMatrix = glm::perspective(
+      static_cast<dfloat>(45.0f * DEG_TO_RAD),
+      (GLfloat)(_pTargetWindow->GetBufferWidth()) / _pTargetWindow->GetBufferHeight(),
+      _nearPlane, _farPlane
+    );
+  }
+
+  if (_pTargetTexture)
+  {
+    _perspectiveProjectionMatrix = glm::perspective(
+      static_cast<dfloat>(45.0f * DEG_TO_RAD),
+      (GLfloat)500ULL / 500ULL,
+      _nearPlane, _farPlane
+    );
+  }
 
   _isPerspectiveProjectionMatrixCalculated = true;
 }
