@@ -61,11 +61,15 @@ void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntens
 
   for (size_t i = 0; i < _meshes.size(); ++i)
   {
-    // Apply Material
-    _materials[_meshToMaterialIndex[i]]->UseMaterial(
-      ul_specularIntensityLocation, ul_shininessIntensitLocation,
-      0ULL // TODO: Support multiple mats in one Material instance.
-    );
+    // If any materials
+    if (!_materials.empty())
+    {
+      // Apply Material
+      _materials[_meshToMaterialIndex[i]]->UseMaterial(
+        ul_specularIntensityLocation, ul_shininessIntensitLocation,
+        0ULL // TODO: Support multiple mats in one Material instance.
+      );
+    }
 
     // Render Mesh
     _meshes[i]->RenderMesh();
