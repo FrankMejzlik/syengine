@@ -38,6 +38,8 @@ public:
     _bMoveOnMouseMove = true;
   };
 
+  void BindAsRenderTarget();
+
   GLsizei GetBufferWidth()
   {
     return bufferWidth;

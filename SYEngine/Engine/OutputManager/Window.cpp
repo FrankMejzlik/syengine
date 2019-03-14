@@ -81,6 +81,15 @@ Window::~Window()
 }
 
 
+void Window::BindAsRenderTarget()
+{
+  // Tell OpenGL to render to window
+  glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+
+  // Setup correct viewport
+  glViewport(0, 0, GetBufferWidth(), GetBufferHeight());
+}
+
 void Window::CreateCallbacks()
 {
   // When key is pressed in main window call HhadleKeys

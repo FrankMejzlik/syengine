@@ -15,11 +15,9 @@
 using namespace SYE;
 
 
-void RenderingManager::ErrorCallack(int error, const char* description)
+void RenderingManager::OpenGlErrorCallack(int error, const char* description)
 {
-  UNREFERENCED_PARAMETER(error);
-
-  DLog(eLogType::Error, "Error: %s", description);
+  DLog(eLogType::Error, "Error %d: %s", error, description);
 }
 
 RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEngineContext):
@@ -28,7 +26,6 @@ RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEng
 {
   // Add submodules for this module.
   _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_unique<WindowManager>(*this, _pEngineContext)));
-  _subModules.insert(std::make_pair(ID_SHADOW_MANAGER, std::make_unique<ShadowManager>(*this, _pEngineContext)));
   
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
@@ -95,7 +92,7 @@ bool RenderingManager::Terminate()
 bool RenderingManager::InitializeGraphicsApi()
 {
   // Register error callback
-  glfwSetErrorCallback(ErrorCallack);
+  glfwSetErrorCallback(OpenGlErrorCallack);
 
   // Initialize GLFW
   if (!glfwInit())

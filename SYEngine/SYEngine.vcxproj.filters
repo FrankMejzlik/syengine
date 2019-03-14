@@ -120,18 +120,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Core\Abstract\IGuidCounted.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.cpp" />
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.cpp">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager.cpp">
       <Filter>Engine\RenderingManager\ShaderManager</Filter>
     </ClCompile>
@@ -188,6 +176,9 @@
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material\Shininess.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\ConvexHullCollider.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\PhysicsDebugRenderer.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -324,18 +315,6 @@
     <ClInclude Include="Engine\Core\typedefs.h" />
     <ClInclude Include="Engine\Core\Abstract\IGuidCounted.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.h" />
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h">
-      <Filter>Engine\RenderingManager\ShadowManager</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager.h">
       <Filter>Engine\RenderingManager\ShaderManager</Filter>
     </ClInclude>
@@ -418,6 +397,9 @@
     <ClInclude Include="Game\*\*.h" />
     <ClInclude Include="scripts\GeneralInputHandler.h" />
     <ClInclude Include="Game\*\*.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

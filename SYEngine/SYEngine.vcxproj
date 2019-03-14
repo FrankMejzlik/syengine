@@ -209,6 +209,9 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     <ClCompile Include="Engine\Core\Abstract\IEngineContextInterface.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IComponentsInterface.cpp" />
     <ClCompile Include="Engine\Core\Abstract\ISceneContextInterface.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\SphereCollider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\ConvexHullCollider.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material\Shininess.cpp" />
@@ -253,8 +256,6 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Texture.cpp" />
     <ClCompile Include="Engine\OutputManager\Window.cpp" />
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp" />
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp" />
     <ClCompile Include="Engine\Core\GameContext.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\EntityManager.cpp" />
     <ClCompile Include="Engine\InputManager\InputManager.cpp" />
@@ -282,8 +283,6 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\SkyboxManager\SkyboxManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\TextureManager\TextureManager.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager.cpp" />
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.cpp" />
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshGenerator.cpp" />
     <ClCompile Include="Engine\OutputManager\AudioManager\SoundManager.cpp" />
     <ClCompile Include="Engine\InputManager\MouseManager.cpp" />
@@ -302,6 +301,9 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     <ClInclude Include="Engine\Core\Abstract\IEngineContextInterface.h" />
     <ClInclude Include="Engine\Core\Abstract\IComponentsInterface.h" />
     <ClInclude Include="Engine\Core\Abstract\ISceneContextInterface.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\SphereCollider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\ConvexHullCollider.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Material\Shininess.h" />
@@ -349,8 +351,6 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Texture.h" />
     <ClInclude Include="Engine\OutputManager\Window.h" />
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h" />
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h" />
     <ClInclude Include="Engine\Core\GameContext.h" />
     <ClInclude Include="Engine\Core\SceneContext.h" />
     <ClInclude Include="Engine\Core\Abstract\IUncopyable.h" />
@@ -393,8 +393,6 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\SkyboxManager\SkyboxManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\TextureManager\TextureManager.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager.h" />
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\ShadowManager.h" />
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\MeshManager\MeshGenerator.h" />
     <ClInclude Include="Engine\OutputManager\AudioManager\SoundManager.h" />
     <ClInclude Include="Engine\InputManager\KeyboardManager.h" />

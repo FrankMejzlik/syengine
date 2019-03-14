@@ -18,7 +18,6 @@
 #include "MaterialManager.h"
 #include "MeshManager.h"
 #include "ShaderManager.h"
-#include "ShadowManager.h"
 #include "SkyboxManager.h"
 #include "TextureManager.h"
 #include "WindowManager.h"
@@ -116,11 +115,6 @@ MeshManager*  IEngineContextInterface::GetMeshManagerPtr() const
 ShaderManager*  IEngineContextInterface::GetShaderManagerPtr() const 
  { 
   return static_cast<ShaderManager*>(_pEngineContext->GetModule(ID_SHADER_MANAGER));
-} 
-
-ShadowManager*  IEngineContextInterface::GetShadowManagerPtr() const 
- { 
-  return static_cast<ShadowManager*>(_pEngineContext->GetModule(ID_SHADOW_MANAGER));
 } 
 
 SkyboxManager*  IEngineContextInterface::GetSkyboxManagerPtr() const 

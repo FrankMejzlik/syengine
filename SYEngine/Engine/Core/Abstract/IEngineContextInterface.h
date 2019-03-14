@@ -61,7 +61,6 @@ public:
   MaterialManager* GetMaterialManagerPtr() const;
   MeshManager* GetMeshManagerPtr() const;
   ShaderManager* GetShaderManagerPtr() const;
-  ShadowManager* GetShadowManagerPtr() const;
   SkyboxManager* GetSkyboxManagerPtr() const;
   TextureManager* GetTextureManagerPtr() const;
   WindowManager* GetWindowManagerPtr() const;

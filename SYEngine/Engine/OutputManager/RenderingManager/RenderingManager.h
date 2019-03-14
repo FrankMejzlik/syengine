@@ -5,7 +5,6 @@
 #include "common.h"
 #include "BaseModule.h"
 #include "ShaderManager.h"
-#include "ShadowManager.h"
 #include "UiManager.h"
 #include "WindowManager.h"
 #include "Shader.h"
@@ -25,7 +24,7 @@ class RenderingManager :
   public BaseModule
 {
 public:
-  static void ErrorCallack(int error, const char* description);
+  static void OpenGlErrorCallack(int error, const char* description);
 
   RenderingManager() = delete;
 
