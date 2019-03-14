@@ -38,18 +38,38 @@ bool Texture::LoadTexture(std::string_view texturePathFile)
   // Bind to this texture
   glBindTexture(GL_TEXTURE_2D, textureID);
 
-  // Fill texture data into the GPU memory
-  glTexImage2D(
-    GL_TEXTURE_2D,
-    0,          // Mipmaps 
-    GL_RGBA,    // Data fomrat in GPU memory
-    width,
-    height,
-    0,          // Legacy border
-    GL_RGBA,    // Type on input
-    GL_UNSIGNED_BYTE,
-    textureData
-  );
+  // If no Alpha chanel
+  if (bitDepth == 3)
+  {
+    // Fill texture data into the GPU memory
+    glTexImage2D(
+      GL_TEXTURE_2D,
+      0,          // Mipmaps 
+      GL_RGB,    // Data fomrat in GPU memory
+      width,
+      height,
+      0,          // Legacy border
+      GL_RGB,    // Type on input
+      GL_UNSIGNED_BYTE,
+      textureData
+    );
+  }
+  // Else alpha chanell present
+  else
+  {
+    // Fill texture data into the GPU memory
+    glTexImage2D(
+      GL_TEXTURE_2D,
+      0,          // Mipmaps 
+      GL_RGBA,    // Data fomrat in GPU memory
+      width,
+      height,
+      0,          // Legacy border
+      GL_RGBA,    // Type on input
+      GL_UNSIGNED_BYTE,
+      textureData
+    );
+  }
 
   // Generate mipmaps automaticaly
   glGenerateMipmap(GL_TEXTURE_2D);
