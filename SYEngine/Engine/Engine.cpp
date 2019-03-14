@@ -42,6 +42,10 @@ Engine::Engine(ProcessInstance* pInstance) noexcept :
 
 Engine::~Engine() noexcept
 {
+  // Terminate active Game
+  TerminateGame();
+
+  // Terminate modules
   if (GetModuleState() != eModuleState::Null)
   {
     Terminate();
@@ -294,6 +298,18 @@ bool Engine::Terminate()
   SetModuleState(eModuleState::Null);
   DLog(eLogType::Success, "Engine instance terminated.");
   return true;
+}
+
+void Engine::TerminateGame()
+{
+  // Terminate Scenes
+  SCENE_MANAGER->TerminateGame();
+
+  // Terminate Windows
+  WINDOW_MANAGER->TerminateGame();
+
+  // Terminate EngineContext
+
 }
 
 void Engine::ProcessFrame(dfloat deltaTime, Scene* pScene, Window* pMainWindow)

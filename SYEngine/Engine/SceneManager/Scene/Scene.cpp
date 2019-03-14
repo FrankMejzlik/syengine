@@ -45,6 +45,9 @@ Scene::~Scene() noexcept
 
 Camera* Scene::GetEditorCamera() const
 {
+  // Destroy everything attached to this scene
+
+
   return _pEditorCamera;
 }
 

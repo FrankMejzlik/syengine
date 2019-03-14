@@ -24,6 +24,8 @@ BaseModule::BaseModule(BaseModule& parentModule, EngineContext* pEngineContext):
   _pEngineApi(nullptr)
 {}
 
+void BaseModule::TerminateGame()
+{}
 
 void BaseModule::SetEngineApiPointer(const EngineApi* const pEngineApi)
 {

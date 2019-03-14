@@ -32,7 +32,7 @@ class BaseModule:
 {
   // Structs
 public:
-  /** Allow Engine class to set pointer to owning EngineContext ptr */
+  //! Allow Engine class to set pointer to owning EngineContext ptr
   friend class Engine;
 
   // Methods
@@ -44,6 +44,10 @@ public:
   BaseModule(BaseModule& parentModule, EngineContext* pEngineContext);
   virtual ~BaseModule() noexcept = default;
 
+  /*!
+   * Terminates all active things related to currently active Scene/Game
+   */
+  virtual void TerminateGame();
   
   void SetEngineApiPointer(const EngineApi* const pEngineApi);
 

@@ -54,9 +54,9 @@ public:
 
   virtual bool Initialize() override;
   virtual bool Terminate() override;
+  virtual void TerminateGame() override;
 
   bool Run();
-
 
 
   EngineApi* GetEngineApiPtr() const;
