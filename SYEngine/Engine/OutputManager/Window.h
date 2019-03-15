@@ -38,7 +38,7 @@ public:
     _bMoveOnMouseMove = true;
   };
 
-  void SetAsRenderTarget(Camera* pCamera);
+  void SetAsRenderTarget(Scene* pScene);
 
   GLsizei GetBufferWidth()
   {

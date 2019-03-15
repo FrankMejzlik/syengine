@@ -61,7 +61,7 @@ public:
 
     _isPerspectiveProjectionMatrixCalculated = false;
   }
-  void SetTargetTexture(Texture* pTexture) 
+  void SetTargetTexture(const Texture* pTexture) 
   {
     _pTargetWindow = nullptr;
     _pTargetTexture = pTexture;
@@ -83,7 +83,7 @@ protected:
 
 
 
-  Texture* _pTargetTexture;
+  const Texture* _pTargetTexture;
 
   /** Current view matrix for this Camera */
   glm::mat4 _viewMatrix;

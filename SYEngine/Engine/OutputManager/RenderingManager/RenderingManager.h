@@ -34,10 +34,6 @@ public:
   RenderingManager(BaseModule& parentModule, EngineContext* pEngineContext);
   ~RenderingManager();
 
-  Mesh* quad;
-  Entity* entity;
-
-  void TempRender();
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 

@@ -40,7 +40,7 @@ public:
    * @see   class Component
    */
   template <typename EntityType>
-  EntityType* CreateEntity(Scene* pOwnerScene, Entity* pParentEntity)
+  EntityType* CreateEntity(Scene* pOwnerScene, Entity* pParentEntity = nullptr)
   {
     // Instantiate new Entity
     std::unique_ptr<EntityType> newEntity = std::make_unique<EntityType>(pOwnerScene, pParentEntity);

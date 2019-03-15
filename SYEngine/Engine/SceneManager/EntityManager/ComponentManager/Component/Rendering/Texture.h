@@ -29,7 +29,7 @@ public:
   bool LoadTextures(const std::vector<std::string>& textureFilepaths);
 
   bool LoadTextures(const std::vector< std::vector<std::byte> >& data, const std::vector<GLenum>& attachments);
-  bool InitTextresForRendering(std::vector<std::byte>, GLenum attachments, size_t width, size_t height);
+  bool InitTextresAsRenderTarget(std::vector<std::byte>, GLenum attachments, size_t width, size_t height);
 
   
 
@@ -39,7 +39,7 @@ public:
   /*!
    * Sets this texture as render target for OpenGL
    */
-  void SetAsRenderTarget() const;
+  void SetAsRenderTarget(Scene* pScene) const;
 
   size_t GetTextureId() const;
   std::vector<size_t> GetTextureIds() const;

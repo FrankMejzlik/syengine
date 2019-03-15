@@ -185,7 +185,18 @@ Material* MeshRenderer::AddMaterial(Texture* pTexture, Shininess* pShininess, Sh
 {
   Material* pMaterial = GetComponentManagerPtr()->CreateComponent<Material>(_pOwnerEntity, this);
   pMaterial->AddTexture(pTexture);
-  pMaterial->AddShininess(pShininess);
+
+  // If no Shininess provided
+  if (!pShininess)
+  {
+    // Use default one
+    pMaterial->AddShininess();
+  }
+  else
+  {
+    pMaterial->AddShininess(pShininess);
+  }
+  
   pMaterial->AddShader(pShader);
   pMaterial->AddTextureToShininessIndex(0ULL, 0ULL);
 

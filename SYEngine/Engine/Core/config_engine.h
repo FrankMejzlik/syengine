@@ -89,8 +89,10 @@
 // System Entities config
 //////////////////////////////////////////
 
+#define NUM_RENDER_TARGET_TEXTURES 1
+
 #define NUM_SYSTEM_ENTITIES 1
-#define RENDER_ONTO_ENTITY 0
+#define RENDER_ONTO_ENTITY 0ULL
 #define RENDER_ONTO_ENTITY_WIDTH 3.0f
 #define RENDER_ONTO_ENTITY_HEIGHT 3.0f
 
@@ -101,6 +103,8 @@
 //////////////////////////////////////////
 // Graphics settings
 //////////////////////////////////////////
+#define RENDER_SCENE_TO_TEXTUE 1
+
 #define DISABLE_OMNI_SHADOW_MAPPING 0
 
 #define MAX_POINT_LIGHTS 3

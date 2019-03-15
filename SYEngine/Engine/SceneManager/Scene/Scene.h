@@ -43,9 +43,9 @@ public:
   Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow, size_t sceneId);
   ~Scene() noexcept;
 
-  Texture* GetRenderTargetTexturePtr()
+  Texture* GetRenderTargetTexturePtr(size_t index) const
   {
-    return _renderTargetTexture;
+    return _renderTargetTextures[index];
   }
 
   /*!
@@ -160,8 +160,7 @@ public:
     bool isStatic = true
   );
 
-  Entity* pGenericEntity;
-  Entity* pGenericEntity2;
+  
 
   template <typename EntityType>
   EntityType* AddEntity()
@@ -205,6 +204,15 @@ public:
   SceneContext* GetSceneContextPtr() const { return _pSceneContext.get(); };
 
 
+  void RegisterRenderTargetTexture(size_t index, Texture* pTexture) { _renderTargetTextures[index] = pTexture; }
+  void RegisterSystemEntity(size_t index, Entity* pEntity) { _systemEntities[index] = pEntity; }
+
+  Entity* GetSystemEntityPtr(size_t index) const
+  {
+    return _systemEntities[index];
+  }
+
+
   /** Active Components categorized to important slots based on what module needs to acces them. */
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> GetActivePrimaryComponentSlotsRef() { return _activeComponentBySlots; }
 
@@ -218,9 +226,6 @@ public:
    * Removes Component from main loop process
    */
   bool UnregisterComponent(Component* pComponent);
-
-  Texture* _renderTargetTexture;
-  Shininess* _shininess;
 
 private:
   size_t MapTypeToSlot(size_t type);
@@ -263,7 +268,9 @@ private:
   */
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> _activeComponentBySlots;
 
- 
+  //! Special Entities that are excluded from main game loop
+  std::array<Entity*, NUM_SYSTEM_ENTITIES> _systemEntities;
+  std::array<Texture*, NUM_RENDER_TARGET_TEXTURES> _renderTargetTextures;
 
 
 };

@@ -310,17 +310,16 @@ bool Texture::LoadTextures(const std::vector<std::string>& textureFilepaths)
   return result;
 }
 
-void Texture::SetAsRenderTarget() const
+void Texture::SetAsRenderTarget(Scene* pScene) const
 {
-  auto t = _pOwnerEntity->GetOwnerScenePtr()->_renderTargetTexture;
-
-  _pOwnerEntity->GetOwnerScenePtr()->GetEditorCamera()->SetTargetTexture(t);
+  // Tell main Camera what is render targer
+  pScene->GetEditorCamera()->SetTargetTexture(this);
 
   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _framebuffer);
   glViewport(0, 0, static_cast<GLsizei>(_width), static_cast<GLsizei>(_height));
 }
 
-bool Texture::InitTextresForRendering(std::vector<std::byte> data, GLenum attachments, size_t width, size_t height)
+bool Texture::InitTextresAsRenderTarget(std::vector<std::byte> data, GLenum attachments, size_t width, size_t height)
 {
   _width = width;
   _height = height;

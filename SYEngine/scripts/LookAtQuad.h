@@ -67,9 +67,7 @@ public:
     UNREFERENCED_PARAMETER(pScene);
 
     Vector3f camPosition = _pMainCameraPtr->GetTransformPtr()->GetPosition();
-    Vector3f camDirectionY = _pMainCameraPtr->GetTransformPtr()->GetYDir();
     Vector3f camDirectionn = _pMainCameraPtr->GetTransformPtr()->GetZDir();
-    Vector3f camRotation = _pMainCameraPtr->GetTransformPtr()->GetRotation();
 
     Vector3f quadPosition = camPosition + (camDirectionn * 5.0f);
 

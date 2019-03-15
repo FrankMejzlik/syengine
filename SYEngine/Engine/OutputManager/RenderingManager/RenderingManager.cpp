@@ -30,10 +30,6 @@ RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEng
   BaseModule(parentModule, pEngineContext),
   _pPhysicsDebugRenderer(std::make_unique<PhysicsDebugRenderer>())
 {
-
-  quad = nullptr;
-
-
   // Add submodules for this module.
   _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_unique<WindowManager>(*this, _pEngineContext)));
   
@@ -128,9 +124,6 @@ bool RenderingManager::InitializeGraphicsApi()
 bool RenderingManager::InitializeScene(Scene* pScene)
 {
   UNREFERENCED_PARAMETER(pScene);
-
-  
-
   
 
   return true;
@@ -165,11 +158,6 @@ Window* RenderingManager::ConstructWindow(eWindowType windowType, std::string_vi
 bool RenderingManager::DestroyWindow(Window* pWindow)
 {
   return WINDOW_MANAGER->DestroyWindow(pWindow);
-}
-
-void RenderingManager::TempRender()
-{
-  
 }
 
 void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
@@ -394,8 +382,22 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
 
 void RenderingManager::FinalMainRenderPass(Scene* pScene)
 {
+#if RENDER_SCENE_TO_TEXTUE
+
+  // Set frambebuffer Texture as render targer
+  pScene->GetRenderTargetTexturePtr(0ULL)->SetAsRenderTarget(pScene);
+
+#else
+
+  // Set standard Window as render target
+  pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene);
+
+#endif
+
+  // Get active components
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
   
+  // If main light present
   DirectionalLight* mainLight;
   if (!components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].empty())
   {
@@ -405,24 +407,14 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   {
     mainLight = nullptr;
   }
-  
-  // xoxo
-  pScene->GetRenderTargetTexturePtr()->SetAsRenderTarget();
-  // xoxo
 
-
-  // Set correct viewport, just to be sure
-  //glViewport(0, 0, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
-
-  // Clear window
+  // Clear buffer
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  // Clear color and depth buffer
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-#if 1
 
    //Draw main scene
   _shaders[0]->UseShader();
-
 
   uniformProjection = _shaders[0]->GetProjectionLocation();
   uniformView = _shaders[0]->GetViewLocation();
@@ -471,17 +463,24 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
     mashRenderer->Render(ul_model, ul_specularIntensity, ul_shininess);
   }
 
-#endif
 
-#if 1
 
-  pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene->GetEditorCamera());
-  glClearColor(0.2f, 0.36f, 0.5f, 1.0f);
+#if RENDER_SCENE_TO_TEXTUE
+
+  // Set standard Window as render target for this one and only "projection quad"
+  pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene);
+
+  // Clear buffer
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  // Clear color and depth buffer
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+  // Use shader for rendering scene texture on primitive
   _shaders[4]->UseShader();
+  // Tell shader that diffuse texture is on index 1
   _shaders[4]->SetTexture(1);
 
+  // Get uniform locations
   uniformProjection = _shaders[4]->GetProjectionLocation();
   uniformView = _shaders[4]->GetViewLocation();
   uniformEyePosition = _shaders[4]->GetEyePosition();
@@ -496,10 +495,12 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
     pScene->GetEditorCamera()->GetCameraPosition().GetZ()
   );
 
-  pScene->pGenericEntity2->GetMeshRendererPtr()->Render(ul_model, 0, 0);
-  pScene->pGenericEntity->GetMeshRendererPtr()->Render(ul_model, 0, 0);
+  // Render Quad with texture that has been render to
+  Entity* pProjectionQuad(pScene->GetSystemEntityPtr(RENDER_ONTO_ENTITY));
+  pProjectionQuad->GetMeshRendererPtr()->Render(ul_model, 0, 0);
 
 #endif
 
+  // Show framebuffer to user
   glBindFramebuffer(GL_FRAMEBUFFER, 0);  
 }

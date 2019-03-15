@@ -7,6 +7,7 @@
 
 #include "Rigidbody.h"
 #include "MeshRenderer.h"
+#include "Mesh.h"
 
 // Build initial scene in this script's SetupScene method
 #include "_SceneBuilder.h"
@@ -108,9 +109,15 @@ Scene* SceneManager::LoadInitialScene(Scene* pScene)
 {
   DLog(eLogType::Info, "Loading initial test scene.");
 
+
   // Call special SceneBuilder script
   _SceneBuilder sceneBuilder;
   sceneBuilder.SetupScene(pScene);
+
+  /* Create special system components
+      NOTE: If system Entities added after normal ones, they will be executed
+            after them and you don't get one frame delay in calculations. */
+  SetupSystemEntities(pScene);
 
   
   /*pScene->CreateStaticModelFromFile(
@@ -130,6 +137,60 @@ Scene* SceneManager::LoadInitialScene(Scene* pScene)
   DLog(eLogType::Success, "Initial test scene loaded.");
 
   return pScene;
+}
+
+bool SceneManager::SetupSystemEntities(Scene* pScene)
+{
+  // Create new Entity
+  Entity* pRenderToEntity = pScene->GetEntityManagerPtr()->CreateEntity<Entity>(pScene);
+
+  // Register this Entity as special to Scene.
+  pScene->RegisterSystemEntity(RENDER_ONTO_ENTITY, pRenderToEntity);
+
+  // Add Transform Component
+  Transform* pTransform = pRenderToEntity->AddComponent<Transform>();
+  pTransform->SetPosition(Vector3f(0.0f, 0.0f, 0.0f));
+  pTransform->SetRotation(Vector3f(0.0f, 0.0f, 0.0f));
+  pTransform->SetScale(Vector3f(1.0f, 1.0f, 1.0f));
+
+  // Add MeshRenderer Component
+  MeshRenderer* pMeshRenderer = pRenderToEntity->AddComponent<MeshRenderer>();
+  {
+    Mesh* pMesh = pMeshRenderer->AddMesh();
+    {
+      pMesh->ClearMesh();
+      pMesh->MakeQuad(RENDER_ONTO_ENTITY_WIDTH, RENDER_ONTO_ENTITY_HEIGHT);
+    }
+
+    // Create special render target texture
+    Texture* pRenderTargetTextre = pScene->GetComponentManagerPtr()->CreateComponent<Texture>(pRenderToEntity);
+
+    // Initialize zero data for framebuffer texture
+    std::vector<std::byte> data;
+    // Fill this vector with RGB float bytes
+    data.resize(RENDER_TO_TEXTURE_WIDTH * RENDER_TO_TEXTURE_HEIGHT * sizeof(dfloat) * 3, std::byte(0));
+
+    // Make this Texture work as framebuffer
+    pRenderTargetTextre->InitTextresAsRenderTarget(data, GL_COLOR_ATTACHMENT0, RENDER_TO_TEXTURE_WIDTH, RENDER_TO_TEXTURE_HEIGHT);
+
+    // Register this render target Texture
+    pScene->RegisterRenderTargetTexture(0ULL, pRenderTargetTextre);
+
+    // Add this special material
+    pMeshRenderer->AddMaterial(pRenderTargetTextre, nullptr, nullptr);
+    pMeshRenderer->AddMeshToMaterialIndex(0ULL, 0ULL);
+  }
+  // Unregister this MeshRenderer form standard rendering pipeline
+  pScene->UnregisterComponent(pMeshRenderer);
+  
+  // Add Script for syncing position and rotation of projection Quad
+  ScriptHandler* pScriptHandler = pRenderToEntity->AddComponent<ScriptHandler>();
+  pScriptHandler->AddScript<LookAtQuad>();
+
+  // Save all edits done on this Entity
+  pRenderToEntity->SaveEntity();
+
+  return true;
 }
 
 Scene* SceneManager::InsertScene(std::unique_ptr<Scene>&& sceneToInsert)

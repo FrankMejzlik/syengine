@@ -227,10 +227,10 @@ std::pair< std::vector<dfloat>, std::vector<unsigned int> > MeshGenerator::Gener
   std::vector<dfloat> vertexArray = 
   {
     // x            y         z           u    v       nx     ny   nz
-    -halfWidth, -halfHeight, 0.0f, 		  0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
-    -halfWidth, halfHeight, 0.0f,	      0.0f, 1.0f,		0.0f, 0.0f, 1.0f,
-    halfWidth, halfHeight, 0.0f,		      1.0f, 1.0f,		0.0f, 0.0f, 1.0f,
-    halfWidth, -halfHeight, 0.0f,		    1.0f, 0.0f,		0.0f, 0.0f, 1.0f
+    -halfWidth, -halfHeight, 0.0f, 		  1.0f, 0.0f,		0.0f, 0.0f, 1.0f,
+    -halfWidth, halfHeight, 0.0f,	      1.0f, 1.0f,		0.0f, 0.0f, 1.0f,
+    halfWidth, halfHeight, 0.0f,		      0.0f, 1.0f,		0.0f, 0.0f, 1.0f,
+    halfWidth, -halfHeight, 0.0f,		    0.0f, 0.0f,		0.0f, 0.0f, 1.0f
   };
 
   // Create indices vector.

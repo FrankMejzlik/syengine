@@ -40,7 +40,7 @@ public:
     // If subcomponent
     if (!pComponent->IsPrimary())
     {
-      assert(pOwnerComponent != nullptr);
+      //assert(pOwnerComponent != nullptr);
     }
 
     return InsertComponent<ComponentType>(std::move(pComponent));
