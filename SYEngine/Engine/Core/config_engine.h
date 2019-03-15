@@ -2,43 +2,110 @@
 
 #include <stdint.h>
 
-/**
- * Platform detection
- */
-// If target is OS based on UNIX.
+//////////////////////////////////////////
+// Paths configuration
+//////////////////////////////////////////
+#define PATH_TEXTURES "resource/textures"
+#define FILENAME_DEFAULT_TEXTURE "/plain.png"
+#define FILEPATH_DEFAULT_TEXTURE "resource/textures/plain.png"
+
+
+//////////////////////////////////////////
+// Project configuration switches
+//////////////////////////////////////////
+
+//! If development version
+#define DEV 1
+
+//! If there is Editor attached to engine
+#define USING_EDITOR 1
+
+//! If Realease version
+#define RELEASE 0
+
+//! If Realease candidate version
+#define RELEASE_CANDIDATE 0
+
+//! If Alpha version
+#define ALPHA 0
+
+//! If Beta version
+#define BETA 0
+
+
+//////////////////////////////////////////
+// PLatform configuration
+//////////////////////////////////////////
+
+//! If target is OS based on UNIX.
 #if __unix__
   #define TARGET_UNIX 1
 #endif
 
-
-// If target is 32/64-bit Windows OS.
+//! If target is 32/64-bit Windows OS.
 #if _WIN32
   #define TARGET_WINDOWS 1
 #endif
 
+
+//////////////////////////////////////////
+// Logging configuration
+//////////////////////////////////////////
 #define PRINT_NOT_IMPLEMENTED_WARNINGS 0
-
-// If using double precision floating point types in whole project
-#define USE_DOUBLES 0
-
-#define SIZE_T_ERROR_VALUE SIZE_MAX
-
-#define DEG_TO_RAD (3.14159265 / 180.0f)
-
-// Export switches.
-#define EXPORT_ENGINE_API 0
-#define TEST_EXPORTED_FUNCTIONS 0
-
-// Development switches.
-#define DEV 1
-#define USING_EDITOR 1
-#define RELEASE 0
-#define ALPHA 0
-#define BETA 0
-#define LOG_DEV 1
-#define RUN_ENGINE_API 1
 #define LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION 0
 #define LOG_PHYSICS_MANAGER_COLLISIONS 0
+#define LOG_DEV 1
+#define RUN_ENGINE_API 1
+
+//////////////////////////////////////////
+// General settings
+//////////////////////////////////////////
+
+//! If using double precision floating point types in whole project
+#define USE_DOUBLES 0
+
+//! This value will be used as error value with size_t type
+#define SIZE_T_ERROR_VALUE SIZE_MAX
+
+//! Constant to conver from degrees to radians
+#define DEG_TO_RAD (3.14159265 / 180.0f)
+
+
+//////////////////////////////////////////
+// EngineAPI settings
+//////////////////////////////////////////
+
+//! If EngineAPI methods will be exported in DLL
+#define EXPORT_ENGINE_API 0
+
+//! If want to run tests on EngineAPI exported methods
+#define TEST_EXPORTED_FUNCTIONS 0
+
+//! Calling convention that will be used on exported methods
+#define API_EXPORT_CALL_CONVENTION _stdcall
+
+
+//////////////////////////////////////////
+// System Entities config
+//////////////////////////////////////////
+
+#define NUM_SYSTEM_ENTITIES 1
+#define RENDER_ONTO_ENTITY 0
+#define RENDER_ONTO_ENTITY_WIDTH 3.0f
+#define RENDER_ONTO_ENTITY_HEIGHT 3.0f
+
+#define RENDER_TO_TEXTURE_WIDTH 500ULL
+#define RENDER_TO_TEXTURE_HEIGHT 500ULL
+
+
+//////////////////////////////////////////
+// Graphics settings
+//////////////////////////////////////////
+#define DISABLE_OMNI_SHADOW_MAPPING 0
+
+#define MAX_POINT_LIGHTS 3
+#define MAX_SPOT_LIGHTS 3
+#define MAX_DIRECTIONAL_LIGHTS 1
 
 #define DEFAULT_SHADOW_MAP_DIMENSIONS 512
 
@@ -46,9 +113,9 @@
 #define DISABLE_VSYNC 0
 
 
-#define CALL_CONVENTION _stdcall
-
-// Main modules IDs
+//////////////////////////////////////////
+// Module IDs
+//////////////////////////////////////////
 #define ID_ENGINE_API 100
 #define ID_INPUT_MANAGER 1
 #define ID_ENTITY_MANAGER 2
@@ -59,17 +126,9 @@
 #define ID_SIMULATION_MANAGER 7
 #define ID_AUDIO_MANAGER 8
 #define ID_COMPONENT_MANAGER 9
-
-/**
- * Main sub-modules IDs
- */
- // InputManager
 #define ID_KEYBOARD_MANAGER 11
 #define ID_MOUSE_MANAGER 12
 #define ID_CONTROLLER_MANAGER 13
-
- // RenderingManager
-
 #define ID_ANIMATION_MANAGER 51
 #define ID_MATERIAL_MANAGER 52
 #define ID_MESH_MANAGER 53
@@ -79,20 +138,16 @@
 #define ID_WINDOW_MANAGER 58
 #define ID_MODEL_MANAGER 59
 #define ID_UI_MANAGER 60
-
-// SimulationManager
 #define ID_LOGIC_MANAGER 70
 #define ID_AI_MANAGER 71
 #define ID_PHYSICS_MANAGER 73
 #define ID_SCRIPT_MANAGER 74
-
 #define ID_MESH_GENERATOR 74
 
-// Graphics switches.
-#define DISABLE_OMNI_SHADOW_MAPPING 0
 
-
-// Game window settings
+//////////////////////////////////////////
+// Main window settings
+//////////////////////////////////////////
 #define GAME_WINDOW_TITLE "SYEngine Game Preview"
 #define GAME_WINDOW_DEFAULT_WIDTH 1333
 #define GAME_WINDOW_DEFAULT_HEIGHT 768
@@ -100,31 +155,14 @@
 #define GAME_WINDOW_DEFAULT_POS_X 588
 #define GAME_WINDOW_DEFAULT_POS_Y 30
 
-#define MAX_POINT_LIGHTS 3
-#define MAX_SPOT_LIGHTS 3
 
-#define MAGIC_BASE_MODULE_NUMBER 42
-
-// Paths
-#define PATH_TEXTURES "resource/textures"
-#define FILENAME_DEFAULT_TEXTURE "/plain.png"
-#define FILEPATH_DEFAULT_TEXTURE "resource/textures/plain.png"
-
-
-// Scene light limits.
-#define MAX_POINT_LIGHTS 3
-#define MAX_SPOT_LIGHTS 3
-#define MAX_DIRECTIONAL_LIGHTS 1
-
-
-/**
- * Keyboard settings
- */
-
+//////////////////////////////////////////
+// Input settings
+//////////////////////////////////////////
 #define NUM_KEYBOARD_KEYS 1024
 #define NUM_MOUSE_KEYS 64
 
- /* Printable keys */
+//! Printable keys
 #define INPUT_KEY_SPACE              32
 #define INPUT_KEY_APOSTROPHE         39  /* ' */
 #define INPUT_KEY_COMMA              44  /* , */
@@ -176,7 +214,7 @@
 #define INPUT_KEY_WORLD_1            161 /* non-US #1 */
 #define INPUT_KEY_WORLD_2            162 /* non-US #2 */
 
- /* Function keys */
+//! Function keys
 #define INPUT_KEY_ESCAPE             256
 #define INPUT_KEY_ENTER              257
 #define INPUT_KEY_TAB                258
@@ -248,8 +286,7 @@
 #define INPUT_KEY_RIGHT_SUPER        347
 #define INPUT_KEY_MENU               348
 
-
-
+//! Mouse keys
 #define INPUT_MOUSE_BUTTON_1         0
 #define INPUT_MOUSE_BUTTON_2         1
 #define INPUT_MOUSE_BUTTON_3         2
@@ -262,3 +299,11 @@
 #define INPUT_MOUSE_BUTTON_LEFT      INPUT_MOUSE_BUTTON_1
 #define INPUT_MOUSE_BUTTON_RIGHT     INPUT_MOUSE_BUTTON_2
 #define INPUT_MOUSE_BUTTON_MIDDLE    INPUT_MOUSE_BUTTON_3
+
+
+//////////////////////////////////////////
+// Weird stuff
+//////////////////////////////////////////
+
+//! Magic number used as identificator root module Engine
+#define MAGIC_BASE_MODULE_NUMBER 42

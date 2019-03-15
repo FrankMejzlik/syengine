@@ -1,8 +1,9 @@
 #pragma once
 
-/**
- * Settings for Components and their management.
- */
+
+//////////////////////////////////////////
+// Settings for Components and their management
+//////////////////////////////////////////
 
 #define COMPONENTS_NUM_SLOTS 10
 
