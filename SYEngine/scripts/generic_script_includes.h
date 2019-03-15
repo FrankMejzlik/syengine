@@ -13,7 +13,7 @@
 #include "FirstPersonCameraController.h"
 
 // Right paddle logic
-#include "RightPaddleController.h"
+#include "LookAtQuad.h"
 
 // Left paddle logic
 #include "LeftPaddleController.h"
@@ -23,3 +23,6 @@
 
 // Logic for general input e.g. Esc to quit game
 #include "GeneralInputHandler.h"
+
+// Makes primitive to be always in front of main Camera
+#include "LookAtQuad.h"

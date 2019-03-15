@@ -216,6 +216,7 @@ void RenderingManager::CreateShaders()
 
   const char* vDLShader = "shaders/directional_shadow_map.vert";
   const char* fDLShader = "shaders/directional_shadow_map.frag";
+
   const char* vODLShader = "shaders/omni_shadow_map.vert";
   const char* gODLShader = "shaders/omni_shadow_map.geom";
   const char* fODLShader = "shaders/omni_shadow_map.frag";
@@ -409,15 +410,17 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   pScene->GetRenderTargetTexturePtr()->SetAsRenderTarget();
   // xoxo
 
+
   // Set correct viewport, just to be sure
   //glViewport(0, 0, GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 
   // Clear window
-  glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+#if 1
 
-  // Draw main scene
+   //Draw main scene
   _shaders[0]->UseShader();
 
 
@@ -425,8 +428,8 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   uniformView = _shaders[0]->GetViewLocation();
   uniformEyePosition = _shaders[0]->GetEyePosition();
   ul_model = _shaders[0]->GetModelLocation();
-  GLuint ul_specularIntensity = _shaders[0]->GetSpecularIntensityLocation();
-  GLuint ul_shininess = _shaders[0]->GetShininessLocation();
+  GLuint ul_specularIntensity = _shaders[0]->GetSpecularIntensityLocation(); ul_specularIntensity;
+  GLuint ul_shininess = _shaders[0]->GetShininessLocation(); ul_shininess;
 
 
   // Set values in shader uniforms
@@ -439,7 +442,7 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   );
 
   // Get counts of lights.
-  size_t pointLightCount = components[COMPONENT_POINT_LIGHT_SOURCE_SLOT].size();
+  size_t pointLightCount = components[COMPONENT_POINT_LIGHT_SOURCE_SLOT].size(); pointLightCount;
   size_t spotLightCount = components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT].size(); spotLightCount;
 
 
@@ -468,20 +471,21 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
     mashRenderer->Render(ul_model, ul_specularIntensity, ul_shininess);
   }
 
-  glBindFramebuffer(GL_FRAMEBUFFER, 0);  
+#endif
 
+#if 1
 
   pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene->GetEditorCamera());
+  glClearColor(0.2f, 0.36f, 0.5f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   _shaders[4]->UseShader();
+  _shaders[4]->SetTexture(1);
 
   uniformProjection = _shaders[4]->GetProjectionLocation();
   uniformView = _shaders[4]->GetViewLocation();
   uniformEyePosition = _shaders[4]->GetEyePosition();
   ul_model = _shaders[4]->GetModelLocation();
- ul_specularIntensity = _shaders[4]->GetSpecularIntensityLocation();
-   ul_shininess = _shaders[4]->GetShininessLocation();
-
 
   // Set values in shader uniforms
   glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->GetPerspectiveProjectionMatrixConstRef()));
@@ -492,22 +496,10 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
     pScene->GetEditorCamera()->GetCameraPosition().GetZ()
   );
 
-  // Set up all lights to scene.
-  if (mainLight)
-  {
-    _shaders[4]->SetDirectionalLight(mainLight);
-  }
-  _shaders[4]->SetPointLights(components[COMPONENT_POINT_LIGHT_SOURCE_SLOT], 3, 0ULL); // Offset 0.
-  _shaders[4]->SetSpotLights(components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT], 3 + pointLightCount, pointLightCount); // Offset by number of point lights.
-  if (mainLight)
-  {
-    auto lightTranforms = mainLight->CalculateLightTransformMatrix();
-    _shaders[4]->SetDirectionalLightTransform(&lightTranforms);
-  }
+  pScene->pGenericEntity2->GetMeshRendererPtr()->Render(ul_model, 0, 0);
+  pScene->pGenericEntity->GetMeshRendererPtr()->Render(ul_model, 0, 0);
 
-  _shaders[4]->SetTexture(1);
+#endif
 
-  pScene->pGenericEntity2->GetMeshRendererPtr()->Render(ul_model, ul_specularIntensity, ul_shininess);
-
-
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);  
 }

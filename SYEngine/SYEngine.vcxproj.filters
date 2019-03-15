@@ -392,7 +392,6 @@
     <ClInclude Include="scripts\_SceneBuilderBase.h" />
     <ClInclude Include="scripts\generic_script_includes.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\PhysicsDebugRenderer.h" />
-    <ClInclude Include="Game\scripts\_SceneBuilder.h" />
     <ClInclude Include="Game\*\*.h" />
     <ClInclude Include="Game\*\*.h" />
     <ClInclude Include="scripts\GeneralInputHandler.h" />
@@ -400,6 +399,8 @@
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h" />
+    <ClInclude Include="Game\*\*.h" />
+    <ClInclude Include="scripts\LookAtQuad.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

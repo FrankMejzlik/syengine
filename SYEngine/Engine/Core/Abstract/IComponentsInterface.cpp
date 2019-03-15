@@ -13,7 +13,8 @@
 using namespace SYE;
 
 IComponentsInterface::IComponentsInterface(std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentOnEntity) :
-  _primaryComponentOnEntity(primaryComponentOnEntity)
+  _primaryComponentOnEntity(primaryComponentOnEntity),
+  _pPhysicsBody(nullptr)
 {}
 
 
@@ -25,30 +26,54 @@ void IComponentsInterface::RefreshQuickRefs()
   {
     _pTransform = static_cast<Transform*>(_primaryComponentOnEntity[COMPONENT_TRANSFORM_SLOT].begin()->second);
   }
+  else
+  {
+    _pTransform = nullptr;
+  }
 
   if (!_primaryComponentOnEntity[COMPONENT_PHYSICS_BODY_SLOT].empty())
   {
     _pPhysicsBody = static_cast<PhysicsBody*>(_primaryComponentOnEntity[COMPONENT_PHYSICS_BODY_SLOT].begin()->second);
+  }
+  else
+  {
+    _pPhysicsBody = nullptr;
   }
 
   if (!_primaryComponentOnEntity[COMPONENT_MESH_RENDERER_SLOT].empty())
   {
     _pMeshRenderer = static_cast<MeshRenderer*>(_primaryComponentOnEntity[COMPONENT_MESH_RENDERER_SLOT].begin()->second);
   }
+  else
+  {
+    _pMeshRenderer = nullptr;
+  }
 
   if (!_primaryComponentOnEntity[COMPONENT_POINT_LIGHT_SOURCE_SLOT].empty())
   {
     _pPointLight = static_cast<PointLight*>(_primaryComponentOnEntity[COMPONENT_POINT_LIGHT_SOURCE_SLOT].begin()->second);
+  }
+  else
+  {
+    _pPointLight = nullptr;
   }
 
   if (!_primaryComponentOnEntity[COMPONENT_SPOT_LIGHT_SOURCE_SLOT].empty())
   {
 	  _pSpotLight = static_cast<SpotLight*>(_primaryComponentOnEntity[COMPONENT_SPOT_LIGHT_SOURCE_SLOT].begin()->second);
   }
+  else
+  {
+    _pSpotLight = nullptr;
+  }
 
   if (!_primaryComponentOnEntity[COMPONENT_SCRIPT_HANDLER_SLOT].empty())
   {
     _pScriptHandlers = _primaryComponentOnEntity[COMPONENT_SCRIPT_HANDLER_SLOT];
+  }
+  else
+  {
+    _pScriptHandlers.clear();
   }
 }
 

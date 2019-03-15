@@ -230,9 +230,9 @@ vec4 CalcSpotLights()
 
 void main()
 {
-	vec4 finalColour = CalcDirectionalLight();
-	finalColour += CalcPointLights();
-	finalColour += CalcSpotLights();
+	//vec4 finalColour = CalcDirectionalLight();
+	//finalColour += CalcPointLights();
+	//finalColour += CalcSpotLights();
 	
-	colour = texture(theTexture, textureCoords) * vec4(1.0f, 1.0f,1.0f,1.0f);
+	colour = texture(theTexture, textureCoords) * vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }

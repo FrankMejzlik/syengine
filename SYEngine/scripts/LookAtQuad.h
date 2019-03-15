@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "Window.h"
 #include "ScriptHandler.h"
+#include "Camera.h"
 
 #pragma warning(push, 1)
 #include <glm/glm.hpp>
@@ -32,8 +33,7 @@ public:
   LookAtQuad() = delete;
   LookAtQuad(Entity* pOwnerEntity, Component* pOwnerComponent):
     Script(pOwnerEntity, pOwnerComponent, UNDEFINED, Component::eType::SCRIPT),
-    _paddleSpeed(20.0f),
-    _currRotation(static_cast<dfloat>(M_PI_4))
+    _pMainCameraPtr(nullptr)
   {}
 
 
@@ -44,7 +44,8 @@ public:
    */
   virtual void OnInitializeScene()
   {
-
+    _pMainCameraPtr = GetOwnerScenePtr()->GetEditorCamera();
+    _pTransformPtr = GetTransformPtr();
   }
 
   /**
@@ -57,42 +58,37 @@ public:
     UNREFERENCED_PARAMETER(deltaTime);
     UNREFERENCED_PARAMETER(pScene);
 
-    ProcessKeyControl(deltaTime, pScene);
+    TransformCamera(deltaTime, pScene);
   }
 
-  void ProcessKeyControl(dfloat deltaTime, Scene* pScene)
+  void TransformCamera(dfloat deltaTime, Scene* pScene)
   {
+    UNREFERENCED_PARAMETER(deltaTime);
+    UNREFERENCED_PARAMETER(pScene);
+
+    Vector3f camPosition = _pMainCameraPtr->GetTransformPtr()->GetPosition();
+    Vector3f camDirectionY = _pMainCameraPtr->GetTransformPtr()->GetYDir();
+    Vector3f camDirectionn = _pMainCameraPtr->GetTransformPtr()->GetZDir();
+    Vector3f camRotation = _pMainCameraPtr->GetTransformPtr()->GetRotation();
+
+    Vector3f quadPosition = camPosition + (camDirectionn * 5.0f);
+
+    Vector3f dirToCam = -1 * camDirectionn;
     
-    dfloat deltaSpeed = _paddleSpeed * deltaTime;
-    dfloat newAngle;
+    auto quatRot = glm::quatLookAt(dirToCam.GetData(), Vector3f(0.0f, 1.0f, 0.0f).GetData());
 
-    // If left arrow held down
-    if (pScene->GetInputManagerPtr()->IsKeyboardKeyDown(INPUT_KEY_RIGHT))
-    {
-      newAngle = std::clamp(_currRotation - deltaSpeed, static_cast<dfloat>(-M_PI_4), static_cast<dfloat>(M_PI_4));
+    glm::vec3 angles = glm::eulerAngles(quatRot);
 
-      // Update rotation
-      _currRotation = newAngle;
-    }
-    // If not pressed, move back
-    else
-    {
-      newAngle = std::clamp(_currRotation + deltaSpeed, static_cast<dfloat>(-M_PI_4), static_cast<dfloat>(M_PI_4));
+    Vector3f finalRotationAngles(angles.y, angles.x, angles.z);
 
-      // Update rotation
-      _currRotation = newAngle;
-    }
-
-    // Update position in Transform Component
-    Vector3f rotation = GetTransformPtr()->GetRotation();
-    rotation.SetZ(_currRotation);
-    GetTransformPtr()->SetRotation(std::move(rotation));
+    _pTransformPtr->SetPosition(quadPosition);
+    _pTransformPtr->SetRotation(angles);
   }
-  
+
   // Attributes
 private:
-  dfloat _paddleSpeed;
-  dfloat _currRotation;
+  Camera* _pMainCameraPtr;
+  Transform* _pTransformPtr;
 };
 
 };

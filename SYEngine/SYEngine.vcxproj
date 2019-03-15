@@ -417,6 +417,7 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     <ClInclude Include="scripts\_SceneBuilderBase.h" />
     <ClInclude Include="Game\*\*.h" />
     <ClInclude Include="Game\*\*\*.h" />
+    <ClInclude Include="scripts\LookAtQuad.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resource\shaders\directional_shadow_map.frag" />

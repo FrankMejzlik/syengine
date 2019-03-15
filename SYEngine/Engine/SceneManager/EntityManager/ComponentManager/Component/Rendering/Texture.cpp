@@ -17,7 +17,8 @@ Texture::Texture(
 ) :
   Component(pOwnerEntity, pOwnerComponent, false, true, slotIndex, type),
   _textureTarget(GL_TEXTURE_2D),
-  _framebuffer(0)
+  _framebuffer(0),
+  _renderBuffer(0)
 {
 }
 
@@ -29,8 +30,16 @@ Texture::~Texture() noexcept
 
 bool Texture::LoadTexture(std::string_view texturePathFile)
 {
+  int resultWidth;
+  int resultHeight;
+  int resultNumColorChannels;
+
   // Load texture data
-  unsigned char* textureData = stbi_load(texturePathFile.data(), &_width, &_height, &numColorChanels, 0);
+  unsigned char* textureData = stbi_load(texturePathFile.data(), &resultWidth, &resultHeight, &resultNumColorChannels, 0);
+
+  _width = static_cast<size_t>(resultWidth);
+  _height = static_cast<size_t>(resultHeight);
+  _numColorChanels = static_cast<size_t>(resultNumColorChannels);
 
   // If loading failed
   if (!textureData)
@@ -54,15 +63,15 @@ bool Texture::LoadTexture(std::string_view texturePathFile)
   glBindTexture(GL_TEXTURE_2D, _textureIds.back());
 
   // If no Alpha chanel
-  if (numColorChanels == 3)
+  if (_numColorChanels == 3)
   {
     // Fill texture data into the GPU memory
     glTexImage2D(
       GL_TEXTURE_2D,
       0,          // Mipmaps 
       GL_RGB,    // Data fomrat in GPU memory
-      _width,
-      _height,
+      static_cast<GLsizei>(_width),
+        static_cast<GLsizei>(_height),
       0,          // Legacy border
       GL_RGB,    // Type on input
       GL_UNSIGNED_BYTE,
@@ -77,8 +86,8 @@ bool Texture::LoadTexture(std::string_view texturePathFile)
       GL_TEXTURE_2D,
       0,          // Mipmaps 
       GL_RGBA,    // Data fomrat in GPU memory
-      _width,
-      _height,
+      static_cast<GLsizei>(_width),
+      static_cast<GLsizei>(_height),
       0,          // Legacy border
       GL_RGBA,    // Type on input
       GL_UNSIGNED_BYTE,
@@ -117,13 +126,6 @@ bool Texture::LoadTextures(const std::vector< std::vector<std::byte> >& data, co
   return true;
 }
 
-bool Texture::InitTextresForRendering(size_t count, const std::vector<GLenum>& attachments)
-{
-  UNREFERENCED_PARAMETER(count);
-  UNREFERENCED_PARAMETER(attachments);
-
-  return true;
-}
 
 void Texture::InitRenderTargets(const std::vector<GLenum>& attachments)
 {
@@ -135,23 +137,29 @@ void Texture::InitRenderTargets(const std::vector<GLenum>& attachments)
 
   // Initialize vector with enough space
   std::vector<GLenum> drawBuffers(_textureIds.size(), GL_NONE);
+  bool hasDepthAttachment = false;
 
   for (size_t i = 0; i < _textureIds.size(); ++i)
   {
-    // Befare of stencil bufferin future
+    // TODO: Befare of stencil bufferin future
+    // If has depth attachment
     if (attachments[i] == GL_DEPTH_ATTACHMENT)
     {
       drawBuffers[i] = GL_NONE;
+      hasDepthAttachment = true;
     }
     else
     {
       drawBuffers[i] = attachments[i];
     }
 
+    // Set draw buffers to corresponding attachments
     drawBuffers[i] = attachments[i];
 
+    // If no attachments
     if (attachments[i] == GL_NONE)
     {
+      // Just continue
       continue;
     }
 
@@ -163,26 +171,41 @@ void Texture::InitRenderTargets(const std::vector<GLenum>& attachments)
       glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _framebuffer);
     }
 
-    // If no framebuffer
-    if (_framebuffer == 0)
-    {
-      // Just return
-      return;
-    }
+    
 
     // Bind this texture to specific attachment
-    glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, _textureTarget, _textureIds[0], 0);
+    glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, attachments[i], _textureTarget, _textureIds[i], 0);
   }
 
+  // If no framebuffer
+  if (_framebuffer == 0)
+  {
+    // Just return
+    return;
+  }
+
+  // If this texture doesn't have depth attachment
+  if (!hasDepthAttachment)
+  {
+    // Use render buffer
+    glGenRenderbuffers(1, &_renderBuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, _renderBuffer);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, static_cast<GLsizei>(_width), static_cast<GLsizei>(_height));
+
+    // Bind renderbuffer to framebuffer as depth buffer
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _renderBuffer);
+  }
+  
   // Draw all buffers
   glDrawBuffers(static_cast<GLsizei>(_textureIds.size()), drawBuffers.data());
 
   // If not complete framebuffer
-  if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+  auto result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+  if (result != GL_FRAMEBUFFER_COMPLETE)
   {
     PUSH_ENGINE_ERROR(
       eEngineError::IncompleteFrameBufferInRenderingToTextures, 
-      "Framebuffer not complete!", ""
+      "Framebuffer creation failed!", ""
     );
   }
 
@@ -293,15 +316,16 @@ void Texture::SetAsRenderTarget() const
 
   _pOwnerEntity->GetOwnerScenePtr()->GetEditorCamera()->SetTargetTexture(t);
 
-
-  
   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _framebuffer);
-  glViewport(0, 0, _width, _height);
+  glViewport(0, 0, static_cast<GLsizei>(_width), static_cast<GLsizei>(_height));
 }
 
-bool Texture::InitTextresForRendering(std::vector<std::byte> data, GLenum attachments)
+bool Texture::InitTextresForRendering(std::vector<std::byte> data, GLenum attachments, size_t width, size_t height)
 {
-  numColorChanels = 4;
+  _width = width;
+  _height = height;
+
+  _numColorChanels = 3;
 
   // Push empty value to vector
   _textureIds.push_back(0ULL);
@@ -311,54 +335,35 @@ bool Texture::InitTextresForRendering(std::vector<std::byte> data, GLenum attach
 
   // Bind to this texture so we can write data to it
   glBindTexture(_textureTarget, _textureIds.back());
+ 
+  // Fill texture data into the GPU memory
+  glTexImage2D(
+    _textureTarget,
+    0,          // Mipmaps 
+    GL_RGBA,    // Data fomrat in GPU memory
+    static_cast<GLsizei>(_width),
+      static_cast<GLsizei>(_height),
+    0,          // Legacy border
+    GL_RGBA,    // Type on input
+    GL_UNSIGNED_BYTE,
+    data.data()
+  );
 
-  // If no Alpha chanel
-  if (numColorChanels == 3)
-  {
-    // Fill texture data into the GPU memory
-    glTexImage2D(
-      _textureTarget,
-      0,          // Mipmaps 
-      GL_RGB,    // Data fomrat in GPU memory
-      _width,
-      _height,
-      0,          // Legacy border
-      GL_RGB,    // Type on input
-      GL_UNSIGNED_BYTE,
-      data.data()
-    );
-  }
-  // Else alpha chanell present
-  else
-  {
-    // Fill texture data into the GPU memory
-    glTexImage2D(
-      _textureTarget,
-      0,          // Mipmaps 
-      GL_RGBA,    // Data fomrat in GPU memory
-      _width,
-      _height,
-      0,          // Legacy border
-      GL_RGBA,    // Type on input
-      GL_UNSIGNED_BYTE,
-      data.data()
-    );
-  }
 
   // Generate mipmaps automaticaly
-  glGenerateMipmap(_textureTarget);
+  //glGenerateMipmap(_textureTarget);
 
   // Setup texture parameters
   glTexParameteri(_textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
   glTexParameteri(_textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
-  glTexParameteri(_textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+  /*glTexParameteri(_textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
   float borderColor[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-  glTexParameterfv(_textureTarget, GL_TEXTURE_BORDER_COLOR, borderColor);
+  glTexParameterfv(_textureTarget, GL_TEXTURE_BORDER_COLOR, borderColor);*/
 
 
-  glTexParameteri(_textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(_textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(_textureTarget, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(_textureTarget, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
   std::vector<GLenum> attachmentsVector;
   attachmentsVector.push_back(attachments);
@@ -398,9 +403,16 @@ void Texture::ClearTexture()
     glDeleteFramebuffers(1, &_framebuffer);
   }
 
+  // If render buffer present
+  if (_renderBuffer != 0)
+  {
+    // Tell OpenGL to delete it
+    glDeleteFramebuffers(1, &_framebuffer);
+  }
+
   // Reset attributes
   _textureIds.clear();
   _width = 0;
   _height = 0;
-  numColorChanels = 0;
+  _numColorChanels = 0;
 }

@@ -29,10 +29,9 @@ public:
   bool LoadTextures(const std::vector<std::string>& textureFilepaths);
 
   bool LoadTextures(const std::vector< std::vector<std::byte> >& data, const std::vector<GLenum>& attachments);
-  bool InitTextresForRendering(size_t count, const std::vector<GLenum>& attachments);
-  bool InitTextresForRendering(std::vector<std::byte>, GLenum attachments);
+  bool InitTextresForRendering(std::vector<std::byte>, GLenum attachments, size_t width, size_t height);
 
-  void InitRenderTargets(const std::vector<GLenum>& attachments);
+  
 
   void UseTexture(size_t textureUnit = 0ULL, size_t index = 0ULL);
   void ClearTexture();
@@ -45,25 +44,33 @@ public:
   size_t GetTextureId() const;
   std::vector<size_t> GetTextureIds() const;
 
+
+private:
+  void InitRenderTargets(const std::vector<GLenum>& attachments);
+
+
   // Attributes
 private:
   //! List of texture ID handlers recieved from OpenGL
   std::vector<GLuint> _textureIds;
 
   //! Width of our textures
-  int _width;
+  size_t _width;
 
   //! Height of our textures
-  int _height;
+  size_t _height;
 
   //! Number of color channgels used in texture data
-  int numColorChanels;
+  size_t _numColorChanels;
 
   // What kind of texture we are
   GLenum _textureTarget;
 
   // Framebuffer attached to our textures
   GLuint _framebuffer;
+
+  // Renderbuffer if need depth text when rendering to texture without depth attachment
+  GLuint _renderBuffer;
 
 };
 
