@@ -43,11 +43,6 @@ public:
   Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow, size_t sceneId);
   ~Scene() noexcept;
 
-  Texture* GetRenderTargetTexturePtr(size_t index) const
-  {
-    return _renderTargetTextures[index];
-  }
-
   /*!
    * Adds Entity to this Scene behaving like standard Camera
    * 
@@ -160,7 +155,6 @@ public:
     bool isStatic = true
   );
 
-  
 
   template <typename EntityType>
   EntityType* AddEntity()
@@ -193,28 +187,27 @@ public:
    */
   std::pair<PhysicsBody*, Vector3f> Raycast(Vector3f from, Vector3f direction) const;
 
-  Camera* GetEditorCamera() const;
+  Camera* GetMainCamera() const;
+  Camera* GetCameraPtr(size_t index) const;
 
-  void SetMainWindowPtr(Window* pMainWindow) { _pMainWindow = pMainWindow; };
-  Window* GetMainWindowPtr() const { return _pMainWindow; };
+  Texture* GetRenderTargetTexturePtr(size_t index) const;
+
+  void SetMainWindowPtr(Window* pMainWindow);
+  Window* GetMainWindowPtr() const;
 
   void SetPhysicsScenePtr(PhysicsScene* pPhysicsScene);
   PhysicsScene* GetPhysicsScenePtr() const;
 
-  SceneContext* GetSceneContextPtr() const { return _pSceneContext.get(); };
+  SceneContext* GetSceneContextPtr() const;
 
+  void RegisterRenderTargetTexture(size_t index, Texture* pTexture);
+  void RegisterSystemEntity(size_t index, Entity* pEntity);
 
-  void RegisterRenderTargetTexture(size_t index, Texture* pTexture) { _renderTargetTextures[index] = pTexture; }
-  void RegisterSystemEntity(size_t index, Entity* pEntity) { _systemEntities[index] = pEntity; }
-
-  Entity* GetSystemEntityPtr(size_t index) const
-  {
-    return _systemEntities[index];
-  }
+  Entity* GetSystemEntityPtr(size_t index) const;
 
 
   /** Active Components categorized to important slots based on what module needs to acces them. */
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> GetActivePrimaryComponentSlotsRef() { return _activeComponentBySlots; }
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> GetActivePrimaryComponentSlotsRef();
 
   void ShootBox(const Vector3f& cameraPosition, const Vector3f& direction);
  

@@ -84,7 +84,7 @@ Window::~Window()
 
 void Window::SetAsRenderTarget(Scene* pScene)
 {
-  pScene->GetEditorCamera()->SetTargetWindow(this);
+  pScene->GetMainCamera()->SetTargetWindow(this);
 
   // Tell OpenGL to render to window
   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);

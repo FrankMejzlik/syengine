@@ -313,7 +313,7 @@ bool Texture::LoadTextures(const std::vector<std::string>& textureFilepaths)
 void Texture::SetAsRenderTarget(Scene* pScene) const
 {
   // Tell main Camera what is render targer
-  pScene->GetEditorCamera()->SetTargetTexture(this);
+  pScene->GetMainCamera()->SetTargetTexture(this);
 
   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _framebuffer);
   glViewport(0, 0, static_cast<GLsizei>(_width), static_cast<GLsizei>(_height));

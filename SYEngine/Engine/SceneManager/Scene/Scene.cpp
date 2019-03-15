@@ -47,7 +47,7 @@ Scene::~Scene() noexcept
   DLog(eLogType::Success, "Scene %d destroyed.", _pSceneContext->GetSceneId());
 }
 
-Camera* Scene::GetEditorCamera() const
+Camera* Scene::GetMainCamera() const
 {
   // Destroy everything attached to this scene
 
@@ -80,7 +80,50 @@ std::pair<PhysicsBody*, Vector3f> Scene::Raycast(Vector3f from, Vector3f directi
   return _pPhysicsScene->Raycast(from, direction);
 }
 
+void Scene::SetMainWindowPtr(Window* pMainWindow) 
+{ 
+  _pMainWindow = pMainWindow; 
+}
 
+Window* Scene::GetMainWindowPtr() const 
+{ 
+  return _pMainWindow; 
+};
+
+SceneContext* Scene::GetSceneContextPtr() const 
+{ 
+  return _pSceneContext.get(); 
+};
+
+void Scene::RegisterRenderTargetTexture(size_t index, Texture* pTexture) 
+{ 
+  _renderTargetTextures[index] = pTexture; 
+}
+
+void Scene::RegisterSystemEntity(size_t index, Entity* pEntity) 
+{ 
+  _systemEntities[index] = pEntity; 
+}
+
+Entity* Scene::GetSystemEntityPtr(size_t index) const
+{
+  return _systemEntities[index];
+}
+
+Camera* Scene::GetCameraPtr(size_t index) const 
+{ 
+  return static_cast<Camera*>(_activeComponentBySlots[COMPONENT_CAMERA_SLOT].find(index)->second); 
+}
+
+Texture* Scene::GetRenderTargetTexturePtr(size_t index) const
+{
+  return _renderTargetTextures[index];
+}
+
+std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> Scene::GetActivePrimaryComponentSlotsRef() 
+{ 
+  return _activeComponentBySlots; 
+}
 
 bool Scene::RemoveEntity(Entity* pEntityToDelete)
 {

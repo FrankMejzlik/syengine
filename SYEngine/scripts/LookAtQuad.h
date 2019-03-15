@@ -44,7 +44,7 @@ public:
    */
   virtual void OnInitializeScene()
   {
-    _pMainCameraPtr = GetOwnerScenePtr()->GetEditorCamera();
+    _pMainCameraPtr = GetOwnerScenePtr()->GetMainCamera();
     _pTransformPtr = GetTransformPtr();
   }
 

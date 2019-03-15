@@ -226,7 +226,7 @@ Scene* SceneManager::GetScenePtr(size_t sceneGuid)
 void SceneManager::HandleInput(Scene* pScene)
 {
   InputManager* pInputManager = pScene->GetInputManagerPtr();
-  Camera* pCamera = pScene->GetEditorCamera();
+  Camera* pCamera = pScene->GetMainCamera();
 
   // If Mouse Right button pressed
   if (pInputManager->IsOnKeyboardMouseDown(INPUT_MOUSE_BUTTON_RIGHT))

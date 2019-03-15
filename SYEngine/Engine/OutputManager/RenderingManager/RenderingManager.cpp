@@ -183,7 +183,7 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 
   // Draw debug physics info
   _shaders[3]->UseShader();
-  pScene->GetPhysicsScenePtr()->DrawDebug(_shaders[3]->GetShaderID(), pScene->GetEditorCamera()->GetViewMatrixConstRef(), pScene->GetEditorCamera()->GetPerspectiveProjectionMatrixConstRef());
+  pScene->GetPhysicsScenePtr()->DrawDebug(_shaders[3]->GetShaderID(), pScene->GetMainCamera()->GetViewMatrixConstRef(), pScene->GetMainCamera()->GetPerspectiveProjectionMatrixConstRef());
 
   // Swap buffers
   pTargetWindow->SwapBuffers();
@@ -425,12 +425,12 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
 
 
   // Set values in shader uniforms
-  glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->GetPerspectiveProjectionMatrixConstRef()));
-  glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->GetViewMatrixConstRef()));
+  glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->GetPerspectiveProjectionMatrixConstRef()));
+  glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->GetViewMatrixConstRef()));
   glUniform3f(uniformEyePosition, 
-    pScene->GetEditorCamera()->GetCameraPosition().GetX(), 
-    pScene->GetEditorCamera()->GetCameraPosition().GetY(), 
-    pScene->GetEditorCamera()->GetCameraPosition().GetZ()
+    pScene->GetMainCamera()->GetCameraPosition().GetX(), 
+    pScene->GetMainCamera()->GetCameraPosition().GetY(), 
+    pScene->GetMainCamera()->GetCameraPosition().GetZ()
   );
 
   // Get counts of lights.

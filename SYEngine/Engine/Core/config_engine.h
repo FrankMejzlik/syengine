@@ -103,7 +103,7 @@
 //////////////////////////////////////////
 // Graphics settings
 //////////////////////////////////////////
-#define RENDER_SCENE_TO_TEXTUE 1
+#define RENDER_SCENE_TO_TEXTUE 0
 
 #define DISABLE_OMNI_SHADOW_MAPPING 0
 
