@@ -31,7 +31,7 @@ Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWind
   _pSceneContext(std::make_unique<SceneContext>(sceneId)),
   _pEngine(pEngine),
   _pMainWindow(pTargetWindow),
-  _pEditorCamera(nullptr),
+  _pMainCamera(nullptr),
   _pRootEntity(GetEntityManagerPtr()->CreateEntity<Entity>(this))
   
 {
@@ -48,9 +48,11 @@ Scene::~Scene() noexcept
   DLog(eLogType::Success, "Scene %d destroyed.", _pSceneContext->GetSceneId());
 }
 
+
+
 Camera* Scene::GetMainCamera() const
 {
-  return _pEditorCamera;
+  return _pMainCamera;
 }
 
 Camera* Scene::GetUtilityCamera() const
@@ -172,12 +174,6 @@ Entity* Scene::AddCamera(
   Camera* pCamera = pNewEntity->AddComponent<Camera>();
 
   pCamera->SetCameraMode(Camera::eCameraModes::EDITOR_CAMERA);
-
-  // TODO: Remove this
-  _pEditorCamera = pCamera;
-  
-  
-
 
   return pNewEntity;
 }

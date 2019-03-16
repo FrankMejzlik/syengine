@@ -192,6 +192,7 @@ public:
   Camera* GetMainCamera() const;
   Camera* GetUtilityCamera() const;
   void SetUtilityCamera(Camera* pCamera) { _pUtilityCamera = pCamera; }
+  void SetMainCamera(Camera* pCamera) { _pMainCamera = pCamera; }
   Camera* GetCameraPtr(size_t index) const;
 
   Texture* GetRenderTargetTexturePtr(size_t index) const;
@@ -246,7 +247,7 @@ private:
   Engine* _pEngine;
 
   /** Pointer to default Engine Editor camera instance */
-  Camera* _pEditorCamera;
+  Camera* _pMainCamera;
 
   //! Camera used for things like rendering shdaow maps etc
   Camera* _pUtilityCamera;
