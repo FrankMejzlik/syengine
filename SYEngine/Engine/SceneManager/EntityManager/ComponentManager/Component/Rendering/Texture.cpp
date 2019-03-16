@@ -30,6 +30,9 @@ Texture::~Texture() noexcept
 
 bool Texture::LoadTexture(std::string_view texturePathFile)
 {
+  // Clear old texture first
+  ClearTexture();
+
   int resultWidth;
   int resultHeight;
   int resultNumColorChannels;
@@ -113,18 +116,18 @@ bool Texture::LoadTexture(std::string_view texturePathFile)
   stbi_image_free(textureData);
   return true;
 }
-
-bool Texture::LoadTextures(const std::vector< std::vector<std::byte> >& data, const std::vector<GLenum>& attachments)
-{
-  // Create Texture for rendering into
-  UNREFERENCED_PARAMETER(data);
-  UNREFERENCED_PARAMETER(attachments);
-
-
-  InitRenderTargets(attachments);
-
-  return true;
-}
+//
+//bool Texture::LoadTextures(const std::vector< std::vector<std::byte> >& data, const std::vector<GLenum>& attachments)
+//{
+//  // Create Texture for rendering into
+//  UNREFERENCED_PARAMETER(data);
+//  UNREFERENCED_PARAMETER(attachments);
+//
+//
+//  InitRenderTargets(attachments);
+//
+//  return true;
+//}
 
 
 void Texture::InitRenderTargets(const std::vector<GLenum>& attachments)
@@ -319,6 +322,69 @@ void Texture::SetAsRenderTarget(Scene* pScene) const
   glViewport(0, 0, static_cast<GLsizei>(_width), static_cast<GLsizei>(_height));
 }
 
+
+bool Texture::LoadDepthTexture(size_t width, size_t height)
+{
+  _width = width;
+  _height = height;
+
+  _numColorChanels = 3;
+
+
+  // Initialize zero data for framebuffer texture
+  std::vector<std::byte> data;
+  // Fill this vector with RGB float bytes
+  data.resize(_width * _height * sizeof(dfloat) * 3, std::byte(0));
+
+  // Push empty value to vector
+  _textureIds.push_back(0ULL);
+
+  // Let OpenGL create new texture ID
+  glGenTextures(1, &_textureIds.back());
+
+  // Bind to this texture so we can write data to it
+  glBindTexture(_textureTarget, _textureIds.back());
+
+  // Fill texture data into the GPU memory
+  glTexImage2D(
+    _textureTarget,
+    0,          // Mipmaps 
+    GL_DEPTH_COMPONENT16,    // Data fomrat in GPU memory
+    static_cast<GLsizei>(_width),
+    static_cast<GLsizei>(_height),
+    0,          // Legacy border
+    GL_DEPTH_COMPONENT,    // Type on input
+    GL_UNSIGNED_BYTE,
+    data.data()
+  );
+
+
+  // Generate mipmaps automaticaly
+  //glGenerateMipmap(_textureTarget);
+
+  // Border texture behaviour
+  glTexParameteri(_textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+  glTexParameteri(_textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+ 
+  // 
+  glTexParameteri(_textureTarget, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(_textureTarget, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+  glTexParameteri(_textureTarget, GL_TEXTURE_BASE_LEVEL, 0);
+  glTexParameteri(_textureTarget, GL_TEXTURE_MAX_LEVEL, 0);
+
+  std::vector<GLenum> attachmentsVector;
+  attachmentsVector.push_back(GL_DEPTH_ATTACHMENT);
+  InitRenderTargets(attachmentsVector);
+
+  //InitDepthTextue
+
+  // Unbind from this texture
+  glBindTexture(_textureTarget, 0);
+
+  return true;
+}
+
 bool Texture::InitTextresAsRenderTarget(std::vector<std::byte> data, GLenum attachments, size_t width, size_t height)
 {
   _width = width;
@@ -349,23 +415,16 @@ bool Texture::InitTextresAsRenderTarget(std::vector<std::byte> data, GLenum atta
   );
 
 
-  // Generate mipmaps automaticaly
-  //glGenerateMipmap(_textureTarget);
-
   // Setup texture parameters
   glTexParameteri(_textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
   glTexParameteri(_textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-
-  /*glTexParameteri(_textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-  float borderColor[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-  glTexParameterfv(_textureTarget, GL_TEXTURE_BORDER_COLOR, borderColor);*/
-
 
   glTexParameteri(_textureTarget, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(_textureTarget, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
   std::vector<GLenum> attachmentsVector;
   attachmentsVector.push_back(attachments);
+
   InitRenderTargets(attachmentsVector);
 
   // Unbind from this texture

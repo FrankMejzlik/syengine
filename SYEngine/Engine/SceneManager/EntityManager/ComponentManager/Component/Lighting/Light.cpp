@@ -1,5 +1,12 @@
 #include "Light.h"
 #include "Transform.h"
+
+#include "Texture.h"
+#include "Scene.h"
+#include "ComponentManager.h"
+#include "Entity.h"
+
+
 using namespace SYE;
 
 
@@ -12,13 +19,17 @@ Light::Light(
     true, true,
     slotIndex , type 
   ),
-  _pShadowMap(std::move(std::make_unique<ShadowMap>()))
+  dc_pShadowMap(std::move(std::make_unique<ShadowMap>()))
 {
+  // Create shadow map
+  _pShadowMap = GetComponentManagerPtr()->CreateComponent<Texture>(pOwnerEntity->GetOwnerScenePtr()->GetRootEntity());
+  _pShadowMap->LoadDepthTexture(1024ULL, 1024ULL);
+
 }
 
 Light::~Light() noexcept
 {
-  _pShadowMap.reset();
+  dc_pShadowMap.reset();
 }
 
 const Vector3f& Light::GetPositionConstRef() const 
@@ -57,7 +68,7 @@ void Light::SetShadowDimensions(glm::ivec3 shadowDimensions)
   _shadowDimensions = shadowDimensions;
 
   // Initialize shadow map
-  _pShadowMap->Init(
+  dc_pShadowMap->Init(
     static_cast<unsigned int>(_shadowDimensions.x),
     static_cast<unsigned int>(_shadowDimensions.y)
   );
@@ -65,5 +76,5 @@ void Light::SetShadowDimensions(glm::ivec3 shadowDimensions)
 
 ShadowMap* Light::GetShadowMap() const
 { 
-  return _pShadowMap.get(); 
+  return dc_pShadowMap.get(); 
 }

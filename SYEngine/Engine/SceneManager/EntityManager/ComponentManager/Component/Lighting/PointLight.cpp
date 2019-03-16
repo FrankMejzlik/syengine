@@ -13,7 +13,7 @@ PointLight::PointLight(
 ):
   Light(pOwnerEntity, pOwnerComponent, slotIndex, type)
 {
-  _pShadowMap = std::make_unique<OmniShadowMap>();
+  dc_pShadowMap = std::make_unique<OmniShadowMap>();
 }
 
 PointLight::~PointLight() noexcept
@@ -30,7 +30,7 @@ void PointLight::SetShadowDimensions(glm::ivec3 shadowDimensions, dfloat nearPla
   float aspect = (float)_shadowDimensions.x / (float)_shadowDimensions.y;
   _lightProjectionMatrix = glm::perspective(glm::radians(90.0f), aspect, _nearPlane, _farPlane);
 
-  _pShadowMap->Init(_shadowDimensions.x, _shadowDimensions.y);
+  dc_pShadowMap->Init(_shadowDimensions.x, _shadowDimensions.y);
 
   _nearPlane = nearPlane;
   _farPlane = farPlane;

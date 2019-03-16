@@ -18,7 +18,7 @@ using namespace SYE;
 
 namespace SYE 
 {
-
+class Texture;
 class Transform;
 
 class Light:
@@ -45,8 +45,14 @@ public:
 
 
 protected:
+#if !NEW_SHADOW_MAPPING_IMPLEMENTED
+
   // Computed shadow map for this light
-  std::unique_ptr<ShadowMap> _pShadowMap;
+  std::unique_ptr<ShadowMap> dc_pShadowMap;
+
+#endif
+
+  Texture* _pShadowMap;
 
   // TODO: Make static/dynamic
   bool _isStatic;

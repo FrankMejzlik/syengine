@@ -182,6 +182,8 @@ public:
 
   bool RemoveEntity(Entity* pEntityToDelete);
 
+  Entity* GetRootEntity() const { return _pRootEntity; }
+
   /**
    * Casts ray from specified position in specified direction and returns <PBody hit, hit Point>
    */
@@ -265,6 +267,8 @@ private:
   std::array<Entity*, NUM_SYSTEM_ENTITIES> _systemEntities;
   std::array<Texture*, NUM_RENDER_TARGET_TEXTURES> _renderTargetTextures;
 
+  //xoxo
+  Entity* _pRootEntity;
 
 };
 

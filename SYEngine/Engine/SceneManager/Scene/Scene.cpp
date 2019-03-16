@@ -31,7 +31,8 @@ Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWind
   _pSceneContext(std::make_unique<SceneContext>(sceneId)),
   _pEngine(pEngine),
   _pMainWindow(pTargetWindow),
-  _pEditorCamera(nullptr)
+  _pEditorCamera(nullptr),
+  _pRootEntity(GetEntityManagerPtr()->CreateEntity<Entity>(this))
   
 {
   // Attach this engine to Engine

@@ -73,8 +73,7 @@ private:
   GLuint uniformFarPlane = 0;
 
   std::unique_ptr<PhysicsDebugRenderer> _pPhysicsDebugRenderer;
-  
-
+ 
 };
 
 }

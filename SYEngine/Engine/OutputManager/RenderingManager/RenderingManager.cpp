@@ -125,6 +125,7 @@ bool RenderingManager::InitializeScene(Scene* pScene)
 {
   UNREFERENCED_PARAMETER(pScene);
   
+  
 
   return true;
 }

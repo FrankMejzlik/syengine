@@ -28,9 +28,11 @@ public:
   bool LoadTexture(Vector3f colour);
   bool LoadTextures(const std::vector<std::string>& textureFilepaths);
 
-  bool LoadTextures(const std::vector< std::vector<std::byte> >& data, const std::vector<GLenum>& attachments);
+  //bool LoadTextures(const std::vector< std::vector<std::byte> >& data, const std::vector<GLenum>& attachments);
   bool InitTextresAsRenderTarget(std::vector<std::byte>, GLenum attachments, size_t width, size_t height);
 
+  
+  bool LoadDepthTexture(size_t width, size_t height);
   
 
   void UseTexture(size_t textureUnit = 0ULL, size_t index = 0ULL);
@@ -47,6 +49,7 @@ public:
 
 private:
   void InitRenderTargets(const std::vector<GLenum>& attachments);
+  void InitDepthTextue();
 
 
   // Attributes
