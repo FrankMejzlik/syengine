@@ -29,6 +29,13 @@ enum class eEngineError
   PhysicsLibRaycastWeirdResult = 504,
   CollisionWithoutColidingObjects = 505,
   IncompleteFrameBufferInRenderingToTextures = 506,
+  LoadingShaderFileFailed = 507,
+  FailedToCompileShaderProgram = 508,
+  FailedToLinkShaderProgram = 509,
+  ValidatingShaderFailed = 510,
+  FailedToCreateShader = 515,
+  UseShaderFailed = 516,
+  FailedToGenerateShaderProgram = 517,
 
   AttachingMultipleSingletonSlotComponents = 1000,
   DuplicateComponentOnEntity = 1001,
@@ -47,6 +54,7 @@ enum class eEngineError
   TryingToDeleteNonExistentEntityFromEntity = 1014,
   TryingToUseNonExistingTextureOnMaterial = 1015,
   GettingIdOfEmptyTexture = 1016,
+  AddingAlreadyExistingShader = 1017,
 };
 
 class EngineError
