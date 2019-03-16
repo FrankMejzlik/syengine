@@ -83,35 +83,34 @@ protected:
 
   
 
-  /** Current view matrix for this Camera */
+  //! Current view matrix for this Camera
   glm::mat4 _dc_viewMatrix;
   
-  /** Orthogonal projection matrix for this Camera */
+  //! Orthogonal projection matrix for this Camera
   glm::mat4 _dc_orthoProjectionMatrix;
 
-  /** Perspective projection matrix for this Cmaera */
+  //! Perspective projection matrix for this Cmaera
   glm::mat4 _dc_perspectiveProjectionMatrix;
 
-  /** True if calculated matrix is up to date and calculated */
+  //! True if calculated matrix is up to date and calculated
   bool _isOrthoProjectionMatrixCalculated;
 
-  /** True if calculated matrix is up to date and calculated */
+  //! True if calculated matrix is up to date and calculated
   bool _isPerspectiveProjectionMatrixCalculated;
 
-  /** World up direction */
-  // TODO: Globalize for all uses
+  //! World up direction
   Vector3f _upDirection;
 
-  /** Camera mode it is currently in */
+  //! Camera mode it is currently in
   eCameraModes _mode;
 
-  /** Field of View of this Camera */
+  //! Field of View of this Camera 
   dfloat _fov;
 
-  /** Near plane distance */
+  //! Near plane distance
   dfloat _nearPlane;
 
-  /** Far plane distance */
+  //! Far plane distance
   dfloat _farPlane;
 
 };

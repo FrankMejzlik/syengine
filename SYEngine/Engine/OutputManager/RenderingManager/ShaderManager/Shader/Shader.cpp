@@ -139,11 +139,38 @@ bool NewShader::LoadUniformFrom(Camera* pCamera, MeshRenderer* pMeshRenderer, eU
   switch (uniformType)
   {
     // MVP Transform Matrix
-  case cMVPTransformMatrix:
+  case cMVPTransformMatrixOrtho:
   {
-
+    // Get projection matrix from Camera
     glm::mat4 proj(pCamera->GetOrthogonalProjectionMatrix());
+
+    // Get view matrix from Camera
     glm::mat4 view(pCamera->GetViewMatrixConstRef());
+
+    // Get Model->World transform matrix from MeshRenderer
+    glm::mat4 model(pMeshRenderer->GetModelToWorldMatrix());
+
+    // Calculate MVP matrix (proj * view * model)
+    glm::mat4 MVP(1.0f);
+    MVP = MVP * proj * view * model;
+
+    // Set it to uniform
+    SetMVPTransformMatrix(MVP);
+
+    result = result && true;
+  }
+  break;
+
+  // MVP Transform Matrix Perspective
+  case cMVPTransformMatrixPerspective:
+  {
+    // Get projection matrix from Camera
+    glm::mat4 proj(pCamera->GetOrthogonalProjectionMatrix());
+
+    // Get view matrix from Camera
+    glm::mat4 view(pCamera->GetViewMatrixConstRef());
+
+    // Get Model->World transform matrix from MeshRenderer
     glm::mat4 model(pMeshRenderer->GetModelToWorldMatrix());
 
     // Calculate MVP matrix (proj * view * model)

@@ -38,7 +38,8 @@ class NewShader:
 public:
   enum eUniforms
   {
-    cMVPTransformMatrix,
+    cMVPTransformMatrixOrtho,
+    cMVPTransformMatrixPerspective,
     cEyePosition,
     cEyeDirection,
     cSpecularIntensity,

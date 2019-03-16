@@ -114,15 +114,19 @@ bool ShaderManager::LoadStandardShaders()
 {
   bool result = true;
 
-
+  ////////////////////////////////////////////////
   // 0: StandardShader
-  std::vector<NewShader::eUniforms> sh0;
-  sh0.push_back(NewShader::eUniforms::cMVPTransformMatrix);
+  ////////////////////////////////////////////////
+  
+  // Required uniforms
+  std::vector<NewShader::eUniforms> requiredUniformsShader0;
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cMVPTransformMatrixOrtho);
 
-  std::vector<NewShader::eUniforms> sh0Optional;
+  // Optional uniforms
+  std::vector<NewShader::eUniforms> optionalUniformsShader0;
 
   NewShader* pShader = CreateShader(
-    sh0, sh0Optional,
+    requiredUniformsShader0, optionalUniformsShader0,
     CONCATENATE_DEFINES(PATH_SHADERS, STANDARD_SHADER_VS_FILENAME),
     CONCATENATE_DEFINES(PATH_SHADERS, STANDARD_SHADER_FS_FILENAME)
   );
@@ -133,17 +137,21 @@ bool ShaderManager::LoadStandardShaders()
   _systemShaders.push_back(pShader);
 
 
-
+  ////////////////////////////////////////////////
   // 1: StandardOrthoShadowMapShader
-  std::vector<NewShader::eUniforms> sh1;
-  sh1.push_back(NewShader::eUniforms::cMVPTransformMatrix);
+  ////////////////////////////////////////////////
 
-  std::vector<NewShader::eUniforms> sh1Optional;
-  sh1Optional.push_back(NewShader::eUniforms::cMVPTransformMatrix);
+  // Required uniforms
+  std::vector<NewShader::eUniforms> requiredUniformsShader1;
+  requiredUniformsShader1.push_back(NewShader::eUniforms::cMVPTransformMatrixOrtho);
+
+  // Optional uniforms
+  std::vector<NewShader::eUniforms> optionalUniformsShader1;
+  optionalUniformsShader1.push_back(NewShader::eUniforms::cMVPTransformMatrixOrtho);
 
   
   pShader = CreateShader(
-    sh1, sh1Optional,
+    requiredUniformsShader1, optionalUniformsShader1,
     CONCATENATE_DEFINES(PATH_SHADERS, STANDARD_SHADER_VS_SM_ORTHO_FILENAME),
     CONCATENATE_DEFINES(PATH_SHADERS, STANDARD_SHADER_FS_SM_ORTHO_FILENAME)
   );
@@ -154,15 +162,19 @@ bool ShaderManager::LoadStandardShaders()
   _systemShaders.push_back(pShader);
 
 
+  ////////////////////////////////////////////////
   // 2: StandardPerspectiveShadowMapShader
-  std::vector<NewShader::eUniforms> sh2;
-  sh2.push_back(NewShader::eUniforms::cMVPTransformMatrix);
+  ////////////////////////////////////////////////
+  std::vector<NewShader::eUniforms> requiredUniformsShader2;
+  requiredUniformsShader2.push_back(NewShader::eUniforms::cMVPTransformMatrixPerspective);
+  requiredUniformsShader2.push_back(NewShader::eUniforms::cEyePosition);
 
-  std::vector<NewShader::eUniforms> sh2Optional;
-  sh2Optional.push_back(NewShader::eUniforms::cMVPTransformMatrix);
+
+  std::vector<NewShader::eUniforms> optionalUniformsShader2;
+  optionalUniformsShader2.push_back(NewShader::eUniforms::cEyePosition);
 
   pShader = CreateShader(
-    sh2, sh2Optional,
+    requiredUniformsShader2, optionalUniformsShader2,
     CONCATENATE_DEFINES(PATH_SHADERS, STANDARD_SHADER_VS_SM_PERSPECTIVE_FILENAME),
     CONCATENATE_DEFINES(PATH_SHADERS, STANDARD_SHADER_FS_SM_PERSPECTIVE_FILENAME),
     std::string_view(),
