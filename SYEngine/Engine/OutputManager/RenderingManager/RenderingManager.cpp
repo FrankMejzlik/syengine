@@ -32,6 +32,7 @@ RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEng
 {
   // Add submodules for this module.
   _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_unique<WindowManager>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_SHADER_MANAGER, std::make_unique<ShaderManager>(*this, _pEngineContext)));
   
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
@@ -125,7 +126,10 @@ bool RenderingManager::InitializeScene(Scene* pScene)
 {
   UNREFERENCED_PARAMETER(pScene);
   
-  
+
+
+  // Initialze submodules scene
+  SHADER_MANAGER->InitializeScene(pScene);
 
   return true;
 }
@@ -166,11 +170,11 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 #if !NEW_SHADOW_MAPPING_IMPLEMENTED
 
   // Calculate directional light shadow maps
-  dc_DirectionalShadowMapPass(pScene);
+  //dc_DirectionalShadowMapPass(pScene);
 
   // Calculat e point light shadow maps
 #if !DISABLE_OMNI_SHADOW_MAPPING
-  dc_OmniShadowMapPass(pScene);
+  //dc_OmniShadowMapPass(pScene);
 #endif
 
 #endif
@@ -178,9 +182,6 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
   // Write ShadowMaps for directional lights
   DirectionalLightShadowMapPass(pScene);
 
-  // Initialize ImGUI draw.
-  UI_MANAGER->InitializeImGuiDraw();
-  
   // Render actual scene with computed shadow maps
   FinalMainRenderPass(pScene);
 
@@ -190,7 +191,7 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 
   // Draw debug physics info
   _shaders[3]->UseShader();
-  pScene->GetPhysicsScenePtr()->DrawDebug(_shaders[3]->GetShaderID(), pScene->GetMainCamera()->GetViewMatrixConstRef(), pScene->GetMainCamera()->GetPerspectiveProjectionMatrixConstRef());
+  pScene->GetPhysicsScenePtr()->DrawDebug(_shaders[3]->GetShaderID(), pScene->GetMainCamera()->GetViewMatrixConstRef(), pScene->GetMainCamera()->dc_GetPerspectiveProjectionMatrixConstRef());
 
   // Swap buffers
   pTargetWindow->SwapBuffers();
@@ -203,21 +204,29 @@ void RenderingManager::DirectionalLightShadowMapPass(Scene* pScene)
   // Get Components
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
 
-  // Get correct Shader
-  Shader* pShader = _shaders[5].get();
-
-  // Use correct shader
-  pShader->UseShader();
-  // Get uniform location of model->world matrix
-  GLuint ul_modelToWorldMatrix = pShader->GetModelLocation();
-
   // Iterate through all DirectionalLights
   for (auto&& dirLight : components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT])
   {
     DirectionalLight* light = static_cast<DirectionalLight*>(dirLight.second);
 
-    // Set this Texture as render target
+    // If rendering to texture on
+  #if RENDER_SCENE_TO_TEXTUE
+    // Render to "Frame buffer" texture 
+    pScene->GetRenderTargetTexturePtr(0ULL)->SetAsRenderTarget(pScene);
+
+    // Clear buffer
+    glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
+    // Clear color and depth buffer
+    glClear(GL_COLOR_BUFFER_BIT);
+
+
+    glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+    glClear(GL_DEPTH_BUFFER_BIT);
+
+  #else
+    // Render to shadow map texture
     light->GetShadowMap()->SetAsRenderTarget(pScene);
+  #endif
 
     // Clear depth buffer
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -236,48 +245,240 @@ void RenderingManager::DirectionalLightShadowMapPass(Scene* pScene)
       // Set correct rotation to Camera
       pUtilCam->GetTransformPtr()->SetRotation(light->GetTransformPtr()->GetRotation());
 
-      // Get handle to model uniform in shader
-      //GLuint ul_model_ = _shaders[1]->GetModelLocation();
-      //GLuint ul_specularIntensity_ = _shaders[1]->GetSpecularIntensityLocation();
-      //GLuint ul_shininess_ = _shaders[1]->GetShininessLocation();
-
-
-      // Give it correctly calculated lightTransform matrix
-      auto lightTransform = light->CalculateLightTransformMatrix();
-      _shaders[1]->SetDirectionalLightTransform(&lightTransform);
-
       // Render all MeshRenderers
       for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
       {
         MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
 
-        mashRenderer->RenderForLight(ul_modelToWorldMatrix);
+        mashRenderer->RenderForShadowMap(pUtilCam);
       }
     }
-
-    // Configure OpenGL
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE);
-    glDepthMask(GL_FALSE);
-    glDepthFunc(GL_EQUAL);
-
-    // Render all MeshRenderers
-    for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
-    {
-      MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
-
-      mashRenderer->RenderForLight(ul_modelToWorldMatrix);
-    }
-
-    // Put settings back
-    glDepthMask(GL_TRUE);
-    glDepthFunc(GL_LESS);
-    glEnable(GL_BLEND);
-
   }
 
 
 }
+
+void RenderingManager::FinalMainRenderPass(Scene* pScene)
+{
+
+#if 0
+
+#if RENDER_SCENE_TO_TEXTUE
+
+  // Set frambebuffer Texture as render targer
+  pScene->GetRenderTargetTexturePtr(0ULL)->SetAsRenderTarget(pScene);
+
+#else
+
+  // Set standard Window as render target
+  pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene);
+
+#endif
+
+  // Get active components
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
+
+  // Configure OpenGL
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_ONE, GL_ONE);
+  glDepthMask(GL_FALSE);
+  glDepthFunc(GL_EQUAL);
+
+
+  // Get correct Shader
+  Shader* pShader = _shaders[0].get();
+
+  // Use correct shader
+  pShader->UseShader();
+
+  GLuint __ul_specularIntensity_ = pShader->GetSpecularIntensityLocation();
+  GLuint __ul_shininess_ = pShader->GetShininessLocation();
+
+  // Render all MeshRenderers
+  for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
+  {
+    MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
+
+    //mashRenderer->Render(ul_modelToWorldMatrix, __ul_specularIntensity_, __ul_shininess_);
+  }
+
+  // Put settings back
+  glDepthMask(GL_TRUE);
+  glDepthFunc(GL_LESS);
+  glEnable(GL_BLEND);
+
+#endif
+
+  
+  //
+  //// If main light present
+  //DirectionalLight* mainLight;
+  //if (!components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].empty())
+  //{
+  //  mainLight = static_cast<DirectionalLight*>(components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].begin()->second);
+  //}
+  //else
+  //{
+  //  mainLight = nullptr;
+  //}
+
+  //// Clear buffer
+  //glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  //// Clear color and depth buffer
+  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  // //Draw main scene
+  //_shaders[0]->UseShader();
+
+  //uniformProjection = _shaders[0]->GetProjectionLocation();
+  //uniformView = _shaders[0]->GetViewLocation();
+  //uniformEyePosition = _shaders[0]->GetEyePosition();
+  //ul_model = _shaders[0]->GetModelLocation();
+  //GLuint ul_specularIntensity = _shaders[0]->GetSpecularIntensityLocation(); ul_specularIntensity;
+  //GLuint ul_shininess = _shaders[0]->GetShininessLocation(); ul_shininess;
+
+
+  //// Set values in shader uniforms
+  //glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->GetPerspectiveProjectionMatrixConstRef()));
+  //glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->GetViewMatrixConstRef()));
+  //glUniform3f(uniformEyePosition, 
+  //  pScene->GetMainCamera()->GetCameraPosition().GetX(), 
+  //  pScene->GetMainCamera()->GetCameraPosition().GetY(), 
+  //  pScene->GetMainCamera()->GetCameraPosition().GetZ()
+  //);
+
+  //// Get counts of lights.
+  //size_t pointLightCount = components[COMPONENT_POINT_LIGHT_SOURCE_SLOT].size(); pointLightCount;
+  //size_t spotLightCount = components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT].size(); spotLightCount;
+
+
+  //// Set up all lights to scene.
+  //if (mainLight)
+  //{
+  //  _shaders[0]->dc_SetDirectionalLight(mainLight);
+  //}
+  //_shaders[0]->SetPointLights(components[COMPONENT_POINT_LIGHT_SOURCE_SLOT], 3, 0ULL); // Offset 0.
+  //_shaders[0]->SetSpotLights(components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT], 3 + pointLightCount, pointLightCount); // Offset by number of point lights.
+  //if (mainLight)
+  //{
+  //  auto lightTranforms = mainLight->CalculateLightTransformMatrix();
+  //  _shaders[0]->SetDirectionalLightTransform(&lightTranforms);
+  //}
+
+  //// Set main object texture slot to 1.
+  //_shaders[0]->SetTexture(1);
+  //// Validate main shader.
+  ////_shaders[0]->Validate();
+
+  //for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
+  //{
+  //  MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
+
+  //  mashRenderer->Render(ul_model, ul_specularIntensity, ul_shininess);
+  //}
+
+
+
+#if RENDER_SCENE_TO_TEXTUE
+
+  // Set standard Window as render target for this one and only "projection quad"
+  pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene);
+
+  // Clear buffer
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  // Clear color and depth buffer
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  // Use shader for rendering scene texture on primitive
+  _shaders[4]->UseShader();
+  // Tell shader that diffuse texture is on index 1
+  _shaders[4]->SetTexture(1);
+
+  // Get uniform locations
+  uniformProjection = _shaders[4]->GetProjectionLocation();
+  uniformView = _shaders[4]->GetViewLocation();
+  uniformEyePosition = _shaders[4]->GetEyePosition();
+  ul_model = _shaders[4]->GetModelLocation();
+
+  // Set values in shader uniforms
+  glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->dc_GetPerspectiveProjectionMatrixConstRef()));
+  glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->GetViewMatrixConstRef()));
+  glUniform3f(uniformEyePosition, 
+    pScene->GetMainCamera()->GetCameraPosition().GetX(), 
+    pScene->GetMainCamera()->GetCameraPosition().GetY(), 
+    pScene->GetMainCamera()->GetCameraPosition().GetZ()
+  );
+
+  // Render Quad with texture that has been render to
+  Entity* pProjectionQuad(pScene->GetSystemEntityPtr(RENDER_ONTO_ENTITY));
+  pProjectionQuad->GetMeshRendererPtr()->Render(ul_model, 0, 0);
+
+#endif
+
+  // Show framebuffer to user
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);  
+}
+
+
+void RenderingManager::CreateShaders()
+{
+  // Line shader for line drawing
+  const char* lineVertexShader = "shaders/line_shader.vert";
+  const char* lineFragShader = "shaders/line_shader.frag";
+
+  const char* vShader = "shaders/shader.vert";
+  const char* fShader = "shaders/shader.frag";
+
+  const char* vShader2 = "shaders/shader_plain.vert";
+  const char* fShader2 = "shaders/shader_plain.frag";
+
+  const char* vDLShader = "shaders/directional_shadow_map.vert";
+  const char* fDLShader = "shaders/directional_shadow_map.frag";
+
+  const char* vODLShader = "shaders/omni_shadow_map.vert";
+  const char* gODLShader = "shaders/omni_shadow_map.geom";
+  const char* fODLShader = "shaders/omni_shadow_map.frag";
+
+
+  // Main shader
+  std::unique_ptr<Shader> pMainShader = std::make_unique<Shader>(nullptr, nullptr);
+  pMainShader->CreateFromFiles(vShader, fShader);
+  _shaders.push_back(std::move(pMainShader));
+
+
+
+  // Directional light shader
+  std::unique_ptr<Shader> pDLShader = std::make_unique<Shader>(nullptr, nullptr);
+  pDLShader->CreateFromFiles(vDLShader, fDLShader);
+  _shaders.push_back(std::move(pDLShader));
+
+  // Omnidir light shader
+  std::unique_ptr<Shader> pODLShader = std::make_unique<Shader>(nullptr, nullptr);
+  pODLShader->CreateFromFiles(vODLShader, gODLShader, fODLShader);
+  _shaders.push_back(std::move(pODLShader));
+
+  // Line shader
+  std::unique_ptr<Shader> pLineShader = std::make_unique<Shader>(nullptr, nullptr);
+  pLineShader->CreateFromFiles(lineVertexShader, lineFragShader);
+  _shaders.push_back(std::move(pLineShader));
+
+  // PLain shader
+  std::unique_ptr<Shader> pMainShader2 = std::make_unique<Shader>(nullptr, nullptr);
+  pMainShader2->CreateFromFiles(vShader2, fShader2);
+  _shaders.push_back(std::move(pMainShader2));
+
+
+  // Directional light shader
+ /* std::unique_ptr<Shader> pDirectionalLightShadowMapShader = std::make_unique<Shader>(nullptr, nullptr);
+  pDirectionalLightShadowMapShader->CreateFromFiles(
+    "shaders/new_directional_shadow_map.vert", 
+    "shaders/new_directional_shadow_map.frag"
+  );
+  _shaders.push_back(std::move(pDirectionalLightShadowMapShader));*/
+  
+
+}
+
 
 
 #if !NEW_SHADOW_MAPPING_IMPLEMENTED
@@ -423,188 +624,3 @@ void RenderingManager::dc_OmniShadowMapPass(Scene* pScene)
 }
 
 #endif
-
-void RenderingManager::FinalMainRenderPass(Scene* pScene)
-{
-#if RENDER_SCENE_TO_TEXTUE
-
-  // Set frambebuffer Texture as render targer
-  pScene->GetRenderTargetTexturePtr(0ULL)->SetAsRenderTarget(pScene);
-
-#else
-
-  // Set standard Window as render target
-  pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene);
-
-#endif
-
-  // Get active components
-  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
-  
-  // If main light present
-  DirectionalLight* mainLight;
-  if (!components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].empty())
-  {
-    mainLight = static_cast<DirectionalLight*>(components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].begin()->second);
-  }
-  else
-  {
-    mainLight = nullptr;
-  }
-
-  // Clear buffer
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  // Clear color and depth buffer
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-   //Draw main scene
-  _shaders[0]->UseShader();
-
-  uniformProjection = _shaders[0]->GetProjectionLocation();
-  uniformView = _shaders[0]->GetViewLocation();
-  uniformEyePosition = _shaders[0]->GetEyePosition();
-  ul_model = _shaders[0]->GetModelLocation();
-  GLuint ul_specularIntensity = _shaders[0]->GetSpecularIntensityLocation(); ul_specularIntensity;
-  GLuint ul_shininess = _shaders[0]->GetShininessLocation(); ul_shininess;
-
-
-  // Set values in shader uniforms
-  glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->GetPerspectiveProjectionMatrixConstRef()));
-  glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->GetViewMatrixConstRef()));
-  glUniform3f(uniformEyePosition, 
-    pScene->GetMainCamera()->GetCameraPosition().GetX(), 
-    pScene->GetMainCamera()->GetCameraPosition().GetY(), 
-    pScene->GetMainCamera()->GetCameraPosition().GetZ()
-  );
-
-  // Get counts of lights.
-  size_t pointLightCount = components[COMPONENT_POINT_LIGHT_SOURCE_SLOT].size(); pointLightCount;
-  size_t spotLightCount = components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT].size(); spotLightCount;
-
-
-  // Set up all lights to scene.
-  if (mainLight)
-  {
-    _shaders[0]->dc_SetDirectionalLight(mainLight);
-  }
-  _shaders[0]->SetPointLights(components[COMPONENT_POINT_LIGHT_SOURCE_SLOT], 3, 0ULL); // Offset 0.
-  _shaders[0]->SetSpotLights(components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT], 3 + pointLightCount, pointLightCount); // Offset by number of point lights.
-  if (mainLight)
-  {
-    auto lightTranforms = mainLight->CalculateLightTransformMatrix();
-    _shaders[0]->SetDirectionalLightTransform(&lightTranforms);
-  }
-
-  // Set main object texture slot to 1.
-  _shaders[0]->SetTexture(1);
-  // Validate main shader.
-  //_shaders[0]->Validate();
-
-  for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
-  {
-    MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
-
-    mashRenderer->Render(ul_model, ul_specularIntensity, ul_shininess);
-  }
-
-
-
-#if RENDER_SCENE_TO_TEXTUE
-
-  // Set standard Window as render target for this one and only "projection quad"
-  pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene);
-
-  // Clear buffer
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  // Clear color and depth buffer
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  // Use shader for rendering scene texture on primitive
-  _shaders[4]->UseShader();
-  // Tell shader that diffuse texture is on index 1
-  _shaders[4]->SetTexture(1);
-
-  // Get uniform locations
-  uniformProjection = _shaders[4]->GetProjectionLocation();
-  uniformView = _shaders[4]->GetViewLocation();
-  uniformEyePosition = _shaders[4]->GetEyePosition();
-  ul_model = _shaders[4]->GetModelLocation();
-
-  // Set values in shader uniforms
-  glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->GetPerspectiveProjectionMatrixConstRef()));
-  glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetEditorCamera()->GetViewMatrixConstRef()));
-  glUniform3f(uniformEyePosition, 
-    pScene->GetEditorCamera()->GetCameraPosition().GetX(), 
-    pScene->GetEditorCamera()->GetCameraPosition().GetY(), 
-    pScene->GetEditorCamera()->GetCameraPosition().GetZ()
-  );
-
-  // Render Quad with texture that has been render to
-  Entity* pProjectionQuad(pScene->GetSystemEntityPtr(RENDER_ONTO_ENTITY));
-  pProjectionQuad->GetMeshRendererPtr()->Render(ul_model, 0, 0);
-
-#endif
-
-  // Show framebuffer to user
-  glBindFramebuffer(GL_FRAMEBUFFER, 0);  
-}
-
-
-void RenderingManager::CreateShaders()
-{
-  // Line shader for line drawing
-  const char* lineVertexShader = "shaders/line_shader.vert";
-  const char* lineFragShader = "shaders/line_shader.frag";
-
-  const char* vShader = "shaders/shader.vert";
-  const char* fShader = "shaders/shader.frag";
-
-  const char* vShader2 = "shaders/shader_plain.vert";
-  const char* fShader2 = "shaders/shader_plain.frag";
-
-  const char* vDLShader = "shaders/directional_shadow_map.vert";
-  const char* fDLShader = "shaders/directional_shadow_map.frag";
-
-  const char* vODLShader = "shaders/omni_shadow_map.vert";
-  const char* gODLShader = "shaders/omni_shadow_map.geom";
-  const char* fODLShader = "shaders/omni_shadow_map.frag";
-
-
-  // Main shader
-  std::unique_ptr<Shader> pMainShader = std::make_unique<Shader>(nullptr, nullptr);
-  pMainShader->CreateFromFiles(vShader, fShader);
-  _shaders.push_back(std::move(pMainShader));
-
-
-
-  // Directional light shader
-  std::unique_ptr<Shader> pDLShader = std::make_unique<Shader>(nullptr, nullptr);
-  pDLShader->CreateFromFiles(vDLShader, fDLShader);
-  _shaders.push_back(std::move(pDLShader));
-
-  // Omnidir light shader
-  std::unique_ptr<Shader> pODLShader = std::make_unique<Shader>(nullptr, nullptr);
-  pODLShader->CreateFromFiles(vODLShader, gODLShader, fODLShader);
-  _shaders.push_back(std::move(pODLShader));
-
-  // Line shader
-  std::unique_ptr<Shader> pLineShader = std::make_unique<Shader>(nullptr, nullptr);
-  pLineShader->CreateFromFiles(lineVertexShader, lineFragShader);
-  _shaders.push_back(std::move(pLineShader));
-
-  // PLain shader
-  std::unique_ptr<Shader> pMainShader2 = std::make_unique<Shader>(nullptr, nullptr);
-  pMainShader2->CreateFromFiles(vShader2, fShader2);
-  _shaders.push_back(std::move(pMainShader2));
-
-
-  // Directional light shader
-  std::unique_ptr<Shader> pDirectionalLightShadowMapShader = std::make_unique<Shader>(nullptr, nullptr);
-  pDirectionalLightShadowMapShader->CreateFromFiles(
-    "shaders/new_directional_shadow_map.vert", 
-    "shaders/new_directional_shadow_map.frag"
-  );
-  _shaders.push_back(std::move(pDirectionalLightShadowMapShader));
-  
-
-}

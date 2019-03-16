@@ -12,6 +12,7 @@ namespace SYE
 class Material;
 class Mesh;
 class Shader;
+class NewShader;
 class Shininess;
 class Texture;
 class Transform;
@@ -28,6 +29,8 @@ public:
 
   void Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation) const;
   void RenderForLight(GLuint ul_modelToWorldMatrix) const;
+
+  void RenderForShadowMap(Camera* pCamera, Shader* pShader = nullptr) const;
 
   glm::mat4 GetModelToWorldMatrix() const;
 
@@ -58,12 +61,10 @@ public:
    *                              E.g: shiny: 1.0f, dull: 0.3f 
    * @param   dfloat            Shinines factor.
    *                              E.g: shiny: 512 dull: 4
-   * @param   std::string_view  Filepath to shader file.
    */
   Material* AddMaterial(
     std::string_view textureFilePath, 
-    dfloat specularIntensity, dfloat shininessIntensity, 
-    std::string_view shaderPathFile
+    dfloat specularIntensity, dfloat shininessIntensity
   );
 
   /**
@@ -73,7 +74,7 @@ public:
     Vector3f colour,
     dfloat specularIntensity, dfloat shininessIntensity
   );
-  Material* AddMaterial(Texture* pTexture, Shininess* pShininess, Shader* pShader);
+  Material* AddMaterial(Texture* pTexture, Shininess* pShininess, NewShader* pShader);
   bool AddMeshToMaterialIndex(size_t meshIndex, size_t materialIndex);
 
   void ClearAll();

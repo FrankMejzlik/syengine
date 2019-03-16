@@ -4,7 +4,8 @@
 using namespace SYE;
 
 
-IErrorLogging::IErrorLogging()
+IErrorLogging::IErrorLogging():
+  _currentState(eState::cValid)
 {}
 
 

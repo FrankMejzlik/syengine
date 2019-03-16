@@ -2,16 +2,23 @@
 
 #include "Component.h"
 #include "Utils.h"
+#include "MeshRenderer.h"
+#include "Camera.h"
+
 
 using namespace SYE;
 
 
 NewShader::NewShader(
+  std::vector<NewShader::eUniforms> _requiredUniforms,
+  std::vector<NewShader::eUniforms> _optionalUniforms,
   std::string_view vsFilepath,
   std::string_view fsFilepath,
   std::string_view tsFilepath,
   std::string_view gsFilepath
 ):
+  _requiredUniforms(_requiredUniforms),
+  _optionalUniforms(_optionalUniforms),
   _shaderId(0),
   _ulMVPTransformMatrix(0),
   _ulEyePosition(0),
@@ -124,6 +131,56 @@ void NewShader::ClearShader()
   _ulFarPlane = 0;
 }
 
+bool NewShader::LoadUniformFrom(Camera* pCamera, MeshRenderer* pMeshRenderer, eUniforms uniformType)
+{
+  bool result = true;
+
+  // Switch through all possible uniforms and handle them
+  switch (uniformType)
+  {
+    // MVP Transform Matrix
+  case cMVPTransformMatrix:
+  {
+
+    glm::mat4 proj(pCamera->GetOrthogonalProjectionMatrix());
+    glm::mat4 view(pCamera->GetViewMatrixConstRef());
+    glm::mat4 model(pMeshRenderer->GetModelToWorldMatrix());
+
+    // Calculate MVP matrix (proj * view * model)
+    glm::mat4 MVP(1.0f);
+    MVP = MVP * proj * view * model;
+
+    // Set it to uniform
+    SetMVPTransformMatrix(MVP);
+
+    result = result && true;
+  }
+  break;
+
+  }
+
+  return result;
+  
+}
+
+bool NewShader::LoadSelfWithUniformsFrom(Camera* pCamera, MeshRenderer* pMeshRenderer)
+{
+  bool result = true;
+
+  // Iterate through required
+  for (auto&& uniform : _requiredUniforms)
+  {
+    result = result && LoadUniformFrom(pCamera, pMeshRenderer, uniform);
+  }
+
+  // Iterate through optional
+  for (auto&& uniform : _requiredUniforms)
+  {
+    LoadUniformFrom(pCamera, pMeshRenderer, uniform);
+  }
+
+  return result;
+}
 
 
 bool NewShader::CreateShader(
@@ -162,7 +219,7 @@ bool NewShader::CreateShader(
   }
 
   // If Geometry Shader provided
-  if (!tsFilepath.empty())
+  if (!gsFilepath.empty())
   {
     CreateSpecificShader(_shaderId, Utils::ReadTextFile(gsFilepath), GL_GEOMETRY_SHADER);
   }

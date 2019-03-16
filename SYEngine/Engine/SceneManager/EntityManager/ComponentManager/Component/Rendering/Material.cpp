@@ -4,7 +4,9 @@
 #include "ComponentManager.h"
 
 #include "Shininess.h"
-
+#include "ShaderManager.h"
+#include "Shader.h"
+#include "Texture.h"
 
 using namespace SYE;
 
@@ -12,9 +14,24 @@ Material::Material(
   Entity* pOwnerEntity, Component* pOwnerComponent,
   eSlotIndex slotIndex, Component::eType type
 ):
-  Component(pOwnerEntity, pOwnerComponent, false, true, slotIndex, type)
-{}
+  Component(pOwnerEntity, pOwnerComponent, false, true, slotIndex, type),
+  _pMeshRenderer(nullptr),
+  _shader(GetShaderManagerPtr()->GetStandardShader()),
+  _orthoShadowMapShader(GetShaderManagerPtr()->GetStandardOrthoShadowMapShader()),
+  _perspectiveShadowMapShader(GetShaderManagerPtr()->GetStandardPerspectiveShadowMapShader())
+{
+  // Make sure we have valid Shaders
+  assert(_shader != nullptr);
+  assert(_orthoShadowMapShader != nullptr);
+  assert(_perspectiveShadowMapShader != nullptr);
+}
 
+Material::~Material() noexcept
+{
+  // Clear shaders
+  ClearShader();
+  ClearOrthoShadowMapShader();
+}
 
 size_t Material::AddShininess()
 {
@@ -124,32 +141,72 @@ void Material::UseMaterial(
 
 }
 
-size_t Material::AddShader()
+void Material::AddShader()
 {
-  LOG_NOT_IMPLEMENTED;
+  _shader = GetShaderManagerPtr()->GetStandardShader();
+}
+
+void Material::AddOrthoShadowMapShader()
+{
+  _orthoShadowMapShader = GetShaderManagerPtr()->GetStandardOrthoShadowMapShader();
+}
+
+void Material::AddPerspectiveShadowMapShader()
+{
+  _perspectiveShadowMapShader = GetShaderManagerPtr()->GetStandardPerspectiveShadowMapShader();
+}
+
+NewShader*  Material::AddShader(
+  std::vector<NewShader::eUniforms> _requiredUniforms,
+  std::vector<NewShader::eUniforms> _optionalUniforms,
+  std::string_view vsFilepath, 
+  std::string_view fsFilepath,
+  std::string_view tsFilepath,
+  std::string_view gsFilepath
+)
+{
+  // Ask ShaderManager to create new Shader
+  _shader = GetShaderManagerPtr()->CreateShader(_requiredUniforms, _optionalUniforms, vsFilepath, fsFilepath, tsFilepath, gsFilepath);
+
   return 0ULL;
 }
 
-size_t Material::AddShader(std::string_view filePath)
+NewShader*  Material::AddOrthoShadowMapShader(
+  std::vector<NewShader::eUniforms> _requiredUniforms,
+  std::vector<NewShader::eUniforms> _optionalUniforms,
+  std::string_view vsFilepath,
+  std::string_view fsFilepath,
+  std::string_view tsFilepath,
+  std::string_view gsFilepath
+)
 {
-  UNREFERENCED_PARAMETER(filePath);
+  // Ask ShaderManager to create new Shader
+  _orthoShadowMapShader = GetShaderManagerPtr()->CreateShader(_requiredUniforms, _optionalUniforms, vsFilepath, fsFilepath, tsFilepath, gsFilepath);
 
-  LOG_NOT_IMPLEMENTED;
-  return 0ULL;
+  return _orthoShadowMapShader;
 }
 
-size_t Material::AddShader(Shader* pShader)
+void Material::AddShader(NewShader* pShader)
 {
-  UNREFERENCED_PARAMETER(pShader);
-
-  LOG_NOT_IMPLEMENTED;
-  return 0ULL;
+  _shader = pShader;
 }
 
-void Material::AddTextureToShaderIndex(size_t textureIndex, size_t shaderIndex)
+void Material::AddOrthoShadowMapShader(NewShader* pShader)
 {
-  UNREFERENCED_PARAMETER(textureIndex);
-  UNREFERENCED_PARAMETER(shaderIndex);
+  _orthoShadowMapShader = pShader;
+}
 
-  LOG_NOT_IMPLEMENTED;
+void Material::ClearOrthoShadowMapShader()
+{
+  _orthoShadowMapShader = nullptr;
+}
+
+void Material::ClearProjectionShadowMapShader()
+{
+  _perspectiveShadowMapShader = nullptr;
+}
+
+void Material::ClearShader()
+{
+  _shader = nullptr;
 }

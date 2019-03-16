@@ -41,13 +41,13 @@ public:
   );
 
   const glm::mat4& GetViewMatrixConstRef();
-  const glm::mat4& GetOrthoProjectionMatrixConstRef();
-  const glm::mat4& GetPerspectiveProjectionMatrixConstRef();
+  const glm::mat4& dc_GetOrthoProjectionMatrixConstRef();
+  const glm::mat4& dc_GetPerspectiveProjectionMatrixConstRef();
 
   Vector3f GetPickingRay(int x, int y);
   
-  void SetFov(dfloat fovAngle);
-  dfloat GetFov() const;
+  void SetFov(dfloat fovAngle) { _fov = fovAngle; }
+  dfloat GetFov() const { return _fov; }
 
   void SetCameraMode(eCameraModes mode) { _mode = mode; }
   
@@ -57,30 +57,11 @@ public:
   Vector3f GetCameraDirection() const;
 
 
-  const Matrix4f& GetOrthogonalProjectionMatrix() const
-  {
-    return _orthogonalProjectionMatrix;
-  }
+  const Matrix4f& GetOrthogonalProjectionMatrix() const;
+  void SetOrthogonalProjectionMatrix(Matrix4f matrix);
+  void SetTargetWindow(Window* pWindow);
+  void SetTargetTexture(const Texture* pTexture);
 
-  void SetOrthogonalProjectionMatrix(Matrix4f matrix)
-  {
-    _orthogonalProjectionMatrix = matrix;
-  }
-
-  void SetTargetWindow(Window* pWindow) 
-  {
-    _pTargetTexture = nullptr;
-    _pTargetWindow = pWindow;
-
-    _isPerspectiveProjectionMatrixCalculated = false;
-  }
-  void SetTargetTexture(const Texture* pTexture) 
-  {
-    _pTargetWindow = nullptr;
-    _pTargetTexture = pTexture;
-
-    _isPerspectiveProjectionMatrixCalculated = false;
-  }
 
 private:
   void dc_CalculateViewMatrix();
@@ -91,14 +72,16 @@ private:
 
   // Attributes
 protected:
-  /** Window instance this Camera is working for */
+  //! Window instance this Camera is working for
   Window* _pTargetWindow;
 
+  //! Target texture this Camera is working for
+  const Texture* _pTargetTexture;
 
   Matrix4f _orthogonalProjectionMatrix;
+  Matrix4f _perspectiveProjectionMatrix;
 
-
-  const Texture* _pTargetTexture;
+  
 
   /** Current view matrix for this Camera */
   glm::mat4 _dc_viewMatrix;

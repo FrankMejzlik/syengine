@@ -10,6 +10,7 @@
 #include "Material.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include "Shader.h"
 
 using namespace SYE;
 
@@ -72,7 +73,39 @@ void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntens
     }
 
     // Render Mesh
-    _meshes[i]->RenderMesh();
+    _meshes[i]->dc_RenderMesh();
+  }
+}
+
+void MeshRenderer::RenderForShadowMap(Camera* pCamera, Shader* pShader) const
+{
+  // If Shader provided
+  if (pShader != nullptr)
+  {
+    //! \todo Implement overwrite with this Shader
+  }
+
+  // Iterate through all meshes
+  for (size_t i = 0; i < _meshes.size(); ++i)
+  {
+    Mesh* pMesh = _meshes[i];
+
+    NewShader* pFinalShader = nullptr;
+
+    // If any materials
+    if (!_materials.empty())
+    {
+      // Get material attached to this Mesh
+      Material* material = _materials[_meshToMaterialIndex[i]];
+
+      // Use Shader for Shadow mapping
+      pFinalShader = material->GetOrthoShadowMapShdaer();
+
+      pFinalShader->UseShader();
+    }
+
+    // Render this Mesh with provided Shader
+    pMesh->RenderMesh(pCamera, pFinalShader);
   }
 }
 
@@ -88,7 +121,7 @@ void MeshRenderer::RenderForLight(GLuint ul_modelToWorldMatrix) const
   for (size_t i = 0; i < _meshes.size(); ++i)
   {
      // Render Mesh
-    _meshes[i]->RenderMesh();
+    _meshes[i]->dc_RenderMesh();
   }
 }
 
@@ -124,7 +157,6 @@ Material* MeshRenderer::AddMaterial()
 
   // Add default shader
   pMaterial->AddShader();
-  pMaterial->AddTextureToShaderIndex(0ULL, 0ULL);
 
   // Push it in
   _materials.push_back(pMaterial);
@@ -148,7 +180,6 @@ Material* MeshRenderer::AddMaterial(
 
   // Add default shader
   pMaterial->AddShader();
-  pMaterial->AddTextureToShaderIndex(0ULL, 0ULL);
 
   // Push it in
   _materials.push_back(pMaterial);
@@ -158,8 +189,7 @@ Material* MeshRenderer::AddMaterial(
 
 Material* MeshRenderer::AddMaterial(
   std::string_view textureFilePath,
-  dfloat specularIntensity, dfloat shininessIntensity,
-  std::string_view shaderPathFile
+  dfloat specularIntensity, dfloat shininessIntensity
 )
 {
   // Create empty Material.
@@ -172,8 +202,7 @@ Material* MeshRenderer::AddMaterial(
   pMaterial->AddTextureToShininessIndex(0ULL, 0ULL);
 
   // Add default shader
-  pMaterial->AddShader(shaderPathFile);
-  pMaterial->AddTextureToShaderIndex(0ULL, 0ULL);
+  pMaterial->AddShader();
 
   // Push it in
   _materials.push_back(pMaterial);
@@ -181,7 +210,7 @@ Material* MeshRenderer::AddMaterial(
   return pMaterial;
 }
 
-Material* MeshRenderer::AddMaterial(Texture* pTexture, Shininess* pShininess, Shader* pShader)
+Material* MeshRenderer::AddMaterial(Texture* pTexture, Shininess* pShininess, NewShader* pShader)
 {
   Material* pMaterial = GetComponentManagerPtr()->CreateComponent<Material>(_pOwnerEntity, this);
   pMaterial->AddTexture(pTexture);

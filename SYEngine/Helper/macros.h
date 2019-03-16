@@ -40,7 +40,7 @@
 // RenderingManager submodules
 #define MESH_MANAGER static_cast<MeshManager*>(_subModules[ID_MESH_MANAGER].get())
 #define MODEL_MANAGER static_cast<ModelManager*>(_subModules[ID_MODEL_MANAGER].get())
-#define SHADER_MANAGER static_cast<EntityManager*>(_subModules[ID_SHADER_MANAGER].get())
+#define SHADER_MANAGER static_cast<ShaderManager*>(_subModules[ID_SHADER_MANAGER].get())
 #define SHDOW_MANAGER static_cast<NetworkManager*>(_subModules[ID_SHDOW_MANAGER].get())
 #define SKYBOX_MANAGER static_cast<OutputManager*>(_subModules[ID_SKYBOX_MANAGER].get())
 #define TEXTURE_MANAGER static_cast<TextureManager*>(_subModules[ID_TEXTURE_MANAGER].get())

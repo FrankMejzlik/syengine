@@ -34,10 +34,26 @@ namespace SYE
 class NewShader:
   public IErrorLogging, public IGuidCounted
 {
+  // Structs
+public:
+  enum eUniforms
+  {
+    cMVPTransformMatrix,
+    cEyePosition,
+    cEyeDirection,
+    cSpecularIntensity,
+    cShininessIntensity,
+    cDiffuseTexture,
+    cNormalMapTexture,
+    cDirectionalShadowMap
+  };
+
   // Methods
 public:
   NewShader() = delete;
   NewShader(
+    std::vector<NewShader::eUniforms> _requiredUniforms,
+    std::vector<NewShader::eUniforms> _optionalUniforms,
     std::string_view vsFilepath, 
     std::string_view fsFilepath,
     std::string_view tsFilepath  = std::string_view(),
@@ -82,7 +98,12 @@ public:
   void SetDiffuseTexture(GLuint textureUnit) const;
   void SetNormalMapTexture(GLuint textureUnit) const;
   void SetDirectionalShadowMap(GLuint textureUnit) const;
-   
+  
+
+  const std::vector<NewShader::eUniforms>& GetRequiredUniformsConstRef() const;
+  const std::vector<NewShader::eUniforms>& GetOptionalUniforms() const;
+
+  bool LoadSelfWithUniformsFrom(Camera* pCamera, MeshRenderer* pMeshRenderer);
   
 private:
   bool CompileProgram();
@@ -99,8 +120,18 @@ private:
 
   void CreateSpecificShader(GLuint theProgram, std::string_view shaderCode, GLenum shaderType);
 
+  bool LoadUniformFrom(Camera* pCamera, MeshRenderer* pMeshRenderer, eUniforms uniformType);
+
+
+
   // Attributes
 private:
+  //! List of required uniforms for rendering
+  std::vector<NewShader::eUniforms> _requiredUniforms;
+
+  //! List of oprional uniforms for rendering
+  std::vector<NewShader::eUniforms> _optionalUniforms;
+
   //! Shader ID of normal Shader
   GLuint _shaderId;
   

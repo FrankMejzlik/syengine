@@ -16,7 +16,8 @@ namespace SYE
 {
 
 class Texture;
-class _Material;
+class Shader;
+class NewShader;
 
 class Mesh:
   public Component
@@ -42,7 +43,9 @@ public:
     bool calculateAverageNormals = false
   );
 
-  virtual void RenderMesh();
+  virtual void RenderMesh(Camera* pCamera, NewShader* pShader) const;
+
+  virtual void dc_RenderMesh();
   virtual void ClearMesh();
 
   void MakeBlock(dfloat width, dfloat height, dfloat length);
@@ -60,6 +63,11 @@ public:
 
   const std::vector<dfloat>& GetVertices() const { return _vertices; }
 
+private:
+  bool LoadShaderUniforms(Camera* pCamera, NewShader* pShader) const;
+
+
+  // Attributes
 protected:
   std::vector<dfloat> _vertices;
   std::vector<unsigned int> _indices;

@@ -36,6 +36,10 @@ enum class eEngineError
   FailedToCreateShader = 515,
   UseShaderFailed = 516,
   FailedToGenerateShaderProgram = 517,
+  FailedToLoadSystemShaders = 520,
+  AttemptedToFillShaderUniformsWithoutParentComponent = 521,
+  FailedToRenderMesh = 522,
+ 
 
   AttachingMultipleSingletonSlotComponents = 1000,
   DuplicateComponentOnEntity = 1001,
@@ -55,6 +59,7 @@ enum class eEngineError
   TryingToUseNonExistingTextureOnMaterial = 1015,
   GettingIdOfEmptyTexture = 1016,
   AddingAlreadyExistingShader = 1017,
+  RenderingMeshWithoutParentMeshRenderer = 1018,
 };
 
 class EngineError

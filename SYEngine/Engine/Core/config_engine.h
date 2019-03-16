@@ -2,6 +2,9 @@
 
 #include <stdint.h>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 //////////////////////////////////////////
 // Temporary
 //////////////////////////////////////////
@@ -11,6 +14,22 @@
 //////////////////////////////////////////
 // Shader settings
 //////////////////////////////////////////
+
+//! Shader indices
+#define STANDARD_SHADER_INDEX 0
+#define STANDARD_SHADOW_MAP_ORTHO_SHADER_INDEX 1
+#define STANDARD_SHADOW_MAP_PERSPECTIVE_SHADER_INDEX 2
+
+//! Shader filepath
+#define STANDARD_SHADER_VS_FILENAME "standard.vert"
+#define STANDARD_SHADER_VS_SM_ORTHO_FILENAME "standard_sm_ortho.vert"
+#define STANDARD_SHADER_VS_SM_PERSPECTIVE_FILENAME "standard_sm_perspective.vert"
+
+#define STANDARD_SHADER_FS_FILENAME "standard.frag"
+#define STANDARD_SHADER_FS_SM_ORTHO_FILENAME "standard_sm_ortho.frag"
+#define STANDARD_SHADER_FS_SM_PERSPECTIVE_FILENAME "standard_sm_perspective.frag"
+
+#define STANDARD_SHADER_GS_SM_PERSPECTIVE_FILENAME "standard_sm_perspective.geom"
 
 //! Uniform names
 #define UNUFORM_NAME_MVP_TRANSFORM_MATRIX "u_MVPTransformMatrix"
@@ -31,7 +50,9 @@
 //////////////////////////////////////////
 // Paths configuration
 //////////////////////////////////////////
-#define PATH_TEXTURES "resource/textures"
+#define PATH_SHADERS "shaders/"
+
+#define PATH_TEXTURES "resource/textures/"
 #define FILENAME_DEFAULT_TEXTURE "/plain.png"
 #define FILEPATH_DEFAULT_TEXTURE "resource/textures/plain.png"
 
@@ -130,7 +151,7 @@
 //////////////////////////////////////////
 // Graphics settings
 //////////////////////////////////////////
-#define RENDER_SCENE_TO_TEXTUE 0
+#define RENDER_SCENE_TO_TEXTUE 1
 
 #define DISABLE_OMNI_SHADOW_MAPPING 0
 
@@ -146,6 +167,27 @@
 #define BACK_FACE_CULLING 1
 #define DISABLE_VSYNC 0
 
+//////////////////////////////////////////
+// Camera settings
+//////////////////////////////////////////
+
+#define CAMERA_NEAR_PLANE 0.1f
+#define CAMERA_FAR_PLANE 100.0f
+#define CAMERA_FOV static_cast<dfloat>(M_PI_4)
+
+#define WORLD_UP_VECTOR 0.0f, 1.0f, 0.0f
+
+//! Main camera
+#define MAIN_CAMERA_ORTHO_FOV_LEFT -40.0f
+#define MAIN_CAMERA_ORTHO_FOV_RIGHT 40.0f
+#define MAIN_CAMERA_ORTHO_FOV_BOTTOM -40.0f
+#define MAIN_CAMERA_ORTHO_FOV_UP 40.0f
+
+//! Util camera
+#define UTIL_CAMERA_ORTHO_FOV_LEFT -40.0f
+#define UTIL_CAMERA_ORTHO_FOV_RIGHT 40.0f
+#define UTIL_CAMERA_ORTHO_FOV_BOTTOM -40.0f
+#define UTIL_CAMERA_ORTHO_FOV_UP 40.0f
 
 //////////////////////////////////////////
 // Module IDs

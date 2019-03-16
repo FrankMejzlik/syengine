@@ -2,6 +2,8 @@
 
 #include "MeshManager.h"
 #include "MeshGenerator.h"
+#include "MeshRenderer.h"
+#include "Shader.h"
 
 using namespace SYE;
 
@@ -88,7 +90,75 @@ void Mesh::DefineMesh(
   return;
 }
 
-void Mesh::RenderMesh()
+
+bool Mesh::LoadShaderUniforms(Camera* pCamera, NewShader* pShader) const
+{
+  // Make sure owner component is set
+  if (_pOwnerComponent == nullptr)
+  {
+    PUSH_ENGINE_ERROR(
+      eEngineError::AttemptedToFillShaderUniformsWithoutParentComponent,
+      std::string("Attempted to load Shader uniforms without pointer to owner Component set while rendering Mesh with ID " + std::to_string(GetGuid())),
+      ""
+    );
+    SetState(eState::cError);
+
+    return false;
+  }
+
+  // Check if parent is MeshRenderer
+  MeshRenderer* pMeshRenderer = dynamic_cast<MeshRenderer*>(_pOwnerComponent);
+  if (pMeshRenderer == nullptr)
+  {
+    PUSH_ENGINE_ERROR(
+      eEngineError::RenderingMeshWithoutParentMeshRenderer,
+      std::string("Rendering Mesh without parent MeshRenderer with Mesh ID " + std::to_string(GetGuid())),
+      "Transformations will be identities."
+    );
+    SetState(eState::cWarning);
+  }
+
+  // Load shader uniforms for this MeshRenderer and Camera
+  if (!pShader->LoadSelfWithUniformsFrom(pCamera, pMeshRenderer))
+  {
+    return false;
+  }
+
+  return true;
+}
+
+void Mesh::RenderMesh(Camera* pCamera, NewShader* pShader) const
+{
+  // Fill shader uniforms with correct data
+  bool result = LoadShaderUniforms(pCamera, pShader);
+  if (!result)
+  {
+    PUSH_ENGINE_ERROR(
+      eEngineError::FailedToRenderMesh,
+      std::string("Failed to render Mesh with ID " + std::to_string(GetGuid())),
+      std::string("")
+    );
+    SetState(eState::cError);
+  }
+
+  // Bind this Mesh's VAO to OpenGL
+  glBindVertexArray(_VAO);
+
+  // Bind this Mesh's only IBO it has
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _IBO);
+
+  // Draw it
+  glDrawElements(GL_TRIANGLES, _indexCount, GL_UNSIGNED_INT, 0);
+
+  // Unbind this Mesh's only IBO it has
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+  // Unbind this Mesh's VAO to OpenGL
+  glBindVertexArray(0);
+}
+
+void Mesh::dc_RenderMesh()
 {
 
   glBindVertexArray(_VAO);
@@ -99,7 +169,6 @@ void Mesh::RenderMesh()
 
   glBindVertexArray(0);
 
-  return;
 }
 
 void Mesh::ClearMesh()

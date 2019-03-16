@@ -20,13 +20,13 @@ Camera::Camera(
   ),
   _pTargetWindow(nullptr),
   _pTargetTexture(nullptr),
-  _upDirection(Vector3f(0.0f, 1.0f, 0.0f)),
+  _upDirection(Vector3f(WORLD_UP_VECTOR)),
   _mode(eCameraModes::NORMAL),
   _isOrthoProjectionMatrixCalculated(false),
   _isPerspectiveProjectionMatrixCalculated(false),
-  _fov(45.0f),
-  _nearPlane(0.1f),
-  _farPlane(100.0f)
+  _fov(CAMERA_FOV),
+  _nearPlane(CAMERA_NEAR_PLANE),
+  _farPlane(CAMERA_FAR_PLANE)
 {}
 
 Vector3f Camera::GetCameraPosition() const
@@ -59,7 +59,7 @@ Vector3f Camera::GetPickingRay(int x, int y)
   size_t height = _pTargetWindow->GetBufferHeight();
 
   // Prepare refs to projection and view matrices for this Camera
-  const glm::mat4& projectionMatrix = GetPerspectiveProjectionMatrixConstRef();
+  const glm::mat4& projectionMatrix = dc_GetPerspectiveProjectionMatrixConstRef();
   const glm::mat4& viewMatrix = GetViewMatrixConstRef();
 
   // Get normalised device coordinates
@@ -88,6 +88,37 @@ Vector3f Camera::GetPickingRay(int x, int y)
 }
 
 
+
+const Matrix4f& Camera::GetOrthogonalProjectionMatrix() const
+{
+  return _orthogonalProjectionMatrix;
+}
+
+void Camera::SetOrthogonalProjectionMatrix(Matrix4f matrix)
+{
+  _orthogonalProjectionMatrix = matrix;
+
+  _isOrthoProjectionMatrixCalculated = false;
+}
+
+void Camera::SetTargetWindow(Window* pWindow) 
+{
+  _pTargetTexture = nullptr;
+  _pTargetWindow = pWindow;
+
+  _isPerspectiveProjectionMatrixCalculated = false;
+  _isOrthoProjectionMatrixCalculated = false;
+}
+
+void Camera::SetTargetTexture(const Texture* pTexture) 
+{
+  _pTargetWindow = nullptr;
+  _pTargetTexture = pTexture;
+
+  _isPerspectiveProjectionMatrixCalculated = false;
+  _isOrthoProjectionMatrixCalculated = false;
+}
+
 const glm::mat4& Camera::GetViewMatrixConstRef()
 {
   dc_CalculateViewMatrix();
@@ -95,7 +126,7 @@ const glm::mat4& Camera::GetViewMatrixConstRef()
   return _dc_viewMatrix;
 }
 
-const glm::mat4& Camera::GetOrthoProjectionMatrixConstRef()
+const glm::mat4& Camera::dc_GetOrthoProjectionMatrixConstRef()
 {
   if (!_isOrthoProjectionMatrixCalculated)
   {
@@ -105,7 +136,7 @@ const glm::mat4& Camera::GetOrthoProjectionMatrixConstRef()
   return _dc_orthoProjectionMatrix;
 }
 
-const glm::mat4& Camera::GetPerspectiveProjectionMatrixConstRef()
+const glm::mat4& Camera::dc_GetPerspectiveProjectionMatrixConstRef()
 {
   if (!_isPerspectiveProjectionMatrixCalculated)
   {
@@ -125,28 +156,34 @@ void Camera::dc_CalculateViewMatrix()
 void Camera::dc_CalculateOrthoProjectionMatrix()
 {
   // Calculate projeciton matrix
-  _dc_orthoProjectionMatrix = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, _nearPlane, _farPlane);
+  _dc_orthoProjectionMatrix = glm::ortho(
+    MAIN_CAMERA_ORTHO_FOV_LEFT, MAIN_CAMERA_ORTHO_FOV_RIGHT, 
+    MAIN_CAMERA_ORTHO_FOV_BOTTOM, MAIN_CAMERA_ORTHO_FOV_UP, 
+    _nearPlane, _farPlane
+  );
+
   _isOrthoProjectionMatrixCalculated = true;
 }
 
 void Camera::dc_CalculatePerspectiveProjectionMatrix()
 {
-
+  // If rendering to window
   if (_pTargetWindow)
   {
-// Calculate projeciton matrix
+    // Calculate projeciton matrix
     _dc_perspectiveProjectionMatrix = glm::perspective(
-      static_cast<dfloat>(45.0f * DEG_TO_RAD),
+      CAMERA_FOV,
       (GLfloat)(_pTargetWindow->GetBufferWidth()) / _pTargetWindow->GetBufferHeight(),
       _nearPlane, _farPlane
     );
   }
 
+  // If rendering to texture
   if (_pTargetTexture)
   {
     _dc_perspectiveProjectionMatrix = glm::perspective(
-      static_cast<dfloat>(45.0f * DEG_TO_RAD),
-      (GLfloat)500ULL / 500ULL,
+      CAMERA_FOV,
+      (GLfloat)RENDER_TO_TEXTURE_WIDTH / RENDER_TO_TEXTURE_HEIGHT,
       _nearPlane, _farPlane
     );
   }

@@ -3,8 +3,8 @@
 #include "EngineError.h"
 
 
-#define PUSH_ENGINE_ERROR(type, shortDesc, longDesc)  PushEngineError(type, __FILE__, __LINE__, shortDesc, longDesc); DLog(eLogType::Error, "%s", std::string(shortDesc).c_str())
-#define PUSH_EDITOR_ERROR(type, shortDesc, longDesc)  PushEngineError(type, __FILE__, __LINE__, shortDesc, longDesc); DLog(eLogType::Error, "%s", std::string(shortDesc).c_str())
+#define PUSH_ENGINE_ERROR(type, shortDesc, longDesc)  PushEngineError(type, __FILE__, __LINE__, shortDesc, longDesc); DLog(eLogType::Error, "%s (%s)", std::string(shortDesc).c_str(), std::string(longDesc).c_str())
+#define PUSH_EDITOR_ERROR(type, shortDesc, longDesc)  PushEngineError(type, __FILE__, __LINE__, shortDesc, longDesc); DLog(eLogType::Error, "%s (%s)", std::string(shortDesc).c_str(), std::string(longDesc).c_str())
 
 using namespace SYE;
 
