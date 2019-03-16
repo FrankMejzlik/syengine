@@ -163,18 +163,24 @@ bool RenderingManager::DestroyWindow(Window* pWindow)
 
 void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 {
+#if !NEW_SHADOW_MAPPING_IMPLEMENTED
 
   // Calculate directional light shadow maps
-  DirectionalShadowMapPass(pScene);
+  dc_DirectionalShadowMapPass(pScene);
 
   // Calculat e point light shadow maps
 #if !DISABLE_OMNI_SHADOW_MAPPING
-  OmniShadowMapPass(pScene);
+  dc_OmniShadowMapPass(pScene);
 #endif
+
+#endif
+
+  // Write ShadowMaps for directional lights
+  DirectionalLightShadowMapPass(pScene);
 
   // Initialize ImGUI draw.
   UI_MANAGER->InitializeImGuiDraw();
-
+  
   // Render actual scene with computed shadow maps
   FinalMainRenderPass(pScene);
 
@@ -191,57 +197,92 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 
 }
 
-void RenderingManager::CreateShaders()
+
+void RenderingManager::DirectionalLightShadowMapPass(Scene* pScene)
 {
-  // Line shader for line drawing
-  const char* lineVertexShader = "shaders/line_shader.vert";
-  const char* lineFragShader = "shaders/line_shader.frag";
+  // Get Components
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
 
-  const char* vShader = "shaders/shader.vert";
-  const char* fShader = "shaders/shader.frag";
+  // Get correct Shader
+  Shader* pShader = _shaders[5].get();
 
-  const char* vShader2 = "shaders/shader_plain.vert";
-  const char* fShader2 = "shaders/shader_plain.frag";
+  // Use correct shader
+  pShader->UseShader();
+  // Get uniform location of model->world matrix
+  GLuint ul_modelToWorldMatrix = pShader->GetModelLocation();
 
-  const char* vDLShader = "shaders/directional_shadow_map.vert";
-  const char* fDLShader = "shaders/directional_shadow_map.frag";
+  // Iterate through all DirectionalLights
+  for (auto&& dirLight : components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT])
+  {
+    DirectionalLight* light = static_cast<DirectionalLight*>(dirLight.second);
 
-  const char* vODLShader = "shaders/omni_shadow_map.vert";
-  const char* gODLShader = "shaders/omni_shadow_map.geom";
-  const char* fODLShader = "shaders/omni_shadow_map.frag";
+    // Set this Texture as render target
+    light->GetShadowMap()->SetAsRenderTarget(pScene);
 
-  
-  // Main shader
-  std::unique_ptr<Shader> pMainShader = std::make_unique<Shader>(nullptr, nullptr);
-  pMainShader->CreateFromFiles(vShader, fShader);
-  _shaders.push_back(std::move(pMainShader));
+    // Clear depth buffer
+    glClear(GL_DEPTH_BUFFER_BIT);
 
-  
+    ShadowInfo* pShadowInfo = light->GetShadowInfo(); 
+    
+    // If this light should cast shadows
+    if (pShadowInfo != nullptr)
+    {
+      Camera* pUtilCam = pScene->GetUtilityCamera();
 
-  // Directional light shader
-  std::unique_ptr<Shader> pDLShader = std::make_unique<Shader>(nullptr, nullptr);
-  pDLShader->CreateFromFiles(vDLShader, fDLShader);
-  _shaders.push_back(std::move(pDLShader));
+      // Setup projectiom matrix to Camera
+      pUtilCam->SetOrthogonalProjectionMatrix(pShadowInfo->GetProjection());
+      // Set correct position to Camera
+      pUtilCam->GetTransformPtr()->SetPosition(light->GetPositionConstRef());
+      // Set correct rotation to Camera
+      pUtilCam->GetTransformPtr()->SetRotation(light->GetTransformPtr()->GetRotation());
 
-  // Omnidir light shader
-  std::unique_ptr<Shader> pODLShader = std::make_unique<Shader>(nullptr, nullptr);
-  pODLShader->CreateFromFiles(vODLShader, gODLShader, fODLShader);
-  _shaders.push_back(std::move(pODLShader));
+      // Get handle to model uniform in shader
+      //GLuint ul_model_ = _shaders[1]->GetModelLocation();
+      //GLuint ul_specularIntensity_ = _shaders[1]->GetSpecularIntensityLocation();
+      //GLuint ul_shininess_ = _shaders[1]->GetShininessLocation();
 
-  // Line shader
-  std::unique_ptr<Shader> pLineShader = std::make_unique<Shader>(nullptr, nullptr);
-  pLineShader->CreateFromFiles(lineVertexShader, lineFragShader);
-  _shaders.push_back(std::move(pLineShader));
 
-  // PLain shader
-  std::unique_ptr<Shader> pMainShader2 = std::make_unique<Shader>(nullptr, nullptr);
-  pMainShader2->CreateFromFiles(vShader2, fShader2);
-  _shaders.push_back(std::move(pMainShader2));
+      // Give it correctly calculated lightTransform matrix
+      auto lightTransform = light->CalculateLightTransformMatrix();
+      _shaders[1]->SetDirectionalLightTransform(&lightTransform);
+
+      // Render all MeshRenderers
+      for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
+      {
+        MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
+
+        mashRenderer->RenderForLight(ul_modelToWorldMatrix);
+      }
+    }
+
+    // Configure OpenGL
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE);
+    glDepthMask(GL_FALSE);
+    glDepthFunc(GL_EQUAL);
+
+    // Render all MeshRenderers
+    for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
+    {
+      MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
+
+      mashRenderer->RenderForLight(ul_modelToWorldMatrix);
+    }
+
+    // Put settings back
+    glDepthMask(GL_TRUE);
+    glDepthFunc(GL_LESS);
+    glEnable(GL_BLEND);
+
+  }
+
 
 }
 
 
-void RenderingManager::DirectionalShadowMapPass(Scene* pScene)
+#if !NEW_SHADOW_MAPPING_IMPLEMENTED
+
+void RenderingManager::dc_DirectionalShadowMapPass(Scene* pScene)
 {
   // TODO: Implement in Material
   _shaders[1]->UseShader();
@@ -253,10 +294,10 @@ void RenderingManager::DirectionalShadowMapPass(Scene* pScene)
     DirectionalLight* light = static_cast<DirectionalLight*>(dirLight.second);
 
     // Setup viewport same as frame buffer
-    glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
+    glViewport(0, 0, light->dc_GetShadowMap()->GetShadowWidth(), light->dc_GetShadowMap()->GetShadowHeight());
 
     // Prepare depth buffer to write into it
-    light->GetShadowMap()->Write();
+    light->dc_GetShadowMap()->Write();
 
     // CLear depth buffer
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -289,7 +330,7 @@ void RenderingManager::DirectionalShadowMapPass(Scene* pScene)
 
 }
 
-void RenderingManager::OmniShadowMapPass(Scene* pScene)
+void RenderingManager::dc_OmniShadowMapPass(Scene* pScene)
 {
   // TODO: Implement in Material
   _shaders[2]->UseShader();
@@ -301,10 +342,10 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     PointLight* light = static_cast<PointLight*>(pointLight.second);
 
     // Setup viewport same as frame buffer
-    glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
+    glViewport(0, 0, light->dc_GetShadowMap()->GetShadowWidth(), light->dc_GetShadowMap()->GetShadowHeight());
 
     // Prepare depth buffer to write into it
-    light->GetShadowMap()->Write();
+    light->dc_GetShadowMap()->Write();
 
     // CLear depth buffer
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -343,10 +384,10 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
     SpotLight* light = static_cast<SpotLight*>(spotLight.second);
 
     // Setup viewport same as frame buffer
-    glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
+    glViewport(0, 0, light->dc_GetShadowMap()->GetShadowWidth(), light->dc_GetShadowMap()->GetShadowHeight());
 
     // Prepare depth buffer to write into it
-    light->GetShadowMap()->Write();
+    light->dc_GetShadowMap()->Write();
 
     // CLear depth buffer
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -380,6 +421,8 @@ void RenderingManager::OmniShadowMapPass(Scene* pScene)
   // Deatach from framebuffer
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
+
+#endif
 
 void RenderingManager::FinalMainRenderPass(Scene* pScene)
 {
@@ -442,7 +485,7 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   // Set up all lights to scene.
   if (mainLight)
   {
-    _shaders[0]->SetDirectionalLight(mainLight);
+    _shaders[0]->dc_SetDirectionalLight(mainLight);
   }
   _shaders[0]->SetPointLights(components[COMPONENT_POINT_LIGHT_SOURCE_SLOT], 3, 0ULL); // Offset 0.
   _shaders[0]->SetSpotLights(components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT], 3 + pointLightCount, pointLightCount); // Offset by number of point lights.
@@ -504,4 +547,64 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
 
   // Show framebuffer to user
   glBindFramebuffer(GL_FRAMEBUFFER, 0);  
+}
+
+
+void RenderingManager::CreateShaders()
+{
+  // Line shader for line drawing
+  const char* lineVertexShader = "shaders/line_shader.vert";
+  const char* lineFragShader = "shaders/line_shader.frag";
+
+  const char* vShader = "shaders/shader.vert";
+  const char* fShader = "shaders/shader.frag";
+
+  const char* vShader2 = "shaders/shader_plain.vert";
+  const char* fShader2 = "shaders/shader_plain.frag";
+
+  const char* vDLShader = "shaders/directional_shadow_map.vert";
+  const char* fDLShader = "shaders/directional_shadow_map.frag";
+
+  const char* vODLShader = "shaders/omni_shadow_map.vert";
+  const char* gODLShader = "shaders/omni_shadow_map.geom";
+  const char* fODLShader = "shaders/omni_shadow_map.frag";
+
+
+  // Main shader
+  std::unique_ptr<Shader> pMainShader = std::make_unique<Shader>(nullptr, nullptr);
+  pMainShader->CreateFromFiles(vShader, fShader);
+  _shaders.push_back(std::move(pMainShader));
+
+
+
+  // Directional light shader
+  std::unique_ptr<Shader> pDLShader = std::make_unique<Shader>(nullptr, nullptr);
+  pDLShader->CreateFromFiles(vDLShader, fDLShader);
+  _shaders.push_back(std::move(pDLShader));
+
+  // Omnidir light shader
+  std::unique_ptr<Shader> pODLShader = std::make_unique<Shader>(nullptr, nullptr);
+  pODLShader->CreateFromFiles(vODLShader, gODLShader, fODLShader);
+  _shaders.push_back(std::move(pODLShader));
+
+  // Line shader
+  std::unique_ptr<Shader> pLineShader = std::make_unique<Shader>(nullptr, nullptr);
+  pLineShader->CreateFromFiles(lineVertexShader, lineFragShader);
+  _shaders.push_back(std::move(pLineShader));
+
+  // PLain shader
+  std::unique_ptr<Shader> pMainShader2 = std::make_unique<Shader>(nullptr, nullptr);
+  pMainShader2->CreateFromFiles(vShader2, fShader2);
+  _shaders.push_back(std::move(pMainShader2));
+
+
+  // Directional light shader
+  std::unique_ptr<Shader> pDirectionalLightShadowMapShader = std::make_unique<Shader>(nullptr, nullptr);
+  pDirectionalLightShadowMapShader->CreateFromFiles(
+    "shaders/new_directional_shadow_map.vert", 
+    "shaders/new_directional_shadow_map.frag"
+  );
+  _shaders.push_back(std::move(pDirectionalLightShadowMapShader));
+  
+
 }

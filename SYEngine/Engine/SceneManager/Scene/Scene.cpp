@@ -50,12 +50,13 @@ Scene::~Scene() noexcept
 
 Camera* Scene::GetMainCamera() const
 {
-  // Destroy everything attached to this scene
-
-
   return _pEditorCamera;
 }
 
+Camera* Scene::GetUtilityCamera() const
+{
+  return _pUtilityCamera;
+}
 
 void Scene::SetPhysicsScenePtr(PhysicsScene* pPhysicsScene)
 {

@@ -19,8 +19,12 @@ Light::Light(
     true, true,
     slotIndex , type 
   ),
-  dc_pShadowMap(std::move(std::make_unique<ShadowMap>()))
+#if !NEW_SHADOW_MAPPING_IMPLEMENTED
+  dc_pShadowMap(std::move(std::make_unique<ShadowMap>())),
+#endif
+  _pShadowInfo(nullptr)
 {
+  // xoxo
   // Create shadow map
   _pShadowMap = GetComponentManagerPtr()->CreateComponent<Texture>(pOwnerEntity->GetOwnerScenePtr()->GetRootEntity());
   _pShadowMap->LoadDepthTexture(1024ULL, 1024ULL);
@@ -74,7 +78,7 @@ void Light::SetShadowDimensions(glm::ivec3 shadowDimensions)
   );
 }
 
-ShadowMap* Light::GetShadowMap() const
+ShadowMap* Light::dc_GetShadowMap() const
 { 
   return dc_pShadowMap.get(); 
 }

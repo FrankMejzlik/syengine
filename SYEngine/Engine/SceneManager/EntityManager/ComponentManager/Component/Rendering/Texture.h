@@ -46,10 +46,11 @@ public:
   size_t GetTextureId() const;
   std::vector<size_t> GetTextureIds() const;
 
+  size_t GetWidth() const { return _width; }
+  size_t GetHeight() const { return _height; }
 
 private:
   void InitRenderTargets(const std::vector<GLenum>& attachments);
-  void InitDepthTextue();
 
 
   // Attributes

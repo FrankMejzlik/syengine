@@ -27,13 +27,8 @@ Camera::Camera(
   _fov(45.0f),
   _nearPlane(0.1f),
   _farPlane(100.0f)
-{
+{}
 
- /* if (_pTargetWindow == nullptr)
-  {
-    PUSH_EDITOR_ERROR(eEngineError::MissingPointerToTargetWindowInstance, "Unable to get pointer to target Window instance.", "");
-  }*/
-}
 Vector3f Camera::GetCameraPosition() const
 {
   return GetTransformPtr()->GetPosition();
@@ -44,6 +39,18 @@ Vector3f Camera::GetCameraDirection() const
   return Normalize(GetTransformPtr()->GetZDir());
 }
 
+void Camera::SetCameraPosition(Vector3f position)
+{
+  GetTransformPtr()->SetPosition(position);
+}
+
+void Camera::SetCameraDirection(Vector3f direction)
+{
+  UNREFERENCED_PARAMETER(direction);
+
+  LOG_NOT_IMPLEMENTED;
+  //GetTransformPtr()->SetDirection(direction);
+}
 
 Vector3f Camera::GetPickingRay(int x, int y)
 {
@@ -83,52 +90,52 @@ Vector3f Camera::GetPickingRay(int x, int y)
 
 const glm::mat4& Camera::GetViewMatrixConstRef()
 {
-  CalculateViewMatrix();
+  dc_CalculateViewMatrix();
 
-  return _viewMatrix;
+  return _dc_viewMatrix;
 }
 
 const glm::mat4& Camera::GetOrthoProjectionMatrixConstRef()
 {
   if (!_isOrthoProjectionMatrixCalculated)
   {
-    CalculateOrthoProjectionMatrix();
+    dc_CalculateOrthoProjectionMatrix();
   }
 
-  return _orthoProjectionMatrix;
+  return _dc_orthoProjectionMatrix;
 }
 
 const glm::mat4& Camera::GetPerspectiveProjectionMatrixConstRef()
 {
   if (!_isPerspectiveProjectionMatrixCalculated)
   {
-    CalculatePerspectiveProjectionMatrix();
+    dc_CalculatePerspectiveProjectionMatrix();
   }
 
-  return _perspectiveProjectionMatrix;
+  return _dc_perspectiveProjectionMatrix;
 }
 
-void Camera::CalculateViewMatrix()
+void Camera::dc_CalculateViewMatrix()
 {
   Vector3f position = GetCameraPosition();
 
-  _viewMatrix = glm::lookAt(position.GetData(), (position + GetTransformPtr()->GetZDir()).GetData(), GetTransformPtr()->GetYDir().GetData());
+  _dc_viewMatrix = glm::lookAt(position.GetData(), (position + GetTransformPtr()->GetZDir()).GetData(), GetTransformPtr()->GetYDir().GetData());
 }
 
-void Camera::CalculateOrthoProjectionMatrix()
+void Camera::dc_CalculateOrthoProjectionMatrix()
 {
   // Calculate projeciton matrix
-  _orthoProjectionMatrix = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, _nearPlane, _farPlane);
+  _dc_orthoProjectionMatrix = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, _nearPlane, _farPlane);
   _isOrthoProjectionMatrixCalculated = true;
 }
 
-void Camera::CalculatePerspectiveProjectionMatrix()
+void Camera::dc_CalculatePerspectiveProjectionMatrix()
 {
 
   if (_pTargetWindow)
   {
 // Calculate projeciton matrix
-    _perspectiveProjectionMatrix = glm::perspective(
+    _dc_perspectiveProjectionMatrix = glm::perspective(
       static_cast<dfloat>(45.0f * DEG_TO_RAD),
       (GLfloat)(_pTargetWindow->GetBufferWidth()) / _pTargetWindow->GetBufferHeight(),
       _nearPlane, _farPlane
@@ -137,7 +144,7 @@ void Camera::CalculatePerspectiveProjectionMatrix()
 
   if (_pTargetTexture)
   {
-    _perspectiveProjectionMatrix = glm::perspective(
+    _dc_perspectiveProjectionMatrix = glm::perspective(
       static_cast<dfloat>(45.0f * DEG_TO_RAD),
       (GLfloat)500ULL / 500ULL,
       _nearPlane, _farPlane

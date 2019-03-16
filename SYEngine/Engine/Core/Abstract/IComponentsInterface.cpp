@@ -9,6 +9,7 @@
 #include "PointLight.h"
 #include "ScriptHandler.h"
 #include "SpotLight.h"
+#include "Camera.h"
 
 using namespace SYE;
 
@@ -75,11 +76,25 @@ void IComponentsInterface::RefreshQuickRefs()
   {
     _pScriptHandlers.clear();
   }
+
+  if (!_primaryComponentOnEntity[COMPONENT_CAMERA_SLOT].empty())
+  {
+    _pCamera = static_cast<Camera*>(_primaryComponentOnEntity[COMPONENT_CAMERA_SLOT].begin()->second);
+  }
+  else
+  {
+    _pCamera = nullptr;
+  }
 }
 
 Transform* IComponentsInterface::GetTransformPtr() const
 {
   return _pTransform;
+}
+
+Camera* IComponentsInterface::GetCameraPtr() const
+{
+  return _pCamera;
 }
 
 PhysicsBody* IComponentsInterface::GetPhysicsBody() const

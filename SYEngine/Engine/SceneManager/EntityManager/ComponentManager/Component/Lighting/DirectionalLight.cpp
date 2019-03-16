@@ -9,11 +9,15 @@ DirectionalLight::DirectionalLight(
 ) :
   Light(pOwnerEntity, pOwnerComponent, slotIndex, type) 
 {
+#if !NEW_SHADOW_MAPPING_IMPLEMENTED
   // Calculate projection matrix for this light
   // Directional light uses orthogonal projection
   // TODO: Make modifiable values.
-  _lightProjectionMatrix = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, 0.1f, 100.0f);
+  _lightProjectionMatrix = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, LIGHTS_NEAR_PLANE, LIGHTS_FAR_PLANE);
+#endif
 
+  // Instantiate ShadowInfo for this light
+  SetShadowInfo(std::make_unique<ShadowInfo>(Matrix4f(glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, LIGHTS_NEAR_PLANE, LIGHTS_FAR_PLANE))));
 }
 
 DirectionalLight::~DirectionalLight() noexcept

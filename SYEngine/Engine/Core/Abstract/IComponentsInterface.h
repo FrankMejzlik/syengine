@@ -18,6 +18,7 @@ class MeshRenderer;
 class PointLight;
 class ScriptHandler;
 class SpotLight;
+class Camera;
 
 /**
  * Interface for classes that needs to access EngineContext data
@@ -48,6 +49,7 @@ public:
   ScriptHandler* GetFirstScriptHandlerPtr() const;
   SpotLight* GetSpotLightPtr() const;
   std::map<size_t, Component*>& GetScriptHandlersRef();
+  Camera* GetCameraPtr() const;
 
 private:
   /**
@@ -64,6 +66,7 @@ private:
   MeshRenderer* _pMeshRenderer;
   PointLight* _pPointLight;
   SpotLight* _pSpotLight;
+  Camera* _pCamera;
 
   // Multitons
   std::map<size_t, Component*> _pScriptHandlers;

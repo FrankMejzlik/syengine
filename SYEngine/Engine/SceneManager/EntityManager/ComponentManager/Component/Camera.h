@@ -51,8 +51,21 @@ public:
 
   void SetCameraMode(eCameraModes mode) { _mode = mode; }
   
+  void SetCameraPosition(Vector3f position);
+  void SetCameraDirection(Vector3f direction);
   Vector3f GetCameraPosition() const;
   Vector3f GetCameraDirection() const;
+
+
+  const Matrix4f& GetOrthogonalProjectionMatrix() const
+  {
+    return _orthogonalProjectionMatrix;
+  }
+
+  void SetOrthogonalProjectionMatrix(Matrix4f matrix)
+  {
+    _orthogonalProjectionMatrix = matrix;
+  }
 
   void SetTargetWindow(Window* pWindow) 
   {
@@ -70,9 +83,9 @@ public:
   }
 
 private:
-  void CalculateViewMatrix();
-  void CalculateOrthoProjectionMatrix();
-  void CalculatePerspectiveProjectionMatrix();
+  void dc_CalculateViewMatrix();
+  void dc_CalculateOrthoProjectionMatrix();
+  void dc_CalculatePerspectiveProjectionMatrix();
   
 
 
@@ -82,17 +95,19 @@ protected:
   Window* _pTargetWindow;
 
 
+  Matrix4f _orthogonalProjectionMatrix;
+
 
   const Texture* _pTargetTexture;
 
   /** Current view matrix for this Camera */
-  glm::mat4 _viewMatrix;
+  glm::mat4 _dc_viewMatrix;
   
   /** Orthogonal projection matrix for this Camera */
-  glm::mat4 _orthoProjectionMatrix;
+  glm::mat4 _dc_orthoProjectionMatrix;
 
   /** Perspective projection matrix for this Cmaera */
-  glm::mat4 _perspectiveProjectionMatrix;
+  glm::mat4 _dc_perspectiveProjectionMatrix;
 
   /** True if calculated matrix is up to date and calculated */
   bool _isOrthoProjectionMatrixCalculated;

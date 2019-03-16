@@ -190,6 +190,8 @@ public:
   std::pair<PhysicsBody*, Vector3f> Raycast(Vector3f from, Vector3f direction) const;
 
   Camera* GetMainCamera() const;
+  Camera* GetUtilityCamera() const;
+  void SetUtilityCamera(Camera* pCamera) { _pUtilityCamera = pCamera; }
   Camera* GetCameraPtr(size_t index) const;
 
   Texture* GetRenderTargetTexturePtr(size_t index) const;
@@ -245,6 +247,9 @@ private:
 
   /** Pointer to default Engine Editor camera instance */
   Camera* _pEditorCamera;
+
+  //! Camera used for things like rendering shdaow maps etc
+  Camera* _pUtilityCamera;
 
   /** Pointer to main Window instance that this Scene is being rendered to */
   Window* _pMainWindow;

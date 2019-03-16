@@ -20,6 +20,30 @@ namespace SYE
 {
 class Texture;
 class Transform;
+class Shader;
+
+class ShadowInfo
+{
+  // Methods
+public:
+  ShadowInfo(const Matrix4f& projectionMatrix) :
+    _projectionMatrix(projectionMatrix)
+  {};
+
+  ShadowInfo(Matrix4f&& projectionMatrix) :
+    _projectionMatrix(std::move(projectionMatrix))
+  {};
+
+  Matrix4f GetProjection()
+  {
+    return _projectionMatrix;
+  }
+
+  // Attributes
+private:
+  Matrix4f _projectionMatrix;
+};
+
 
 class Light:
   public Component
@@ -39,7 +63,15 @@ public:
   glm::ivec3 GetShadowDimensions() const;
   virtual void SetShadowDimensions(glm::ivec3 shadowDimensions);
 
-  ShadowMap* GetShadowMap() const;
+  ShadowMap* dc_GetShadowMap() const;
+
+  Texture* GetShadowMap() const { return _pShadowMap; }
+  Shader* GetShader() const { return _pShader; }
+  ShadowInfo* GetShadowInfo() const { return _pShadowInfo.get(); }
+
+  void SetShader(Shader* pShader) { _pShader = pShader; }
+  void SetShadowInfo(std::unique_ptr<ShadowInfo>&& pShadowInfo) { _pShadowInfo.reset(); _pShadowInfo = std::move(pShadowInfo); }
+
 
   const Vector3f& GetPositionConstRef() const;
 
@@ -52,7 +84,9 @@ protected:
 
 #endif
 
+  std::unique_ptr<ShadowInfo> _pShadowInfo;
   Texture* _pShadowMap;
+  Shader* _pShader;
 
   // TODO: Make static/dynamic
   bool _isStatic;

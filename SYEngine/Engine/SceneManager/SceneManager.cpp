@@ -141,6 +141,10 @@ Scene* SceneManager::LoadInitialScene(Scene* pScene)
 
 bool SceneManager::SetupSystemEntities(Scene* pScene)
 {
+  ///////////////////////////////
+  // Setup primitive to draw scene texture to
+  ///////////////////////////////
+
   // Create new Entity
   Entity* pRenderToEntity = pScene->GetEntityManagerPtr()->CreateEntity<Entity>(pScene);
 
@@ -189,6 +193,18 @@ bool SceneManager::SetupSystemEntities(Scene* pScene)
 
   // Save all edits done on this Entity
   pRenderToEntity->SaveEntity();
+
+
+  ///////////////////////////////
+  // Setup utility Camera
+  ///////////////////////////////
+  Entity* pUtilityCamera = pScene->AddCamera(
+    Vector3f(0.0f, 0.0f, 0.0f),      
+    0.0f, 0.0f  
+  );
+
+  // Set pointer to this Camera to Scene
+  pScene->SetUtilityCamera(pUtilityCamera->GetCameraPtr());
 
   return true;
 }

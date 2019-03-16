@@ -37,8 +37,8 @@ public:
     Component::eSlotIndex slotIndex = Component::UNDEFINED, Component::eType type = Component::eType::SHADER
   );
   
-
-  void SetDirectionalLight(DirectionalLight* dLight);
+  void SetupDirectionalLight(DirectionalLight* dLight);
+  void dc_SetDirectionalLight(DirectionalLight* dLight);
   void SetPointLights(
     const std::map<size_t, Component*>& pointLights,
     size_t textureUnit,
@@ -168,7 +168,10 @@ private:
     GLuint uniformFarPlane;
   } uniformOmniShadowMap[MAX_SPOT_LIGHTS + MAX_POINT_LIGHTS];
 
+  void dc_CompileProgram();
+
   void CompileProgram();
+
   void CompileShader(const char* vertexCode, const char* fragmentCode);
   void CompileShader(const char* vertexCode, const char* geometryCode, const char* fragmentCode);
   void AddShader(GLuint theProgram, const char* shaderCode, GLenum shaderType);
