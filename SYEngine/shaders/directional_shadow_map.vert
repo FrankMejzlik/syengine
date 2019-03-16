@@ -13,10 +13,10 @@ layout (location = 0) in vec3 pos;
 ////////////////////////////////////////////
 
 //! Model->World transform of vertex relative to light source
-uniform mat4 modelToWorldVertexTransformRelativeToLight;
+uniform mat4 MVPTransformMatrix;
 
 void main()
 {
 	// Place this vertex into world relative to light position
-	gl_Position = modelToWorldVertexTransformRelativeToLight * vec4(pos, 1.0f);
+	gl_Position = MVPTransformMatrix * vec4(pos, 1.0f);
 }

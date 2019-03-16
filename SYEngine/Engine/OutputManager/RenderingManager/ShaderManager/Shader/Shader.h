@@ -23,6 +23,7 @@
 
 
 //////////////////
+
 #include "IerrorLogging.h"
 #include "IGuidCounted.h"
 
@@ -93,7 +94,7 @@ private:
     std::string_view fsFilepath,
     std::string_view tsFilepath,
     std::string_view gsFilepath
-    );
+  );
 
 
   void CreateSpecificShader(GLuint theProgram, std::string_view shaderCode, GLenum shaderType);

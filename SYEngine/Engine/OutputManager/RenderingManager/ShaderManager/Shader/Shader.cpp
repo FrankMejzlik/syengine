@@ -180,18 +180,33 @@ bool NewShader::CreateShader(
     return false;
   }
 
+  // Update uniform locations
+  UpdateUnirofmLocations();
+
   return true;
 }
 
 void NewShader::UpdateUnirofmLocations()
 {
-  // Grab shader uniform variable by it's name (ID)
+  _ulMVPTransformMatrix = glGetUniformLocation(_shaderId, UNUFORM_NAME_MVP_TRANSFORM_MATRIX);
 
-  //_ul_bIsSkeletonAnimated = glGetUniformLocation(shaderID, "bIsSkeletonAnimated");
+  _ulEyePosition = glGetUniformLocation(_shaderId, UNUFORM_NAME_EYE_POSITION);
+  _ulEyeDirection = glGetUniformLocation(_shaderId, UNUFORM_NAME_EYE_DIRECTION);
 
-  //uniformModel = glGetUniformLocation(shaderID, "model");
-  //uniformProjection = glGetUniformLocation(shaderID, "projection");
-  //uniformView = glGetUniformLocation(shaderID, "view");
+  _ulSpecularIntensity = glGetUniformLocation(_shaderId, UNUFORM_NAME_SPECULAR_INTENSITY);
+  _ulShininessIntentisty = glGetUniformLocation(_shaderId, UNUFORM_NAME_SHININESS_INTENSITY);
+
+  _ulDiffuseTexture = glGetUniformLocation(_shaderId, UNUFORM_NAME_DIFFUSE_TEXTURE);
+  _ulNormalMapTexture = glGetUniformLocation(_shaderId, UNUFORM_NAME_NORMAL_MAP_TEXTUE);
+
+  //! \todo Make for multiple directional lights
+  _ulDirectionalLightShadowMap = glGetUniformLocation(_shaderId, UNUFORM_NAME_NORMAL_MAP_TEXTUE);
+
+  _ulNearPlane = glGetUniformLocation(_shaderId, UNUFORM_NAME_NEAR_PLANE);
+  _ulFarPlane = glGetUniformLocation(_shaderId, UNUFORM_NAME_FAR_PLANE);
+
+
+  // struct exmaple:
   //uniformDirectionalLight.uniformColour = glGetUniformLocation(shaderID, "directionalLight.base.colour");
   //uniformDirectionalLight.uniformAmbientIntensity = glGetUniformLocation(shaderID, "directionalLight.base.ambientIntensity");
   //uniformDirectionalLight.uniformDirection = glGetUniformLocation(shaderID, "directionalLight.direction");
@@ -200,85 +215,6 @@ void NewShader::UpdateUnirofmLocations()
   //uniformShininess = glGetUniformLocation(shaderID, "material.shininess");
   //uniformEyePosition = glGetUniformLocation(shaderID, "eyePosition");
 
-
-  //// Bind point lights uniforms to shader
-  //uniformPointLightCount = glGetUniformLocation(shaderID, "pointLightCount");
-  //for (size_t i = 0; i < MAX_POINT_LIGHTS; ++i)
-  //{
-  //  char lockBuff[100] = { '\0' };
-  //  snprintf(lockBuff, sizeof(lockBuff), "pointLights[%zd].base.colour", i);
-  //  uniformPointLight[i].uniformColour = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "pointLights[%zd].base.ambientIntensity", i);
-  //  uniformPointLight[i].uniformAmbientIntensity = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "pointLights[%zd].base.diffuseIntensity", i);
-  //  uniformPointLight[i].uniformDiffuseIntensity = glGetUniformLocation(shaderID, lockBuff);
-
-  //  snprintf(lockBuff, sizeof(lockBuff), "pointLights[%zd].position", i);
-  //  uniformPointLight[i].uniformPosition = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "pointLights[%zd].constant", i);
-  //  uniformPointLight[i].uniformConstant = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "pointLights[%zd].linear", i);
-  //  uniformPointLight[i].uniformLinear = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "pointLights[%zd].exponent", i);
-  //  uniformPointLight[i].uniformExponent = glGetUniformLocation(shaderID, lockBuff);
-  //}
-
-  //// Bind point lights uniforms to shader
-  //uniformSpotLightCount = glGetUniformLocation(shaderID, "spotLightCount");
-  //for (size_t i = 0; i < MAX_SPOT_LIGHTS; ++i)
-  //{
-  //  char lockBuff[100] = { '\0' };
-  //  // Light members
-  //  snprintf(lockBuff, sizeof(lockBuff), "spotLights[%zd].base.base.colour", i);
-  //  uniformSpotLight[i].uniformColour = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "spotLights[%zd].base.base.ambientIntensity", i);
-  //  uniformSpotLight[i].uniformAmbientIntensity = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "spotLights[%zd].base.base.diffuseIntensity", i);
-  //  uniformSpotLight[i].uniformDiffuseIntensity = glGetUniformLocation(shaderID, lockBuff);
-
-  //  // Point light members
-  //  snprintf(lockBuff, sizeof(lockBuff), "spotLights[%zd].base.position", i);
-  //  uniformSpotLight[i].uniformPosition = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "spotLights[%zd].base.constant", i);
-  //  uniformSpotLight[i].uniformConstant = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "spotLights[%zd].base.linear", i);
-  //  uniformSpotLight[i].uniformLinear = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "spotLights[%zd].base.exponent", i);
-  //  uniformSpotLight[i].uniformExponent = glGetUniformLocation(shaderID, lockBuff);
-
-  //  // Spot light members
-  //  snprintf(lockBuff, sizeof(lockBuff), "spotLights[%zd].direction", i);
-  //  uniformSpotLight[i].uniformDirection = glGetUniformLocation(shaderID, lockBuff);
-  //  snprintf(lockBuff, sizeof(lockBuff), "spotLights[%zd].edge", i);
-  //  uniformSpotLight[i].uniformEdge = glGetUniformLocation(shaderID, lockBuff);
-  //}
-
-  //for (int i = 0; i < MAX_POINT_LIGHTS + MAX_SPOT_LIGHTS; ++i)
-  //{
-  //  char lockBuff[100] = { '\0' };
-  //  snprintf(lockBuff, sizeof(lockBuff), "omniShadowMaps[%d].shadowMap", i);
-  //  uniformOmniShadowMap[i].uniformShadowMap = glGetUniformLocation(shaderID, lockBuff);
-
-  //  snprintf(lockBuff, sizeof(lockBuff), "omniShadowMaps[%d].farPlane", i);
-  //  uniformOmniShadowMap[i].uniformFarPlane = glGetUniformLocation(shaderID, lockBuff);
-
-  //}
-
-
-  //uniformTexture = glGetUniformLocation(shaderID, "theTexture");
-  //uniformDirectionalLightTransform = glGetUniformLocation(shaderID, "directionalLightTransform");
-  //uniformDirectionalShadowMap = glGetUniformLocation(shaderID, "directionalShadowMap");
-
-  //uniformOmniLightPos = glGetUniformLocation(shaderID, "lightPos");
-  //uniformFarPlane = glGetUniformLocation(shaderID, "farPlane");
-
-  //for (int i = 0; i < 6; ++i)
-  //{
-  //  char lockBuff[100] = { '\0' };
-  //  snprintf(lockBuff, sizeof(lockBuff), "lightMatrices[%d]", i);
-  //  uniformLightMatrices[i] = glGetUniformLocation(shaderID, lockBuff);
-
-  //}
 }
 
 bool NewShader::CompileProgram()

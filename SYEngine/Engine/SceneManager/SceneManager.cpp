@@ -198,6 +198,7 @@ bool SceneManager::SetupSystemEntities(Scene* pScene)
   ///////////////////////////////
   // Setup utility Camera
   ///////////////////////////////
+
   Entity* pUtilityCamera = pScene->AddCamera(
     Vector3f(0.0f, 0.0f, 0.0f),      
     0.0f, 0.0f  

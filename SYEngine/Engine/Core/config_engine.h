@@ -7,6 +7,27 @@
 //////////////////////////////////////////
 #define NEW_SHADOW_MAPPING_IMPLEMENTED 0
 
+
+//////////////////////////////////////////
+// Shader settings
+//////////////////////////////////////////
+
+//! Uniform names
+#define UNUFORM_NAME_MVP_TRANSFORM_MATRIX "u_MVPTransformMatrix"
+
+#define UNUFORM_NAME_EYE_POSITION "u_eyePosition"
+#define UNUFORM_NAME_EYE_DIRECTION "u_eyeDirection"
+
+#define UNUFORM_NAME_SPECULAR_INTENSITY "u_specularIntentisty"
+#define UNUFORM_NAME_SHININESS_INTENSITY "u_shininessIntentisty"
+
+#define UNUFORM_NAME_DIFFUSE_TEXTURE "u_diffuseTexture"
+#define UNUFORM_NAME_NORMAL_MAP_TEXTUE "u_normalMapTexture"
+
+#define UNUFORM_NAME_NEAR_PLANE "u_nearPlane"
+#define UNUFORM_NAME_FAR_PLANE "u_farPlane"
+
+
 //////////////////////////////////////////
 // Paths configuration
 //////////////////////////////////////////
@@ -105,9 +126,6 @@
 #define RENDER_TO_TEXTURE_HEIGHT 500ULL
 
 
-//////////////////////////////////////////
-// Shader settings
-//////////////////////////////////////////
 
 //////////////////////////////////////////
 // Graphics settings
