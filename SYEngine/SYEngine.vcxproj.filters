@@ -120,9 +120,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Core\Abstract\IGuidCounted.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.cpp" />
-    <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager.cpp">
-      <Filter>Engine\RenderingManager\ShaderManager</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\Ui.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiOpenGlWrapper.cpp" />
@@ -133,9 +130,6 @@
     <ClCompile Include="Engine\Core\MathLibrary.cpp" />
     <ClCompile Include="Engine\LogicManager\ScriptManager\ScriptManager.cpp" />
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\Collider.cpp" />
-    <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.cpp">
-      <Filter>Engine\ComponentManager\Component\Shader</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.cpp">
       <Filter>Engine\ComponentManager\Component\Skybox</Filter>
     </ClCompile>
@@ -179,6 +173,12 @@
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.cpp" />
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.cpp" />
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.cpp">
+      <Filter>Engine\RenderingManager\ShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager\Shader\Shader.cpp">
+      <Filter>Engine\ComponentManager\Component\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -315,9 +315,6 @@
     <ClInclude Include="Engine\Core\typedefs.h" />
     <ClInclude Include="Engine\Core\Abstract\IGuidCounted.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\UiManager.h" />
-    <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager.h">
-      <Filter>Engine\RenderingManager\ShaderManager</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\Ui.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\UiManager\Ui\ImGuiWrapper.h" />
     <ClInclude Include="external\imgui\imstb_truetype.h" />
@@ -327,9 +324,6 @@
     <ClInclude Include="Engine\Core\MathLibrary.h" />
     <ClInclude Include="Engine\LogicManager\ScriptManager\ScriptManager.h" />
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Physics\Colliders\Collider.h" />
-    <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Shader.h">
-      <Filter>Engine\ComponentManager\Component\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager\EntityManager\ComponentManager\Component\Rendering\Skybox.h">
       <Filter>Engine\ComponentManager\Component\Skybox</Filter>
     </ClInclude>
@@ -401,6 +395,14 @@
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h" />
     <ClInclude Include="Game\*\*.h" />
     <ClInclude Include="scripts\LookAtQuad.h" />
+    <ClInclude Include="Game\*\*.h" />
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager\ShaderManager.h">
+      <Filter>Engine\RenderingManager\ShaderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\OutputManager\RenderingManager\ShaderManager\Shader\Shader.h">
+      <Filter>Engine\ComponentManager\Component\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

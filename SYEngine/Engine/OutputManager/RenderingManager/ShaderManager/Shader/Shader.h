@@ -12,7 +12,7 @@
 #include "DirectionalLight.h"
 
 #include <GLFW/glfw3.h>
-#include <GL\glew.h>
+#include <GL/glew.h>
 
 #pragma warning(push, 1)
 #include <glm\glm.hpp>
@@ -21,13 +21,110 @@
 
 #include "Component.h"
 
+
+//////////////////
+#include "IerrorLogging.h"
+#include "IGuidCounted.h"
+
 using namespace SYE;
 
 namespace SYE 
 {
+class NewShader:
+  public IErrorLogging, public IGuidCounted
+{
+  // Methods
+public:
+  NewShader() = delete;
+  NewShader(
+    std::string_view vsFilepath, 
+    std::string_view fsFilepath,
+    std::string_view tsFilepath  = std::string_view(),
+    std::string_view gsFilepath  = std::string_view()
+  );
+  ~NewShader() noexcept;
+  
 
-class Shader//:
-  //public Component
+  bool UseShader();
+  void ClearShader();
+
+  GLuint GetShaderId();
+
+  //! Matrix getters
+  GLuint GetMVPTransformMatrixUL() const;
+
+  GLuint GetEyePositionUL() const;
+  GLuint GetEyeDirectionUL() const;
+
+  GLuint GetSpecularIntensityUL() const;
+  GLuint GetShininessIntentistyUL() const;
+  
+  //! Texture getters
+  GLuint GetDiffuseTextureUL() const;
+  GLuint GetNormalMapTextureUL() const;
+  GLuint GetDirectionalLightShadowMapUL() const;
+
+  GLuint GetNearPlaneLocationUL() const;
+  GLuint GetFarPlaneLocationUL() const;
+
+  
+  //! Matrix setters
+  void SetMVPTransformMatrix(const glm::mat4& transformMatrix) const;
+
+  void SetEyePosition(const glm::vec3& position) const;
+  void SetEyeDirection(const glm::vec3& direction) const;
+
+  void SetSpecularIntensity(dfloat value) const;
+  void SetShininessIntentisty(size_t value) const;
+
+  //! Texture setters
+  void SetDiffuseTexture(GLuint textureUnit) const;
+  void SetNormalMapTexture(GLuint textureUnit) const;
+  void SetDirectionalShadowMap(GLuint textureUnit) const;
+   
+  
+private:
+  bool CompileProgram();
+  void UpdateUnirofmLocations();
+  bool Validate();
+
+  bool CreateShader(
+    std::string_view vsFilepath, 
+    std::string_view fsFilepath,
+    std::string_view tsFilepath,
+    std::string_view gsFilepath
+    );
+
+
+  void CreateSpecificShader(GLuint theProgram, std::string_view shaderCode, GLenum shaderType);
+
+  // Attributes
+private:
+  //! Shader ID of normal Shader
+  GLuint _shaderId;
+  
+  GLuint _ulMVPTransformMatrix;
+
+  GLuint _ulEyePosition;
+  GLuint _ulEyeDirection;
+
+  GLuint _ulSpecularIntensity;
+  GLuint _ulShininessIntentisty;
+
+  GLuint _ulDiffuseTexture;
+  GLuint _ulNormalMapTexture;
+
+  GLuint _ulDirectionalLightShadowMap;
+
+  GLuint _ulNearPlane;
+  GLuint _ulFarPlane;
+
+};
+
+
+
+
+class Shader
 {
 public:
   Shader() = delete;

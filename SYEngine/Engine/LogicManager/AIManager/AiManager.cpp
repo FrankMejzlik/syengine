@@ -28,7 +28,7 @@ AiManager::~AiManager()
 bool AiManager::Initialize()
 {
   // Initialize submodules.
-  for (std::map<int, std::unique_ptr<BaseModule>>::iterator it = _subModules.begin(); it != _subModules.end(); ++it)
+  for (auto it = _subModules.begin(); it != _subModules.end(); ++it)
   {
     (*it).second->Initialize();
 
