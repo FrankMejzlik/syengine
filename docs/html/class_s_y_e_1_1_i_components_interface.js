@@ -10,6 +10,7 @@ var class_s_y_e_1_1_i_components_interface =
     [ "GetRigidbodyPtr", "class_s_y_e_1_1_i_components_interface.html#af85e39cd910fc17be0e8ed3c6a8bf8ba", null ],
     [ "GetScriptHandlersRef", "class_s_y_e_1_1_i_components_interface.html#a337acebd9099be3979ac2a89f608557f", null ],
     [ "GetSoftbodyPtr", "class_s_y_e_1_1_i_components_interface.html#a14325cc4afd4f12bce389acfaf6267f9", null ],
+    [ "GetSpotLightPtr", "class_s_y_e_1_1_i_components_interface.html#a54b0d523a380a5af0d3809803b5fac29", null ],
     [ "GetTransformPtr", "class_s_y_e_1_1_i_components_interface.html#aa617d389fd789efd70c66f3b13279d0f", null ],
     [ "RefreshQuickRefs", "class_s_y_e_1_1_i_components_interface.html#ae05018b2e43c158e95f098bb69307aaa", null ]
 ];

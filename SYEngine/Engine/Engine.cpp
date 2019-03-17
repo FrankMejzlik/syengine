@@ -186,8 +186,11 @@ bool Engine::Run()
     prev = now;
     // TODO: Implement in TimeManager class
 
+    glfwSetWindowTitle(pMainWindow->GetPGlfwWindow(), std::string(std::to_string(deltaTime) + "ms").c_str());
+
+
     // Do ImGUI stuff.
-    ProcessImGui();
+    //ProcessImGui();
 
     // Main frame pipeline.
     ProcessFrame(deltaTime, pScene, pMainWindow);
@@ -307,13 +310,12 @@ void Engine::TerminateGame()
 
   // Terminate Windows
   WINDOW_MANAGER->TerminateGame();
-
-  // Terminate EngineContext
-
 }
 
 void Engine::ProcessFrame(dfloat deltaTime, Scene* pScene, Window* pMainWindow)
 {
+  
+
   ENGINE_API->ProcessEngineQueue();
 
   SCENE_MANAGER->ProcessScene(deltaTime, pScene);

@@ -2,13 +2,13 @@
 
 @note At this point you should have some demo engine with some example game logic working. If not, just follow steps in @ref building_syengine "Building SYEngine".
 
-Engine is designed to allow users to write whole game without need of altering any of it's code (but feel free to do so). Therefore your playgournd should be only `Game` directory. 
+Engine is designed to allow users to write whole game without need of altering any of it's code (but feel free to do so). Therefore your playground should be only `Game` directory. 
 
 That is where whole logic of your game will exist and engine won't disturb you there in any way. You will be able to update engine with just pulling from repository in future (and maybe rewrite some calls we changed).
 
 Inside `Game` there is `scripts` directory, where you will place all your Scripts. Scripts are just C++ classes that engine will compile and use them as you tell him to.
 
-Beside this direcotry, you can do whatever you want to - create whole C++ project structures and use them in scripts or whatever.
+Beside this directory, you can do whatever you want to - create whole C++ project structures and use them in scripts or whatever.
 
 But let's go one step at a time.
 
@@ -79,7 +79,7 @@ You can use all their public methods as you want.
 
 @section scripting_your_game_building_scene Scene in action
 
-When main game loop starts it will in each frame iteration loop though all active Entities and it's Components and call their "updating" methods (e.g. `OnProcessFrame()` on Scripts).
+When main game loop starts it will in each frame iteration loop through all active Entities and it's Components and call their "updating" methods (e.g. `OnProcessFrame()` on Scripts).
 
 If you placed some ScriptHandlers with Scripts attached on some Entities, their `OnProcessFrame()` method will be called.
 

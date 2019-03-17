@@ -136,6 +136,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetTag</b> (size_t ta
 <tr class="memitem:afab03b0f17a1d8285f50fda2c2ac96fb inherit pub_methods_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a id="afab03b0f17a1d8285f50fda2c2ac96fb"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetTag</b> () const</td></tr>
 <tr class="separator:afab03b0f17a1d8285f50fda2c2ac96fb inherit pub_methods_class_s_y_e_1_1_physics_body"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c609548ce912bf0f320471170cfa8e0 inherit pub_methods_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a id="a9c609548ce912bf0f320471170cfa8e0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>TriggerOnCollision</b> (const <a class="el" href="struct_s_y_e_1_1_physics_body_1_1_collision.html">Collision</a> &amp;collision)</td></tr>
+<tr class="separator:a9c609548ce912bf0f320471170cfa8e0 inherit pub_methods_class_s_y_e_1_1_physics_body"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a847d643302b1adf7d954975e99993185 inherit pub_methods_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a id="a847d643302b1adf7d954975e99993185"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetCollider</b> (<a class="el" href="class_s_y_e_1_1_collider.html">Collider</a> *pCollider)</td></tr>
 <tr class="separator:a847d643302b1adf7d954975e99993185 inherit pub_methods_class_s_y_e_1_1_physics_body"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -351,6 +354,9 @@ std::array&lt; std::map&lt; size_t, <a class="el" href="class_s_y_e_1_1_componen
 <tr class="memitem:a77471db90e3af235496654cf0d46f4af inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memItemLeft" align="right" valign="top"><a id="a77471db90e3af235496654cf0d46f4af"></a>
 <a class="el" href="class_s_y_e_1_1_script_handler.html">ScriptHandler</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetFirstScriptHandlerPtr</b> () const</td></tr>
 <tr class="separator:a77471db90e3af235496654cf0d46f4af inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54b0d523a380a5af0d3809803b5fac29 inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memItemLeft" align="right" valign="top"><a id="a54b0d523a380a5af0d3809803b5fac29"></a>
+<a class="el" href="class_s_y_e_1_1_spot_light.html">SpotLight</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetSpotLightPtr</b> () const</td></tr>
+<tr class="separator:a54b0d523a380a5af0d3809803b5fac29 inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a337acebd9099be3979ac2a89f608557f inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memItemLeft" align="right" valign="top"><a id="a337acebd9099be3979ac2a89f608557f"></a>
 std::map&lt; size_t, <a class="el" href="class_s_y_e_1_1_component.html">Component</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScriptHandlersRef</b> ()</td></tr>
 <tr class="separator:a337acebd9099be3979ac2a89f608557f inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -423,19 +429,29 @@ Additional Inherited Members</h2></td></tr>
  }</td></tr>
 <tr class="separator:a6d5dd3e14473cb20d69e798da80ee92b inherit pub_types_class_s_y_e_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_s_y_e_1_1_physics_body"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_s_y_e_1_1_physics_body')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_s_y_e_1_1_physics_body.html">SYE::PhysicsBody</a></td></tr>
-<tr class="memitem:afa4afd61f8743ad406485471cb74e994 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_y_e_1_1_collider.html">Collider</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#afa4afd61f8743ad406485471cb74e994">_pCollider</a></td></tr>
+<tr class="memitem:afa4afd61f8743ad406485471cb74e994 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a id="afa4afd61f8743ad406485471cb74e994"></a>
+<a class="el" href="class_s_y_e_1_1_collider.html">Collider</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#afa4afd61f8743ad406485471cb74e994">_pCollider</a></td></tr>
+<tr class="memdesc:afa4afd61f8743ad406485471cb74e994 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_s_y_e_1_1_collider.html">Collider</a> for this body. <br /></td></tr>
 <tr class="separator:afa4afd61f8743ad406485471cb74e994 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff343e39c1db29af79ddd623616f6070 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_y_e_1_1_physics_entity.html">PhysicsEntity</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#aff343e39c1db29af79ddd623616f6070">_pPhysEntity</a></td></tr>
+<tr class="memitem:aff343e39c1db29af79ddd623616f6070 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a id="aff343e39c1db29af79ddd623616f6070"></a>
+<a class="el" href="class_s_y_e_1_1_physics_entity.html">PhysicsEntity</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#aff343e39c1db29af79ddd623616f6070">_pPhysEntity</a></td></tr>
+<tr class="memdesc:aff343e39c1db29af79ddd623616f6070 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to <a class="el" href="class_s_y_e_1_1_physics_entity.html">PhysicsEntity</a> instance used for simulation. <br /></td></tr>
 <tr class="separator:aff343e39c1db29af79ddd623616f6070 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2315913f1f1b389e8cd238915d483eae inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top">dfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#a2315913f1f1b389e8cd238915d483eae">_mass</a></td></tr>
+<tr class="memitem:a2315913f1f1b389e8cd238915d483eae inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a id="a2315913f1f1b389e8cd238915d483eae"></a>
+dfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#a2315913f1f1b389e8cd238915d483eae">_mass</a></td></tr>
+<tr class="memdesc:a2315913f1f1b389e8cd238915d483eae inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mass of this body. <br /></td></tr>
 <tr class="separator:a2315913f1f1b389e8cd238915d483eae inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b79a7e38916509e4cbf1ddae5121e6f inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#a7b79a7e38916509e4cbf1ddae5121e6f">_isKinematic</a></td></tr>
+<tr class="memitem:a7b79a7e38916509e4cbf1ddae5121e6f inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a id="a7b79a7e38916509e4cbf1ddae5121e6f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#a7b79a7e38916509e4cbf1ddae5121e6f">_isKinematic</a></td></tr>
+<tr class="memdesc:a7b79a7e38916509e4cbf1ddae5121e6f inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="mdescLeft">&#160;</td><td class="mdescRight">If is kinematic (must also have zero mass) <br /></td></tr>
 <tr class="separator:a7b79a7e38916509e4cbf1ddae5121e6f inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dfa49790722600e287620c017dfaee8 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a id="a2dfa49790722600e287620c017dfaee8"></a>
-dfloat&#160;</td><td class="memItemRight" valign="bottom"><b>_restitution</b></td></tr>
+dfloat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#a2dfa49790722600e287620c017dfaee8">_restitution</a></td></tr>
+<tr class="memdesc:a2dfa49790722600e287620c017dfaee8 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="mdescLeft">&#160;</td><td class="mdescRight">How much kinematic energy is absorbed/increased back. <br /></td></tr>
 <tr class="separator:a2dfa49790722600e287620c017dfaee8 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94084add33f3e50ce182f9187fed5f50 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memItemLeft" align="right" valign="top"><a id="a94084add33f3e50ce182f9187fed5f50"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>_tag</b></td></tr>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_physics_body.html#a94084add33f3e50ce182f9187fed5f50">_tag</a></td></tr>
+<tr class="memdesc:a94084add33f3e50ce182f9187fed5f50 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag of this body used for collision detection filtering. <br /></td></tr>
 <tr class="separator:a94084add33f3e50ce182f9187fed5f50 inherit pro_attribs_class_s_y_e_1_1_physics_body"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_s_y_e_1_1_component"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_s_y_e_1_1_component')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_s_y_e_1_1_component.html">SYE::Component</a></td></tr>
 <tr class="memitem:a25d23f874437c6ffbf37244e7799be92 inherit pro_attribs_class_s_y_e_1_1_component"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_component.html#a25d23f874437c6ffbf37244e7799be92">_pOwnerScene</a></td></tr>

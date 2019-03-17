@@ -183,15 +183,15 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;Bullet3Common.lib;glew32.lib;opengl32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;winmm.lib;shell32.lib;comctl32.lib;ole32.lib;oleaut32.lib;uuid.lib;rpcrt4.lib;advapi32.lib;wsock32.lib;wininet.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)SYEngine\external\x64\GLEW\2.1.0\lib\Release\;$(SolutionDir)SYEngine\external\x64\glfw\3.2.1\lib\Release\;$(SolutionDir)SYEngine\external\x64\assimp\4.1.0\lib\Release\;$(SolutionDir)SYEngine\external\bullet3\build\lib\Release;$(SolutionDir)SYEngine\external\x64\bullet3\2.88\lib\Debug\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)SYEngine\external\x64\GLEW\2.1.0\lib\Release\;$(SolutionDir)SYEngine\external\x64\glfw\3.2.1\lib\Release\;$(SolutionDir)SYEngine\external\x64\assimp\4.1.0\lib\Release\;$(SolutionDir)SYEngine\external\bullet3\build\lib\Release;$(SolutionDir)SYEngine\external\x64\bullet3\2.88\lib\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>echo F | xcopy /y "$(SolutionDir)SYEngine\external\x64\assimp\4.1.0\bin\Release\assimp-vc140-mt.dll" "$(SolutionDir)$(Platform)\$(Configuration)\assimp-vc140-mt.dll"
-echo F | xcopy /y "$(SolutionDir)SYEngine\external\x64\glew\2.1.0\bin\\Release\glew32.dll" "$(SolutionDir)$(Platform)\$(Configuration)\glew32.dll"
-echo F | xcopy /y "$(SolutionDir)SYEngine\external\x64\glfw\3.2.1\bin\\Release\glfw3.dll" "$(SolutionDir)$(Platform)\$(Configuration)\glfw3.dll"
+echo F | xcopy /y "$(SolutionDir)SYEngine\external\x64\glew\2.1.0\bin\Release\glew32.dll" "$(SolutionDir)$(Platform)\$(Configuration)\glew32.dll"
+echo F | xcopy /y "$(SolutionDir)SYEngine\external\x64\glfw\3.2.1\bin\Release\glfw3.dll" "$(SolutionDir)$(Platform)\$(Configuration)\glfw3.dll"
 
-echo D | xcopy /y /s /e "$(SolutionDir)SYEngine\shaders\" "$(SolutionDir)$(Platform)\$(Configuration)\shaders\"
-echo D | xcopy /y /s /e "$(SolutionDir)SYEngine\resource\" "$(SolutionDir)$(Platform)\$(Configuration)\resource\"</Command>
+echo D | xcopy /y /s /e "$(SolutionDir)SYEngine\shaders" "$(SolutionDir)$(Platform)\$(Configuration)\shaders"
+echo D | xcopy /y /s /e "$(SolutionDir)SYEngine\resource" "$(SolutionDir)$(Platform)\$(Configuration)\resource"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>@echo off

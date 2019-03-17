@@ -88,27 +88,40 @@ $(document).ready(function(){initNavTree('class_s_y_e_1_1___scene_builder.html',
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_s_y_e_1_1___scene_builder-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">SYE::_SceneBuilder Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class responsible for building initial <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> instance before launch.  
- <a href="class_s_y_e_1_1___scene_builder.html#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="___scene_builder_8h_source.html">_SceneBuilder.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for SYE::_SceneBuilder:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_s_y_e_1_1___scene_builder.png" usemap="#SYE::_5FSceneBuilder_map" alt=""/>
+  <map id="SYE::_5FSceneBuilder_map" name="SYE::_5FSceneBuilder_map">
+<area href="class_s_y_e_1_1___scene_builder_base.html" title="Class responsible for building initial Scene instance before launch." alt="SYE::_SceneBuilderBase" shape="rect" coords="0,0,154,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aca66db9d4439385c034f44c166ba8d6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1___scene_builder.html#aca66db9d4439385c034f44c166ba8d6b">SetupScene</a> (<a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *pScene)</td></tr>
-<tr class="separator:aca66db9d4439385c034f44c166ba8d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb1afea50191882bf830bfa06fea0ae6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1___scene_builder.html#adb1afea50191882bf830bfa06fea0ae6">SetupScene</a> (<a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *pScene) override</td></tr>
+<tr class="separator:adb1afea50191882bf830bfa06fea0ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ab1a2c1e7ef74fbda660be9898854251b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1___scene_builder.html#ab1a2c1e7ef74fbda660be9898854251b">_pBallEntity</a></td></tr>
+<tr class="separator:ab1a2c1e7ef74fbda660be9898854251b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class responsible for building initial <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> instance before launch. </p>
+<div class="textblock"><p>Class responsible for building initial <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> instance before launch</p>
+<p>This is derrived class of abstract <a class="el" href="class_s_y_e_1_1___scene_builder_base.html" title="Class responsible for building initial Scene instance before launch.">_SceneBuilderBase</a>. This is concrete implementation for concrete game that is being scripted. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aca66db9d4439385c034f44c166ba8d6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca66db9d4439385c034f44c166ba8d6b">&#9670;&nbsp;</a></span>SetupScene()</h2>
+<a id="adb1afea50191882bf830bfa06fea0ae6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb1afea50191882bf830bfa06fea0ae6">&#9670;&nbsp;</a></span>SetupScene()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -117,7 +130,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SYE::_SceneBuilder::SetupScene </td>
+          <td class="memname">virtual void SYE::_SceneBuilder::SetupScene </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *&#160;</td>
           <td class="paramname"><em>pScene</em></td><td>)</td>
@@ -126,11 +139,11 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds initial scene.</p>
+<p>Builds initial scene</p>
 <p>This is special script that is executed exactly once before game itself starts.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -140,10 +153,36 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
+<p>Implements <a class="el" href="class_s_y_e_1_1___scene_builder_base.html#aefa3975a39fc7afb72278ed932ffc71e">SYE::_SceneBuilderBase</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab1a2c1e7ef74fbda660be9898854251b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1a2c1e7ef74fbda660be9898854251b">&#9670;&nbsp;</a></span>_pBallEntity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_s_y_e_1_1_entity.html">Entity</a>* SYE::_SceneBuilder::_pBallEntity</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to <a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> that represents ball </p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>SYEngine/scripts/<a class="el" href="___scene_builder_8h_source.html">_SceneBuilder.h</a></li>
+<li>SYEngine/Game/scripts/<a class="el" href="___scene_builder_8h_source.html">_SceneBuilder.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

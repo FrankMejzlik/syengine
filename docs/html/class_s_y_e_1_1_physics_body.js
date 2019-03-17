@@ -1,5 +1,6 @@
 var class_s_y_e_1_1_physics_body =
 [
+    [ "Collision", "struct_s_y_e_1_1_physics_body_1_1_collision.html", "struct_s_y_e_1_1_physics_body_1_1_collision" ],
     [ "PhysicsBody", "class_s_y_e_1_1_physics_body.html#a481bc03642e749e5d8c14db55447c758", null ],
     [ "PhysicsBody", "class_s_y_e_1_1_physics_body.html#a59aac82b95f656fc020810f9b7ae3ed3", null ],
     [ "~PhysicsBody", "class_s_y_e_1_1_physics_body.html#af0be30261ad6db682be0b5e063684deb", null ],
@@ -21,6 +22,7 @@ var class_s_y_e_1_1_physics_body =
     [ "SetRestitution", "class_s_y_e_1_1_physics_body.html#adaa56721059c6457af4780b103af7995", null ],
     [ "SetTag", "class_s_y_e_1_1_physics_body.html#a2c9385146450b3f7d82d253ec0cd3dd3", null ],
     [ "SetToContiniousCollision", "class_s_y_e_1_1_physics_body.html#aa8c21ee277debcf2211079860f7a687a", null ],
+    [ "TriggerOnCollision", "class_s_y_e_1_1_physics_body.html#a9c609548ce912bf0f320471170cfa8e0", null ],
     [ "_isKinematic", "class_s_y_e_1_1_physics_body.html#a7b79a7e38916509e4cbf1ddae5121e6f", null ],
     [ "_mass", "class_s_y_e_1_1_physics_body.html#a2315913f1f1b389e8cd238915d483eae", null ],
     [ "_pCollider", "class_s_y_e_1_1_physics_body.html#afa4afd61f8743ad406485471cb74e994", null ],

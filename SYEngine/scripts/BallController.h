@@ -139,7 +139,7 @@ public:
   {
     ++_score;
 
-    DLog(eLogType::Info, "Score: %d", _score);
+    //DLog(eLogType::Info, "Score: %d", _score);
 
     ProcessBallLight();
   }

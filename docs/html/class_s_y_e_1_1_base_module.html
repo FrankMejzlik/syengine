@@ -148,6 +148,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0b08f890088e7be64313eda4f53c53ca"><td class="memItemLeft" align="right" valign="top"><a id="a0b08f890088e7be64313eda4f53c53ca"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>BaseModule</b> (<a class="el" href="class_s_y_e_1_1_base_module.html">BaseModule</a> &amp;parentModule, <a class="el" href="class_s_y_e_1_1_engine_context.html">EngineContext</a> *pEngineContext)</td></tr>
 <tr class="separator:a0b08f890088e7be64313eda4f53c53ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d94b583d38ece90fef331ba96122b47"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_base_module.html#a2d94b583d38ece90fef331ba96122b47">TerminateGame</a> ()</td></tr>
+<tr class="separator:a2d94b583d38ece90fef331ba96122b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e343079472118baba6579822588218a"><td class="memItemLeft" align="right" valign="top"><a id="a2e343079472118baba6579822588218a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetEngineApiPointer</b> (const <a class="el" href="class_s_y_e_1_1_engine_api.html">EngineApi</a> *const pEngineApi)</td></tr>
 <tr class="separator:a2e343079472118baba6579822588218a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -241,15 +243,17 @@ std::shared_ptr&lt; <a class="el" href="class_s_y_e_1_1_engine_api.html">EngineA
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_base_module.html#a3e1914489e4bed4f9f23cdeab34a43dc">Engine</a></td></tr>
+<tr class="memitem:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memItemLeft" align="right" valign="top"><a id="a3e1914489e4bed4f9f23cdeab34a43dc"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_base_module.html#a3e1914489e4bed4f9f23cdeab34a43dc">Engine</a></td></tr>
+<tr class="memdesc:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allow <a class="el" href="class_s_y_e_1_1_engine.html">Engine</a> class to set pointer to owning <a class="el" href="class_s_y_e_1_1_engine_context.html">EngineContext</a> ptr. <br /></td></tr>
 <tr class="separator:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Common ancestor to all <a class="el" href="class_s_y_e_1_1_engine.html">Engine</a> modules.</p>
 <p>Ancestor to modules like <a class="el" href="class_s_y_e_1_1_input_manager.html">InputManager</a>, <a class="el" href="class_s_y_e_1_1_scene_manager.html">SceneManager</a> etc. </p>
-</div><h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a3e1914489e4bed4f9f23cdeab34a43dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e1914489e4bed4f9f23cdeab34a43dc">&#9670;&nbsp;</a></span>Engine</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2d94b583d38ece90fef331ba96122b47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d94b583d38ece90fef331ba96122b47">&#9670;&nbsp;</a></span>TerminateGame()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,16 +262,21 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="class_s_y_e_1_1_engine.html">Engine</a></td>
+          <td class="memname">void BaseModule::TerminateGame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Allow <a class="el" href="class_s_y_e_1_1_engine.html">Engine</a> class to set pointer to owning <a class="el" href="class_s_y_e_1_1_engine_context.html">EngineContext</a> ptr </p>
+<p>Terminates all active things related to currently active Scene/Game </p>
+
+<p>Reimplemented in <a class="el" href="class_s_y_e_1_1_engine.html#ab21b1e3978d6b9f8b108892c090e4b00">SYE::Engine</a>.</p>
 
 </div>
 </div>

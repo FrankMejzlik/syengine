@@ -7,12 +7,7 @@ In scripts, you have access to all Managers and primary Components, that are att
 This engine is not (yet) top priority project for us. It is more of a playgound for us in sense that it is used primarily for learning purposes and it is "just" long term project that we will push forward from time to time and maybe in future it will even become useful.
 
 # Documentation
-* [Building SYEngine (only MSVC for now)](/docs/src/manual.md#msvc)
-How to get this engine up and running.
-* [Engine concepts](/docs/src/manual.md#brief-concepts)
-Get to know how things are implemented and why.
-* [Scripting your game](/docs/src/manual.md#msvc)
-* [API Reference](/docs/html/index.html)
+All documentation is present `/docs/html/index.html` in repository.
 
 # Contribution
 Any feedback to design/implementation is warmly welcome!

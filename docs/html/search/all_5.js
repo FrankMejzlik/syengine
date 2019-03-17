@@ -9,5 +9,6 @@ var searchData=
   ['entity',['Entity',['../class_s_y_e_1_1_entity.html',1,'SYE']]],
   ['entitymanager',['EntityManager',['../class_s_y_e_1_1_entity_manager.html',1,'SYE']]],
   ['etype',['eType',['../class_s_y_e_1_1_entity.html#a190b645c1d734ec1d07f86bed6782072',1,'SYE::Entity']]],
-  ['exampleentries',['ExampleEntries',['../class_example_entries.html',1,'']]]
+  ['exampleentries',['ExampleEntries',['../class_example_entries.html',1,'']]],
+  ['examples',['Examples',['../examples.html',1,'manual']]]
 ];

@@ -9,6 +9,7 @@ var class_s_y_e_1_1_base_module =
     [ "GetParentModuleRef", "class_s_y_e_1_1_base_module.html#a2e833773052282ff776b1085d949f3c4", null ],
     [ "GetSubModulesRef", "class_s_y_e_1_1_base_module.html#a1f07ed3452ebdf6ac24b191c325fe6ae", null ],
     [ "SetEngineApiPointer", "class_s_y_e_1_1_base_module.html#a2e343079472118baba6579822588218a", null ],
+    [ "TerminateGame", "class_s_y_e_1_1_base_module.html#a2d94b583d38ece90fef331ba96122b47", null ],
     [ "Engine", "class_s_y_e_1_1_base_module.html#a3e1914489e4bed4f9f23cdeab34a43dc", null ],
     [ "_parentModule", "class_s_y_e_1_1_base_module.html#ab3805029c5a9f3cac2db629604e1a7ea", null ],
     [ "_pEngineApi", "class_s_y_e_1_1_base_module.html#a9d47468460e4c78304590bfc8c9fc1ee", null ],

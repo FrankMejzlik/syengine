@@ -1,6 +1,8 @@
 var hierarchy =
 [
-    [ "SYE::_SceneBuilderBase", "class_s_y_e_1_1___scene_builder_base.html", null ],
+    [ "SYE::_SceneBuilderBase", "class_s_y_e_1_1___scene_builder_base.html", [
+      [ "SYE::_SceneBuilder", "class_s_y_e_1_1___scene_builder.html", null ]
+    ] ],
     [ "b3gWindowConstructionInfo", "structb3g_window_construction_info.html", null ],
     [ "SYE::BaseEngine", "class_s_y_e_1_1_base_engine.html", [
       [ "SYE::Engine", "class_s_y_e_1_1_engine.html", null ]
@@ -16,6 +18,7 @@ var hierarchy =
       [ "MyOverlapFilterCallback2", "struct_my_overlap_filter_callback2.html", null ]
     ] ],
     [ "ButtonParams", "struct_button_params.html", null ],
+    [ "SYE::PhysicsBody::Collision", "struct_s_y_e_1_1_physics_body_1_1_collision.html", null ],
     [ "ComboBoxParams", "struct_combo_box_params.html", null ],
     [ "SYE::Command", "class_s_y_e_1_1_command.html", null ],
     [ "CommandProcessorCreationInterface", "struct_command_processor_creation_interface.html", null ],
@@ -69,6 +72,7 @@ var hierarchy =
         [ "SYE::Script", "class_s_y_e_1_1_script.html", [
           [ "SYE::BallController", "class_s_y_e_1_1_ball_controller.html", null ],
           [ "SYE::FirstPersonCameraController", "class_s_y_e_1_1_first_person_camera_controller.html", null ],
+          [ "SYE::GeneralInputHandler", "class_s_y_e_1_1_general_input_handler.html", null ],
           [ "SYE::LeftPaddleController", "class_s_y_e_1_1_left_paddle_controller.html", null ],
           [ "SYE::RightPaddleController", "class_s_y_e_1_1_right_paddle_controller.html", null ]
         ] ],
@@ -147,6 +151,7 @@ var hierarchy =
       [ "SYE::BaseModule", "class_s_y_e_1_1_base_module.html", null ]
     ] ],
     [ "SYE::Logger", "class_s_y_e_1_1_logger.html", null ],
+    [ "SYE::Matrix4< MatrixType, ElementType >", "class_s_y_e_1_1_matrix4.html", null ],
     [ "SYE::MeshEntry", "struct_s_y_e_1_1_mesh_entry.html", null ],
     [ "SYE::SceneContext", "class_s_y_e_1_1_scene_context.html", null ],
     [ "SYE::Shader", "class_s_y_e_1_1_shader.html", null ],
@@ -162,5 +167,6 @@ var hierarchy =
     [ "SYE::Ui", "class_s_y_e_1_1_ui.html", null ],
     [ "SYE::Vector3< VectorType, ElementType >", "class_s_y_e_1_1_vector3.html", null ],
     [ "SYE::Vector3< glm::vec3, float >", "class_s_y_e_1_1_vector3.html", null ],
+    [ "SYE::Vector4< VectorType, ElementType >", "class_s_y_e_1_1_vector4.html", null ],
     [ "SYE::VertexBoneData", "struct_s_y_e_1_1_vertex_bone_data.html", null ]
 ];

@@ -1,5 +1,6 @@
 var namespace_s_y_e =
 [
+    [ "_SceneBuilder", "class_s_y_e_1_1___scene_builder.html", "class_s_y_e_1_1___scene_builder" ],
     [ "_SceneBuilderBase", "class_s_y_e_1_1___scene_builder_base.html", "class_s_y_e_1_1___scene_builder_base" ],
     [ "AiManager", "class_s_y_e_1_1_ai_manager.html", "class_s_y_e_1_1_ai_manager" ],
     [ "AnimationManager", "class_s_y_e_1_1_animation_manager.html", "class_s_y_e_1_1_animation_manager" ],
@@ -25,6 +26,7 @@ var namespace_s_y_e =
     [ "EntityManager", "class_s_y_e_1_1_entity_manager.html", "class_s_y_e_1_1_entity_manager" ],
     [ "FirstPersonCameraController", "class_s_y_e_1_1_first_person_camera_controller.html", "class_s_y_e_1_1_first_person_camera_controller" ],
     [ "GameContext", "class_s_y_e_1_1_game_context.html", "class_s_y_e_1_1_game_context" ],
+    [ "GeneralInputHandler", "class_s_y_e_1_1_general_input_handler.html", "class_s_y_e_1_1_general_input_handler" ],
     [ "IComponentsInterface", "class_s_y_e_1_1_i_components_interface.html", "class_s_y_e_1_1_i_components_interface" ],
     [ "IEngineContextInterface", "class_s_y_e_1_1_i_engine_context_interface.html", "class_s_y_e_1_1_i_engine_context_interface" ],
     [ "IErrorLogging", "class_s_y_e_1_1_i_error_logging.html", "class_s_y_e_1_1_i_error_logging" ],
@@ -43,6 +45,7 @@ var namespace_s_y_e =
     [ "LogicManager", "class_s_y_e_1_1_logic_manager.html", "class_s_y_e_1_1_logic_manager" ],
     [ "Material", "class_s_y_e_1_1_material.html", "class_s_y_e_1_1_material" ],
     [ "MaterialManager", "class_s_y_e_1_1_material_manager.html", "class_s_y_e_1_1_material_manager" ],
+    [ "Matrix4", "class_s_y_e_1_1_matrix4.html", "class_s_y_e_1_1_matrix4" ],
     [ "Mesh", "class_s_y_e_1_1_mesh.html", "class_s_y_e_1_1_mesh" ],
     [ "MeshEntry", "struct_s_y_e_1_1_mesh_entry.html", "struct_s_y_e_1_1_mesh_entry" ],
     [ "MeshGenerator", "class_s_y_e_1_1_mesh_generator.html", "class_s_y_e_1_1_mesh_generator" ],
@@ -94,6 +97,7 @@ var namespace_s_y_e =
     [ "Ui", "class_s_y_e_1_1_ui.html", "class_s_y_e_1_1_ui" ],
     [ "UiManager", "class_s_y_e_1_1_ui_manager.html", "class_s_y_e_1_1_ui_manager" ],
     [ "Vector3", "class_s_y_e_1_1_vector3.html", "class_s_y_e_1_1_vector3" ],
+    [ "Vector4", "class_s_y_e_1_1_vector4.html", "class_s_y_e_1_1_vector4" ],
     [ "VertexBoneData", "struct_s_y_e_1_1_vertex_bone_data.html", "struct_s_y_e_1_1_vertex_bone_data" ],
     [ "Window", "class_s_y_e_1_1_window.html", "class_s_y_e_1_1_window" ],
     [ "WindowManager", "class_s_y_e_1_1_window_manager.html", "class_s_y_e_1_1_window_manager" ]

@@ -10,5 +10,6 @@ var class_s_y_e_1_1_engine =
     [ "GetEngineApiPtr", "class_s_y_e_1_1_engine.html#a8467c19c1580379492054b437aa30d16", null ],
     [ "Initialize", "class_s_y_e_1_1_engine.html#a2a2ae2df3902122916eb4e00cc3eb3a6", null ],
     [ "Run", "class_s_y_e_1_1_engine.html#ac7607484fe64bf5203d46c5e268c2235", null ],
-    [ "Terminate", "class_s_y_e_1_1_engine.html#a3f3a5e4192a5a7ec0831047b3e0d4a7f", null ]
+    [ "Terminate", "class_s_y_e_1_1_engine.html#a3f3a5e4192a5a7ec0831047b3e0d4a7f", null ],
+    [ "TerminateGame", "class_s_y_e_1_1_engine.html#ab21b1e3978d6b9f8b108892c090e4b00", null ]
 ];

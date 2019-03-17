@@ -53,13 +53,14 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"___scene_builder_base_8h.html",
-"class_s_y_e_1_1_camera.html#ae9ae6a55a051f85908973f72b8775005",
-"class_s_y_e_1_1_i_components_interface.html#a907886143cc05060b7f928a942f94f47",
-"class_s_y_e_1_1_model_manager.html#a2f71c21882d33dc9b8ffc8d593423f02",
-"class_s_y_e_1_1_shader.html#a5718b7791ec234b3e35d79e4ceb3d0da",
-"class_s_y_e_1_1_window.html#ad7af19105babca964728439c1b9bec1b",
-"struct_common_parameter_interface.html#ab965f27f36242a02480a94f0eea853f4"
+"___scene_builder_8h.html",
+"class_s_y_e_1_1_camera.html#a7acc0ccada144099d9016af12804a17c",
+"class_s_y_e_1_1_game_context.html#a527964568b3588e9d90a776872d906fb",
+"class_s_y_e_1_1_mesh_renderer.html",
+"class_s_y_e_1_1_script.html",
+"class_s_y_e_1_1_ui_manager.html#ad588722249f071362a5d2d2479ded693",
+"struct_common_graphics_app.html#a41b067780f9dbf80e7e7e5be47fb50bd",
+"struct_gfx_vertex_format0.html#a9194adc25f7040fe41e458f380b001fe"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

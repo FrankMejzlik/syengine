@@ -11,7 +11,8 @@ var class_s_y_e_1_1_rendering_manager =
     [ "Initialize", "class_s_y_e_1_1_rendering_manager.html#aa9679e659d68cbe4cf09e02a8306332d", null ],
     [ "InitializeGraphicsApi", "class_s_y_e_1_1_rendering_manager.html#ae905335642b80481a20e380d90f51ce3", null ],
     [ "OmniShadowMapPass", "class_s_y_e_1_1_rendering_manager.html#a11c1cf9098e5ca61e1f18224f92b37ba", null ],
-    [ "ProcessDebugInput", "class_s_y_e_1_1_rendering_manager.html#a64c19f14bf148a7f005f8a653a8bacf0", null ],
     [ "RenderScene", "class_s_y_e_1_1_rendering_manager.html#abacc3bd22b4f06c8e663d7c25b11da63", null ],
-    [ "Terminate", "class_s_y_e_1_1_rendering_manager.html#adfb29a705fa42c8af64e32bc0dc5fb46", null ]
+    [ "Terminate", "class_s_y_e_1_1_rendering_manager.html#adfb29a705fa42c8af64e32bc0dc5fb46", null ],
+    [ "TogglePhysicsDrawAABBs", "class_s_y_e_1_1_rendering_manager.html#a6ed845a966e7d4f8108289b7830b1cab", null ],
+    [ "TogglePhysicsDrawWireframe", "class_s_y_e_1_1_rendering_manager.html#afd9958fa9edcab994fdd9539973f4519", null ]
 ];

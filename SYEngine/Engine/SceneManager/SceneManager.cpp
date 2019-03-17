@@ -56,7 +56,7 @@ bool SceneManager::Initialize()
   }
 
 
-  // Class specific initialization
+  // Class specific initialization  
 
 
   SetModuleState(eModuleState::OK);

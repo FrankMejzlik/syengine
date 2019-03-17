@@ -114,6 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0d9b1cb61e217063913af7085a0a5f2f"><td class="memItemLeft" align="right" valign="top"><a id="a0d9b1cb61e217063913af7085a0a5f2f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>BallController</b> (<a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *pOwnerEntity, <a class="el" href="class_s_y_e_1_1_component.html">Component</a> *pOwnerComponent)</td></tr>
 <tr class="separator:a0d9b1cb61e217063913af7085a0a5f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a746bcebc62d27ede59f533b8169f1bef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_ball_controller.html#a746bcebc62d27ede59f533b8169f1bef">OnCollision</a> (const <a class="el" href="struct_s_y_e_1_1_physics_body_1_1_collision.html">PhysicsBody::Collision</a> &amp;collision)</td></tr>
+<tr class="separator:a746bcebc62d27ede59f533b8169f1bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30eb841190099a86f744f13eaa0e2777"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_ball_controller.html#a30eb841190099a86f744f13eaa0e2777">OnInitializeScene</a> ()</td></tr>
 <tr class="separator:a30eb841190099a86f744f13eaa0e2777"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2137d506a614db0b5666af39c55eda59"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_ball_controller.html#a2137d506a614db0b5666af39c55eda59">OnProcessFrame</a> (dfloat deltaTime, <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *pScene)</td></tr>
@@ -310,6 +312,9 @@ std::array&lt; std::map&lt; size_t, <a class="el" href="class_s_y_e_1_1_componen
 <tr class="memitem:a77471db90e3af235496654cf0d46f4af inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memItemLeft" align="right" valign="top"><a id="a77471db90e3af235496654cf0d46f4af"></a>
 <a class="el" href="class_s_y_e_1_1_script_handler.html">ScriptHandler</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetFirstScriptHandlerPtr</b> () const</td></tr>
 <tr class="separator:a77471db90e3af235496654cf0d46f4af inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54b0d523a380a5af0d3809803b5fac29 inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memItemLeft" align="right" valign="top"><a id="a54b0d523a380a5af0d3809803b5fac29"></a>
+<a class="el" href="class_s_y_e_1_1_spot_light.html">SpotLight</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetSpotLightPtr</b> () const</td></tr>
+<tr class="separator:a54b0d523a380a5af0d3809803b5fac29 inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a337acebd9099be3979ac2a89f608557f inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memItemLeft" align="right" valign="top"><a id="a337acebd9099be3979ac2a89f608557f"></a>
 std::map&lt; size_t, <a class="el" href="class_s_y_e_1_1_component.html">Component</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScriptHandlersRef</b> ()</td></tr>
 <tr class="separator:a337acebd9099be3979ac2a89f608557f inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -406,6 +411,41 @@ std::queue&lt; <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineErro
 <tr class="separator:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a746bcebc62d27ede59f533b8169f1bef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a746bcebc62d27ede59f533b8169f1bef">&#9670;&nbsp;</a></span>OnCollision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void SYE::BallController::OnCollision </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_s_y_e_1_1_physics_body_1_1_collision.html">PhysicsBody::Collision</a> &amp;&#160;</td>
+          <td class="paramname"><em>collision</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This function is called whenever some <a class="el" href="class_s_y_e_1_1_physics_body.html">PhysicsBody</a> on <a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> we're attached to is in collision</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">collision</td><td>Reference to structure containing all needed data about this collision. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="class_s_y_e_1_1_script.html#a978a83f2735e5a174706bd2e442c5562">SYE::Script</a>.</p>
+
+</div>
+</div>
 <a id="a30eb841190099a86f744f13eaa0e2777"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a30eb841190099a86f744f13eaa0e2777">&#9670;&nbsp;</a></span>OnInitializeScene()</h2>
 

@@ -1,5 +1,9 @@
 var manual =
 [
+    [ "Roadmap", "roadmap.html", [
+      [ "Known issues", "roadmap.html#known_issues", null ],
+      [ "Future efforts", "roadmap.html#future_efforts", null ]
+    ] ],
     [ "Building SYEngine", "building_syengine.html", [
       [ "MSVC", "building_syengine.html#msvc", null ]
     ] ],
@@ -14,5 +18,9 @@ var manual =
     [ "Scripting your game", "scripting_your_game.html", [
       [ "Initial building Scene", "scripting_your_game.html#scripting_your_game_building_scene", null ],
       [ "Writing custom scripts", "scripting_your_game.html#scripting_your_game_writing_custom_scripts", null ]
+    ] ],
+    [ "Examples", "examples.html", [
+      [ "HelloSYEngine", "examples.html#hello_syengine", null ],
+      [ "BasicTerrain", "examples.html#basic_terrain", null ]
     ] ]
 ];

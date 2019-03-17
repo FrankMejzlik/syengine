@@ -68,6 +68,8 @@ public:
  
   bool _bMoveOnMouseMove = true;
 
+  
+
 private:
   void CreateCallbacks();
 

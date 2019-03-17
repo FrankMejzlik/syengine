@@ -4,6 +4,8 @@ var searchData=
   ['manual',['Manual',['../manual.html',1,'']]],
   ['material',['Material',['../class_s_y_e_1_1_material.html',1,'SYE']]],
   ['materialmanager',['MaterialManager',['../class_s_y_e_1_1_material_manager.html',1,'SYE']]],
+  ['matrix4',['Matrix4',['../class_s_y_e_1_1_matrix4.html',1,'SYE']]],
+  ['matrix4f',['Matrix4f',['../namespace_s_y_e.html#af1e2810e83087a1b2e34f668d748daf1',1,'SYE']]],
   ['mesh',['Mesh',['../class_s_y_e_1_1_mesh.html',1,'SYE']]],
   ['meshentry',['MeshEntry',['../struct_s_y_e_1_1_mesh_entry.html',1,'SYE']]],
   ['meshgenerator',['MeshGenerator',['../class_s_y_e_1_1_mesh_generator.html',1,'SYE']]],

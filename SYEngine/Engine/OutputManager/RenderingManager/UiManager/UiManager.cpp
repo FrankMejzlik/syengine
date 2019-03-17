@@ -94,7 +94,7 @@ bool UiManager::TerminateImGui()
 
 void UiManager::InitializeImGuiDraw()
 {
-  ImGui::Render();
+  //ImGui::Render();
   
 }
 void UiManager::DrawImGui()
