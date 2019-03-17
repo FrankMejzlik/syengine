@@ -56,7 +56,7 @@ public:
     CreateBalls(pScene);
     
     // Create Scene 
-    CreateCameras(pScene);
+    AddCameras(pScene);
 
   }
 
@@ -84,7 +84,7 @@ private:
      *  MeshRenderer
      *  Rigidbody
      */
-    pEntity = pScene->CreateSphere(
+    pEntity = pScene->AddSphere(
       Vector3f(6.0f, -8.0f, -9.0f), // Position 
       Vector3f(0.0f, 0.0f, 0.0f),   // Rotation
       Vector3f(1.0f, 1.0f, 1.0f),   // Scale
@@ -132,7 +132,7 @@ private:
    *  @param  Scene*  Pointer to scene instance we're building
    *  @return void
    */
-  void CreateCameras(Scene* pScene)
+  void AddCameras(Scene* pScene)
   {
     // Local variables used for building Scene
     Entity* pEntity;
@@ -145,9 +145,8 @@ private:
      *  Transform
      *  Camera
      */
-    pEntity = pScene->CreateCamera(
+    pEntity = pScene->AddCamera(
       Vector3f(0.2f, -15.0f, 10.0f),        // Position
-      Vector3f(0.0f, 1.0f, 0.0f),           // Start up direction
       static_cast<dfloat>(-M_PI_2), 0.57f   // Start yaw and pitch (radians)
     );
 
@@ -156,6 +155,13 @@ private:
 
     // Attach new Script to it
     FirstPersonCameraController* pCamController = pScriptHander->AddScript<FirstPersonCameraController>();
+
+    // Add ScriptHanlder Component
+    pScriptHander = pEntity->AddComponent<ScriptHandler>();
+
+    // Attach new Script to it
+    pScriptHander->AddScript<GeneralInputHandler>();
+
 
     // Set pointer to ball object to Script
     pCamController->SetBallPtr(_pBallEntity->GetRigidbodyPtr());
@@ -173,7 +179,7 @@ private:
   void ConstructLighting(Scene* pScene)
   {
     // Create main DirectionalLight
-    pScene->CreateDirectionalLight(
+    pScene->AddDirectionalLight(
       Vector3f(0.0f, 0.0f, 0.0f),          // Position vector
       Vector3f(0.0f, 0.0f, 0.0f),          // Rotation vector
       Vector3f(1.0f, 1.0f, 1.0f),          // Scale vector
@@ -184,7 +190,7 @@ private:
     );
 
     // Create top left SpotLight
-    pScene->CreateSpotLight(
+    pScene->AddSpotLight(
       Vector3f(-8.0f, 11.0f, -4.0f),     // Position vector
       Vector3f(0.0f, 0.0f, 0.0f),        // Rotation vector
       Vector3f(1.0f, 1.0f, 1.0f),        // Scale vector
@@ -222,7 +228,7 @@ private:
         *  MeshRenderer
         *  Rigidbody
         */
-      pEntity = pScene->CreateBlock(
+      pEntity = pScene->AddBlock(
         Vector3f(0.0f, 0.0f, -10.0f), Vector3f((dfloat)M_PI_2, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         14.0f, 1.0f, 20.0f,
         true
@@ -255,7 +261,7 @@ private:
         *  MeshRenderer
         *  Rigidbody
         */
-      pEntity = pScene->CreateBlock(
+      pEntity = pScene->AddBlock(
         Vector3f(0.0f, 0.0f, -8.0f), Vector3f((dfloat)M_PI_2, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         14.0f, 1.0f, 20.0f,
         true
@@ -279,7 +285,7 @@ private:
         *  MeshRenderer
         *  Rigidbody
         */
-      pEntity = pScene->CreateBlock(
+      pEntity = pScene->AddBlock(
         Vector3f(0.0f, 9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         14.0f, 0.5f, 1.0f,
         true
@@ -314,7 +320,7 @@ private:
         *  MeshRenderer
         *  Rigidbody
         */
-      pEntity = pScene->CreateBlock(
+      pEntity = pScene->AddBlock(
         Vector3f(-6.75f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         0.5f, 19.0f, 1.0f,
         true
@@ -348,7 +354,7 @@ private:
         *  MeshRenderer
         *  Rigidbody
         */
-      pEntity = pScene->CreateBlock(
+      pEntity = pScene->AddBlock(
         Vector3f(6.75f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         0.5f, 19.0f, 1.0f,
         true
@@ -383,7 +389,7 @@ private:
         *  MeshRenderer
         *  Rigidbody
         */
-      pEntity = pScene->CreateBlock(
+      pEntity = pScene->AddBlock(
         Vector3f(-4.5f, -9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         5.0f, 0.5f, 1.0f,
         true
@@ -418,7 +424,7 @@ private:
         *  MeshRenderer
         *  Rigidbody
         */
-      pEntity = pScene->CreateBlock(
+      pEntity = pScene->AddBlock(
         Vector3f(4.5f, -9.75f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         5.0f, 0.5f, 1.0f,
         true
@@ -445,7 +451,7 @@ private:
       * Right top corner
       */
     {
-      pEntity = pScene->CreatePrism(
+      pEntity = pScene->AddPrism(
         Vector3f(6.5f, 9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         Vector3f(0.0f, 0.0f, 0.0f),
         Vector3f(-3.0f, 0.0f, -1.0f), Vector3f(-0.0f, -3.0f, -1.0f), Vector3f(-0.0f, 0.0f, -1.0f), Vector3f(-1.0f, 0.0f, -1.0f),
@@ -482,7 +488,7 @@ private:
         *  MeshRenderer
         *  Rigidbody
         */
-      pEntity = pScene->CreatePrism(
+      pEntity = pScene->AddPrism(
         Vector3f(-7.0f, -9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         Vector3f(0.0f, 0.0f, 0.0f),
         Vector3f(0.0f, 0.0f, -1.0f), Vector3f(5.0f, 0.0f, -1.0f), Vector3f(3.5f, 2.5f, -1.0f), Vector3f(0.0f, 4.0f, -1.0f),
@@ -520,7 +526,7 @@ private:
         *  MeshRenderer
         *  Rigidbody
         */
-      pEntity = pScene->CreatePrism(
+      pEntity = pScene->AddPrism(
         Vector3f(7.0f, -9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
         Vector3f(0.0f, 0.0f, 0.0f),
         Vector3f(-5.0f, 0.0f, -1.0f), Vector3f(-2.0f, 0.0f, -1.0f), Vector3f(-2.0f, 4.0f, -1.0f), Vector3f(-3.5f, 2.5f, -1.0f),
@@ -562,7 +568,7 @@ private:
 
 
     // Central
-    pEntity = pScene->CreateSphere(
+    pEntity = pScene->AddSphere(
       Vector3f(0.0f, 0.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.5f, 2.5f, 2.0f),
       0.5f, 20, 20,
       true, // Is static
@@ -591,7 +597,7 @@ private:
 
 
     // Devil 1
-    pEntity = pScene->CreateSphere(
+    pEntity = pScene->AddSphere(
       Vector3f(3.0f, 5.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
       0.5f, 20, 20,
       true, // Is static
@@ -616,7 +622,7 @@ private:
 
 
     // Devil 2
-    pEntity = pScene->CreateSphere(
+    pEntity = pScene->AddSphere(
       Vector3f(-3.0f, 5.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
       0.5f, 20, 20,
       true, // Is static
@@ -640,7 +646,7 @@ private:
     pEntity->SaveEntity();
 
     // Devil 3
-    pEntity = pScene->CreateSphere(
+    pEntity = pScene->AddSphere(
       Vector3f(-4.0f, -3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
       0.5f, 20, 20,
       true, // Is static
@@ -664,7 +670,7 @@ private:
     pEntity->SaveEntity();
 
     // Devil 4
-    pEntity = pScene->CreateSphere(
+    pEntity = pScene->AddSphere(
       Vector3f(4.0f, -3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.0f, 2.0f, 1.0f),
       0.5f, 20, 20,
       true, // Is static
@@ -687,7 +693,7 @@ private:
     pEntity->SaveEntity();
 
     // Medium 3
-    pEntity = pScene->CreateSphere(
+    pEntity = pScene->AddSphere(
       Vector3f(2.0f, 3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
       0.5f, 20, 20,
       true, // Is static
@@ -710,7 +716,7 @@ private:
     pEntity->SaveEntity();
 
     // Medium 4
-    pEntity = pScene->CreateSphere(
+    pEntity = pScene->AddSphere(
       Vector3f(-2.0f, 3.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.2f, 1.2f, 1.0f),
       0.5f, 20, 20,
       true, // Is static
@@ -734,7 +740,7 @@ private:
 
 
     // Low 1
-    pEntity = pScene->CreateSphere(
+    pEntity = pScene->AddSphere(
       Vector3f(0.0f, -4.0f, -9.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(2.2f, 1.2f, 1.0f),
       0.5f, 20, 20,
       true, // Is static
@@ -773,7 +779,7 @@ private:
     Rigidbody* pRigidbody;
 
     // Right paddle
-    pEntity = pScene->CreatePrism(
+    pEntity = pScene->AddPrism(
       Vector3f(1.5f, -8.0f, -8.51f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
       Vector3f(0.0f, 0.0f, 0.0f),
       Vector3f(-1.0f, -0.1f, -1.0f), Vector3f(1.5f, -0.2f, -1.0f), Vector3f(1.5f, 0.2f, -1.0f), Vector3f(-1.0f, 0.1f, -1.0f),
@@ -800,7 +806,7 @@ private:
     }
 
     // Left paddle
-    pEntity = pScene->CreatePrism(
+    pEntity = pScene->AddPrism(
       Vector3f(-4.5f, -8.0f, -8.51f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
       Vector3f(0.0f, 0.0f, 0.0f),
       Vector3f(1.5f, 0.2f, -1.0f), Vector3f(-1.0f, 0.1f, -1.0f), Vector3f(-1.0f, -0.1f, -1.0f), Vector3f(1.5f, -0.2f, -1.0f),
