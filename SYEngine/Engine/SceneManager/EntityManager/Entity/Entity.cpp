@@ -19,6 +19,16 @@ Entity::Entity(Scene* pOwnerScene, Entity* pParentEntity):
 
 Entity::~Entity() noexcept
 {
+  // Detach self
+  if (_pOwnerScene != nullptr)
+  {
+    _pOwnerScene->DetachEntity(this);
+  }
+  if (_pParentEntity)
+  {
+    _pParentEntity->DetachEntity(this);
+  }
+
   // Delete all children Entities recursively
   for (auto&& childPair : _childEntities)
   {
@@ -26,20 +36,22 @@ Entity::~Entity() noexcept
   }
 
   // Destroy all child Component recursively
-  for (auto& slotMap : _primaryComponentSlots)
-  {
-    // If empty
-    if (slotMap.empty())
-    {
-      continue;
-    }
+  //for (auto& slotMap : _primaryComponentSlots)
+  //{
+  //  // If empty
+  //  if (slotMap.empty())
+  //  {
+  //    continue;
+  //  }
 
-    while (!slotMap.empty())
-    {
-      auto item = slotMap.begin();
-      RemoveComponent(item->second);
-    }
-  }
+  //  while (!slotMap.empty())
+  //  {
+  //    auto item = slotMap.begin();
+  //    RemoveComponent(item->second);
+  //  }
+  //}
+
+  
 }
 
 bool Entity::DetachComponent(Component* pComponent)
@@ -130,7 +142,7 @@ bool Entity::RemoveComponent(Component* pComponentToDelete)
     return false;
   }
 
-  // Tell EntityManager to destroy it
+  // Tell Componentmanager to destroy it
   bool result = GetComponentManagerPtr()->DestroyComponent(pComponentToDelete);
   if (!result)
   {

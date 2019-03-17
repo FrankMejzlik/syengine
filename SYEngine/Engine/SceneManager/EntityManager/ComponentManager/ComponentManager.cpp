@@ -69,6 +69,12 @@ bool ComponentManager::Terminate()
   return true;
 }
 
+void ComponentManager::DestroyAllComponents()
+{
+  _components.clear();
+}
+
+
 // TODO: Delete this
 std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& ComponentManager::GetPrimaryComponentSlotsRef(Entity* pEntity)
 {

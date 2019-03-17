@@ -5,7 +5,7 @@
 
 using namespace SYE;
 
-Logger* Logger::_pInstance = nullptr;
+std::unique_ptr<Logger> Logger::_pInstance = std::unique_ptr<Logger>(nullptr);
 
 Logger* Logger::GetInstance()
 {
@@ -13,14 +13,14 @@ Logger* Logger::GetInstance()
 	{
 		try
 		{
-			Logger::_pInstance = new Logger(GetCurrentProcessId());
+			Logger::_pInstance = std::make_unique<Logger>(GetCurrentProcessId());
 		}
 		catch (std::exception &e)
 		{		
 			printf("ERROR: Exception catched while instantiating Logger: %s\n", e.what());
 		}
 	}
-	return Logger::_pInstance;
+	return Logger::_pInstance.get();
 }
 
 void Logger::Log(bool showTimestamp, eLogType logType, std::string_view filename, int lineNumber, const char* format, ...) const

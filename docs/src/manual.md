@@ -15,9 +15,6 @@
 - Low performance of dynamic lights .
     - I use standard shadow mapping technique with PCF for soft shadows without any optimizations.
     - I will address this with implementing variance shadow mapping and/or deferred shading.
-- There may be some memory leaks in third party libs (assimp, etc).
-    - Some parts of code are untouched since I wrote them initially and at the time I was way way worse C++ programmer then now.
-    - In newer code I don't use owner raw pointer so there shouldn't be any leaks.
 - I am not doing any runtime error solving.
     - I have error queue on every instance that inherits from IErrorLogging, so it allows me to solve problems locally if it's possible.
     - This is just for future, for now I am just reporting those errors to stdout.

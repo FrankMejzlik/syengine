@@ -225,18 +225,19 @@ public:
    */
   bool UnregisterComponent(Component* pComponent);
 
-private:
-  size_t MapTypeToSlot(size_t type);
   /** 
-    * Adds pointer to this instance everywhere it needs to
-    */
+  * Adds pointer to this instance everywhere it needs to
+  */
   bool AttachEntity(Entity* pEntity);
   /** 
-    * Nulls pointer to this instance everywhere EnlistEntity added it
-    */
+  * Nulls pointer to this instance everywhere EnlistEntity added it
+  */
   bool DetachEntity(Entity* pEntity);
 
-  
+
+private:
+  size_t MapTypeToSlot(size_t type);
+
 
   // Attributes
 private:

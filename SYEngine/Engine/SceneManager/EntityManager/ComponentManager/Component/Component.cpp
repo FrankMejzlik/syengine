@@ -27,6 +27,11 @@ Component::Component(
   RefreshQuickRefs();
 }
 
+Component::~Component() noexcept
+{
+  //! \todo Pot Component specific Subcomponents into container to allow their generic destruction
+}
+
 void Component::SetOwnerComponentPtr(Component* pComponent)
 {
   _pOwnerComponent = pComponent;

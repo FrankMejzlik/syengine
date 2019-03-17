@@ -269,6 +269,12 @@ void SceneManager::HandleInput(Scene* pScene)
   }
 }
 
+void SceneManager::TerminateGame()
+{
+  // Terminate all Scenes
+  _scenes.clear();
+}
+
 bool SceneManager::InitializeScene(Scene* pScene)
 {
   UNREFERENCED_PARAMETER(pScene);

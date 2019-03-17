@@ -33,6 +33,7 @@ RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEng
   // Add submodules for this module.
   _subModules.insert(std::make_pair(ID_WINDOW_MANAGER, std::make_unique<WindowManager>(*this, _pEngineContext)));
   _subModules.insert(std::make_pair(ID_SHADER_MANAGER, std::make_unique<ShaderManager>(*this, _pEngineContext)));
+  _subModules.insert(std::make_pair(ID_UI_MANAGER, std::make_unique<UiManager>(*this, _pEngineContext)));
   
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
@@ -156,7 +157,7 @@ Window* RenderingManager::ConstructWindow(eWindowType windowType, std::string_vi
 
   // Initialize ImGUI.
   UI_MANAGER->InitializeImGui(pNewWindow);
-
+  
   return pNewWindow;
 }
 

@@ -11,6 +11,7 @@
 #include <exception>
 #include <string>
 #include <ctime>
+#include <memory>
 
 #include "config_engine.h"
 
@@ -45,20 +46,24 @@ enum class eLogType
 class Logger
 {
 public:
+  static Logger* GetInstance();
+
   Logger() = delete;
-	static Logger* GetInstance();
+  Logger(unsigned long PID);
+  ~Logger();
+  
 
 	void Log(bool showTimestamp, eLogType logType, std::string_view filename, int lineNumber, const char* format, ...) const;
 
 private:
-	static Logger* _pInstance;
+	static std::unique_ptr<Logger> _pInstance;
   unsigned long _PID;
 
   // Console window handle
   void* _hStdOut;
 
-	Logger(unsigned long PID);
-	~Logger();
+	
+	
 
 	bool SetConsoleTextColour(eConsoleTextColour colour);
 };

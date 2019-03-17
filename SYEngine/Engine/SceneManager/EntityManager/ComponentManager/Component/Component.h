@@ -84,6 +84,7 @@ public:
     bool isPrimary = true, bool isActive = true,
     eSlotIndex slotIndex = UNDEFINED, Component::eType type = eType::COMPONENT
   );
+  ~Component() noexcept;
 
   virtual void SaveComponent();
 

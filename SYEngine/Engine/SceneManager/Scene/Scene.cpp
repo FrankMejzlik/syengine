@@ -38,13 +38,32 @@ Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWind
   // Attach this engine to Engine
   _pEngine->AttachScene(this);
 
-  
-
   DLog(eLogType::Success, "Scene %d instantiated.", _pSceneContext->GetSceneId());
 }
 
 Scene::~Scene() noexcept
 {
+  EntityManager* pEntityManager = GetEntityManagerPtr();
+
+  // Destroy all Components
+  GetComponentManagerPtr()->DestroyAllComponents();
+
+  // Destroy all child Entities
+  //  NOTE: Beware that DestroyEntity will remove reference to that Entity from map.
+  while (!_childEntities.empty())
+  {
+    auto pEntityPair = *(_childEntities.begin());
+
+    // Tell EntityManager to delete these Entities.
+    pEntityManager->DestroyEntity(pEntityPair.second);
+  }
+
+  // Destroy RootEntity
+  pEntityManager->DestroyEntity(_pRootEntity);
+
+  // Destroy Physics Scene
+  GetPhysicsManagerPtr()->TerminateScene(this);
+
   DLog(eLogType::Success, "Scene %d destroyed.", _pSceneContext->GetSceneId());
 }
 
@@ -162,8 +181,8 @@ Entity* Scene::AddCamera(
   dfloat initialYaw, dfloat initialPitch
 )
 {
-  // Call EntityManager to create new Quad Entity.
-  Entity* pNewEntity = GetEntityManagerPtr()->CreateEntity<Entity>(this, nullptr);
+  // Add new Entity to Scene instance
+  Entity* pNewEntity = AddEntity<Entity>();
 
   // Add Transform Component
   Transform* pTransform = pNewEntity->AddComponent<Transform>();

@@ -88,7 +88,9 @@ bool UiManager::InitializeImGui(Window* pWindow)
 bool UiManager::TerminateImGui()
 {
   ImGuiWrapper_Shutdown();
+
   ImGui::DestroyContext();
+
   return true;
 }
 

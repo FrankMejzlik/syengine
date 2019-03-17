@@ -307,9 +307,6 @@ void Engine::TerminateGame()
 {
   // Terminate Scenes
   SCENE_MANAGER->TerminateGame();
-
-  // Terminate Windows
-  WINDOW_MANAGER->TerminateGame();
 }
 
 void Engine::ProcessFrame(dfloat deltaTime, Scene* pScene, Window* pMainWindow)

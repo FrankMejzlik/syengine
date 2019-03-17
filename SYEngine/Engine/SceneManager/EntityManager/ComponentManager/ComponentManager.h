@@ -29,7 +29,7 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
-  
+  void DestroyAllComponents();
 
   template <typename ComponentType>
   ComponentType* CreateComponent(Entity* pOwnerEntity, Component* pOwnerComponent = nullptr)
