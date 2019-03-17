@@ -49,12 +49,14 @@ public:
   void RenderScene(Scene* pScene, Window* pTargetWindow);
 
 #if !NEW_SHADOW_MAPPING_IMPLEMENTED
+
   void dc_DirectionalShadowMapPass(Scene* pScene);
   void dc_OmniShadowMapPass(Scene* pScene);
+  void dc_FinalMainRenderPass(Scene* pScene);
+
 #endif
 
   void DirectionalLightShadowMapPass(Scene* pScene);
-
   void FinalMainRenderPass(Scene* pScene);
 
   PhysicsDebugRenderer* GetPhysicsDebugRendererPtr() const { return _pPhysicsDebugRenderer.get(); }

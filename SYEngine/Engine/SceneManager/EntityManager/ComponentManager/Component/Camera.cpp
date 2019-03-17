@@ -49,7 +49,6 @@ void Camera::SetCameraDirection(Vector3f direction)
   UNREFERENCED_PARAMETER(direction);
 
   LOG_NOT_IMPLEMENTED;
-  //GetTransformPtr()->SetDirection(direction);
 }
 
 Vector3f Camera::GetPickingRay(int x, int y)

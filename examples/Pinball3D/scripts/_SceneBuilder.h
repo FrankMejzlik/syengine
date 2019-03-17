@@ -112,12 +112,12 @@ private:
     // Attach specific script to it
     pScriptHander->AddScript<BallController>();
 
-    // Add DirectionalLight Component
+    // Add PointLight Component
     PointLight* pLight = pEntity->AddComponent<PointLight>();
     pLight->SetColour(glm::vec3(255.0f, 30.0f, 30.0f));
     pLight->SetInensities(glm::vec3(0.00, 0.0001f, 0.0f));
-    pLight->SetShadowDimensions(glm::vec3(2048, 2048, 0), 0.01f, 100.0f);
-    pLight->SetCoeficients(glm::vec3(0.02f, 0.06f, 0.08f));
+    pLight->SetShadowDimensions(glm::vec3(DEFAULT_SHADOW_MAP_DIMENSIONS , DEFAULT_SHADOW_MAP_DIMENSIONS , 0), 0.01f, 100.0f);
+    pLight->SetCoeficients(glm::vec3(0.2f, 0.6f, 0.8f));
 
     // Save all edits done on this Entity
     pEntity->SaveEntity();
@@ -149,6 +149,8 @@ private:
       Vector3f(0.2f, -15.0f, 10.0f),        // Position
       static_cast<dfloat>(-M_PI_2), 0.57f   // Start yaw and pitch (radians)
     );
+    // Set this camera as main for this Scene
+    pScene->SetMainCamera(pEntity->GetCameraPtr());
 
     // Add ScriptHanlder Component
     pScriptHander = pEntity->AddComponent<ScriptHandler>();
@@ -185,8 +187,8 @@ private:
       Vector3f(1.0f, 1.0f, 1.0f),          // Scale vector
       Vector3f(1.0f, 1.0f, 1.0f),          // Colour vector
       Vector3f(0.0f, 0.5f, 0.1f),          // Intensities
-      Vector3u(2048, 2048, 0),             // Shadow dimensions
-      Vector3f(7.0f, -5.0f, -3.0f)         // Light direction
+      Vector3u(1024 , 1024 , 0),             // Shadow dimensions
+      Vector3f(3.0f, -3.0f, -3.0f)         // Light direction
     );
 
     // Create top left SpotLight
@@ -196,7 +198,7 @@ private:
       Vector3f(1.0f, 1.0f, 1.0f),        // Scale vector
       Vector3f(1.0f, 0.0f, 1.0f),        // Colour vector
       Vector3f(0.8f, 1.0f, 1.0f),        // Intensities
-      Vector3u(2048, 2048, 0),           // Shadow dimensions
+      Vector3u(DEFAULT_SHADOW_MAP_DIMENSIONS , DEFAULT_SHADOW_MAP_DIMENSIONS , 0),           // Shadow dimensions
       0.01f, 100.0f,                     // Near and far plane distances
       Vector3f(0.01f, 0.02f, 0.03f),     // Coefficients
       Vector3f(1.0f, -1.0f, -1.0f),      // Light direction
@@ -204,7 +206,7 @@ private:
     );
   }
 
-  /** 
+  /**                                                                          r
    * Creates pinball machine present in initial Scene
    *
    *  @param  Scene*  Pointer to scene instance we're building
@@ -453,9 +455,10 @@ private:
     {
       pEntity = pScene->AddPrism(
         Vector3f(6.5f, 9.5f, -8.5f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f),
-        Vector3f(0.0f, 0.0f, 0.0f),
-        Vector3f(-3.0f, 0.0f, -1.0f), Vector3f(-0.0f, -3.0f, -1.0f), Vector3f(-0.0f, 0.0f, -1.0f), Vector3f(-1.0f, 0.0f, -1.0f),
-        Vector3f(-3.0f, 0.0f, -0.0f), Vector3f(-0.0f, -3.0f, 0.0f), Vector3f(-0.0f, 0.0f, -0.0f), Vector3f(-1.0f, 0.0f, 0.0f),
+        Vector3f(0.0f, 0.0f, 0.0f), 
+        Vector3f(-1.0f, 0.0f, -1.0f), Vector3f(-3.0f, 0.0f, -1.0f), Vector3f(-0.0f, -3.0f, -1.0f), Vector3f(-0.0f, 0.0f, -1.0f),
+        Vector3f(-1.0f, 0.0f, 0.0f), Vector3f(-3.0f, 0.0f, -0.0f),  Vector3f(-0.0f, -3.0f, 0.0f), Vector3f(-0.0f, 0.0f, -0.0f),
+        
         true, // Is static
         0.0f  // No mass
       );
@@ -591,7 +594,7 @@ private:
     PointLight* pLight = pEntity->AddComponent<PointLight>();
     pLight->SetColour(glm::vec3(0.0f, 250.0f, 0.0f));
     pLight->SetInensities(glm::vec3(0.00, 0.05f, 0.0f));
-    pLight->SetShadowDimensions(glm::vec3(2048, 2048, 0), 0.01f, 100.0f);
+    pLight->SetShadowDimensions(glm::vec3(512, 512, 0), 0.01f, 100.0f);
     pLight->SetCoeficients(glm::vec3(0.8f, 0.6f, 0.8f));
     pEntity->SaveEntity();
 

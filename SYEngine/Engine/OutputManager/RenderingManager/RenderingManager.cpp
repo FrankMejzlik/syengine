@@ -170,14 +170,15 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
 #if !NEW_SHADOW_MAPPING_IMPLEMENTED
 
   // Calculate directional light shadow maps
-  //dc_DirectionalShadowMapPass(pScene);
+  dc_DirectionalShadowMapPass(pScene);
 
   // Calculat e point light shadow maps
-#if !DISABLE_OMNI_SHADOW_MAPPING
-  //dc_OmniShadowMapPass(pScene);
-#endif
+  dc_OmniShadowMapPass(pScene);
 
-#endif
+  // Render actual scene with computed shadow maps
+  dc_FinalMainRenderPass(pScene);
+
+#else
 
   // Write ShadowMaps for directional lights
   DirectionalLightShadowMapPass(pScene);
@@ -185,6 +186,7 @@ void RenderingManager::RenderScene(Scene* pScene, Window* pTargetWindow)
   // Render actual scene with computed shadow maps
   FinalMainRenderPass(pScene);
 
+#endif
 
   // Run ImGUI draw.
   //UI_MANAGER->DrawImGui();
@@ -211,6 +213,7 @@ void RenderingManager::DirectionalLightShadowMapPass(Scene* pScene)
 
     // If rendering to texture on
   #if RENDER_SCENE_TO_TEXTUE
+
     // Render to "Frame buffer" texture 
     pScene->GetRenderTargetTexturePtr(0ULL)->SetAsRenderTarget(pScene);
 
@@ -224,8 +227,10 @@ void RenderingManager::DirectionalLightShadowMapPass(Scene* pScene)
     glClear(GL_DEPTH_BUFFER_BIT);
 
   #else
+
     // Render to shadow map texture
     light->GetShadowMap()->SetAsRenderTarget(pScene);
+
   #endif
 
     // Clear depth buffer
@@ -255,6 +260,93 @@ void RenderingManager::DirectionalLightShadowMapPass(Scene* pScene)
     }
   }
 
+
+}
+
+
+void RenderingManager::dc_FinalMainRenderPass(Scene* pScene)
+{
+  // Set standard Window as render target
+  pScene->GetMainWindowPtr()->SetAsRenderTarget(pScene);
+
+  // Get Components
+  std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
+  
+  Camera* pMainCamera = pScene->GetMainCamera();
+
+  if (pMainCamera == nullptr)
+  {
+    PUSH_ENGINE_ERROR(
+      eEngineError::AttemptingToRenderSceneWithoutMainCameraAttached, 
+      std::string("Trying to render Scene with ID ") + std::to_string(pScene->GetGuid()) + std::string("without main Camera attached to id. Skipping render pass."),
+      "Call pScene->SetMainCameraPtr() somewhere. E.g. in _SceneBuilder.h."
+    );
+    return;
+  }
+
+  // If main light present
+  DirectionalLight* mainLight;
+  if (!components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].empty())
+  {
+    mainLight = static_cast<DirectionalLight*>(components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].begin()->second);
+  }
+  else
+  {
+    mainLight = nullptr;
+  }
+
+  // Clear buffer
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  // Clear color and depth buffer
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+   // Draw main scene with main Shader
+  _shaders[0]->UseShader();
+
+  uniformProjection = _shaders[0]->GetProjectionLocation();
+  uniformView = _shaders[0]->GetViewLocation();
+  uniformEyePosition = _shaders[0]->GetEyePosition();
+  ul_model = _shaders[0]->GetModelLocation();
+  GLuint ul_specularIntensity = _shaders[0]->GetSpecularIntensityLocation(); ul_specularIntensity;
+  GLuint ul_shininess = _shaders[0]->GetShininessLocation(); ul_shininess;
+
+
+  // Set values in shader uniforms
+  glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pMainCamera->dc_GetPerspectiveProjectionMatrixConstRef()));
+  glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pMainCamera->GetViewMatrixConstRef()));
+  glUniform3f(uniformEyePosition, 
+    pScene->GetMainCamera()->GetCameraPosition().GetX(), 
+    pScene->GetMainCamera()->GetCameraPosition().GetY(), 
+    pScene->GetMainCamera()->GetCameraPosition().GetZ()
+  );
+
+  // Get counts of lights
+  size_t pointLightCount = components[COMPONENT_POINT_LIGHT_SOURCE_SLOT].size();
+
+  // Set up all lights to scene.
+  if (mainLight)
+  {
+    _shaders[0]->dc_SetDirectionalLight(mainLight);
+    
+    auto lightTranforms = mainLight->CalculateLightTransformMatrix();
+
+    _shaders[0]->SetDirectionalLightTransform(&lightTranforms);
+  }
+  _shaders[0]->SetPointLights(components[COMPONENT_POINT_LIGHT_SOURCE_SLOT], 3, 0ULL); // Offset 0.
+  _shaders[0]->SetSpotLights(components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT], 3 + pointLightCount, pointLightCount); // Offset by number of point lights.
+
+  // Set main object texture slot to 1.
+  _shaders[0]->SetTexture(1);
+  
+  // Validate main shader.
+  _shaders[0]->Validate();
+
+  for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
+  {
+    MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
+
+    mashRenderer->Render(ul_model, ul_specularIntensity, ul_shininess);
+  }
 
 }
 
@@ -341,21 +433,21 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
 void RenderingManager::CreateShaders()
 {
   // Line shader for line drawing
-  const char* lineVertexShader = "shaders/line_shader.vert";
-  const char* lineFragShader = "shaders/line_shader.frag";
+  const char* lineVertexShader = "resource/shaders/line_shader.vert";
+  const char* lineFragShader = "resource/shaders/line_shader.frag";
 
-  const char* vShader = "shaders/shader.vert";
-  const char* fShader = "shaders/shader.frag";
+  const char* vShader = "resource/shaders/shader.vert";
+  const char* fShader = "resource/shaders/shader.frag";
 
-  const char* vShader2 = "shaders/shader_plain.vert";
-  const char* fShader2 = "shaders/shader_plain.frag";
+  const char* vShader2 = "resource/shaders/shader_plain.vert";
+  const char* fShader2 = "resource/shaders/shader_plain.frag";
 
-  const char* vDLShader = "shaders/directional_shadow_map.vert";
-  const char* fDLShader = "shaders/directional_shadow_map.frag";
+  const char* vDLShader = "resource/shaders/directional_shadow_map.vert";
+  const char* fDLShader = "resource/shaders/directional_shadow_map.frag";
 
-  const char* vODLShader = "shaders/omni_shadow_map.vert";
-  const char* gODLShader = "shaders/omni_shadow_map.geom";
-  const char* fODLShader = "shaders/omni_shadow_map.frag";
+  const char* vODLShader = "resource/shaders/omni_shadow_map.vert";
+  const char* gODLShader = "resource/shaders/omni_shadow_map.geom";
+  const char* fODLShader = "resource/shaders/omni_shadow_map.frag";
 
 
   // Main shader
@@ -422,24 +514,19 @@ void RenderingManager::dc_DirectionalShadowMapPass(Scene* pScene)
     glClear(GL_DEPTH_BUFFER_BIT);
 
     // Get handle to model uniform in shader
-    GLuint ul_model_ = _shaders[1]->GetModelLocation();
-    GLuint ul_specularIntensity_ = _shaders[1]->GetSpecularIntensityLocation();
-    GLuint ul_shininess_ = _shaders[1]->GetShininessLocation();
-
+    ul_model = _shaders[1]->GetModelLocation();
 
     // Give it correctly calculated lightTransform matrix
     auto lightTransform = light->CalculateLightTransformMatrix();
     _shaders[1]->SetDirectionalLightTransform(&lightTransform);
 
-    //_shaders[1]->Validate();
-    // Render objects in scene with their own shaders
-
+    _shaders[1]->Validate();
 
     for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
     {
       MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
 
-      mashRenderer->Render(ul_model_, ul_specularIntensity_, ul_shininess_);
+      mashRenderer->RenderForLight(ul_model);
     }
 
   }

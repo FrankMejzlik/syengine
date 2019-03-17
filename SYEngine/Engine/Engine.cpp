@@ -314,8 +314,6 @@ void Engine::TerminateGame()
 
 void Engine::ProcessFrame(dfloat deltaTime, Scene* pScene, Window* pMainWindow)
 {
-  
-
   ENGINE_API->ProcessEngineQueue();
 
   SCENE_MANAGER->ProcessScene(deltaTime, pScene);

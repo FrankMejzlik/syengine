@@ -65,7 +65,7 @@
 //////////////////////////////////////////
 // Paths configuration
 //////////////////////////////////////////
-#define PATH_SHADERS "shaders/"
+#define PATH_SHADERS "resource/shaders/"
 
 #define PATH_TEXTURES "resource/textures/"
 #define FILENAME_DEFAULT_TEXTURE "/plain.png"

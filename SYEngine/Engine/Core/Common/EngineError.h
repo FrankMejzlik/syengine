@@ -61,6 +61,7 @@ enum class eEngineError
   AddingAlreadyExistingShader = 1017,
   RenderingMeshWithoutParentMeshRenderer = 1018,
   ProcessingNonImplementedUniform = 1019,
+  AttemptingToRenderSceneWithoutMainCameraAttached = 1020,
 };
 
 class EngineError

@@ -141,6 +141,9 @@ Scene* SceneManager::LoadInitialScene(Scene* pScene)
 
 bool SceneManager::SetupSystemEntities(Scene* pScene)
 {
+
+#if RENDER_SCENE_TO_TEXTUE
+
   ///////////////////////////////
   // Setup primitive to draw scene texture to
   ///////////////////////////////
@@ -187,6 +190,8 @@ bool SceneManager::SetupSystemEntities(Scene* pScene)
   // Unregister this MeshRenderer form standard rendering pipeline
   pScene->UnregisterComponent(pMeshRenderer);
   
+
+
   // Add Script for syncing position and rotation of projection Quad
   ScriptHandler* pScriptHandler = pRenderToEntity->AddComponent<ScriptHandler>();
   pScriptHandler->AddScript<LookAtQuad>();
@@ -194,6 +199,7 @@ bool SceneManager::SetupSystemEntities(Scene* pScene)
   // Save all edits done on this Entity
   pRenderToEntity->SaveEntity();
 
+#endif
 
   ///////////////////////////////
   // Setup utility Camera

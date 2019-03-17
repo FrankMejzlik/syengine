@@ -24,13 +24,13 @@ namespace SYE
  * Main responsibilites:
  *    Move it on keypress to bounce ball.
  */
-class LookAtQuad :
+class RightPaddleController :
   public Script
 {
   // Methods.
 public:
-  LookAtQuad() = delete;
-  LookAtQuad(Entity* pOwnerEntity, Component* pOwnerComponent):
+  RightPaddleController() = delete;
+  RightPaddleController(Entity* pOwnerEntity, Component* pOwnerComponent):
     Script(pOwnerEntity, pOwnerComponent, UNDEFINED, Component::eType::SCRIPT),
     _paddleSpeed(20.0f),
     _currRotation(static_cast<dfloat>(M_PI_4))

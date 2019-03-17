@@ -134,9 +134,9 @@ echo D | xcopy /y /s /e  "$(SolutionDir)SYEngine\resource" "$(SolutionDir)$(Plat
 IF EXIST "./Game/scripts/_SceneBuilder.h" (
     echo "_SceneBuilder.h found."
 ) ELSE (
-    :: Check out this error VVVV
+    :: _SceneBuilder.h is missing
     echo "ERROR: No class file _SceneBuilder.h in ./Game/scripts/ has been found. Either create one or copy contensts of some example game there."
-    xcopy
+   goto :VCEnd
 )</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -199,9 +199,9 @@ echo D | xcopy /y /s /e "$(SolutionDir)SYEngine\resource" "$(SolutionDir)$(Platf
 IF EXIST "./Game/scripts/_SceneBuilder.h" (
     echo "_SceneBuilder.h found."
 ) ELSE (
-    :: Check out this error VVVV
+    :: _SceneBuilder.h is missing
     echo "ERROR: No class file _SceneBuilder.h in ./Game/scripts/ has been found. Either create one or copy contensts of some example game there."
-    xcopy
+   goto :VCEnd
 )</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
