@@ -120,7 +120,17 @@ bool ShaderManager::LoadStandardShaders()
   
   // Required uniforms
   std::vector<NewShader::eUniforms> requiredUniformsShader0;
-  requiredUniformsShader0.push_back(NewShader::eUniforms::cMVPTransformMatrixOrtho);
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cMVPTransformMatrixPerspective);
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cMVPTransformMatrixDirLights);
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cModelToWorldTransformMatrix);
+
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cDirectionalLights);
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cDiffuseTexture);
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cNormalMapTexture);
+
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cDirectionalLightShadowMaps);
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cMaterial);
+  requiredUniformsShader0.push_back(NewShader::eUniforms::cEyePosition);
 
   // Optional uniforms
   std::vector<NewShader::eUniforms> optionalUniformsShader0;

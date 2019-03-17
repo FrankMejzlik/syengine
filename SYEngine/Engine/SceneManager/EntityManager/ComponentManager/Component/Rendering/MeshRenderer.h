@@ -30,9 +30,12 @@ public:
   void Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation) const;
   void RenderForLight(GLuint ul_modelToWorldMatrix) const;
 
-  void RenderForShadowMap(Camera* pCamera, Shader* pShader = nullptr) const;
+  void RenderForShadowMap(bool isOrtho, Camera* pCamera, Shader* pShader = nullptr) const;
 
   glm::mat4 GetModelToWorldMatrix() const;
+
+
+  void Render(Camera* pCamera) const;
 
   /**
    * Attaches default Mesh to this MeshRender

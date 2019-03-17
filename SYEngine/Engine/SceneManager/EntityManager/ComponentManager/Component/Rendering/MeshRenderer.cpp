@@ -50,6 +50,33 @@ glm::mat4 MeshRenderer::GetModelToWorldMatrix() const
   return modelToWorldMatrix;
 }
 
+void MeshRenderer::Render(Camera* pCamera) const
+{
+  // Iterate through all meshes
+  for (size_t i = 0; i < _meshes.size(); ++i)
+  {
+    Mesh* pMesh = _meshes[i];
+
+    NewShader* pFinalShader = nullptr;
+
+    // If any materials
+    if (!_materials.empty())
+    {
+      // Get material attached to this Mesh
+      Material* material = _materials[_meshToMaterialIndex[i]];
+
+      // Use Shader for normal rendering
+      pFinalShader = material->GetShdaer();
+
+      // Use it
+      pFinalShader->UseShader();
+    }
+
+    // Render this Mesh with provided Shader
+    pMesh->RenderMesh(pCamera, pFinalShader);
+  }
+}
+
 void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation) const
 {
   // TODO: Abstract matrices out in MathLibrary.h
@@ -68,7 +95,7 @@ void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntens
       // Apply Material
       _materials[_meshToMaterialIndex[i]]->UseMaterial(
         ul_specularIntensityLocation, ul_shininessIntensitLocation,
-        0ULL // TODO: Support multiple mats in one Material instance.
+        0ULL
       );
     }
 
@@ -77,7 +104,7 @@ void MeshRenderer::Render(GLuint ul_modelToWorldMatrix, GLuint ul_specularIntens
   }
 }
 
-void MeshRenderer::RenderForShadowMap(Camera* pCamera, Shader* pShader) const
+void MeshRenderer::RenderForShadowMap(bool isOrtho, Camera* pCamera, Shader* pShader) const
 {
   // If Shader provided
   if (pShader != nullptr)
@@ -99,7 +126,14 @@ void MeshRenderer::RenderForShadowMap(Camera* pCamera, Shader* pShader) const
       Material* material = _materials[_meshToMaterialIndex[i]];
 
       // Use Shader for Shadow mapping
-      pFinalShader = material->GetOrthoShadowMapShdaer();
+      if (isOrtho)
+      {
+        pFinalShader = material->GetOrthoShadowMapShdaer();
+      }
+      else
+      {
+        pFinalShader = material->GetPerspectiveShadowMapShdaer();
+      }
 
       pFinalShader->UseShader();
     }

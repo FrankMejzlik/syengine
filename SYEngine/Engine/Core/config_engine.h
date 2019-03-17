@@ -32,19 +32,34 @@
 #define STANDARD_SHADER_GS_SM_PERSPECTIVE_FILENAME "standard_sm_perspective.geom"
 
 //! Uniform names
-#define UNUFORM_NAME_MVP_TRANSFORM_MATRIX "u_MVPTransformMatrix"
+#define UNIFORM_NAME_MVP_TRANSFORM_MATRIX_ORTHO "u_MVPTransformMatrixOrtho"
+#define UNIFORM_NAME_MVP_TRANSFORM_MATRIX_PERSPECTIVE "u_MVPTransformMatrixPerspective"
+#define UNIFORM_NAME_MODEL_TO_WORLD_TRANSFORM_MATRIX "u_modelToWorldTransfromMatrix"
 
-#define UNUFORM_NAME_EYE_POSITION "u_eyePosition"
-#define UNUFORM_NAME_EYE_DIRECTION "u_eyeDirection"
+#define UNIFORM_NAME_MVP_TRANSFORM_MATRIX_DIR_LIGHTS "u_MVPTransformMatrixDirLights"
+#define UNIFORM_NAME_MVP_TRANSFORM_MATRIX_POINT_LIGHTS "u_MVPTransformMatrixPointLights"
+#define UNIFORM_NAME_MVP_TRANSFORM_MATRIX_SPOT_LIGHTS "u_MVPTransformMatrixSpotLights"
 
-#define UNUFORM_NAME_SPECULAR_INTENSITY "u_specularIntentisty"
-#define UNUFORM_NAME_SHININESS_INTENSITY "u_shininessIntentisty"
+#define UNIFORM_NAME_DIRECTIONAL_LIGHTS "u_directionalLights"
+#define UNIFORM_NAME_POINT_LIGHTS "u_pointLights"
+#define UNIFORM_NAME_SPOT_LIGHTS "u_spotights"
 
-#define UNUFORM_NAME_DIFFUSE_TEXTURE "u_diffuseTexture"
-#define UNUFORM_NAME_NORMAL_MAP_TEXTUE "u_normalMapTexture"
+#define UNIFORM_NAME_DIRECTIONAL_SHADOW_MAPS "u_directionalShadowMaps"
+#define UNIFORM_NAME_POINT_SHADOW_MAPS "u_pointShadowMaps"
+#define UNIFORM_NAME_SPOT_SHADOW_MAPS "u_spotShadowMaps"
 
-#define UNUFORM_NAME_NEAR_PLANE "u_nearPlane"
-#define UNUFORM_NAME_FAR_PLANE "u_farPlane"
+#define UNIFORM_NAME_EYE_POSITION "u_eyePosition"
+#define UNIFORM_NAME_EYE_DIRECTION "u_eyeDirection"
+
+#define UNIFORM_NAME_SPECULAR_INTENSITY "u_specularIntentisty"
+#define UNIFORM_NAME_SHININESS_INTENSITY "u_shininessIntentisty"
+
+#define UNIFORM_NAME_DIFFUSE_TEXTURE "u_diffuseTexture"
+#define UNIFORM_NAME_NORMAL_MAP_TEXTUE "u_normalMapTexture"
+
+#define UNIFORM_NAME_NEAR_PLANE "u_nearPlane"
+#define UNIFORM_NAME_FAR_PLANE "u_farPlane"
+#define UNIFORM_NAME_MATERIAL "u_material"
 
 
 //////////////////////////////////////////
@@ -151,7 +166,7 @@
 //////////////////////////////////////////
 // Graphics settings
 //////////////////////////////////////////
-#define RENDER_SCENE_TO_TEXTUE 1
+#define RENDER_SCENE_TO_TEXTUE 0
 
 #define DISABLE_OMNI_SHADOW_MAPPING 0
 

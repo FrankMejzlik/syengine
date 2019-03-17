@@ -20,13 +20,13 @@ NewShader::NewShader(
   _requiredUniforms(_requiredUniforms),
   _optionalUniforms(_optionalUniforms),
   _shaderId(0),
-  _ulMVPTransformMatrix(0),
+  _ulMVPTransformMatrixOrtho(0),
   _ulEyePosition(0),
   _ulSpecularIntensity(0),
   _ulShininessIntentisty(0),
   _ulDiffuseTexture(0),
   _ulNormalMapTexture(0),
-  _ulDirectionalLightShadowMap(0),
+  _ulDirectionalLightShadowMaps(0),
   _ulNearPlane(0),
   _ulFarPlane(0)
 {
@@ -114,7 +114,7 @@ void NewShader::ClearShader()
   }
 
   // Reset uniform locations
-  _ulMVPTransformMatrix = 0;
+  _ulMVPTransformMatrixOrtho = 0;
 
   _ulEyePosition = 0;
   _ulEyeDirection = 0;
@@ -125,7 +125,7 @@ void NewShader::ClearShader()
   _ulDiffuseTexture = 0;
   _ulNormalMapTexture = 0;
 
-  _ulDirectionalLightShadowMap = 0;
+  _ulDirectionalLightShadowMaps = 0;
 
   _ulNearPlane = 0;
   _ulFarPlane = 0;
@@ -155,7 +155,7 @@ bool NewShader::LoadUniformFrom(Camera* pCamera, MeshRenderer* pMeshRenderer, eU
     MVP = MVP * proj * view * model;
 
     // Set it to uniform
-    SetMVPTransformMatrix(MVP);
+    SetMVPTransformMatrixOrtho(MVP);
 
     result = result && true;
   }
@@ -178,11 +178,138 @@ bool NewShader::LoadUniformFrom(Camera* pCamera, MeshRenderer* pMeshRenderer, eU
     MVP = MVP * proj * view * model;
 
     // Set it to uniform
-    SetMVPTransformMatrix(MVP);
+    SetMVPTransformMatrixPerspective(MVP);
 
     result = result && true;
   }
   break;
+
+  case cMVPTransformMatrixDirLights:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cMVPTransformMatrixPointLights:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cMVPTransformMatrixSpotLights:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cModelToWorldTransformMatrix:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cDirectionalLights:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cPointLights:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cSpotLights:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cEyePosition:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cEyeDirection:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cSpecularIntensity:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cShininessIntensity:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cDiffuseTexture:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cNormalMapTexture:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cDirectionalLightShadowMaps:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cMaterial:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cNearPlane:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  case cFarPlane:
+  {
+
+    result = result && true;
+  }
+  break;
+
+  default:
+    PUSH_ENGINE_ERROR(
+      eEngineError::ProcessingNonImplementedUniform,
+      std::string("Trying to fill to shader uniform that is not implemented."),
+      ""
+    );
+    break;
 
   }
 
@@ -272,22 +399,36 @@ bool NewShader::CreateShader(
 
 void NewShader::UpdateUnirofmLocations()
 {
-  _ulMVPTransformMatrix = glGetUniformLocation(_shaderId, UNUFORM_NAME_MVP_TRANSFORM_MATRIX);
+  _ulMVPTransformMatrixOrtho = glGetUniformLocation(_shaderId, UNIFORM_NAME_MVP_TRANSFORM_MATRIX_ORTHO);
 
-  _ulEyePosition = glGetUniformLocation(_shaderId, UNUFORM_NAME_EYE_POSITION);
-  _ulEyeDirection = glGetUniformLocation(_shaderId, UNUFORM_NAME_EYE_DIRECTION);
+  _ulMVPTransformMatrixOrtho = glGetUniformLocation(_shaderId, UNIFORM_NAME_MVP_TRANSFORM_MATRIX_ORTHO);
+  _ulMVPTransformMatrixPerspective = glGetUniformLocation(_shaderId, UNIFORM_NAME_MVP_TRANSFORM_MATRIX_PERSPECTIVE);
+  _ulModelToWorldTransformMatrix = glGetUniformLocation(_shaderId, UNIFORM_NAME_MODEL_TO_WORLD_TRANSFORM_MATRIX);
 
-  _ulSpecularIntensity = glGetUniformLocation(_shaderId, UNUFORM_NAME_SPECULAR_INTENSITY);
-  _ulShininessIntentisty = glGetUniformLocation(_shaderId, UNUFORM_NAME_SHININESS_INTENSITY);
+  _ulMVPTransformMatrixDirLights = glGetUniformLocation(_shaderId, UNIFORM_NAME_MVP_TRANSFORM_MATRIX_DIR_LIGHTS);
+  _ulMVPTransformMatrixPointLights = glGetUniformLocation(_shaderId, UNIFORM_NAME_MVP_TRANSFORM_MATRIX_POINT_LIGHTS);
+  _ulMVPTransformMatrixSpotLights = glGetUniformLocation(_shaderId, UNIFORM_NAME_MVP_TRANSFORM_MATRIX_SPOT_LIGHTS);
 
-  _ulDiffuseTexture = glGetUniformLocation(_shaderId, UNUFORM_NAME_DIFFUSE_TEXTURE);
-  _ulNormalMapTexture = glGetUniformLocation(_shaderId, UNUFORM_NAME_NORMAL_MAP_TEXTUE);
+  _ulDiractionalLights = glGetUniformLocation(_shaderId, UNIFORM_NAME_SPOT_LIGHTS);
+  _ulPointLights = glGetUniformLocation(_shaderId, UNIFORM_NAME_POINT_LIGHTS);
+  _ulSpotLights = glGetUniformLocation(_shaderId, UNIFORM_NAME_EYE_POSITION);
 
-  //! \todo Make for multiple directional lights
-  _ulDirectionalLightShadowMap = glGetUniformLocation(_shaderId, UNUFORM_NAME_NORMAL_MAP_TEXTUE);
+  _ulEyePosition = glGetUniformLocation(_shaderId, UNIFORM_NAME_EYE_POSITION);
+  _ulEyeDirection = glGetUniformLocation(_shaderId, UNIFORM_NAME_EYE_DIRECTION);
 
-  _ulNearPlane = glGetUniformLocation(_shaderId, UNUFORM_NAME_NEAR_PLANE);
-  _ulFarPlane = glGetUniformLocation(_shaderId, UNUFORM_NAME_FAR_PLANE);
+  _ulSpecularIntensity = glGetUniformLocation(_shaderId, UNIFORM_NAME_SPECULAR_INTENSITY);
+  _ulShininessIntentisty = glGetUniformLocation(_shaderId, UNIFORM_NAME_SHININESS_INTENSITY);
+
+  _ulDiffuseTexture = glGetUniformLocation(_shaderId, UNIFORM_NAME_DIFFUSE_TEXTURE);
+
+  _ulDirectionalLightShadowMaps = glGetUniformLocation(_shaderId, UNIFORM_NAME_DIRECTIONAL_SHADOW_MAPS);
+  _ulPointLightShadowMaps = glGetUniformLocation(_shaderId, UNIFORM_NAME_POINT_SHADOW_MAPS);
+  _ulSpotLightShadowMaps = glGetUniformLocation(_shaderId, UNIFORM_NAME_SPOT_SHADOW_MAPS);
+
+  _ulNearPlane = glGetUniformLocation(_shaderId, UNIFORM_NAME_NEAR_PLANE);
+  _ulFarPlane = glGetUniformLocation(_shaderId, UNIFORM_NAME_FAR_PLANE);
+  _ulMaterial = glGetUniformLocation(_shaderId, UNIFORM_NAME_MATERIAL);
+
 
 
   // struct exmaple:
@@ -371,7 +512,7 @@ void NewShader::CreateSpecificShader(GLuint shaderProgram, std::string_view shad
 
 GLuint NewShader::GetMVPTransformMatrixUL() const
 {
-  return _ulMVPTransformMatrix;
+  return _ulMVPTransformMatrixOrtho;
 }
 
 GLuint NewShader::GetEyePositionUL() const
@@ -407,7 +548,7 @@ GLuint NewShader::GetNormalMapTextureUL() const
 
 GLuint NewShader::GetDirectionalLightShadowMapUL() const
 {
-  return _ulDirectionalLightShadowMap;
+  return _ulDirectionalLightShadowMaps;
 }
 
 GLuint NewShader::GetNearPlaneLocationUL() const
@@ -432,13 +573,39 @@ void NewShader::SetNormalMapTexture(GLuint textureUnit) const
 
 void NewShader::SetDirectionalShadowMap(GLuint textureUnit) const
 {
-  glUniform1i(_ulDirectionalLightShadowMap, textureUnit);
+  glUniform1i(_ulDirectionalLightShadowMaps, textureUnit);
 }
 
-void NewShader::SetMVPTransformMatrix(const glm::mat4& transformMatrix) const
+void NewShader::SetMVPTransformMatrixOrtho(const glm::mat4& transformMatrix) const
 {
-  glUniformMatrix4fv(_ulMVPTransformMatrix, 1, GL_FALSE, glm::value_ptr(transformMatrix));
+  glUniformMatrix4fv(_ulMVPTransformMatrixOrtho, 1, GL_FALSE, glm::value_ptr(transformMatrix));
 }
+
+void NewShader::SetMVPTransformMatrixPerspective(const glm::mat4& transformMatrix) const
+{
+  glUniformMatrix4fv(_ulMVPTransformMatrixPerspective, 1, GL_FALSE, glm::value_ptr(transformMatrix));
+}
+
+void NewShader::SetMVPTransformMatrixDirLights(const glm::mat4& transformMatrix) const
+{
+  glUniformMatrix4fv(_ulMVPTransformMatrixPerspective, 1, GL_FALSE, glm::value_ptr(transformMatrix));
+}
+
+void NewShader::SetMVPTransformMatrixPoint(const glm::mat4& transformMatrix) const
+{
+  glUniformMatrix4fv(_ulMVPTransformMatrixPerspective, 1, GL_FALSE, glm::value_ptr(transformMatrix));
+}
+
+void NewShader::SetMVPTransformMatrixSpotLights(const glm::mat4& transformMatrix) const
+{
+  glUniformMatrix4fv(_ulMVPTransformMatrixPerspective, 1, GL_FALSE, glm::value_ptr(transformMatrix));
+}
+
+void NewShader::SetModelToWorldTransformMatrix(const glm::mat4& transformMatrix) const
+{
+  glUniformMatrix4fv(_ulMVPTransformMatrixPerspective, 1, GL_FALSE, glm::value_ptr(transformMatrix));
+}
+
 
 void NewShader::SetEyePosition(const glm::vec3& position) const
 {

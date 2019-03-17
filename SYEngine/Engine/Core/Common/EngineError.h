@@ -60,6 +60,7 @@ enum class eEngineError
   GettingIdOfEmptyTexture = 1016,
   AddingAlreadyExistingShader = 1017,
   RenderingMeshWithoutParentMeshRenderer = 1018,
+  ProcessingNonImplementedUniform = 1019,
 };
 
 class EngineError

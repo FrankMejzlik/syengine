@@ -250,7 +250,7 @@ void RenderingManager::DirectionalLightShadowMapPass(Scene* pScene)
       {
         MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
 
-        mashRenderer->RenderForShadowMap(pUtilCam);
+        mashRenderer->RenderForShadowMap(true, pUtilCam);
       }
     }
   }
@@ -260,8 +260,6 @@ void RenderingManager::DirectionalLightShadowMapPass(Scene* pScene)
 
 void RenderingManager::FinalMainRenderPass(Scene* pScene)
 {
-
-#if 0
 
 #if RENDER_SCENE_TO_TEXTUE
 
@@ -284,22 +282,12 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   glDepthMask(GL_FALSE);
   glDepthFunc(GL_EQUAL);
 
-
-  // Get correct Shader
-  Shader* pShader = _shaders[0].get();
-
-  // Use correct shader
-  pShader->UseShader();
-
-  GLuint __ul_specularIntensity_ = pShader->GetSpecularIntensityLocation();
-  GLuint __ul_shininess_ = pShader->GetShininessLocation();
-
   // Render all MeshRenderers
   for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
   {
     MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
 
-    //mashRenderer->Render(ul_modelToWorldMatrix, __ul_specularIntensity_, __ul_shininess_);
+    mashRenderer->Render(pScene->GetMainCamera());
   }
 
   // Put settings back
@@ -307,78 +295,8 @@ void RenderingManager::FinalMainRenderPass(Scene* pScene)
   glDepthFunc(GL_LESS);
   glEnable(GL_BLEND);
 
-#endif
 
-  
-  //
-  //// If main light present
-  //DirectionalLight* mainLight;
-  //if (!components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].empty())
-  //{
-  //  mainLight = static_cast<DirectionalLight*>(components[COMPONENT_DIRECTIONAL_LIGHT_SOURCE_SLOT].begin()->second);
-  //}
-  //else
-  //{
-  //  mainLight = nullptr;
-  //}
-
-  //// Clear buffer
-  //glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-  //// Clear color and depth buffer
-  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  // //Draw main scene
-  //_shaders[0]->UseShader();
-
-  //uniformProjection = _shaders[0]->GetProjectionLocation();
-  //uniformView = _shaders[0]->GetViewLocation();
-  //uniformEyePosition = _shaders[0]->GetEyePosition();
-  //ul_model = _shaders[0]->GetModelLocation();
-  //GLuint ul_specularIntensity = _shaders[0]->GetSpecularIntensityLocation(); ul_specularIntensity;
-  //GLuint ul_shininess = _shaders[0]->GetShininessLocation(); ul_shininess;
-
-
-  //// Set values in shader uniforms
-  //glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->GetPerspectiveProjectionMatrixConstRef()));
-  //glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(pScene->GetMainCamera()->GetViewMatrixConstRef()));
-  //glUniform3f(uniformEyePosition, 
-  //  pScene->GetMainCamera()->GetCameraPosition().GetX(), 
-  //  pScene->GetMainCamera()->GetCameraPosition().GetY(), 
-  //  pScene->GetMainCamera()->GetCameraPosition().GetZ()
-  //);
-
-  //// Get counts of lights.
-  //size_t pointLightCount = components[COMPONENT_POINT_LIGHT_SOURCE_SLOT].size(); pointLightCount;
-  //size_t spotLightCount = components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT].size(); spotLightCount;
-
-
-  //// Set up all lights to scene.
-  //if (mainLight)
-  //{
-  //  _shaders[0]->dc_SetDirectionalLight(mainLight);
-  //}
-  //_shaders[0]->SetPointLights(components[COMPONENT_POINT_LIGHT_SOURCE_SLOT], 3, 0ULL); // Offset 0.
-  //_shaders[0]->SetSpotLights(components[COMPONENT_SPOT_LIGHT_SOURCE_SLOT], 3 + pointLightCount, pointLightCount); // Offset by number of point lights.
-  //if (mainLight)
-  //{
-  //  auto lightTranforms = mainLight->CalculateLightTransformMatrix();
-  //  _shaders[0]->SetDirectionalLightTransform(&lightTranforms);
-  //}
-
-  //// Set main object texture slot to 1.
-  //_shaders[0]->SetTexture(1);
-  //// Validate main shader.
-  ////_shaders[0]->Validate();
-
-  //for (auto modelPair : components[COMPONENT_MESH_RENDERER_SLOT])
-  //{
-  //  MeshRenderer* mashRenderer = static_cast<MeshRenderer*>(modelPair.second);
-
-  //  mashRenderer->Render(ul_model, ul_specularIntensity, ul_shininess);
-  //}
-
-
-
+ 
 #if RENDER_SCENE_TO_TEXTUE
 
   // Set standard Window as render target for this one and only "projection quad"

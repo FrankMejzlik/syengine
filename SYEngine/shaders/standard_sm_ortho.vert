@@ -13,22 +13,14 @@ layout (location = 0) in vec3 vertexPosition;
 ////////////////////////////////////////////
 
 //! Model->World transform of vertex relative to light source
-uniform mat4 u_MVPTransformMatrix;
+uniform mat4 u_MVPTransformMatrixOrtho;
 
 
 out float distToCamera;
 
 void main()
 {
-
-vec4 pos = u_MVPTransformMatrix * vec4(vertexPosition, 1.0f);
-
-	distToCamera = pos.z / 100.0f;
-
-
 	// Place this vertex into world relative to light position
-	gl_Position = pos;
-
-	
+	gl_Position = u_MVPTransformMatrixOrtho * vec4(vertexPosition, 1.0f);
 }
  

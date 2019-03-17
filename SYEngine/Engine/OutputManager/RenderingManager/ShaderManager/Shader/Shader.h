@@ -40,13 +40,25 @@ public:
   {
     cMVPTransformMatrixOrtho,
     cMVPTransformMatrixPerspective,
+    cMVPTransformMatrixDirLights,
+    cMVPTransformMatrixPointLights,
+    cMVPTransformMatrixSpotLights,
+    cModelToWorldTransformMatrix,
+    cDirectionalLights,
+    cPointLights,
+    cSpotLights,
     cEyePosition,
     cEyeDirection,
     cSpecularIntensity,
     cShininessIntensity,
     cDiffuseTexture,
     cNormalMapTexture,
-    cDirectionalShadowMap
+    cDirectionalLightShadowMaps,
+    cPointLightShadowMaps,
+    cSpotLightShadowMaps,
+    cMaterial,
+    cNearPlane,
+    cFarPlane
   };
 
   // Methods
@@ -87,7 +99,12 @@ public:
 
   
   //! Matrix setters
-  void SetMVPTransformMatrix(const glm::mat4& transformMatrix) const;
+  void SetMVPTransformMatrixOrtho(const glm::mat4& transformMatrix) const;
+  void SetMVPTransformMatrixPerspective(const glm::mat4& transformMatrix) const;
+  void SetMVPTransformMatrixDirLights(const glm::mat4& transformMatrix) const;
+  void SetMVPTransformMatrixPoint(const glm::mat4& transformMatrix) const;
+  void SetMVPTransformMatrixSpotLights(const glm::mat4& transformMatrix) const;
+  void SetModelToWorldTransformMatrix(const glm::mat4& transformMatrix) const;
 
   void SetEyePosition(const glm::vec3& position) const;
   void SetEyeDirection(const glm::vec3& direction) const;
@@ -124,7 +141,6 @@ private:
   bool LoadUniformFrom(Camera* pCamera, MeshRenderer* pMeshRenderer, eUniforms uniformType);
 
 
-
   // Attributes
 private:
   //! List of required uniforms for rendering
@@ -136,22 +152,34 @@ private:
   //! Shader ID of normal Shader
   GLuint _shaderId;
   
-  GLuint _ulMVPTransformMatrix;
+  GLuint _ulMVPTransformMatrixOrtho;
+  GLuint _ulMVPTransformMatrixPerspective;
+  GLuint _ulModelToWorldTransformMatrix;
+
+  GLuint _ulMVPTransformMatrixDirLights;
+  GLuint _ulMVPTransformMatrixPointLights;
+  GLuint _ulMVPTransformMatrixSpotLights;
+
+  GLuint _ulDiractionalLights;
+  GLuint _ulPointLights;
+  GLuint _ulSpotLights;
 
   GLuint _ulEyePosition;
   GLuint _ulEyeDirection;
 
   GLuint _ulSpecularIntensity;
-  GLuint _ulShininessIntentisty;
+  GLuint _ulShininessIntentisty;  
 
   GLuint _ulDiffuseTexture;
   GLuint _ulNormalMapTexture;
 
-  GLuint _ulDirectionalLightShadowMap;
+  GLuint _ulDirectionalLightShadowMaps;
+  GLuint _ulPointLightShadowMaps;
+  GLuint _ulSpotLightShadowMaps;
 
   GLuint _ulNearPlane;
   GLuint _ulFarPlane;
-
+  GLuint _ulMaterial;
 };
 
 
