@@ -3,6 +3,7 @@ var searchData=
   ['material',['Material',['../class_s_y_e_1_1_material.html',1,'SYE']]],
   ['materialmanager',['MaterialManager',['../class_s_y_e_1_1_material_manager.html',1,'SYE']]],
   ['matrix4',['Matrix4',['../class_s_y_e_1_1_matrix4.html',1,'SYE']]],
+  ['matrix4_3c_20glm_3a_3amat4_2c_20float_20_3e',['Matrix4&lt; glm::mat4, float &gt;',['../class_s_y_e_1_1_matrix4.html',1,'SYE']]],
   ['mesh',['Mesh',['../class_s_y_e_1_1_mesh.html',1,'SYE']]],
   ['meshentry',['MeshEntry',['../struct_s_y_e_1_1_mesh_entry.html',1,'SYE']]],
   ['meshgenerator',['MeshGenerator',['../class_s_y_e_1_1_mesh_generator.html',1,'SYE']]],

@@ -140,28 +140,60 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>AddShininess</b> (<
 <tr class="memitem:a2324354ba484725905781a213163d82d"><td class="memItemLeft" align="right" valign="top"><a id="a2324354ba484725905781a213163d82d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>AddTextureToShininessIndex</b> (size_t textureIndex, size_t shininessIndex)</td></tr>
 <tr class="separator:a2324354ba484725905781a213163d82d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95e87b56bf22deec2571c33864fb13b8"><td class="memItemLeft" align="right" valign="top"><a id="a95e87b56bf22deec2571c33864fb13b8"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>AddShader</b> ()</td></tr>
-<tr class="separator:a95e87b56bf22deec2571c33864fb13b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae70ea354b7281aadfc730ebf60d0fb31"><td class="memItemLeft" align="right" valign="top"><a id="ae70ea354b7281aadfc730ebf60d0fb31"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>AddShader</b> (std::string_view filePath)</td></tr>
-<tr class="separator:ae70ea354b7281aadfc730ebf60d0fb31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9780bff3cfe12b1922e8b74bb40eeb7b"><td class="memItemLeft" align="right" valign="top"><a id="a9780bff3cfe12b1922e8b74bb40eeb7b"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>AddShader</b> (<a class="el" href="class_s_y_e_1_1_shader.html">Shader</a> *pShader)</td></tr>
-<tr class="separator:a9780bff3cfe12b1922e8b74bb40eeb7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace81bf4dd902c58929a22013142fdbf4"><td class="memItemLeft" align="right" valign="top"><a id="ace81bf4dd902c58929a22013142fdbf4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddTextureToShaderIndex</b> (size_t textureIndex, size_t shaderIndex)</td></tr>
-<tr class="separator:ace81bf4dd902c58929a22013142fdbf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a202e4688e9332cb3da8c1e45616fc260"><td class="memItemLeft" align="right" valign="top"><a id="a202e4688e9332cb3da8c1e45616fc260"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AddShader</b> ()</td></tr>
+<tr class="separator:a202e4688e9332cb3da8c1e45616fc260"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85fb51332be3d1b3aed0b73bc215991e"><td class="memItemLeft" align="right" valign="top"><a id="a85fb51332be3d1b3aed0b73bc215991e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AddOrthoShadowMapShader</b> ()</td></tr>
+<tr class="separator:a85fb51332be3d1b3aed0b73bc215991e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd2c0095817cd62211f533d4d0383bf2"><td class="memItemLeft" align="right" valign="top"><a id="afd2c0095817cd62211f533d4d0383bf2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AddPerspectiveShadowMapShader</b> ()</td></tr>
+<tr class="separator:afd2c0095817cd62211f533d4d0383bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdd901e757b54fc5c9f3eb8bd8ca5f7f"><td class="memItemLeft" align="right" valign="top"><a id="afdd901e757b54fc5c9f3eb8bd8ca5f7f"></a>
+<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>AddShader</b> (std::vector&lt; NewShader::eUniforms &gt; _requiredUniforms, std::vector&lt; NewShader::eUniforms &gt; _optionalUniforms, std::string_view vsFilepath, std::string_view fsFilepath, std::string_view tsFilepath=std::string_view(), std::string_view gsFilepath=std::string_view())</td></tr>
+<tr class="separator:afdd901e757b54fc5c9f3eb8bd8ca5f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26621de00515b19d23c7f4f953825e3e"><td class="memItemLeft" align="right" valign="top"><a id="a26621de00515b19d23c7f4f953825e3e"></a>
+<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>AddOrthoShadowMapShader</b> (std::vector&lt; NewShader::eUniforms &gt; _requiredUniforms, std::vector&lt; NewShader::eUniforms &gt; _optionalUniforms, std::string_view vsFilepath, std::string_view fsFilepath, std::string_view tsFilepath=std::string_view(), std::string_view gsFilepath=std::string_view())</td></tr>
+<tr class="separator:a26621de00515b19d23c7f4f953825e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7254f257fba84df4bb0c772d97e9723e"><td class="memItemLeft" align="right" valign="top"><a id="a7254f257fba84df4bb0c772d97e9723e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AddShader</b> (<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *pShader)</td></tr>
+<tr class="separator:a7254f257fba84df4bb0c772d97e9723e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a067bb521078fdf914a62c4b8a88f812c"><td class="memItemLeft" align="right" valign="top"><a id="a067bb521078fdf914a62c4b8a88f812c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AddOrthoShadowMapShader</b> (<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *pShader)</td></tr>
+<tr class="separator:a067bb521078fdf914a62c4b8a88f812c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad08fe67de2f0042533a4938c9119b47f"><td class="memItemLeft" align="right" valign="top"><a id="ad08fe67de2f0042533a4938c9119b47f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>UseMaterial</b> (GLuint ul_specularIntensityLocation, GLuint ul_shininessIntensitLocation, unsigned int textureIndex)</td></tr>
 <tr class="separator:ad08fe67de2f0042533a4938c9119b47f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28fa1ecd64c3ceca096843435bf19260"><td class="memItemLeft" align="right" valign="top"><a id="a28fa1ecd64c3ceca096843435bf19260"></a>
+<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetShdaer</b> () const</td></tr>
+<tr class="separator:a28fa1ecd64c3ceca096843435bf19260"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b78ff2d87c5edc9b01e580fdc37e376"><td class="memItemLeft" align="right" valign="top"><a id="a7b78ff2d87c5edc9b01e580fdc37e376"></a>
+<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetOrthoShadowMapShdaer</b> () const</td></tr>
+<tr class="separator:a7b78ff2d87c5edc9b01e580fdc37e376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2832638df4eaf5f49734e6e26f93e37e"><td class="memItemLeft" align="right" valign="top"><a id="a2832638df4eaf5f49734e6e26f93e37e"></a>
+<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetPerspectiveShadowMapShdaer</b> () const</td></tr>
+<tr class="separator:a2832638df4eaf5f49734e6e26f93e37e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1b0df60061c73f142a77c5b3e45d7e9"><td class="memItemLeft" align="right" valign="top"><a id="ad1b0df60061c73f142a77c5b3e45d7e9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearOrthoShadowMapShader</b> ()</td></tr>
+<tr class="separator:ad1b0df60061c73f142a77c5b3e45d7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12de0486a037ed34e9e95ee250518f99"><td class="memItemLeft" align="right" valign="top"><a id="a12de0486a037ed34e9e95ee250518f99"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearProjectionShadowMapShader</b> ()</td></tr>
+<tr class="separator:a12de0486a037ed34e9e95ee250518f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24aab0712052bf79f97b102ea9a6ea47"><td class="memItemLeft" align="right" valign="top"><a id="a24aab0712052bf79f97b102ea9a6ea47"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearShader</b> ()</td></tr>
+<tr class="separator:a24aab0712052bf79f97b102ea9a6ea47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_s_y_e_1_1_component"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_s_y_e_1_1_component')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_s_y_e_1_1_component.html">SYE::Component</a></td></tr>
 <tr class="memitem:a31d68e2160b0ffa763992f4016265d71 inherit pub_methods_class_s_y_e_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a31d68e2160b0ffa763992f4016265d71"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Component</b> (<a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *pOwnerEntity, <a class="el" href="class_s_y_e_1_1_component.html">Component</a> *pOwnerComponent, bool isPrimary=true, bool isActive=true, eSlotIndex slotIndex=UNDEFINED, Component::eType type=eType::COMPONENT)</td></tr>
 <tr class="separator:a31d68e2160b0ffa763992f4016265d71 inherit pub_methods_class_s_y_e_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac33581ec798d8575a5ac4c89fab42270 inherit pub_methods_class_s_y_e_1_1_component"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_component.html#ac33581ec798d8575a5ac4c89fab42270">~Component</a> () noexcept</td></tr>
+<tr class="separator:ac33581ec798d8575a5ac4c89fab42270 inherit pub_methods_class_s_y_e_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a5964b35ecf1d2b61587acc39a6bf4c inherit pub_methods_class_s_y_e_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="a5a5964b35ecf1d2b61587acc39a6bf4c"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SaveComponent</b> ()</td></tr>
 <tr class="separator:a5a5964b35ecf1d2b61587acc39a6bf4c inherit pub_methods_class_s_y_e_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa69d62362f37846fe840d812ca220242 inherit pub_methods_class_s_y_e_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="aa69d62362f37846fe840d812ca220242"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ResetOwnerPointers</b> ()</td></tr>
+<tr class="separator:aa69d62362f37846fe840d812ca220242 inherit pub_methods_class_s_y_e_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb413bbbb7f4813e125d6bcf32aaa44c inherit pub_methods_class_s_y_e_1_1_component"><td class="memItemLeft" align="right" valign="top"><a id="aeb413bbbb7f4813e125d6bcf32aaa44c"></a>
 <a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetOwnerEntityPtr</b> () const</td></tr>
 <tr class="separator:aeb413bbbb7f4813e125d6bcf32aaa44c inherit pub_methods_class_s_y_e_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,6 +235,12 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetTotalCount</b> (
 <tr class="memitem:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab756a4697dec7dc1858a7f6869d4e9ad"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (<a class="el" href="namespace_s_y_e.html#a429f61343ff9331889f880abbfff57b6">eEngineError</a> type, std::string filePath, size_t lineNumber, std::string shortDescription=&quot;&quot;, std::string longDescription=&quot;&quot;) const</td></tr>
 <tr class="separator:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="abb2d5396f2b871c96b2239578b8bea6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetState</b> (eState newState) const</td></tr>
+<tr class="separator:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a8a61caa8ec7f3e2ea20fc3762a0f394c"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>GetState</b> () const</td></tr>
+<tr class="separator:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab01cc686610923cd2dfc04b12b0dada2"></a>
 <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastError</b> () const</td></tr>
 <tr class="separator:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -266,9 +304,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (
 <tr class="memitem:a029a87f3435387f9ab0e885c5038815f inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memItemLeft" align="right" valign="top"><a id="a029a87f3435387f9ab0e885c5038815f"></a>
 <a class="el" href="class_s_y_e_1_1_shader_manager.html">ShaderManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetShaderManagerPtr</b> () const</td></tr>
 <tr class="separator:a029a87f3435387f9ab0e885c5038815f inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af47a9df9b44d9d5dc2e17f98718649ed inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memItemLeft" align="right" valign="top"><a id="af47a9df9b44d9d5dc2e17f98718649ed"></a>
-<a class="el" href="class_s_y_e_1_1_shadow_manager.html">ShadowManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetShadowManagerPtr</b> () const</td></tr>
-<tr class="separator:af47a9df9b44d9d5dc2e17f98718649ed inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9083d682a20ddf06cc6db62120fb6944 inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memItemLeft" align="right" valign="top"><a id="a9083d682a20ddf06cc6db62120fb6944"></a>
 <a class="el" href="class_s_y_e_1_1_skybox_manager.html">SkyboxManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetSkyboxManagerPtr</b> () const</td></tr>
 <tr class="separator:a9083d682a20ddf06cc6db62120fb6944 inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -334,9 +369,16 @@ std::array&lt; std::map&lt; size_t, <a class="el" href="class_s_y_e_1_1_componen
 <tr class="memitem:a337acebd9099be3979ac2a89f608557f inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memItemLeft" align="right" valign="top"><a id="a337acebd9099be3979ac2a89f608557f"></a>
 std::map&lt; size_t, <a class="el" href="class_s_y_e_1_1_component.html">Component</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScriptHandlersRef</b> ()</td></tr>
 <tr class="separator:a337acebd9099be3979ac2a89f608557f inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf9df71c4fbff452806643cdda514dd6 inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memItemLeft" align="right" valign="top"><a id="acf9df71c4fbff452806643cdda514dd6"></a>
+<a class="el" href="class_s_y_e_1_1_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetCameraPtr</b> () const</td></tr>
+<tr class="separator:acf9df71c4fbff452806643cdda514dd6 inherit pub_methods_class_s_y_e_1_1_i_components_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:abec852a67cfa78ce81889876dda7f082"><td class="memItemLeft" align="right" valign="top"><a id="abec852a67cfa78ce81889876dda7f082"></a>
+<a class="el" href="class_s_y_e_1_1_mesh_renderer.html">MeshRenderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_material.html#abec852a67cfa78ce81889876dda7f082">_pMeshRenderer</a></td></tr>
+<tr class="memdesc:abec852a67cfa78ce81889876dda7f082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to owner <a class="el" href="class_s_y_e_1_1_mesh_renderer.html">MeshRenderer</a>. <br /></td></tr>
+<tr class="separator:abec852a67cfa78ce81889876dda7f082"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f40fd92450ed5c82b71c68393979cef"><td class="memItemLeft" align="right" valign="top"><a id="a5f40fd92450ed5c82b71c68393979cef"></a>
 std::vector&lt; <a class="el" href="class_s_y_e_1_1_texture.html">Texture</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_textures</b></td></tr>
 <tr class="separator:a5f40fd92450ed5c82b71c68393979cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -346,12 +388,15 @@ std::vector&lt; <a class="el" href="class_s_y_e_1_1_shininess.html">Shininess</a
 <tr class="memitem:a80ca7945281c406238b050d9ceb12ca2"><td class="memItemLeft" align="right" valign="top"><a id="a80ca7945281c406238b050d9ceb12ca2"></a>
 std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_textureToShininesIndex</b></td></tr>
 <tr class="separator:a80ca7945281c406238b050d9ceb12ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fa3f620067f7b704eb87a6786e3954e"><td class="memItemLeft" align="right" valign="top"><a id="a6fa3f620067f7b704eb87a6786e3954e"></a>
-std::vector&lt; <a class="el" href="class_s_y_e_1_1_shader.html">Shader</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_shaders</b></td></tr>
-<tr class="separator:a6fa3f620067f7b704eb87a6786e3954e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add69fd98e4d5590d5c71a762b5132954"><td class="memItemLeft" align="right" valign="top"><a id="add69fd98e4d5590d5c71a762b5132954"></a>
-std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_textureToShaderIndex</b></td></tr>
-<tr class="separator:add69fd98e4d5590d5c71a762b5132954"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3b513761f4ebfa11a7358fa14ad1819"><td class="memItemLeft" align="right" valign="top"><a id="ae3b513761f4ebfa11a7358fa14ad1819"></a>
+<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_shader</b></td></tr>
+<tr class="separator:ae3b513761f4ebfa11a7358fa14ad1819"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac8e6e0769b5a36496743738def0cb8a"><td class="memItemLeft" align="right" valign="top"><a id="aac8e6e0769b5a36496743738def0cb8a"></a>
+<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_orthoShadowMapShader</b></td></tr>
+<tr class="separator:aac8e6e0769b5a36496743738def0cb8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af40e9a1f45dde414e0fbf0809e1c2144"><td class="memItemLeft" align="right" valign="top"><a id="af40e9a1f45dde414e0fbf0809e1c2144"></a>
+<a class="el" href="class_s_y_e_1_1_new_shader.html">NewShader</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>_perspectiveShadowMapShader</b></td></tr>
+<tr class="separator:af40e9a1f45dde414e0fbf0809e1c2144"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_s_y_e_1_1_component"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_s_y_e_1_1_component')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_s_y_e_1_1_component.html">SYE::Component</a></td></tr>
 <tr class="memitem:a25d23f874437c6ffbf37244e7799be92 inherit pro_attribs_class_s_y_e_1_1_component"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_component.html#a25d23f874437c6ffbf37244e7799be92">_pOwnerScene</a></td></tr>
 <tr class="separator:a25d23f874437c6ffbf37244e7799be92 inherit pro_attribs_class_s_y_e_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -371,6 +416,9 @@ std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="memitem:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a58002a88bfe55cad5f805e1dae0ca5c4"></a>
 std::queue&lt; <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_engineErrorQueue</b></td></tr>
 <tr class="separator:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a9c9efe87e66e9fb5e3386a25c19bb4bb"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>_currentState</b></td></tr>
+<tr class="separator:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -439,6 +487,12 @@ Additional Inherited Members</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a6d5dd3e14473cb20d69e798da80ee92b inherit pub_types_class_s_y_e_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_class_s_y_e_1_1_i_error_logging"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_s_y_e_1_1_i_error_logging')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_s_y_e_1_1_i_error_logging.html">SYE::IErrorLogging</a></td></tr>
+<tr class="memitem:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="adaa44ccd70a84f17d118895d60578661"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>eState</b> { <b>cError</b>, 
+<b>cValid</b>, 
+<b>cWarning</b>
+ }</td></tr>
+<tr class="separator:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_s_y_e_1_1_component.html">Component</a> describing how object sufaces look and how they manage light rays.</p>

@@ -84,7 +84,14 @@ Window::~Window()
 
 void Window::SetAsRenderTarget(Scene* pScene)
 {
-  pScene->GetMainCamera()->SetTargetWindow(this);
+  Camera* pCamera = pScene->GetMainCamera();
+
+  if (pCamera == nullptr)
+  {
+    DLog(eLogType::Error, "Main camera not attached. Call somehting like pScene->SetMainCamera(pEntity->GetCameraPtr()); in _SceneBuilder.h");
+  }
+
+  pCamera->SetTargetWindow(this);
 
   // Tell OpenGL to render to window
   glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);

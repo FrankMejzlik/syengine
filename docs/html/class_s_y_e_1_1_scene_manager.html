@@ -119,6 +119,8 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Initialize</b
 <tr class="memitem:a39cf4d0bcf630734ca602575067ee272"><td class="memItemLeft" align="right" valign="top"><a id="a39cf4d0bcf630734ca602575067ee272"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Terminate</b> () override</td></tr>
 <tr class="separator:a39cf4d0bcf630734ca602575067ee272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a961d8e7fdbc30ecc0b6c795423081bac"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_scene_manager.html#a961d8e7fdbc30ecc0b6c795423081bac">TerminateGame</a> () override</td></tr>
+<tr class="separator:a961d8e7fdbc30ecc0b6c795423081bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3eae8149dfab2b7b7cc2bfe56aa40a5"><td class="memItemLeft" align="right" valign="top"><a id="ae3eae8149dfab2b7b7cc2bfe56aa40a5"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>InitializeScene</b> (<a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *pScene)</td></tr>
 <tr class="separator:ae3eae8149dfab2b7b7cc2bfe56aa40a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,6 +135,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ProcessScene</b> (dfl
 <tr class="memitem:a1a1e5b5ea9ec65aef09084c84c67612e"><td class="memItemLeft" align="right" valign="top"><a id="a1a1e5b5ea9ec65aef09084c84c67612e"></a>
 <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>InsertScene</b> (std::unique_ptr&lt; <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> &gt; &amp;&amp;sceneToInsert)</td></tr>
 <tr class="separator:a1a1e5b5ea9ec65aef09084c84c67612e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf2cadf65487c823d23383e4a93afc58"><td class="memItemLeft" align="right" valign="top"><a id="aaf2cadf65487c823d23383e4a93afc58"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetupSystemEntities</b> (<a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *pScene)</td></tr>
+<tr class="separator:aaf2cadf65487c823d23383e4a93afc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac65e2b1ff4e8444bba6ba54c838fcf2b"><td class="memItemLeft" align="right" valign="top"><a id="ac65e2b1ff4e8444bba6ba54c838fcf2b"></a>
 <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>CreateScene</b> (<a class="el" href="class_s_y_e_1_1_engine_context.html">EngineContext</a> *pEngineContext, <a class="el" href="class_s_y_e_1_1_engine.html">Engine</a> *pOwnerEngine, <a class="el" href="class_s_y_e_1_1_window.html">Window</a> *pWindow, size_t sceneId)</td></tr>
 <tr class="separator:ac65e2b1ff4e8444bba6ba54c838fcf2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,8 +154,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>HandleInput</b> (<a c
 <tr class="memitem:a0b08f890088e7be64313eda4f53c53ca inherit pub_methods_class_s_y_e_1_1_base_module"><td class="memItemLeft" align="right" valign="top"><a id="a0b08f890088e7be64313eda4f53c53ca"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>BaseModule</b> (<a class="el" href="class_s_y_e_1_1_base_module.html">BaseModule</a> &amp;parentModule, <a class="el" href="class_s_y_e_1_1_engine_context.html">EngineContext</a> *pEngineContext)</td></tr>
 <tr class="separator:a0b08f890088e7be64313eda4f53c53ca inherit pub_methods_class_s_y_e_1_1_base_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d94b583d38ece90fef331ba96122b47 inherit pub_methods_class_s_y_e_1_1_base_module"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_base_module.html#a2d94b583d38ece90fef331ba96122b47">TerminateGame</a> ()</td></tr>
-<tr class="separator:a2d94b583d38ece90fef331ba96122b47 inherit pub_methods_class_s_y_e_1_1_base_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e343079472118baba6579822588218a inherit pub_methods_class_s_y_e_1_1_base_module"><td class="memItemLeft" align="right" valign="top"><a id="a2e343079472118baba6579822588218a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetEngineApiPointer</b> (const <a class="el" href="class_s_y_e_1_1_engine_api.html">EngineApi</a> *const pEngineApi)</td></tr>
 <tr class="separator:a2e343079472118baba6579822588218a inherit pub_methods_class_s_y_e_1_1_base_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,6 +170,12 @@ std::map&lt; int, std::unique_ptr&lt; <a class="el" href="class_s_y_e_1_1_base_m
 <tr class="memitem:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab756a4697dec7dc1858a7f6869d4e9ad"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (<a class="el" href="namespace_s_y_e.html#a429f61343ff9331889f880abbfff57b6">eEngineError</a> type, std::string filePath, size_t lineNumber, std::string shortDescription=&quot;&quot;, std::string longDescription=&quot;&quot;) const</td></tr>
 <tr class="separator:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="abb2d5396f2b871c96b2239578b8bea6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetState</b> (eState newState) const</td></tr>
+<tr class="separator:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a8a61caa8ec7f3e2ea20fc3762a0f394c"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>GetState</b> () const</td></tr>
+<tr class="separator:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab01cc686610923cd2dfc04b12b0dada2"></a>
 <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastError</b> () const</td></tr>
 <tr class="separator:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,6 +198,12 @@ static <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *&#160;</td><td
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_class_s_y_e_1_1_i_error_logging"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_s_y_e_1_1_i_error_logging')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_s_y_e_1_1_i_error_logging.html">SYE::IErrorLogging</a></td></tr>
+<tr class="memitem:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="adaa44ccd70a84f17d118895d60578661"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>eState</b> { <b>cError</b>, 
+<b>cValid</b>, 
+<b>cWarning</b>
+ }</td></tr>
+<tr class="separator:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_s_y_e_1_1_base_module"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_s_y_e_1_1_base_module')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_s_y_e_1_1_base_module.html">SYE::BaseModule</a></td></tr>
 <tr class="memitem:a80a5ceaba1a16baedc4ba3d869d72135 inherit pro_methods_class_s_y_e_1_1_base_module"><td class="memItemLeft" align="right" valign="top"><a id="a80a5ceaba1a16baedc4ba3d869d72135"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>EnlistSubmodulesToEngineContext</b> ()</td></tr>
@@ -235,6 +250,9 @@ std::map&lt; int, std::unique_ptr&lt; <a class="el" href="class_s_y_e_1_1_base_m
 <tr class="memitem:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a58002a88bfe55cad5f805e1dae0ca5c4"></a>
 std::queue&lt; <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_engineErrorQueue</b></td></tr>
 <tr class="separator:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a9c9efe87e66e9fb5e3386a25c19bb4bb"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>_currentState</b></td></tr>
+<tr class="separator:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_s_y_e_1_1_i_uses_engine_a_p_i"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_s_y_e_1_1_i_uses_engine_a_p_i')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_s_y_e_1_1_i_uses_engine_a_p_i.html">SYE::IUsesEngineAPI</a></td></tr>
 <tr class="memitem:a6be8c9538ed1f79ee650def13d706c53 inherit pro_attribs_class_s_y_e_1_1_i_uses_engine_a_p_i"><td class="memItemLeft" align="right" valign="top"><a id="a6be8c9538ed1f79ee650def13d706c53"></a>
 std::shared_ptr&lt; <a class="el" href="class_s_y_e_1_1_engine_api.html">EngineApi</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_pEngineAPI</b></td></tr>
@@ -257,6 +275,34 @@ std::shared_ptr&lt; <a class="el" href="class_s_y_e_1_1_engine_api.html">EngineA
       </table>
 </div><div class="memdoc">
 <p>Gets <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> instance by its name if exists. Else returns nullptr. </p>
+
+</div>
+</div>
+<a id="a961d8e7fdbc30ecc0b6c795423081bac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a961d8e7fdbc30ecc0b6c795423081bac">&#9670;&nbsp;</a></span>TerminateGame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SceneManager::TerminateGame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Terminates all active things related to currently active Scene/Game </p>
+
+<p>Reimplemented from <a class="el" href="class_s_y_e_1_1_base_module.html#a2d94b583d38ece90fef331ba96122b47">SYE::BaseModule</a>.</p>
 
 </div>
 </div>

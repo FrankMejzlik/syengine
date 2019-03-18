@@ -142,28 +142,55 @@ template&lt;typename EntityType &gt; </td></tr>
 <tr class="memitem:ae8c53102cae461a79642bc365ddbd92e"><td class="memItemLeft" align="right" valign="top"><a id="ae8c53102cae461a79642bc365ddbd92e"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveEntity</b> (<a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *pEntityToDelete)</td></tr>
 <tr class="separator:ae8c53102cae461a79642bc365ddbd92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1160032eec26ae73c5b4fe918ede88de"><td class="memItemLeft" align="right" valign="top"><a id="a1160032eec26ae73c5b4fe918ede88de"></a>
+<a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetRootEntity</b> () const</td></tr>
+<tr class="separator:a1160032eec26ae73c5b4fe918ede88de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8caec9cd851a122a2da8c15f280828c3"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="class_s_y_e_1_1_physics_body.html">PhysicsBody</a> *, <a class="el" href="namespace_s_y_e.html#a4b824194b4c2a10a07518a66232653cb">Vector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_scene.html#a8caec9cd851a122a2da8c15f280828c3">Raycast</a> (<a class="el" href="namespace_s_y_e.html#a4b824194b4c2a10a07518a66232653cb">Vector3f</a> from, <a class="el" href="namespace_s_y_e.html#a4b824194b4c2a10a07518a66232653cb">Vector3f</a> direction) const</td></tr>
 <tr class="separator:a8caec9cd851a122a2da8c15f280828c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf395dd19916462cdc7bab903173a5b1"><td class="memItemLeft" align="right" valign="top"><a id="adf395dd19916462cdc7bab903173a5b1"></a>
-<a class="el" href="class_s_y_e_1_1_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetEditorCamera</b> () const</td></tr>
-<tr class="separator:adf395dd19916462cdc7bab903173a5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97276cafc255f100684ec4813e81c5c0"><td class="memItemLeft" align="right" valign="top"><a id="a97276cafc255f100684ec4813e81c5c0"></a>
+<tr class="memitem:a52388b6a0d3a3385ecc619098d4854d9"><td class="memItemLeft" align="right" valign="top"><a id="a52388b6a0d3a3385ecc619098d4854d9"></a>
+<a class="el" href="class_s_y_e_1_1_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetMainCamera</b> () const</td></tr>
+<tr class="separator:a52388b6a0d3a3385ecc619098d4854d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a231dba9888dba631766148a0fd676717"><td class="memItemLeft" align="right" valign="top"><a id="a231dba9888dba631766148a0fd676717"></a>
+<a class="el" href="class_s_y_e_1_1_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetUtilityCamera</b> () const</td></tr>
+<tr class="separator:a231dba9888dba631766148a0fd676717"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb5ef09da744bd05692d34200a9f1a6d"><td class="memItemLeft" align="right" valign="top"><a id="afb5ef09da744bd05692d34200a9f1a6d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetUtilityCamera</b> (<a class="el" href="class_s_y_e_1_1_camera.html">Camera</a> *pCamera)</td></tr>
+<tr class="separator:afb5ef09da744bd05692d34200a9f1a6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6df36a69c7088f05fcf2a6130771d2a3"><td class="memItemLeft" align="right" valign="top"><a id="a6df36a69c7088f05fcf2a6130771d2a3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMainCamera</b> (<a class="el" href="class_s_y_e_1_1_camera.html">Camera</a> *pCamera)</td></tr>
+<tr class="separator:a6df36a69c7088f05fcf2a6130771d2a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6dd55dc753174c30c93a0b4cc16879a"><td class="memItemLeft" align="right" valign="top"><a id="ac6dd55dc753174c30c93a0b4cc16879a"></a>
+<a class="el" href="class_s_y_e_1_1_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetCameraPtr</b> (size_t index) const</td></tr>
+<tr class="separator:ac6dd55dc753174c30c93a0b4cc16879a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa59ad57cd30cfaf813a75133ea669e66"><td class="memItemLeft" align="right" valign="top"><a id="aa59ad57cd30cfaf813a75133ea669e66"></a>
+<a class="el" href="class_s_y_e_1_1_texture.html">Texture</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetRenderTargetTexturePtr</b> (size_t index) const</td></tr>
+<tr class="separator:aa59ad57cd30cfaf813a75133ea669e66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad85580c1f21e949b5759affa4a17d4c3"><td class="memItemLeft" align="right" valign="top"><a id="ad85580c1f21e949b5759affa4a17d4c3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMainWindowPtr</b> (<a class="el" href="class_s_y_e_1_1_window.html">Window</a> *pMainWindow)</td></tr>
-<tr class="separator:a97276cafc255f100684ec4813e81c5c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5735740b8adaaa804d5f9a222f392638"><td class="memItemLeft" align="right" valign="top"><a id="a5735740b8adaaa804d5f9a222f392638"></a>
+<tr class="separator:ad85580c1f21e949b5759affa4a17d4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3db78753cf6ea44f6201d4d39b47c36f"><td class="memItemLeft" align="right" valign="top"><a id="a3db78753cf6ea44f6201d4d39b47c36f"></a>
 <a class="el" href="class_s_y_e_1_1_window.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetMainWindowPtr</b> () const</td></tr>
-<tr class="separator:a5735740b8adaaa804d5f9a222f392638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a3db78753cf6ea44f6201d4d39b47c36f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a129f9d1eab9ea0d3cbcf5a454af972"><td class="memItemLeft" align="right" valign="top"><a id="a8a129f9d1eab9ea0d3cbcf5a454af972"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPhysicsScenePtr</b> (<a class="el" href="class_s_y_e_1_1_physics_scene.html">PhysicsScene</a> *pPhysicsScene)</td></tr>
 <tr class="separator:a8a129f9d1eab9ea0d3cbcf5a454af972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadb02775f46bde4c8782662515a2723e"><td class="memItemLeft" align="right" valign="top"><a id="aadb02775f46bde4c8782662515a2723e"></a>
 <a class="el" href="class_s_y_e_1_1_physics_scene.html">PhysicsScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetPhysicsScenePtr</b> () const</td></tr>
 <tr class="separator:aadb02775f46bde4c8782662515a2723e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f5625284ea8ccab9c1f5ddeb4b9c779"><td class="memItemLeft" align="right" valign="top"><a id="a2f5625284ea8ccab9c1f5ddeb4b9c779"></a>
+<tr class="memitem:a1a1a51bded9a021aed951cc17cab2605"><td class="memItemLeft" align="right" valign="top"><a id="a1a1a51bded9a021aed951cc17cab2605"></a>
 <a class="el" href="class_s_y_e_1_1_scene_context.html">SceneContext</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetSceneContextPtr</b> () const</td></tr>
-<tr class="separator:a2f5625284ea8ccab9c1f5ddeb4b9c779"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d0a546a68fc99c067d5a60ab9118b4e"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::map&lt; size_t, <a class="el" href="class_s_y_e_1_1_component.html">Component</a> * &gt;, COMPONENTS_NUM_SLOTS &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_scene.html#a8d0a546a68fc99c067d5a60ab9118b4e">GetActivePrimaryComponentSlotsRef</a> ()</td></tr>
-<tr class="separator:a8d0a546a68fc99c067d5a60ab9118b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a1a1a51bded9a021aed951cc17cab2605"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac50148685a0b49445e0df671a3fa1b25"><td class="memItemLeft" align="right" valign="top"><a id="ac50148685a0b49445e0df671a3fa1b25"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterRenderTargetTexture</b> (size_t index, <a class="el" href="class_s_y_e_1_1_texture.html">Texture</a> *pTexture)</td></tr>
+<tr class="separator:ac50148685a0b49445e0df671a3fa1b25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fc91306b05188013592ab967de79bf3"><td class="memItemLeft" align="right" valign="top"><a id="a0fc91306b05188013592ab967de79bf3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterSystemEntity</b> (size_t index, <a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *pEntity)</td></tr>
+<tr class="separator:a0fc91306b05188013592ab967de79bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4fb6dc262e7095468113a040e6d3c64"><td class="memItemLeft" align="right" valign="top"><a id="ac4fb6dc262e7095468113a040e6d3c64"></a>
+<a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetSystemEntityPtr</b> (size_t index) const</td></tr>
+<tr class="separator:ac4fb6dc262e7095468113a040e6d3c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbf686253de70ea07b21d41fea319d45"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::map&lt; size_t, <a class="el" href="class_s_y_e_1_1_component.html">Component</a> * &gt;, COMPONENTS_NUM_SLOTS &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_scene.html#adbf686253de70ea07b21d41fea319d45">GetActivePrimaryComponentSlotsRef</a> ()</td></tr>
+<tr class="separator:adbf686253de70ea07b21d41fea319d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c0d22be77547b5ec8087caf113c2d0d"><td class="memItemLeft" align="right" valign="top"><a id="a1c0d22be77547b5ec8087caf113c2d0d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ShootBox</b> (const <a class="el" href="namespace_s_y_e.html#a4b824194b4c2a10a07518a66232653cb">Vector3f</a> &amp;cameraPosition, const <a class="el" href="namespace_s_y_e.html#a4b824194b4c2a10a07518a66232653cb">Vector3f</a> &amp;direction)</td></tr>
 <tr class="separator:a1c0d22be77547b5ec8087caf113c2d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,6 +198,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ShootBox</b> (const <
 <tr class="separator:a7749a40638a38f6f6d540766009deb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61984d7996c17dadbf29e68f2b614d37"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_scene.html#a61984d7996c17dadbf29e68f2b614d37">UnregisterComponent</a> (<a class="el" href="class_s_y_e_1_1_component.html">Component</a> *pComponent)</td></tr>
 <tr class="separator:a61984d7996c17dadbf29e68f2b614d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e9b199cbd6105f391cd1624874a487f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_scene.html#a4e9b199cbd6105f391cd1624874a487f">AttachEntity</a> (<a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *pEntity)</td></tr>
+<tr class="separator:a4e9b199cbd6105f391cd1624874a487f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeb1b2f304f4561dcf9e88866cb80c40"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_scene.html#afeb1b2f304f4561dcf9e88866cb80c40">DetachEntity</a> (<a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *pEntity)</td></tr>
+<tr class="separator:afeb1b2f304f4561dcf9e88866cb80c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_s_y_e_1_1_i_guid_counted"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_s_y_e_1_1_i_guid_counted')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_s_y_e_1_1_i_guid_counted.html">SYE::IGuidCounted</a></td></tr>
 <tr class="memitem:a4ff2f99c8671f1f267e88ebe667d2975 inherit pub_methods_class_s_y_e_1_1_i_guid_counted"><td class="memItemLeft" align="right" valign="top"><a id="a4ff2f99c8671f1f267e88ebe667d2975"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetGuid</b> () const</td></tr>
@@ -182,6 +213,12 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>GetTotalCount</b> (
 <tr class="memitem:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab756a4697dec7dc1858a7f6869d4e9ad"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (<a class="el" href="namespace_s_y_e.html#a429f61343ff9331889f880abbfff57b6">eEngineError</a> type, std::string filePath, size_t lineNumber, std::string shortDescription=&quot;&quot;, std::string longDescription=&quot;&quot;) const</td></tr>
 <tr class="separator:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="abb2d5396f2b871c96b2239578b8bea6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetState</b> (eState newState) const</td></tr>
+<tr class="separator:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a8a61caa8ec7f3e2ea20fc3762a0f394c"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>GetState</b> () const</td></tr>
+<tr class="separator:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab01cc686610923cd2dfc04b12b0dada2"></a>
 <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastError</b> () const</td></tr>
 <tr class="separator:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -245,9 +282,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (
 <tr class="memitem:a029a87f3435387f9ab0e885c5038815f inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memItemLeft" align="right" valign="top"><a id="a029a87f3435387f9ab0e885c5038815f"></a>
 <a class="el" href="class_s_y_e_1_1_shader_manager.html">ShaderManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetShaderManagerPtr</b> () const</td></tr>
 <tr class="separator:a029a87f3435387f9ab0e885c5038815f inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af47a9df9b44d9d5dc2e17f98718649ed inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memItemLeft" align="right" valign="top"><a id="af47a9df9b44d9d5dc2e17f98718649ed"></a>
-<a class="el" href="class_s_y_e_1_1_shadow_manager.html">ShadowManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetShadowManagerPtr</b> () const</td></tr>
-<tr class="separator:af47a9df9b44d9d5dc2e17f98718649ed inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9083d682a20ddf06cc6db62120fb6944 inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memItemLeft" align="right" valign="top"><a id="a9083d682a20ddf06cc6db62120fb6944"></a>
 <a class="el" href="class_s_y_e_1_1_skybox_manager.html">SkyboxManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetSkyboxManagerPtr</b> () const</td></tr>
 <tr class="separator:a9083d682a20ddf06cc6db62120fb6944 inherit pub_methods_class_s_y_e_1_1_i_engine_context_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -272,10 +306,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_class_s_y_e_1_1_i_error_logging"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_s_y_e_1_1_i_error_logging')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_s_y_e_1_1_i_error_logging.html">SYE::IErrorLogging</a></td></tr>
+<tr class="memitem:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="adaa44ccd70a84f17d118895d60578661"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>eState</b> { <b>cError</b>, 
+<b>cValid</b>, 
+<b>cWarning</b>
+ }</td></tr>
+<tr class="separator:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_s_y_e_1_1_i_error_logging"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_s_y_e_1_1_i_error_logging')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_s_y_e_1_1_i_error_logging.html">SYE::IErrorLogging</a></td></tr>
 <tr class="memitem:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a58002a88bfe55cad5f805e1dae0ca5c4"></a>
 std::queue&lt; <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_engineErrorQueue</b></td></tr>
 <tr class="separator:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a9c9efe87e66e9fb5e3386a25c19bb4bb"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>_currentState</b></td></tr>
+<tr class="separator:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Every <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> MUST have it's EntityController to call to. </p>
@@ -554,27 +597,57 @@ std::queue&lt; <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineErro
 
 </div>
 </div>
-<a id="a8d0a546a68fc99c067d5a60ab9118b4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d0a546a68fc99c067d5a60ab9118b4e">&#9670;&nbsp;</a></span>GetActivePrimaryComponentSlotsRef()</h2>
+<a id="a4e9b199cbd6105f391cd1624874a487f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e9b199cbd6105f391cd1624874a487f">&#9670;&nbsp;</a></span>AttachEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::array&lt; std::map&lt;size_t, <a class="el" href="class_s_y_e_1_1_component.html">Component</a>*&gt;, COMPONENTS_NUM_SLOTS&gt; SYE::Scene::GetActivePrimaryComponentSlotsRef </td>
+          <td class="memname">bool Scene::AttachEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *&#160;</td>
+          <td class="paramname"><em>pEntity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds pointer to this instance everywhere it needs to </p>
+
+</div>
+</div>
+<a id="afeb1b2f304f4561dcf9e88866cb80c40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afeb1b2f304f4561dcf9e88866cb80c40">&#9670;&nbsp;</a></span>DetachEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Scene::DetachEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_s_y_e_1_1_entity.html">Entity</a> *&#160;</td>
+          <td class="paramname"><em>pEntity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Nulls pointer to this instance everywhere EnlistEntity added it </p>
+
+</div>
+</div>
+<a id="adbf686253de70ea07b21d41fea319d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbf686253de70ea07b21d41fea319d45">&#9670;&nbsp;</a></span>GetActivePrimaryComponentSlotsRef()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt; std::map&lt; size_t, <a class="el" href="class_s_y_e_1_1_component.html">Component</a> * &gt;, COMPONENTS_NUM_SLOTS &gt; Scene::GetActivePrimaryComponentSlotsRef </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <p>Active Components categorized to important slots based on what module needs to acces them. </p>
 

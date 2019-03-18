@@ -92,6 +92,15 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>_childEntities
 : <a class="el" href="class_s_y_e_1_1_entity.html#a6ba767a1030d1d6ebcdd82d9b4bb339c">SYE::Entity</a>
 </li>
+<li>_dc_orthoProjectionMatrix
+: <a class="el" href="class_s_y_e_1_1_camera.html#ac0f45d6899c7bff6046cf84a0705af3b">SYE::Camera</a>
+</li>
+<li>_dc_perspectiveProjectionMatrix
+: <a class="el" href="class_s_y_e_1_1_camera.html#aee64c72200851b5b6e2a05b759d7e2d6">SYE::Camera</a>
+</li>
+<li>_dc_viewMatrix
+: <a class="el" href="class_s_y_e_1_1_camera.html#af2d05e666bc72b5a82a1b5bd3a6fdc13">SYE::Camera</a>
+</li>
 <li>_farPlane
 : <a class="el" href="class_s_y_e_1_1_camera.html#ab79aef1af430d2b1a7810ba4333f9638">SYE::Camera</a>
 </li>
@@ -128,17 +137,11 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>_origin
 : <a class="el" href="class_s_y_e_1_1_transform.html#a61526251e9cbc1c6ac7feda1b24ae223">SYE::Transform</a>
 </li>
-<li>_orthoProjectionMatrix
-: <a class="el" href="class_s_y_e_1_1_camera.html#a38f486f5ab2174008a27eb47f8a375e3">SYE::Camera</a>
-</li>
-<li>_pBallEntity
-: <a class="el" href="class_s_y_e_1_1___scene_builder.html#ab1a2c1e7ef74fbda660be9898854251b">SYE::_SceneBuilder</a>
-</li>
 <li>_pCollider
 : <a class="el" href="class_s_y_e_1_1_physics_body.html#afa4afd61f8743ad406485471cb74e994">SYE::PhysicsBody</a>
 </li>
-<li>_perspectiveProjectionMatrix
-: <a class="el" href="class_s_y_e_1_1_camera.html#a8d855002207c60c53a6da05ce8cafd8c">SYE::Camera</a>
+<li>_pMeshRenderer
+: <a class="el" href="class_s_y_e_1_1_material.html#abec852a67cfa78ce81889876dda7f082">SYE::Material</a>
 </li>
 <li>_position
 : <a class="el" href="class_s_y_e_1_1_transform.html#a0c288f46da9e7aeb44f1a504f3d11c2a">SYE::Transform</a>
@@ -161,6 +164,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>_primaryComponentSlots
 : <a class="el" href="class_s_y_e_1_1_entity.html#a3357d741c12097123816bb67d1ea2fa8">SYE::Entity</a>
+</li>
+<li>_pTargetTexture
+: <a class="el" href="class_s_y_e_1_1_camera.html#a43f01de3db95d5395262dd006cd8e5b0">SYE::Camera</a>
 </li>
 <li>_pTargetWindow
 : <a class="el" href="class_s_y_e_1_1_camera.html#ae9ae6a55a051f85908973f72b8775005">SYE::Camera</a>
@@ -187,9 +193,6 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>_upDirection
 : <a class="el" href="class_s_y_e_1_1_camera.html#a2224a95936ebdd77e99b2d8196cdf24b">SYE::Camera</a>
 </li>
-<li>_viewMatrix
-: <a class="el" href="class_s_y_e_1_1_camera.html#a172788cb0bc8c3c040f4aeec4686786b">SYE::Camera</a>
-</li>
 <li>_worldUp
 : <a class="el" href="class_s_y_e_1_1_transform.html#a8cae169b8b8c55d20cd4037699093740">SYE::Transform</a>
 </li>
@@ -213,7 +216,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_s_y_e_1_1_scene.html#a3a59dac663718774394aca2a863367d9">SYE::Scene</a>
 </li>
 <li>AddMaterial()
-: <a class="el" href="class_s_y_e_1_1_mesh_renderer.html#a63af17a38afcf7e4be0d2b8fb3a69f54">SYE::MeshRenderer</a>
+: <a class="el" href="class_s_y_e_1_1_mesh_renderer.html#a6a3557495f8624edde19c8698016c318">SYE::MeshRenderer</a>
 </li>
 <li>AddMesh()
 : <a class="el" href="class_s_y_e_1_1_mesh_renderer.html#ab6f0a2dce7bd14fa8ebc02aa01761c1c">SYE::MeshRenderer</a>
@@ -224,6 +227,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>AddTerrain()
 : <a class="el" href="class_s_y_e_1_1_scene.html#a28a92b0a0d39ef804fbe6470f113c020">SYE::Scene</a>
 </li>
+<li>AttachEntity()
+: <a class="el" href="class_s_y_e_1_1_scene.html#a4e9b199cbd6105f391cd1624874a487f">SYE::Scene</a>
+</li>
 </ul>
 
 
@@ -233,7 +239,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 , <a class="el" href="struct_common_rigid_body_base.html#ada9e2e2698d5e833ee1f703b4c1e7926">CommonRigidBodyBase</a>
 </li>
 <li>CreateEntity()
-: <a class="el" href="class_s_y_e_1_1_entity_manager.html#a4ffe002fc1db84a0ae23d423ece96169">SYE::EntityManager</a>
+: <a class="el" href="class_s_y_e_1_1_entity_manager.html#ada6a25685409cf25d57b244a0a94bc2b">SYE::EntityManager</a>
 </li>
 </ul>
 
@@ -244,6 +250,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>DestroyComponent()
 : <a class="el" href="class_s_y_e_1_1_component_manager.html#aa20d34eba49bb9ffa91a375389c26ef5">SYE::ComponentManager</a>
+</li>
+<li>DetachEntity()
+: <a class="el" href="class_s_y_e_1_1_scene.html#afeb1b2f304f4561dcf9e88866cb80c40">SYE::Scene</a>
 </li>
 <li>DrawDebug()
 : <a class="el" href="class_s_y_e_1_1_physics_scene.html#ad88a53d9e236cf9c0b115f87b28d09e7">SYE::PhysicsScene</a>
@@ -266,10 +275,16 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_s_y_e_1_1_mesh_generator.html#a41386d6f28fca9fbdc38c80dbac8ba7e">SYE::MeshGenerator</a>
 </li>
 <li>GetActivePrimaryComponentSlotsRef()
-: <a class="el" href="class_s_y_e_1_1_scene.html#a8d0a546a68fc99c067d5a60ab9118b4e">SYE::Scene</a>
+: <a class="el" href="class_s_y_e_1_1_scene.html#adbf686253de70ea07b21d41fea319d45">SYE::Scene</a>
+</li>
+<li>GetDiffuseTextureUL()
+: <a class="el" href="class_s_y_e_1_1_new_shader.html#ac98fbb174e7230266b505f28c17c6c20">SYE::NewShader</a>
 </li>
 <li>GetEngineApiPtr()
 : <a class="el" href="class_s_y_e_1_1_i_engine_context_interface.html#a92f43be0b7d81998a732adf2fd02079f">SYE::IEngineContextInterface</a>
+</li>
+<li>GetMVPTransformMatrixUL()
+: <a class="el" href="class_s_y_e_1_1_new_shader.html#a9099203b8f924d32a598b4d7cd30c102">SYE::NewShader</a>
 </li>
 <li>GetSceneConstPtr()
 : <a class="el" href="class_s_y_e_1_1_scene_manager.html#ab1b15b8f72f155590f656c4f33880f7b">SYE::SceneManager</a>
@@ -306,22 +321,17 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>OnCollision()
-: <a class="el" href="class_s_y_e_1_1_ball_controller.html#a746bcebc62d27ede59f533b8169f1bef">SYE::BallController</a>
-, <a class="el" href="class_s_y_e_1_1_script.html#a978a83f2735e5a174706bd2e442c5562">SYE::Script</a>
+: <a class="el" href="class_s_y_e_1_1_script.html#a978a83f2735e5a174706bd2e442c5562">SYE::Script</a>
 </li>
 <li>OnInitializeScene()
-: <a class="el" href="class_s_y_e_1_1_ball_controller.html#a30eb841190099a86f744f13eaa0e2777">SYE::BallController</a>
-, <a class="el" href="class_s_y_e_1_1_first_person_camera_controller.html#a9e00c647518333aeba107380576bcfa1">SYE::FirstPersonCameraController</a>
+: <a class="el" href="class_s_y_e_1_1_first_person_camera_controller.html#a9e00c647518333aeba107380576bcfa1">SYE::FirstPersonCameraController</a>
 , <a class="el" href="class_s_y_e_1_1_general_input_handler.html#a184d692bea65c6a7cf18447053cdf4de">SYE::GeneralInputHandler</a>
-, <a class="el" href="class_s_y_e_1_1_left_paddle_controller.html#ab6f325a59e7bf1704aabd2bc1211bb60">SYE::LeftPaddleController</a>
-, <a class="el" href="class_s_y_e_1_1_right_paddle_controller.html#ac700ca4d9147c2f19456f30ccbdc89c5">SYE::RightPaddleController</a>
+, <a class="el" href="class_s_y_e_1_1_look_at_quad.html#aff191073d28dbeb0d47b536a84f8394a">SYE::LookAtQuad</a>
 </li>
 <li>OnProcessFrame()
-: <a class="el" href="class_s_y_e_1_1_ball_controller.html#a2137d506a614db0b5666af39c55eda59">SYE::BallController</a>
-, <a class="el" href="class_s_y_e_1_1_first_person_camera_controller.html#a96cccfce9f07f0e737e5f3eb3d233a8d">SYE::FirstPersonCameraController</a>
+: <a class="el" href="class_s_y_e_1_1_first_person_camera_controller.html#a96cccfce9f07f0e737e5f3eb3d233a8d">SYE::FirstPersonCameraController</a>
 , <a class="el" href="class_s_y_e_1_1_general_input_handler.html#a8d3f8c729f74fdc4be155426d13ec22e">SYE::GeneralInputHandler</a>
-, <a class="el" href="class_s_y_e_1_1_left_paddle_controller.html#ab77e02c24a63f09b9e2d4da20af97573">SYE::LeftPaddleController</a>
-, <a class="el" href="class_s_y_e_1_1_right_paddle_controller.html#a2d14f775992330b0d80f3917b4075771">SYE::RightPaddleController</a>
+, <a class="el" href="class_s_y_e_1_1_look_at_quad.html#a9a5ee2ea24b8d6d184006effccb2c932">SYE::LookAtQuad</a>
 </li>
 </ul>
 
@@ -353,15 +363,27 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>RemovePhysicsEntity()
 : <a class="el" href="class_s_y_e_1_1_physics_scene.html#a44eeac151ee23d9c963a3c795d07047f">SYE::PhysicsScene</a>
 </li>
+<li>RenderForShadowMap()
+: <a class="el" href="class_s_y_e_1_1_mesh_renderer.html#acfbc8ee52bfcd1ee553d9df3441fd7e9">SYE::MeshRenderer</a>
+</li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>SetAsRenderTarget()
+: <a class="el" href="class_s_y_e_1_1_texture.html#ae0e1cb5a10f416726378f58a24765376">SYE::Texture</a>
+</li>
 <li>setCameraUpAxis()
 : <a class="el" href="struct_common_camera_interface.html#a8f9464078b2adfb528baeba1c5b95237">CommonCameraInterface</a>
 </li>
 <li>SetDebugRenderer()
 : <a class="el" href="class_s_y_e_1_1_physics_scene.html#a3e91866eee30d87be27d88cebf9d518f">SYE::PhysicsScene</a>
+</li>
+<li>SetDiffuseTexture()
+: <a class="el" href="class_s_y_e_1_1_new_shader.html#a6ac4ddcb3ce1cfbed686841c704b1263">SYE::NewShader</a>
+</li>
+<li>SetMVPTransformMatrixOrtho()
+: <a class="el" href="class_s_y_e_1_1_new_shader.html#a2aa736495a9c68b93413684a9401256d">SYE::NewShader</a>
 </li>
 <li>SetupScene()
 : <a class="el" href="class_s_y_e_1_1___scene_builder.html#adb1afea50191882bf830bfa06fea0ae6">SYE::_SceneBuilder</a>
@@ -380,6 +402,8 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>TerminateGame()
 : <a class="el" href="class_s_y_e_1_1_base_module.html#a2d94b583d38ece90fef331ba96122b47">SYE::BaseModule</a>
 , <a class="el" href="class_s_y_e_1_1_engine.html#ab21b1e3978d6b9f8b108892c090e4b00">SYE::Engine</a>
+, <a class="el" href="class_s_y_e_1_1_scene_manager.html#a961d8e7fdbc30ecc0b6c795423081bac">SYE::SceneManager</a>
+, <a class="el" href="class_s_y_e_1_1_shader_manager.html#af29956e976296c2c37e1a914f26ca2a7">SYE::ShaderManager</a>
 </li>
 </ul>
 
@@ -394,6 +418,13 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <h3><a id="index_v"></a>- v -</h3><ul>
 <li>vLength
 : <a class="el" href="class_s_y_e_1_1_mesh.html#a00318be1fa64123c3812d7dd13d0678b">SYE::Mesh</a>
+</li>
+</ul>
+
+
+<h3><a id="index__7E"></a>- ~ -</h3><ul>
+<li>~Component()
+: <a class="el" href="class_s_y_e_1_1_component.html#ac33581ec798d8575a5ac4c89fab42270">SYE::Component</a>
 </li>
 </ul>
 </div><!-- contents -->

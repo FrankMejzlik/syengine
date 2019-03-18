@@ -10,7 +10,6 @@ var class_s_y_e_1_1_first_person_camera_controller =
     [ "CalculateViewMatrix", "class_s_y_e_1_1_first_person_camera_controller.html#a125616f07d0e273b4898bc376cd3328c", null ],
     [ "OnInitializeScene", "class_s_y_e_1_1_first_person_camera_controller.html#a9e00c647518333aeba107380576bcfa1", null ],
     [ "OnProcessFrame", "class_s_y_e_1_1_first_person_camera_controller.html#a96cccfce9f07f0e737e5f3eb3d233a8d", null ],
-    [ "ProcessActionCamera", "class_s_y_e_1_1_first_person_camera_controller.html#ac03b68ec1be1f7f4df49a0f94c4ca1ca", null ],
     [ "ProcessKeyControl", "class_s_y_e_1_1_first_person_camera_controller.html#ab38a18c8844ff41251258884e6ac4703", null ],
     [ "ProcessMouseControl", "class_s_y_e_1_1_first_person_camera_controller.html#a1e431d746dbc601d29f90f48f5c26a9e", null ],
     [ "ProcessMouseKeyControl", "class_s_y_e_1_1_first_person_camera_controller.html#a47f44d3f77bb164a08cfdc7e0644718c", null ],

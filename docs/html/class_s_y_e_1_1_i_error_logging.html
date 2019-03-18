@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('class_s_y_e_1_1_i_error_logging.html',
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_s_y_e_1_1_i_error_logging-members.html">List of all members</a>  </div>
@@ -103,8 +104,9 @@ Inheritance diagram for SYE::IErrorLogging:</div>
 <area href="class_s_y_e_1_1_base_module.html" alt="SYE::BaseModule" shape="rect" coords="0,56,157,80"/>
 <area href="class_s_y_e_1_1_component.html" alt="SYE::Component" shape="rect" coords="334,56,491,80"/>
 <area href="class_s_y_e_1_1_entity.html" alt="SYE::Entity" shape="rect" coords="501,56,658,80"/>
-<area href="class_s_y_e_1_1_physics_scene.html" alt="SYE::PhysicsScene" shape="rect" coords="668,56,825,80"/>
-<area href="class_s_y_e_1_1_scene.html" alt="SYE::Scene" shape="rect" coords="835,56,992,80"/>
+<area href="class_s_y_e_1_1_new_shader.html" alt="SYE::NewShader" shape="rect" coords="668,56,825,80"/>
+<area href="class_s_y_e_1_1_physics_scene.html" alt="SYE::PhysicsScene" shape="rect" coords="835,56,992,80"/>
+<area href="class_s_y_e_1_1_scene.html" alt="SYE::Scene" shape="rect" coords="1002,56,1159,80"/>
 <area href="class_s_y_e_1_1_ai_manager.html" alt="SYE::AiManager" shape="rect" coords="167,112,324,136"/>
 <area href="class_s_y_e_1_1_animation_manager.html" alt="SYE::AnimationManager" shape="rect" coords="167,168,324,192"/>
 <area href="class_s_y_e_1_1_audio_manager.html" alt="SYE::AudioManager" shape="rect" coords="167,224,324,248"/>
@@ -128,12 +130,11 @@ Inheritance diagram for SYE::IErrorLogging:</div>
 <area href="class_s_y_e_1_1_scene_manager.html" alt="SYE::SceneManager" shape="rect" coords="167,1232,324,1256"/>
 <area href="class_s_y_e_1_1_script_manager.html" alt="SYE::ScriptManager" shape="rect" coords="167,1288,324,1312"/>
 <area href="class_s_y_e_1_1_shader_manager.html" alt="SYE::ShaderManager" shape="rect" coords="167,1344,324,1368"/>
-<area href="class_s_y_e_1_1_shadow_manager.html" alt="SYE::ShadowManager" shape="rect" coords="167,1400,324,1424"/>
-<area href="class_s_y_e_1_1_simulation_manager.html" alt="SYE::SimulationManager" shape="rect" coords="167,1456,324,1480"/>
-<area href="class_s_y_e_1_1_skybox_manager.html" alt="SYE::SkyboxManager" shape="rect" coords="167,1512,324,1536"/>
-<area href="class_s_y_e_1_1_texture_manager.html" alt="SYE::TextureManager" shape="rect" coords="167,1568,324,1592"/>
-<area href="class_s_y_e_1_1_ui_manager.html" alt="SYE::UiManager" shape="rect" coords="167,1624,324,1648"/>
-<area href="class_s_y_e_1_1_window_manager.html" alt="SYE::WindowManager" shape="rect" coords="167,1680,324,1704"/>
+<area href="class_s_y_e_1_1_simulation_manager.html" alt="SYE::SimulationManager" shape="rect" coords="167,1400,324,1424"/>
+<area href="class_s_y_e_1_1_skybox_manager.html" alt="SYE::SkyboxManager" shape="rect" coords="167,1456,324,1480"/>
+<area href="class_s_y_e_1_1_texture_manager.html" alt="SYE::TextureManager" shape="rect" coords="167,1512,324,1536"/>
+<area href="class_s_y_e_1_1_ui_manager.html" alt="SYE::UiManager" shape="rect" coords="167,1568,324,1592"/>
+<area href="class_s_y_e_1_1_window_manager.html" alt="SYE::WindowManager" shape="rect" coords="167,1624,324,1648"/>
 <area href="class_s_y_e_1_1_camera.html" alt="SYE::Camera" shape="rect" coords="501,112,658,136"/>
 <area href="class_s_y_e_1_1_collider.html" alt="SYE::Collider" shape="rect" coords="501,168,658,192"/>
 <area href="class_s_y_e_1_1_light.html" alt="SYE::Light" shape="rect" coords="501,224,658,248"/>
@@ -152,11 +153,25 @@ Inheritance diagram for SYE::IErrorLogging:</div>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:adaa44ccd70a84f17d118895d60578661"><td class="memItemLeft" align="right" valign="top"><a id="adaa44ccd70a84f17d118895d60578661"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>eState</b> { <b>cError</b>, 
+<b>cValid</b>, 
+<b>cWarning</b>
+ }</td></tr>
+<tr class="separator:adaa44ccd70a84f17d118895d60578661"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab756a4697dec7dc1858a7f6869d4e9ad"><td class="memItemLeft" align="right" valign="top"><a id="ab756a4697dec7dc1858a7f6869d4e9ad"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (<a class="el" href="namespace_s_y_e.html#a429f61343ff9331889f880abbfff57b6">eEngineError</a> type, std::string filePath, size_t lineNumber, std::string shortDescription=&quot;&quot;, std::string longDescription=&quot;&quot;) const</td></tr>
 <tr class="separator:ab756a4697dec7dc1858a7f6869d4e9ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb2d5396f2b871c96b2239578b8bea6f"><td class="memItemLeft" align="right" valign="top"><a id="abb2d5396f2b871c96b2239578b8bea6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetState</b> (eState newState) const</td></tr>
+<tr class="separator:abb2d5396f2b871c96b2239578b8bea6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a61caa8ec7f3e2ea20fc3762a0f394c"><td class="memItemLeft" align="right" valign="top"><a id="a8a61caa8ec7f3e2ea20fc3762a0f394c"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>GetState</b> () const</td></tr>
+<tr class="separator:a8a61caa8ec7f3e2ea20fc3762a0f394c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01cc686610923cd2dfc04b12b0dada2"><td class="memItemLeft" align="right" valign="top"><a id="ab01cc686610923cd2dfc04b12b0dada2"></a>
 <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastError</b> () const</td></tr>
 <tr class="separator:ab01cc686610923cd2dfc04b12b0dada2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,6 +187,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a58002a88bfe55cad5f805e1dae0ca5c4"><td class="memItemLeft" align="right" valign="top"><a id="a58002a88bfe55cad5f805e1dae0ca5c4"></a>
 std::queue&lt; <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_engineErrorQueue</b></td></tr>
 <tr class="separator:a58002a88bfe55cad5f805e1dae0ca5c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c9efe87e66e9fb5e3386a25c19bb4bb"><td class="memItemLeft" align="right" valign="top"><a id="a9c9efe87e66e9fb5e3386a25c19bb4bb"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>_currentState</b></td></tr>
+<tr class="separator:a9c9efe87e66e9fb5e3386a25c19bb4bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>SYEngine/Engine/Core/Abstract/<a class="el" href="_i_error_logging_8h_source.html">IErrorLogging.h</a></li>

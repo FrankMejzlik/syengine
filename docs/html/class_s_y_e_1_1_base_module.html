@@ -131,12 +131,11 @@ Inheritance diagram for SYE::BaseModule:</div>
 <area href="class_s_y_e_1_1_scene_manager.html" alt="SYE::SceneManager" shape="rect" coords="417,1232,574,1256"/>
 <area href="class_s_y_e_1_1_script_manager.html" alt="SYE::ScriptManager" shape="rect" coords="417,1288,574,1312"/>
 <area href="class_s_y_e_1_1_shader_manager.html" alt="SYE::ShaderManager" shape="rect" coords="417,1344,574,1368"/>
-<area href="class_s_y_e_1_1_shadow_manager.html" alt="SYE::ShadowManager" shape="rect" coords="417,1400,574,1424"/>
-<area href="class_s_y_e_1_1_simulation_manager.html" alt="SYE::SimulationManager" shape="rect" coords="417,1456,574,1480"/>
-<area href="class_s_y_e_1_1_skybox_manager.html" alt="SYE::SkyboxManager" shape="rect" coords="417,1512,574,1536"/>
-<area href="class_s_y_e_1_1_texture_manager.html" alt="SYE::TextureManager" shape="rect" coords="417,1568,574,1592"/>
-<area href="class_s_y_e_1_1_ui_manager.html" alt="SYE::UiManager" shape="rect" coords="417,1624,574,1648"/>
-<area href="class_s_y_e_1_1_window_manager.html" alt="SYE::WindowManager" shape="rect" coords="417,1680,574,1704"/>
+<area href="class_s_y_e_1_1_simulation_manager.html" alt="SYE::SimulationManager" shape="rect" coords="417,1400,574,1424"/>
+<area href="class_s_y_e_1_1_skybox_manager.html" alt="SYE::SkyboxManager" shape="rect" coords="417,1456,574,1480"/>
+<area href="class_s_y_e_1_1_texture_manager.html" alt="SYE::TextureManager" shape="rect" coords="417,1512,574,1536"/>
+<area href="class_s_y_e_1_1_ui_manager.html" alt="SYE::UiManager" shape="rect" coords="417,1568,574,1592"/>
+<area href="class_s_y_e_1_1_window_manager.html" alt="SYE::WindowManager" shape="rect" coords="417,1624,574,1648"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -173,6 +172,12 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Terminate</b>
 <tr class="memitem:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab756a4697dec7dc1858a7f6869d4e9ad"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (<a class="el" href="namespace_s_y_e.html#a429f61343ff9331889f880abbfff57b6">eEngineError</a> type, std::string filePath, size_t lineNumber, std::string shortDescription=&quot;&quot;, std::string longDescription=&quot;&quot;) const</td></tr>
 <tr class="separator:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="abb2d5396f2b871c96b2239578b8bea6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetState</b> (eState newState) const</td></tr>
+<tr class="separator:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a8a61caa8ec7f3e2ea20fc3762a0f394c"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>GetState</b> () const</td></tr>
+<tr class="separator:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab01cc686610923cd2dfc04b12b0dada2"></a>
 <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastError</b> () const</td></tr>
 <tr class="separator:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,6 +241,9 @@ std::map&lt; int, std::unique_ptr&lt; <a class="el" href="class_s_y_e_1_1_base_m
 <tr class="memitem:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a58002a88bfe55cad5f805e1dae0ca5c4"></a>
 std::queue&lt; <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_engineErrorQueue</b></td></tr>
 <tr class="separator:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a9c9efe87e66e9fb5e3386a25c19bb4bb"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>_currentState</b></td></tr>
+<tr class="separator:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_s_y_e_1_1_i_uses_engine_a_p_i"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_s_y_e_1_1_i_uses_engine_a_p_i')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_s_y_e_1_1_i_uses_engine_a_p_i.html">SYE::IUsesEngineAPI</a></td></tr>
 <tr class="memitem:a6be8c9538ed1f79ee650def13d706c53 inherit pro_attribs_class_s_y_e_1_1_i_uses_engine_a_p_i"><td class="memItemLeft" align="right" valign="top"><a id="a6be8c9538ed1f79ee650def13d706c53"></a>
 std::shared_ptr&lt; <a class="el" href="class_s_y_e_1_1_engine_api.html">EngineApi</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_pEngineAPI</b></td></tr>
@@ -247,6 +255,15 @@ Friends</h2></td></tr>
 class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_base_module.html#a3e1914489e4bed4f9f23cdeab34a43dc">Engine</a></td></tr>
 <tr class="memdesc:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allow <a class="el" href="class_s_y_e_1_1_engine.html">Engine</a> class to set pointer to owning <a class="el" href="class_s_y_e_1_1_engine_context.html">EngineContext</a> ptr. <br /></td></tr>
 <tr class="separator:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_class_s_y_e_1_1_i_error_logging"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_s_y_e_1_1_i_error_logging')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_s_y_e_1_1_i_error_logging.html">SYE::IErrorLogging</a></td></tr>
+<tr class="memitem:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="adaa44ccd70a84f17d118895d60578661"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>eState</b> { <b>cError</b>, 
+<b>cValid</b>, 
+<b>cWarning</b>
+ }</td></tr>
+<tr class="separator:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Common ancestor to all <a class="el" href="class_s_y_e_1_1_engine.html">Engine</a> modules.</p>
@@ -276,7 +293,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 </div><div class="memdoc">
 <p>Terminates all active things related to currently active Scene/Game </p>
 
-<p>Reimplemented in <a class="el" href="class_s_y_e_1_1_engine.html#ab21b1e3978d6b9f8b108892c090e4b00">SYE::Engine</a>.</p>
+<p>Reimplemented in <a class="el" href="class_s_y_e_1_1_engine.html#ab21b1e3978d6b9f8b108892c090e4b00">SYE::Engine</a>, <a class="el" href="class_s_y_e_1_1_scene_manager.html#a961d8e7fdbc30ecc0b6c795423081bac">SYE::SceneManager</a>, and <a class="el" href="class_s_y_e_1_1_shader_manager.html#af29956e976296c2c37e1a914f26ca2a7">SYE::ShaderManager</a>.</p>
 
 </div>
 </div>

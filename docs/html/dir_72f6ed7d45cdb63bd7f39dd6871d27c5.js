@@ -5,7 +5,6 @@ var dir_72f6ed7d45cdb63bd7f39dd6871d27c5 =
     [ "Material.h", "_material_8h_source.html", null ],
     [ "MeshRenderer.h", "_mesh_renderer_8h_source.html", null ],
     [ "Model.h", "_model_8h_source.html", null ],
-    [ "Shader.h", "_shader_8h_source.html", null ],
     [ "SkeletalModel.h", "_skeletal_model_8h_source.html", null ],
     [ "Skybox.h", "_skybox_8h_source.html", null ],
     [ "Texture.h", "_texture_8h_source.html", null ]

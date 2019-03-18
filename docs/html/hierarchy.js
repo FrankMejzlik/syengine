@@ -70,11 +70,9 @@ var hierarchy =
         ] ],
         [ "SYE::PhysicsMaterial", "class_s_y_e_1_1_physics_material.html", null ],
         [ "SYE::Script", "class_s_y_e_1_1_script.html", [
-          [ "SYE::BallController", "class_s_y_e_1_1_ball_controller.html", null ],
           [ "SYE::FirstPersonCameraController", "class_s_y_e_1_1_first_person_camera_controller.html", null ],
           [ "SYE::GeneralInputHandler", "class_s_y_e_1_1_general_input_handler.html", null ],
-          [ "SYE::LeftPaddleController", "class_s_y_e_1_1_left_paddle_controller.html", null ],
-          [ "SYE::RightPaddleController", "class_s_y_e_1_1_right_paddle_controller.html", null ]
+          [ "SYE::LookAtQuad", "class_s_y_e_1_1_look_at_quad.html", null ]
         ] ],
         [ "SYE::ScriptHandler", "class_s_y_e_1_1_script_handler.html", null ],
         [ "SYE::Shininess", "class_s_y_e_1_1_shininess.html", null ],
@@ -114,7 +112,6 @@ var hierarchy =
         [ "SYE::SceneManager", "class_s_y_e_1_1_scene_manager.html", null ],
         [ "SYE::ScriptManager", "class_s_y_e_1_1_script_manager.html", null ],
         [ "SYE::ShaderManager", "class_s_y_e_1_1_shader_manager.html", null ],
-        [ "SYE::ShadowManager", "class_s_y_e_1_1_shadow_manager.html", null ],
         [ "SYE::SimulationManager", "class_s_y_e_1_1_simulation_manager.html", null ],
         [ "SYE::SkyboxManager", "class_s_y_e_1_1_skybox_manager.html", null ],
         [ "SYE::TextureManager", "class_s_y_e_1_1_texture_manager.html", null ],
@@ -123,12 +120,14 @@ var hierarchy =
       ] ],
       [ "SYE::Component", "class_s_y_e_1_1_component.html", null ],
       [ "SYE::Entity", "class_s_y_e_1_1_entity.html", null ],
+      [ "SYE::NewShader", "class_s_y_e_1_1_new_shader.html", null ],
       [ "SYE::PhysicsScene", "class_s_y_e_1_1_physics_scene.html", null ],
       [ "SYE::Scene", "class_s_y_e_1_1_scene.html", null ]
     ] ],
     [ "SYE::IGuidCounted", "class_s_y_e_1_1_i_guid_counted.html", [
       [ "SYE::Component", "class_s_y_e_1_1_component.html", null ],
       [ "SYE::Entity", "class_s_y_e_1_1_entity.html", null ],
+      [ "SYE::NewShader", "class_s_y_e_1_1_new_shader.html", null ],
       [ "SYE::PhysicsEntity", "class_s_y_e_1_1_physics_entity.html", null ],
       [ "SYE::Scene", "class_s_y_e_1_1_scene.html", null ],
       [ "SYE::Window", "class_s_y_e_1_1_window.html", null ]
@@ -152,6 +151,7 @@ var hierarchy =
     ] ],
     [ "SYE::Logger", "class_s_y_e_1_1_logger.html", null ],
     [ "SYE::Matrix4< MatrixType, ElementType >", "class_s_y_e_1_1_matrix4.html", null ],
+    [ "SYE::Matrix4< glm::mat4, float >", "class_s_y_e_1_1_matrix4.html", null ],
     [ "SYE::MeshEntry", "struct_s_y_e_1_1_mesh_entry.html", null ],
     [ "SYE::SceneContext", "class_s_y_e_1_1_scene_context.html", null ],
     [ "SYE::Shader", "class_s_y_e_1_1_shader.html", null ],
@@ -160,6 +160,7 @@ var hierarchy =
         [ "SYE::OmniShadowMap", "class_s_y_e_1_1_omni_shadow_map.html", null ]
       ] ]
     ] ],
+    [ "SYE::ShadowInfo", "class_s_y_e_1_1_shadow_info.html", null ],
     [ "SliderParams", "struct_slider_params.html", null ],
     [ "SYE::SoundManager", "class_s_y_e_1_1_sound_manager.html", null ],
     [ "SYE::TimeManager", "class_s_y_e_1_1_time_manager.html", null ],

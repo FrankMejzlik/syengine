@@ -9,7 +9,7 @@ var searchData=
   ['shader',['Shader',['../class_s_y_e_1_1_shader.html',1,'SYE']]],
   ['shadermanager',['ShaderManager',['../class_s_y_e_1_1_shader_manager.html',1,'SYE']]],
   ['shadow',['Shadow',['../class_s_y_e_1_1_shadow.html',1,'SYE']]],
-  ['shadowmanager',['ShadowManager',['../class_s_y_e_1_1_shadow_manager.html',1,'SYE']]],
+  ['shadowinfo',['ShadowInfo',['../class_s_y_e_1_1_shadow_info.html',1,'SYE']]],
   ['shadowmap',['ShadowMap',['../class_s_y_e_1_1_shadow_map.html',1,'SYE']]],
   ['shininess',['Shininess',['../class_s_y_e_1_1_shininess.html',1,'SYE']]],
   ['simulationmanager',['SimulationManager',['../class_s_y_e_1_1_simulation_manager.html',1,'SYE']]],

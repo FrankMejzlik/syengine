@@ -143,6 +143,12 @@ std::map&lt; int, std::unique_ptr&lt; <a class="el" href="class_s_y_e_1_1_base_m
 <tr class="memitem:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab756a4697dec7dc1858a7f6869d4e9ad"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (<a class="el" href="namespace_s_y_e.html#a429f61343ff9331889f880abbfff57b6">eEngineError</a> type, std::string filePath, size_t lineNumber, std::string shortDescription=&quot;&quot;, std::string longDescription=&quot;&quot;) const</td></tr>
 <tr class="separator:ab756a4697dec7dc1858a7f6869d4e9ad inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="abb2d5396f2b871c96b2239578b8bea6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetState</b> (eState newState) const</td></tr>
+<tr class="separator:abb2d5396f2b871c96b2239578b8bea6f inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a8a61caa8ec7f3e2ea20fc3762a0f394c"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>GetState</b> () const</td></tr>
+<tr class="separator:a8a61caa8ec7f3e2ea20fc3762a0f394c inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="ab01cc686610923cd2dfc04b12b0dada2"></a>
 <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastError</b> () const</td></tr>
 <tr class="separator:ab01cc686610923cd2dfc04b12b0dada2 inherit pub_methods_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,6 +165,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>PushEngineError</b> (
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_class_s_y_e_1_1_i_error_logging"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_s_y_e_1_1_i_error_logging')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_s_y_e_1_1_i_error_logging.html">SYE::IErrorLogging</a></td></tr>
+<tr class="memitem:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="adaa44ccd70a84f17d118895d60578661"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>eState</b> { <b>cError</b>, 
+<b>cValid</b>, 
+<b>cWarning</b>
+ }</td></tr>
+<tr class="separator:adaa44ccd70a84f17d118895d60578661 inherit pub_types_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_s_y_e_1_1_base_module"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_s_y_e_1_1_base_module')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_s_y_e_1_1_base_module.html">SYE::BaseModule</a></td></tr>
 <tr class="memitem:a80a5ceaba1a16baedc4ba3d869d72135 inherit pro_methods_class_s_y_e_1_1_base_module"><td class="memItemLeft" align="right" valign="top"><a id="a80a5ceaba1a16baedc4ba3d869d72135"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>EnlistSubmodulesToEngineContext</b> ()</td></tr>
@@ -205,6 +217,9 @@ std::map&lt; int, std::unique_ptr&lt; <a class="el" href="class_s_y_e_1_1_base_m
 <tr class="memitem:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a58002a88bfe55cad5f805e1dae0ca5c4"></a>
 std::queue&lt; <a class="el" href="class_s_y_e_1_1_engine_error.html">EngineError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_engineErrorQueue</b></td></tr>
 <tr class="separator:a58002a88bfe55cad5f805e1dae0ca5c4 inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memItemLeft" align="right" valign="top"><a id="a9c9efe87e66e9fb5e3386a25c19bb4bb"></a>
+eState&#160;</td><td class="memItemRight" valign="bottom"><b>_currentState</b></td></tr>
+<tr class="separator:a9c9efe87e66e9fb5e3386a25c19bb4bb inherit pro_attribs_class_s_y_e_1_1_i_error_logging"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_s_y_e_1_1_i_uses_engine_a_p_i"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_s_y_e_1_1_i_uses_engine_a_p_i')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_s_y_e_1_1_i_uses_engine_a_p_i.html">SYE::IUsesEngineAPI</a></td></tr>
 <tr class="memitem:a6be8c9538ed1f79ee650def13d706c53 inherit pro_attribs_class_s_y_e_1_1_i_uses_engine_a_p_i"><td class="memItemLeft" align="right" valign="top"><a id="a6be8c9538ed1f79ee650def13d706c53"></a>
 std::shared_ptr&lt; <a class="el" href="class_s_y_e_1_1_engine_api.html">EngineApi</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_pEngineAPI</b></td></tr>

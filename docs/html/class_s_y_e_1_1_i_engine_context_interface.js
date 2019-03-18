@@ -21,7 +21,6 @@ var class_s_y_e_1_1_i_engine_context_interface =
     [ "GetSceneManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#a1325b3e4f5448ff1c7f7d4c5c5df4145", null ],
     [ "GetScriptManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#a3803142c504fae4bd3b10c603ada727f", null ],
     [ "GetShaderManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#a029a87f3435387f9ab0e885c5038815f", null ],
-    [ "GetShadowManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#af47a9df9b44d9d5dc2e17f98718649ed", null ],
     [ "GetSimulationManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#a3ca193449c59a2b359ec65c931cdcaa8", null ],
     [ "GetSkyboxManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#a9083d682a20ddf06cc6db62120fb6944", null ],
     [ "GetTextureManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#a89a46c568f490e00bb5470055e9cafbb", null ],

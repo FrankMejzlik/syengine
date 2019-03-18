@@ -13,6 +13,7 @@ var class_s_y_e_1_1_window =
     [ "GetYChange", "class_s_y_e_1_1_window.html#a505ba4acb703b57cd80e354a0c70cc6f", null ],
     [ "HideCursor", "class_s_y_e_1_1_window.html#a1f3b4a1ef7b6185667122ffdbf65f4b0", null ],
     [ "Initialize", "class_s_y_e_1_1_window.html#a6fce08a8cfecfc471af476204edfdd64", null ],
+    [ "SetAsRenderTarget", "class_s_y_e_1_1_window.html#a7e9e439ffecea5d0fb11a022171ccbca", null ],
     [ "ShowCursor", "class_s_y_e_1_1_window.html#a7bc6244a10f37b4ffd0059636a158c3b", null ],
     [ "SwapBuffers", "class_s_y_e_1_1_window.html#afa60c05ca868b5cae528152a0b21393b", null ],
     [ "InputManager", "class_s_y_e_1_1_window.html#af0e8c3dcc20b7ddcaf63506363a22821", null ],

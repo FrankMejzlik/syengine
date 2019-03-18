@@ -21,6 +21,7 @@ var manual =
     ] ],
     [ "Examples", "examples.html", [
       [ "HelloSYEngine", "examples.html#hello_syengine", null ],
-      [ "BasicTerrain", "examples.html#basic_terrain", null ]
+      [ "BasicTerrain", "examples.html#basic_terrain", null ],
+      [ "Pinball3D", "examples.html#pinball", null ]
     ] ]
 ];

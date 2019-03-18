@@ -25,6 +25,7 @@ var class_s_y_e_1_1_entity =
     [ "RemoveChild", "class_s_y_e_1_1_entity.html#a29a84d83f7efa8766d2a1f76367390f4", null ],
     [ "RemoveComponent", "class_s_y_e_1_1_entity.html#a0fa4118ec019070f96bbcbe787a34d20", null ],
     [ "RemoveEntity", "class_s_y_e_1_1_entity.html#a3265fc1db68f22c4a1ed3a331d4e03b9", null ],
+    [ "ResetComponents", "class_s_y_e_1_1_entity.html#af3287ff61cfab56f174f4e1daa7e693f", null ],
     [ "SaveEntity", "class_s_y_e_1_1_entity.html#a9a90cbb49ecb5349e6707b1d962c56fd", null ],
     [ "SetIsStatic", "class_s_y_e_1_1_entity.html#a511dd4b93ee3dbf6b1da6c5288ac9866", null ],
     [ "SetParent", "class_s_y_e_1_1_entity.html#a7b23993a4921b4ae235901df67769851", null ],

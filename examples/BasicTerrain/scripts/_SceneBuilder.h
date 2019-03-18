@@ -55,7 +55,7 @@ public:
     ConstructTerrain(pScene);
 
     // Create Scene 
-    CreateCameras(pScene);
+    AddCameras(pScene);
 
   }
 
@@ -276,7 +276,7 @@ private:
     }
 
     // Create Entity representing terrain
-    Entity* pTerrainEntity = pScene->CreateTerrain(
+    Entity* pTerrainEntity = pScene->AddTerrain(
       Vector3f(0.0f, 0.0f, 0.0f),  // Position in the Scene
       Vector3f(0.0f, 0.0f, 0.0f),  // Rotation angles around X, Y, Z
       Vector3f(1.0f, 1.0f, 1.0f),  // Scale
@@ -292,7 +292,7 @@ private:
    *  @param  Scene*  Pointer to scene instance we're building
    *  @return void
    */
-  void CreateCameras(Scene* pScene)
+  void AddCameras(Scene* pScene)
   {
     // Local variables used for building Scene
     Entity* pEntity;
@@ -305,10 +305,10 @@ private:
      *  Transform
      *  Camera
      */
-    pEntity = pScene->CreateCamera(
+    pEntity = pScene->AddCamera(
       Vector3f(0.2f, 5.0f, 0.0f),        // Position
-      Vector3f(0.0f, 1.0f, 0.0f),           // Start up direction
-      static_cast<dfloat>(M_PI_4), static_cast<dfloat>(-(M_PI_4 / 2))   // Start yaw and pitch (radians)
+      static_cast<dfloat>(M_PI_4),        // Start yaw  (radians)
+      static_cast<dfloat>(-(M_PI_4 / 2))   // Start pitch (radians)
     );
 
     // Add ScriptHanlder Component
@@ -316,6 +316,9 @@ private:
 
     // Attach new Script to it
     pScriptHander->AddScript<FirstPersonCameraController>();
+
+    // Set this Camera as main
+    pScene->SetMainCamera(pEntity->GetCameraPtr());
 
     /*
      * General Input script handler
@@ -332,10 +335,10 @@ private:
 
     // Add DirectionalLight Component
     PointLight* pLight = pEntity->AddComponent<PointLight>();
-    pLight->SetColour(glm::vec3(255.0f, 30.0f, 30.0f));
-    pLight->SetInensities(glm::vec3(0.0f, 0.1f, 0.4f));
-    pLight->SetShadowDimensions(glm::vec3(2048, 2048, 0), 0.01f, 100.0f);
-    pLight->SetCoeficients(glm::vec3(0.02f, 0.03f, 0.04f));
+    pLight->SetColour(glm::vec3(255.0f, 250.0f, 30.0f));
+    pLight->SetInensities(glm::vec3(0.0f, 0.05f, 0.4f));
+    pLight->SetShadowDimensions(glm::vec3(DEFAULT_SHADOW_MAP_DIMENSIONS, DEFAULT_SHADOW_MAP_DIMENSIONS, 0), 0.01f, 100.0f);
+    pLight->SetCoeficients(glm::vec3(0.4f, 0.06f, 0.08));
 
 
     // Save all edits done on this Entity
@@ -351,24 +354,24 @@ private:
   void ConstructLighting(Scene* pScene)
   {
     // Create main DirectionalLight
-    pScene->CreateDirectionalLight(
+    pScene->AddDirectionalLight(
       Vector3f(0.0f, 0.0f, 0.0f),          // Position vector
       Vector3f(0.0f, 0.0f, 0.0f),          // Rotation vector
       Vector3f(1.0f, 1.0f, 1.0f),          // Scale vector
       Vector3f(1.0f, 1.0f, 1.0f),          // Colour vector
       Vector3f(0.1f, 0.5f, 0.1f),          // Intensities
-      Vector3u(2048, 2048, 0),             // Shadow dimensions
+      Vector3u(1024,  1024, 0),             // Shadow dimensions
       Vector3f(7.0f, -5.0f, -3.0f)         // Light direction
     );
 
     // Create top left SpotLight
-    pScene->CreateSpotLight(
+    pScene->AddSpotLight(
       Vector3f(-8.0f, 11.0f, -4.0f),     // Position vector
       Vector3f(0.0f, 0.0f, 0.0f),        // Rotation vector
       Vector3f(1.0f, 1.0f, 1.0f),        // Scale vector
       Vector3f(1.0f, 0.0f, 1.0f),        // Colour vector
       Vector3f(0.8f, 1.0f, 1.0f),        // Intensities
-      Vector3u(2048, 2048, 0),           // Shadow dimensions
+      Vector3u(DEFAULT_SHADOW_MAP_DIMENSIONS, DEFAULT_SHADOW_MAP_DIMENSIONS, 0),           // Shadow dimensions
       0.01f, 100.0f,                     // Near and far plane distances
       Vector3f(0.01f, 0.02f, 0.03f),     // Coefficients
       Vector3f(1.0f, -1.0f, -1.0f),      // Light direction

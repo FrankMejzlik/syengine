@@ -90,11 +90,26 @@ $(document).ready(function(){initNavTree('examples.html','');});
 <div class="title">Examples </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="hello_syengine"></a>
+<div class="textblock"><p>In all examples there is Script called GeneralInputHandler that provides:</p><ul>
+<li>F1: Turn on debug physics collision geometry rendering</li>
+<li>F2: Turn on debug physics AABB bounding boxex rendering</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>Those are quite performance expensive since they are pushed and deleted from GPU memory each frame.</dd></dl>
+<h1><a class="anchor" id="hello_syengine"></a>
 HelloSYEngine</h1>
+<p>Basic startup application that can be used as your startup project. Nothing really interesting there, just one camera and empty space.</p>
 <h1><a class="anchor" id="basic_terrain"></a>
 BasicTerrain</h1>
-<p>Just example of rendering proceduraly generated data you send in as vertex data.</p>
+<p>Example of rendering proceduraly generated data you send in as vertex data. You can fly over with spot light attached to your Camera.</p>
+<h1><a class="anchor" id="pinball"></a>
+Pinball3D</h1>
+<p>3D pinball game everybody knows. Goal is to keep ball in game as long as possible and make it as much hitters as possible - this increases your score (that you cannot see right know because I have to implement UI Manager yet).</p>
+<p>Controls:</p><ul>
+<li>B: Hold B to accumulate incrasing force to throw your ball into game</li>
+<li>R: Resets ball position if it falls out (this is cheating though!)</li>
+<li>F: Toggles between Action and Free (WASD, Space and Shift + Space with mouse movement) camera</li>
+<li>Left/Right arrow: Controls left and right paddle </li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

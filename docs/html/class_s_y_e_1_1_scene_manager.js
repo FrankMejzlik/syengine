@@ -12,5 +12,7 @@ var class_s_y_e_1_1_scene_manager =
     [ "InsertScene", "class_s_y_e_1_1_scene_manager.html#a1a1e5b5ea9ec65aef09084c84c67612e", null ],
     [ "LoadInitialScene", "class_s_y_e_1_1_scene_manager.html#a3f6abfc11a5af78a90db95d8c2af202d", null ],
     [ "ProcessScene", "class_s_y_e_1_1_scene_manager.html#a42b2dae5170ebc36f25aa0ee5ae5f284", null ],
-    [ "Terminate", "class_s_y_e_1_1_scene_manager.html#a39cf4d0bcf630734ca602575067ee272", null ]
+    [ "SetupSystemEntities", "class_s_y_e_1_1_scene_manager.html#aaf2cadf65487c823d23383e4a93afc58", null ],
+    [ "Terminate", "class_s_y_e_1_1_scene_manager.html#a39cf4d0bcf630734ca602575067ee272", null ],
+    [ "TerminateGame", "class_s_y_e_1_1_scene_manager.html#a961d8e7fdbc30ecc0b6c795423081bac", null ]
 ];
