@@ -39,6 +39,13 @@ Component::~Component() noexcept
   //! \todo Pot Component specific Subcomponents into container to allow their generic destruction
 }
 
+void Component::ResetOwnerPointers()
+{
+  _pOwnerEntity = nullptr;
+  _pOwnerComponent = nullptr;
+  _pOwnerScene = nullptr;
+}
+
 void Component::SetOwnerComponentPtr(Component* pComponent)
 {
   _pOwnerComponent = pComponent;
@@ -66,6 +73,11 @@ Entity* Component::SetOwnerEntityPtr(Entity* newOwnerPtr)
 
 Scene* Component::GetOwnerScenePtr() const 
 {
+  if (_pOwnerEntity == nullptr)
+  {
+    return nullptr;
+  }
+
   return _pOwnerEntity->GetOwnerScenePtr(); 
 }
 

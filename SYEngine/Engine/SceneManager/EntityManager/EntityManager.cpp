@@ -47,6 +47,15 @@ bool EntityManager::Initialize()
   return true;
 }
 
+
+void EntityManager::ResetComponents()
+{
+  for (auto&& entityPair : _entities)
+  {
+    entityPair.second->ResetComponents();
+  }
+}
+
 bool EntityManager::Terminate()
 {
   // Class specific terminate

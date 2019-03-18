@@ -317,12 +317,26 @@ private:
     // Attach new Script to it
     pScriptHander->AddScript<FirstPersonCameraController>();
 
+    /*
+     * General Input script handler
+     * 
+     * Provides global input on F1 - F12 keys.
+     */
+    {
+      // Add ScriptHanlder Component that we will attach our custom Script to
+      pScriptHander = pEntity->AddComponent<ScriptHandler>();
+
+      // Attach new Script to it
+      pScriptHander->AddScript<GeneralInputHandler>();
+    }
+
     // Add DirectionalLight Component
     PointLight* pLight = pEntity->AddComponent<PointLight>();
     pLight->SetColour(glm::vec3(255.0f, 30.0f, 30.0f));
     pLight->SetInensities(glm::vec3(0.0f, 0.1f, 0.4f));
     pLight->SetShadowDimensions(glm::vec3(2048, 2048, 0), 0.01f, 100.0f);
     pLight->SetCoeficients(glm::vec3(0.02f, 0.03f, 0.04f));
+
 
     // Save all edits done on this Entity
     pEntity->SaveEntity();

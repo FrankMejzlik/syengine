@@ -111,9 +111,25 @@ If you want to extend/edit/remove engine code, feel free to do so, but remember 
 
 @page examples Examples
 
+In all examples there is Script called GeneralInputHandler that provides:
+- F1: Turn on debug physics collision geometry rendering
+- F2: Turn on debug physics AABB bounding boxex rendering
+
+@note Those are quite performance expensive since they are pushed and deleted from GPU memory each frame.
+
 @section hello_syengine  HelloSYEngine
 
+Basic startup application that can be used as your startup project. Nothing really interesting there, just one camera and empty space.
+
+
 @section basic_terrain  BasicTerrain
-Just example of rendering proceduraly generated data you send in as vertex data.
+Example of rendering proceduraly generated data you send in as vertex data. You can fly over with spot light attached to your Camera.
 
 @section pinball  Pinball3D
+3D pinball game everybody knows. Goal is to keep ball in game as long as possible and make it as much hitters as possible - this increases your score (that you cannot see right know because I have to implement UI Manager yet).
+
+Controls:
+- B: Hold B to accumulate incrasing force to throw your ball into game
+- R: Resets ball position if it falls out (this is cheating though!)
+- F: Toggles between Action and Free (WASD, Space and Shift + Space with mouse movement) camera
+- Left/Right arrow: Controls left and right paddle

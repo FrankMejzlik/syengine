@@ -78,6 +78,8 @@ private:
 
     /*
      * Create Sphere entity
+     * 
+     * This will be our play ball.
      *
      * ATTACHED COMPONENTS:
      *  Transform
@@ -94,35 +96,73 @@ private:
       false, // Is not static
       0.1f   // Mass
     );
+
+    // We get MeshRenderer that is implicitly attached to this Entity
     pMeshRenderer = pEntity->GetMeshRendererPtr();
+
+    // We check if there is any just to be sure
     if (pMeshRenderer != nullptr)
     {
+      // Delete all existing materials (if any)
       pMeshRenderer->ClearMaterials();
+      // Set new Material to this RGB coloured with provided specular and shininess intensities
       pMeshRenderer->AddMaterial(Vector3f(66.0f, 0.0f, 0.0f), 1.0f, 512.0f);
     }
+
+    // We get Rigidbody that is implicitly attached to this Entity
     pRigidbody = pEntity->GetRigidbodyPtr();
+
+    // We check if there is any just to be sure
     if (pRigidbody != nullptr)
     {
-      pRigidbody->SetToContiniousCollision();
-      // Set tag to ball to detect hitter collisions (1 + 2 -> hitter + ball) for score
+      /* Set tag to this Rigibody ball
+
+      This is used in collision callbacks in your scripts to 
+      detect collision with other correct Rigidbody */
       pRigidbody->SetTag(1ULL);
     }
-    // Add ScriptHanlder Component
-    pScriptHander = pEntity->AddComponent<ScriptHandler>();
-    // Attach specific script to it
-    pScriptHander->AddScript<BallController>();
 
-    // Add PointLight Component
-    PointLight* pLight = pEntity->AddComponent<PointLight>();
-    pLight->SetColour(glm::vec3(255.0f, 30.0f, 30.0f));
-    pLight->SetInensities(glm::vec3(0.00, 0.0001f, 0.0f));
-    pLight->SetShadowDimensions(glm::vec3(DEFAULT_SHADOW_MAP_DIMENSIONS , DEFAULT_SHADOW_MAP_DIMENSIONS , 0), 0.01f, 100.0f);
-    pLight->SetCoeficients(glm::vec3(0.2f, 0.6f, 0.8f));
+    /*
+     * Custom ball Script behaviour
+     */
+    { 
+    // Add ScriptHanlder Component that we will attach our custom Script to that we will attach our custom Script to
+      pScriptHander = pEntity->AddComponent<ScriptHandler>();
+
+      // Add ScriptHanlder Component that we will attach our custom Script to, this is our Custom behaviour script
+      pScriptHander->AddScript<BallController>();
+    }
+
+    /*
+     * Point light on ball 
+     */
+    {
+      // Add PointLight Component, this light will be attached to this ball
+      PointLight* pLight = pEntity->AddComponent<PointLight>();
+
+      // Set light colour
+      pLight->SetColour(glm::vec3(255.0f, 30.0f, 30.0f));
+
+      /* Set initial light intensities
+
+      We're going to increase them as score goes up in BallController script. */
+      pLight->SetInensities(glm::vec3(0.00, 0.0001f, 0.0f));
+
+      /* Set dimensions of shadow maps
+
+      E.g. 512x512 should be enough, do not go over 1024 - fully dynamic ligts are performance killer.*/
+      pLight->SetShadowDimensions(glm::vec3(DEFAULT_SHADOW_MAP_DIMENSIONS, DEFAULT_SHADOW_MAP_DIMENSIONS, 0), 0.01f, 100.0f);
+
+      /* Set attenuation coefficients to describe how light will spread in space
+
+      For more info: http://ogldev.atspace.co.uk/www/tutorial20/tutorial20.html */
+      pLight->SetCoeficients(glm::vec3(0.2f, 0.6f, 0.8f));
+    }
 
     // Save all edits done on this Entity
     pEntity->SaveEntity();
 
-    // Save this Entity
+    // Save this Entity as ball Entity
     _pBallEntity = pEntity;
   }
 
@@ -152,21 +192,34 @@ private:
     // Set this camera as main for this Scene
     pScene->SetMainCamera(pEntity->GetCameraPtr());
 
-    // Add ScriptHanlder Component
-    pScriptHander = pEntity->AddComponent<ScriptHandler>();
+    /*
+     * First person camera script
+     * 
+     * Allows you to 
+     */
+    {
+    // Add ScriptHanlder Component that we will attach our custom Script to
+      pScriptHander = pEntity->AddComponent<ScriptHandler>();
 
-    // Attach new Script to it
-    FirstPersonCameraController* pCamController = pScriptHander->AddScript<FirstPersonCameraController>();
+      // Attach new Script to it
+      ActionCameraController* pCamController = pScriptHander->AddScript<ActionCameraController>();
 
-    // Add ScriptHanlder Component
-    pScriptHander = pEntity->AddComponent<ScriptHandler>();
+      // Set pointer to ball object to Script
+      pCamController->SetBallPtr(_pBallEntity->GetRigidbodyPtr());
+    }
 
-    // Attach new Script to it
-    pScriptHander->AddScript<GeneralInputHandler>();
+    /*
+     * General Input script handler
+     * 
+     * Provides global input on F1 - F12 keys.
+     */
+    {
+      // Add ScriptHanlder Component that we will attach our custom Script to
+      pScriptHander = pEntity->AddComponent<ScriptHandler>();
 
-
-    // Set pointer to ball object to Script
-    pCamController->SetBallPtr(_pBallEntity->GetRigidbodyPtr());
+      // Attach new Script to it
+      pScriptHander->AddScript<GeneralInputHandler>();
+    }
 
     // Save all edits done on this Entity
     pEntity->SaveEntity();
@@ -206,7 +259,7 @@ private:
     );
   }
 
-  /**                                                                          r
+  /**                                                                          
    * Creates pinball machine present in initial Scene
    *
    *  @param  Scene*  Pointer to scene instance we're building
@@ -235,11 +288,11 @@ private:
         14.0f, 1.0f, 20.0f,
         true
       );
-      // Get MeshRenderer Component ptr
+      // We get MeshRenderer that is implicitly attached to this Entity
       pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
-        // Clear current materials
+        // Delete all existing materials (if any)
         pMeshRenderer->ClearMaterials();
         // Add new Material with colour and Shininess
         pMeshRenderer->AddMaterial(
@@ -292,11 +345,11 @@ private:
         14.0f, 0.5f, 1.0f,
         true
       );
-      // Get MeshRenderer Component ptr
+      // We get MeshRenderer that is implicitly attached to this Entity
       pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
-        // Clear current materials
+        // Delete all existing materials (if any)
         pMeshRenderer->ClearMaterials();
         // Add new Material with colour and Shininess
         pMeshRenderer->AddMaterial(
@@ -327,11 +380,11 @@ private:
         0.5f, 19.0f, 1.0f,
         true
       );
-      // Get MeshRenderer Component ptr
+      // We get MeshRenderer that is implicitly attached to this Entity
       pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
-        // Clear current materials
+        // Delete all existing materials (if any)
         pMeshRenderer->ClearMaterials();
         // Add new Material with colour and Shininess
         pMeshRenderer->AddMaterial(
@@ -362,11 +415,11 @@ private:
         true
       );
 
-      // Get MeshRenderer Component ptr
+      // We get MeshRenderer that is implicitly attached to this Entity
       pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
-        // Clear current materials
+        // Delete all existing materials (if any)
         pMeshRenderer->ClearMaterials();
         // Add new Material with colour and Shininess
         pMeshRenderer->AddMaterial(
@@ -397,11 +450,11 @@ private:
         true
       );
 
-      // Get MeshRenderer Component ptr
+      // We get MeshRenderer that is implicitly attached to this Entity
       pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
-        // Clear current materials
+        // Delete all existing materials (if any)
         pMeshRenderer->ClearMaterials();
         // Add new Material with colour and Shininess
         pMeshRenderer->AddMaterial(
@@ -432,11 +485,11 @@ private:
         true
       );
 
-      // Get MeshRenderer Component ptr
+      // We get MeshRenderer that is implicitly attached to this Entity
       pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
-        // Clear current materials
+        // Delete all existing materials (if any)
         pMeshRenderer->ClearMaterials();
         // Add new Material with colour and Shininess
         pMeshRenderer->AddMaterial(
@@ -462,11 +515,11 @@ private:
         true, // Is static
         0.0f  // No mass
       );
-      // Get MeshRenderer Component ptr
+      // We get MeshRenderer that is implicitly attached to this Entity
       pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
-        // Clear current materials
+        // Delete all existing materials (if any)
         pMeshRenderer->ClearMaterials();
         // Add new Material with colour and Shininess
         pMeshRenderer->AddMaterial(
@@ -500,11 +553,11 @@ private:
         0.0f  // No mass
       );
 
-      // Get MeshRenderer Component ptr
+      // We get MeshRenderer that is implicitly attached to this Entity
       pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
-        // Clear current materials
+        // Delete all existing materials (if any)
         pMeshRenderer->ClearMaterials();
         // Add new Material with colour and Shininess
         pMeshRenderer->AddMaterial(
@@ -538,11 +591,11 @@ private:
         0.0f  // No mass
       );
 
-      // Get MeshRenderer Component ptr
+      // We get MeshRenderer that is implicitly attached to this Entity
       pMeshRenderer = pEntity->GetMeshRendererPtr();
       if (pMeshRenderer != nullptr)
       {
-        // Clear current materials
+        // Delete all existing materials (if any)
         pMeshRenderer->ClearMaterials();
         // Add new Material with colour and Shininess
         pMeshRenderer->AddMaterial(
@@ -580,7 +633,7 @@ private:
     pMeshRenderer = pEntity->GetMeshRendererPtr();
     if (pMeshRenderer != nullptr)
     {
-      // Clear current materials
+      // Delete all existing materials (if any)
       pMeshRenderer->ClearMaterials();
       pMeshRenderer->AddMaterial(Vector3f(0.0f, 146.0f, 0.0f), 1.0f, 32.0f);
     }
@@ -609,7 +662,7 @@ private:
     pMeshRenderer = pEntity->GetMeshRendererPtr();
     if (pMeshRenderer != nullptr)
     {
-      // Clear current materials
+      // Delete all existing materials (if any)
       pMeshRenderer->ClearMaterials();
       pMeshRenderer->AddMaterial(Vector3f(24.0f, 146.0f, 150.0f), 1.0f, 1024.0f);
     }
@@ -634,7 +687,7 @@ private:
     pMeshRenderer = pEntity->GetMeshRendererPtr();
     if (pMeshRenderer != nullptr)
     {
-      // Clear current materials
+      // Delete all existing materials (if any)
       pMeshRenderer->ClearMaterials();
       pMeshRenderer->AddMaterial(Vector3f(24.0f, 146.0f, 150.0f), 1.0f, 1024.0f);
     }
@@ -658,7 +711,7 @@ private:
     pMeshRenderer = pEntity->GetMeshRendererPtr();
     if (pMeshRenderer != nullptr)
     {
-      // Clear current materials
+      // Delete all existing materials (if any)
       pMeshRenderer->ClearMaterials();
       pMeshRenderer->AddMaterial(Vector3f(24.0f, 146.0f, 150.0f), 1.0f, 1024.0f);
     }
@@ -797,9 +850,9 @@ private:
       // Change origin point
       pTransform->SetOrigin(Vector3f(-1.5f, 0.0f, 0.0f));
     }
-    // Add ScriptHanlder Component
+    // Add ScriptHanlder Component that we will attach our custom Script to
     pScriptHander = pEntity->AddComponent<ScriptHandler>();
-    // Attach specific script to it
+    // Add ScriptHanlder Component that we will attach our custom Script to
     pScriptHander->AddScript<RightPaddleController>();
 
     pRigidbody = pEntity->GetRigidbodyPtr();
@@ -824,9 +877,9 @@ private:
       // Change origin point
       pTransform->SetOrigin(Vector3f(-1.5f, 0.0f, 0.0f));
     }
-    // Add ScriptHanlder Component
+    // Add ScriptHanlder Component that we will attach our custom Script to
     pScriptHander = pEntity->AddComponent<ScriptHandler>();
-    // Attach specific script to it
+    // Add ScriptHanlder Component that we will attach our custom Script to
     pScriptHander->AddScript<LeftPaddleController>();
 
     pRigidbody = pEntity->GetRigidbodyPtr();

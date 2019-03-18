@@ -31,8 +31,14 @@ PhysicsBody::PhysicsBody(
 
 PhysicsBody::~PhysicsBody() noexcept
 {
+  Scene* pOwnerScene = GetOwnerScenePtr();
+
   // Try to delete this existing PhysicsEntity (if exists)
-  GetOwnerScenePtr()->GetPhysicsScenePtr()->RemovePhysicsEntity(this);
+  if (pOwnerScene)
+  {
+    pOwnerScene->GetPhysicsScenePtr()->RemovePhysicsEntity(this);
+  }
+  
 }
 
 void PhysicsBody::SetTag(size_t tag)

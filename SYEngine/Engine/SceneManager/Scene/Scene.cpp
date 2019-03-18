@@ -45,6 +45,8 @@ Scene::~Scene() noexcept
 {
   EntityManager* pEntityManager = GetEntityManagerPtr();
 
+  pEntityManager->ResetComponents();
+
   // Destroy all Components
   GetComponentManagerPtr()->DestroyAllComponents();
 

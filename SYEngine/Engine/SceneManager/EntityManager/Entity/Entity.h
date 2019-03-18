@@ -64,6 +64,7 @@ public:
 
   Scene* GetOwnerScenePtr() const { return _pOwnerScene; }
   
+  void ResetComponents();
   PhysicsBody* GetPhysicsBodyPtr() const;
 
   void SaveEntity();

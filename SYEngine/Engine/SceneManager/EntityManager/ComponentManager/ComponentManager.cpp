@@ -71,6 +71,12 @@ bool ComponentManager::Terminate()
 
 void ComponentManager::DestroyAllComponents()
 {
+  // Reset owner pointers of remaining Components to avoid accessing not valid pointer
+  for (auto&& componentPair : _components)
+  {
+    componentPair.second->ResetOwnerPointers();
+  }
+
   _components.clear();
 }
 

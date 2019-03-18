@@ -12,15 +12,6 @@
 // Adds basic movement and turning capiblites to Entity with Camera Component.
 #include "FirstPersonCameraController.h"
 
-// Right paddle logic
-#include "LookAtQuad.h"
-
-// Left paddle logic
-#include "LeftPaddleController.h"
-
-// Logic of play ball
-#include "BallController.h"
-
 // Logic for general input e.g. Esc to quit game
 #include "GeneralInputHandler.h"
 

@@ -54,6 +54,14 @@ Entity::~Entity() noexcept
   
 }
 
+void Entity::ResetComponents()
+{
+  for (auto&& slot : _primaryComponentSlots)
+  {
+    slot.clear();
+  }
+}
+
 bool Entity::DetachComponent(Component* pComponent)
 {
   // Delist it from Scene first

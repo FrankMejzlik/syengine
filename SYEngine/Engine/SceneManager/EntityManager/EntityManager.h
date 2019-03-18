@@ -25,6 +25,8 @@ public:
   virtual bool Initialize() override;
   virtual bool Terminate() override;
 
+  void ResetComponents();
+
   /**
    * Create empty new Entity instance
    *

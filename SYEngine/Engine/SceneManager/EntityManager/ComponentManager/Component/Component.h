@@ -89,6 +89,8 @@ public:
   virtual void SaveComponent();
 
 
+  void ResetOwnerPointers();
+
   Entity* GetOwnerEntityPtr() const;
   Entity* SetOwnerEntityPtr(Entity* newOwnerPtr);
 
