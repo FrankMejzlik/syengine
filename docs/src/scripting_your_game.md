@@ -23,7 +23,7 @@ This method will be called exactly once before main game loop starts running. Us
 
 @section scripting_your_game_writing_custom_scripts Writing custom scripts
 
-Every script has to inherit from @ref SYE::Script class. This class contains two important methods you can override:
+Every script has to inherit from @ref SYE::Script class. This class contains important methods you can override:
 
 @ref SYE::Script::OnInitializeScene()
     This method is called at most once when Scene is being initialized. Use this to do thing you want to do before main game loop starts.
@@ -31,6 +31,8 @@ Every script has to inherit from @ref SYE::Script class. This class contains two
 @ref SYE::Script::OnProcessFrame()
     This method is called every frame. Use this to update game logic.
 
+@ref SYE::Script::OnCollision()
+    This method is called whenever this Physicsbody collides with something.
 
 ## Inside Script you have access to:
 @note Many of those Manager aren't implemented yet.

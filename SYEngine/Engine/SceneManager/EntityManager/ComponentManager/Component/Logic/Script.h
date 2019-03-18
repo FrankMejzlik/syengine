@@ -28,7 +28,19 @@ public:
    * \param collision Reference to structure containing all needed data about this collision.
    */
   virtual void OnCollision(const PhysicsBody::Collision& collision);
+  
+  /*!
+   * This function is called just before Scene initialization.
+   * 
+   */
   virtual void OnInitializeScene() = 0;
+
+  /*!
+   * This method is called every frame to execute this script.
+   * 
+   * \param Time since las frame.
+   * \param Pointer to Scene instance this is in.
+   */
   virtual void OnProcessFrame(dfloat deltaTime, Scene* pScene) = 0;
 
   void SetParentPtr(ScriptHandler* pParent) { _pParent = pParent; }

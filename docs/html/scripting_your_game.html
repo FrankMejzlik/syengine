@@ -103,9 +103,10 @@ Initial building Scene</h1>
 <p>This method will be called exactly once before main game loop starts running. Use this method to place Entities into the world and to attach Components on those Entities.</p>
 <h1><a class="anchor" id="scripting_your_game_writing_custom_scripts"></a>
 Writing custom scripts</h1>
-<p>Every script has to inherit from <a class="el" href="class_s_y_e_1_1_script.html">SYE::Script</a> class. This class contains two important methods you can override:</p>
-<p>SYE::Script::OnInitializeScene() This method is called at most once when Scene is being initialized. Use this to do thing you want to do before main game loop starts.</p>
-<p>SYE::Script::OnProcessFrame() This method is called every frame. Use this to update game logic.</p>
+<p>Every script has to inherit from <a class="el" href="class_s_y_e_1_1_script.html">SYE::Script</a> class. This class contains important methods you can override:</p>
+<p><a class="el" href="class_s_y_e_1_1_script.html#a86532555b513b14a0142fd4e02b6b599">SYE::Script::OnInitializeScene()</a> This method is called at most once when Scene is being initialized. Use this to do thing you want to do before main game loop starts.</p>
+<p><a class="el" href="class_s_y_e_1_1_script.html#a8e104dec11bc1ba3277b96b4b408d5d0">SYE::Script::OnProcessFrame()</a> This method is called every frame. Use this to update game logic.</p>
+<p><a class="el" href="class_s_y_e_1_1_script.html#a978a83f2735e5a174706bd2e442c5562">SYE::Script::OnCollision()</a> This method is called whenever this Physicsbody collides with something.</p>
 <h2>Inside Script you have access to:</h2>
 <dl class="section note"><dt>Note</dt><dd>Many of those Manager aren't implemented yet.</dd></dl>
 <h3>Managers</h3>

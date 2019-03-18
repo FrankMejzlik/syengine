@@ -119,11 +119,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aab596ea6e77526bc49867e157bb2a1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a978a83f2735e5a174706bd2e442c5562"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_script.html#a978a83f2735e5a174706bd2e442c5562">OnCollision</a> (const <a class="el" href="struct_s_y_e_1_1_physics_body_1_1_collision.html">PhysicsBody::Collision</a> &amp;collision)</td></tr>
 <tr class="separator:a978a83f2735e5a174706bd2e442c5562"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86532555b513b14a0142fd4e02b6b599"><td class="memItemLeft" align="right" valign="top"><a id="a86532555b513b14a0142fd4e02b6b599"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>OnInitializeScene</b> ()=0</td></tr>
+<tr class="memitem:a86532555b513b14a0142fd4e02b6b599"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_script.html#a86532555b513b14a0142fd4e02b6b599">OnInitializeScene</a> ()=0</td></tr>
 <tr class="separator:a86532555b513b14a0142fd4e02b6b599"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e104dec11bc1ba3277b96b4b408d5d0"><td class="memItemLeft" align="right" valign="top"><a id="a8e104dec11bc1ba3277b96b4b408d5d0"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>OnProcessFrame</b> (dfloat deltaTime, <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *pScene)=0</td></tr>
+<tr class="memitem:a8e104dec11bc1ba3277b96b4b408d5d0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_y_e_1_1_script.html#a8e104dec11bc1ba3277b96b4b408d5d0">OnProcessFrame</a> (dfloat deltaTime, <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *pScene)=0</td></tr>
 <tr class="separator:a8e104dec11bc1ba3277b96b4b408d5d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ea422176c6e86c6396d158c6127e6c7"><td class="memItemLeft" align="right" valign="top"><a id="a9ea422176c6e86c6396d158c6127e6c7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetParentPtr</b> (<a class="el" href="class_s_y_e_1_1_script_handler.html">ScriptHandler</a> *pParent)</td></tr>
@@ -452,6 +450,80 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a86532555b513b14a0142fd4e02b6b599"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86532555b513b14a0142fd4e02b6b599">&#9670;&nbsp;</a></span>OnInitializeScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void SYE::Script::OnInitializeScene </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This function is called just before <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> initialization. </p>
+
+<p>Implemented in <a class="el" href="class_s_y_e_1_1_first_person_camera_controller.html#a9e00c647518333aeba107380576bcfa1">SYE::FirstPersonCameraController</a>, <a class="el" href="class_s_y_e_1_1_look_at_quad.html#aff191073d28dbeb0d47b536a84f8394a">SYE::LookAtQuad</a>, and <a class="el" href="class_s_y_e_1_1_general_input_handler.html#a184d692bea65c6a7cf18447053cdf4de">SYE::GeneralInputHandler</a>.</p>
+
+</div>
+</div>
+<a id="a8e104dec11bc1ba3277b96b4b408d5d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e104dec11bc1ba3277b96b4b408d5d0">&#9670;&nbsp;</a></span>OnProcessFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void SYE::Script::OnProcessFrame </td>
+          <td>(</td>
+          <td class="paramtype">dfloat&#160;</td>
+          <td class="paramname"><em>deltaTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> *&#160;</td>
+          <td class="paramname"><em>pScene</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This method is called every frame to execute this script.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Time</td><td>since las frame. </td></tr>
+    <tr><td class="paramname">Pointer</td><td>to <a class="el" href="class_s_y_e_1_1_scene.html">Scene</a> instance this is in. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_s_y_e_1_1_first_person_camera_controller.html#a96cccfce9f07f0e737e5f3eb3d233a8d">SYE::FirstPersonCameraController</a>, <a class="el" href="class_s_y_e_1_1_look_at_quad.html#a9a5ee2ea24b8d6d184006effccb2c932">SYE::LookAtQuad</a>, and <a class="el" href="class_s_y_e_1_1_general_input_handler.html#a8d3f8c729f74fdc4be155426d13ec22e">SYE::GeneralInputHandler</a>.</p>
 
 </div>
 </div>
