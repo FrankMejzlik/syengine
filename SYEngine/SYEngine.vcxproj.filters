@@ -179,6 +179,7 @@
     <ClCompile Include="Engine\OutputManager\RenderingManager\ShaderManager\Shader\Shader.cpp">
       <Filter>Engine\ComponentManager\Component\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="Diagnostics\TEST_main.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -405,6 +406,8 @@
     <ClInclude Include="Helper\Utils.h" />
     <ClInclude Include="Game\*\*.h" />
     <ClInclude Include="Game\*\*.h" />
+    <ClInclude Include="Game\*\*.h" />
+    <ClInclude Include="Engine\EngineAPI\export.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="external">

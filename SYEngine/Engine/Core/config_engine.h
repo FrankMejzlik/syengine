@@ -8,8 +8,12 @@
 //////////////////////////////////////////
 // Temporary
 //////////////////////////////////////////
+
+//! Set true when variance shadow mapping implemented
 #define NEW_SHADOW_MAPPING_IMPLEMENTED 0
 
+//! It we want basic tests to be run before engine starts
+#define RUN_MAIN_TESTS 0
 
 //////////////////////////////////////////
 // Shader settings
@@ -65,6 +69,7 @@
 //////////////////////////////////////////
 // Paths configuration
 //////////////////////////////////////////
+
 #define PATH_SHADERS "resource/shaders/"
 
 #define PATH_TEXTURES "resource/textures/"
@@ -113,6 +118,7 @@
 //////////////////////////////////////////
 // Logging configuration
 //////////////////////////////////////////
+
 #define PRINT_NOT_IMPLEMENTED_WARNINGS 0
 #define LOG_PHYSICS_MANAGER_COLLISION_MESH_CONSTRUCTION 0
 #define LOG_PHYSICS_MANAGER_COLLISIONS 0
@@ -239,7 +245,7 @@
 //////////////////////////////////////////
 // Main window settings
 //////////////////////////////////////////
-#define GAME_WINDOW_TITLE "SYEngine Game Preview"
+#define GAME_WINDOW_TITLE "SYEngine"
 #define GAME_WINDOW_DEFAULT_WIDTH 1333
 #define GAME_WINDOW_DEFAULT_HEIGHT 768
 

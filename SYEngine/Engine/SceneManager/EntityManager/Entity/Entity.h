@@ -133,9 +133,6 @@ public:
   }
   bool RemoveEntity(Entity* pEntityToDelete);
 
-protected:
-  void EntityRefreshQuickRefs();
-
   template <typename ComponentType>
   ComponentType* AttachComponent(ComponentType* pNewComponent)
   {
@@ -191,6 +188,11 @@ protected:
   }
   bool DetachComponent(Component* pComponent);
 
+
+protected:
+  void EntityRefreshQuickRefs();
+
+  
   bool AttachEntity(Entity* pEntity);
   bool DetachEntity(Entity* pEntity);
 

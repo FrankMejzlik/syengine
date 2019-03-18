@@ -2,19 +2,19 @@
 
 #include <Windows.h>
 
-#include "config_engine.h"
+#include "common.h"
 #include "IUncopyable.h"
 
 namespace SYE 
 {
 
-/**
-* Holding basic information about current appplication instance.
-*
-* Things abour hardware can be found here.
-*
-* TODO: Make cross-platform.
-*/
+/*!
+ * Holding basic information about current appplication instance
+ *
+ * Things abour hardware can be found here.
+ *
+ * \todo Make cross-platform.
+ */
 class InstanceContext
 {
 public:
@@ -44,18 +44,22 @@ public:
   }
 
 private:
-  // Holding info about hardware and general info
+  //! Holding info about hardware and general info
   DEVMODE _devMode;
+
+  //! Hardware active screen width
   size_t _screenWidth;
+
+  //! Hardware active screen height
   size_t _screenHeight;
 
 };
 
 
-/**
-  * First general to be instantiated class that takes care of the
-  * most low level stuff.
-  */
+/*!
+ * First general to be instantiated class that takes care of the
+ * most low level stuff.
+ */
 class ProcessInstance :
   public IUncopyable
 {
@@ -66,7 +70,7 @@ public:
     // If engine running with editor
   #if USING_EDITOR
 
-      // Move console window
+    // Move console window
     /*MoveWindow(
       _hConsole,
       EDITOR_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT + 20,
@@ -75,13 +79,12 @@ public:
       TRUE
     );*/
 
-
   #else
 
-      // If realease, alpha or beta - hide console window
-  #if RELEASE || ALPHA || BETA
-    ShowWindow(_hConsole);
-  #endif
+    // If realease, alpha or beta - hide console window
+    #if RELEASE || ALPHA || BETA
+        ShowWindow(_hConsole);
+    #endif
 
   #endif
   }
@@ -98,12 +101,13 @@ public:
   }
 
   void Cleanup()
-  {
-
-  }
+  {}
 
 private:
+  //! Handle Windows console
   HWND _hConsole;
+
+  //! Instance context
   InstanceContext _instanceContext;
 
 };

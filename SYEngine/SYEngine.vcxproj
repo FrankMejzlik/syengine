@@ -207,6 +207,7 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Diagnostics\TEST_main.h" />
     <ClCompile Include="Engine\Core\Abstract\IEngineContextInterface.cpp" />
     <ClCompile Include="Engine\Core\Abstract\IComponentsInterface.cpp" />
     <ClCompile Include="Engine\Core\Abstract\ISceneContextInterface.cpp" />
@@ -302,6 +303,7 @@ IF EXIST "./Game/scripts/_SceneBuilder.h" (
     <ClInclude Include="Engine\Core\Abstract\IEngineContextInterface.h" />
     <ClInclude Include="Engine\Core\Abstract\IComponentsInterface.h" />
     <ClInclude Include="Engine\Core\Abstract\ISceneContextInterface.h" />
+    <ClInclude Include="Engine\EngineAPI\export.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\OmniShadowMap.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\Shadow.h" />
     <ClInclude Include="Engine\OutputManager\RenderingManager\ShadowManager\Shadow\ShadowMap.h" />

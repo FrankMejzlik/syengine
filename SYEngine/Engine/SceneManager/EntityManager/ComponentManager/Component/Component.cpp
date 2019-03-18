@@ -29,6 +29,13 @@ Component::Component(
 
 Component::~Component() noexcept
 {
+  // If attached to Entity, detach self from it
+  if (_pOwnerEntity != nullptr)
+  {
+    _pOwnerEntity->DetachComponent(this);
+  }
+  
+
   //! \todo Pot Component specific Subcomponents into container to allow their generic destruction
 }
 

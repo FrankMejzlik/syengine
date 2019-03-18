@@ -86,7 +86,7 @@ Window* Engine::AddWindow()
   // Instantiate new Window
   Window* pNewWindow = OUTPUT_MANAGER->ConstructWindow(
     eWindowType::MAIN_GAME_WINDOW, 
-    WORLD_GAME_NAME, 
+    GAME_WINDOW_TITLE, 
     GAME_WINDOW_DEFAULT_WIDTH, 
     GAME_WINDOW_DEFAULT_HEIGHT
   );
