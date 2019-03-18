@@ -45,16 +45,16 @@ And everything else engine will need...
 
 @section msvc MSVC
 
--# Checkout [SYEngine repository](https://gitlab.com/sye-tech/SYEngine) to your computer.
+-# Checkout [SYEngine repository](https://gitlab.com/devWeSp/syengine) to your computer.
 -# Download [externals](http://devwesp.com/download/external.zip)
     -# Extract `external` directory into 'SYEngine' directory inside repository directory (e.g. `C:/SYEngine/SYEngine/`) so `external` directory lies next to 'SYEngine.vcxproj' file.
 -# Download [resources](http://devwesp.com/download/resource.zip)
     -# Extract 'resource' directory into 'SYEngine' directory inside repository directory (e.g. `C:/SYEngine/SYEngine/`) so `resource` directory lies next to 'SYEngine.vcxproj' file.
--# Inside `{repo_root}/SYEngine/` create '{repo_root}/SYEngine/Game/' directory and place there some game logic.
-    -# Good starting point are our examples (`{repo_root}/examples`) - just choose example open it's directory and **copy all contents into `{repo_root}/SYEngine/Game/` directory**.
+-# Inside `{repo_root}/SYEngine/` create 'Game' directory and place there some game logic.
+    -# Good starting point are our examples (`{repo_root}/examples/{exmaple_name}`) - just choose example open it's directory and **copy all contents of example directory** into `{repo_root}/SYEngine/Game/`.
 
 @note
-    -# Inside `{repo_root}/SYEngine/Game/` there must be `{repo_root}/SYEngine/Game/scripts/` directory with `_SceneBuilder.h` file, which contains implementation of _SceneBuilder class that inherits from SYE::_SceneBuilderBase.
+    -# Inside `{repo_root}/SYEngine/Game/` there must be `scripts` directory with `_SceneBuilder.h` file, which contains implementation of _SceneBuilder class that inherits from SYE::_SceneBuilderBase.
     -# Inside `{repo_root}/SYEngine/Game/` there also should be file `game_script_includes.h` that includes Scripts you want to use (both yours and those we provided with engine).
 
 -# Build and run.

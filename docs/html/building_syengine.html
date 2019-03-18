@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('building_syengine.html','');});
 <h1><a class="anchor" id="msvc"></a>
 MSVC</h1>
 <ol type="1">
-<li>Checkout <a href="https://gitlab.com/sye-tech/SYEngine">SYEngine repository</a> to your computer.</li>
+<li>Checkout <a href="https://gitlab.com/devWeSp/syengine">SYEngine repository</a> to your computer.</li>
 <li>Download <a href="http://devwesp.com/download/external.zip">externals</a><ol type="a">
 <li>Extract <code>external</code> directory into 'SYEngine' directory inside repository directory (e.g. <code>C:/SYEngine/SYEngine/</code>) so <code>external</code> directory lies next to 'SYEngine.vcxproj' file.</li>
 </ol>
@@ -103,13 +103,13 @@ MSVC</h1>
 <li>Extract 'resource' directory into 'SYEngine' directory inside repository directory (e.g. <code>C:/SYEngine/SYEngine/</code>) so <code>resource</code> directory lies next to 'SYEngine.vcxproj' file.</li>
 </ol>
 </li>
-<li>Inside <code>{repo_root}/SYEngine/</code> create '{repo_root}/SYEngine/Game/' directory and place there some game logic.<ol type="a">
-<li>Good starting point are our examples (<code>{repo_root}/examples</code>) - just choose example open it's directory and <b>copy all contents into <code>{repo_root}/SYEngine/Game/</code> directory</b>.</li>
+<li>Inside <code>{repo_root}/SYEngine/</code> create 'Game' directory and place there some game logic.<ol type="a">
+<li>Good starting point are our examples (<code>{repo_root}/examples/{exmaple_name}</code>) - just choose example open it's directory and <b>copy all contents of example directory</b> into <code>{repo_root}/SYEngine/Game/</code>.</li>
 </ol>
 </li>
 </ol>
 <dl class="section note"><dt>Note</dt><dd><ol type="1">
-<li>Inside <code>{repo_root}/SYEngine/Game/</code> there must be <code>{repo_root}/SYEngine/Game/scripts/</code> directory with <code><a class="el" href="___scene_builder_8h.html">_SceneBuilder.h</a></code> file, which contains implementation of _SceneBuilder class that inherits from <a class="el" href="class_s_y_e_1_1___scene_builder_base.html" title="Class responsible for building initial Scene instance before launch.">SYE::_SceneBuilderBase</a>.</li>
+<li>Inside <code>{repo_root}/SYEngine/Game/</code> there must be <code>scripts</code> directory with <code><a class="el" href="___scene_builder_8h.html">_SceneBuilder.h</a></code> file, which contains implementation of _SceneBuilder class that inherits from <a class="el" href="class_s_y_e_1_1___scene_builder_base.html" title="Class responsible for building initial Scene instance before launch.">SYE::_SceneBuilderBase</a>.</li>
 <li>Inside <code>{repo_root}/SYEngine/Game/</code> there also should be file <code><a class="el" href="game__script__includes_8h_source.html">game_script_includes.h</a></code> that includes Scripts you want to use (both yours and those we provided with engine).</li>
 </ol>
 </dd></dl>
