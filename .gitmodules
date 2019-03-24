@@ -1,0 +1,3 @@
+[submodule "SYEngine/external"]
+	path = SYEngine/external
+	url = https://gitlab.com/sye-tech/syenginedependencies

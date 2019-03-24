@@ -3,11 +3,11 @@
 using namespace SYE;
 
 
-Model::Model(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots):
-  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots)
-{
-  _type = eType::MODEL;
-}
+//Model::Model(Entity* pOwnerEntity, const std::map< int, std::unique_ptr<BaseModule> >& subModulesConstRef, std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS>& primaryComponentSlots):
+//  Component(pOwnerEntity, subModulesConstRef, primaryComponentSlots)
+//{
+//  _type = eType::MODEL;
+//}
 
 void Model::LoadModelFromFile(std::string_view fileName)
 {
