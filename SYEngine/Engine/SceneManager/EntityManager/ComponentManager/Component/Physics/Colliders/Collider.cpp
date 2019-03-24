@@ -16,7 +16,8 @@ Collider::Collider(
     pOwnerEntity, pOwnerComponent,
     false, true,
     slotIndex, type
-  )
+  ),
+  _pMesh(nullptr)
 {
   // Refress all Quick refs
   RefreshQuickRefs();

@@ -4,7 +4,7 @@
 /*/*.dll
 /*/*.xpm
 /*/Resource/
-/*/external/
+/build/
 
 /SYEngine/Game/
 *.dat

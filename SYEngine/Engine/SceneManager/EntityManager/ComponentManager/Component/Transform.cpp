@@ -23,6 +23,7 @@ Transform::Transform(
     true, true,
     slotIndex, type
   ),
+  _origin(Vector3f(0.0f, 0.0f, 0.0f)),
   _position(Vector3f(0.0f, 0.0f, 0.0f)),
   _rotation(Vector3f(0.0f, 0.0f, 0.0f)),
   _scale(Vector3f(1.0f, 1.0f, 1.0f)),
