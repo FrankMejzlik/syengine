@@ -44,9 +44,8 @@ void Camera::SetCameraPosition(Vector3f position)
   GetTransformPtr()->SetPosition(position);
 }
 
-void Camera::SetCameraDirection(Vector3f direction)
+void Camera::SetCameraDirection([[maybe_unused]]  Vector3f direction)
 {
-  UNREFERENCED_PARAMETER(direction);
 
   LOG_NOT_IMPLEMENTED;
 }

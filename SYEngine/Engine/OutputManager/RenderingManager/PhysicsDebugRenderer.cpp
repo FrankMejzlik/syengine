@@ -13,11 +13,8 @@ void PhysicsDebugRenderer::SetMatrices(size_t shaderId, const glm::mat4& viewMat
   glUniformMatrix4fv(glGetUniformLocation(static_cast<GLuint>(shaderId), "view"), 1, GL_FALSE, glm::value_ptr(viewMatrix));
 }
 
-void PhysicsDebugRenderer::drawLine(const btVector3& from, const btVector3 &to, const btVector3 &color)
+void PhysicsDebugRenderer::drawLine([[maybe_unused]] const btVector3& from, [[maybe_unused]] const btVector3 &to, [[maybe_unused]] const btVector3 &color)
 {
-  UNREFERENCED_PARAMETER(color);
-  UNREFERENCED_PARAMETER(from);
-  UNREFERENCED_PARAMETER(to);
 
   // Vertex data
   GLfloat points[12];
@@ -56,9 +53,8 @@ void PhysicsDebugRenderer::drawLine(const btVector3& from, const btVector3 &to, 
   
 }
 
-void PhysicsDebugRenderer::drawContactPoint(const btVector3& pointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)
+void PhysicsDebugRenderer::drawContactPoint(const btVector3& pointOnB, const btVector3& normalOnB, btScalar distance, [[maybe_unused]] int lifeTime, const btVector3& color)
 {
-  UNREFERENCED_PARAMETER(lifeTime);
 
   // draws a line between two contact points
   btVector3 const startPoint = pointOnB;
@@ -81,17 +77,14 @@ void PhysicsDebugRenderer::ToggleDebugFlag(int flag)
   }
 }
 
-void PhysicsDebugRenderer::reportErrorWarning(const char* warningString) 
+void PhysicsDebugRenderer::reportErrorWarning([[maybe_unused]] const char* warningString)
 {
-  UNREFERENCED_PARAMETER(warningString);
 
   LOG_NOT_IMPLEMENTED;
 }
 
-void PhysicsDebugRenderer::draw3dText(const btVector3& location, const char* textString)
+void PhysicsDebugRenderer::draw3dText([[maybe_unused]] const btVector3& location, [[maybe_unused]] const char* textString)
 {
-  UNREFERENCED_PARAMETER(location);
-  UNREFERENCED_PARAMETER(textString);
 
   LOG_NOT_IMPLEMENTED;
 }

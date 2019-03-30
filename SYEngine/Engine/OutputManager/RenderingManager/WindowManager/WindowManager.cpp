@@ -53,13 +53,8 @@ bool WindowManager::Terminate()
 }
 
 
-Window* WindowManager::ConstructWindow(eWindowType windowType, std::string_view windowTitle, size_t width, size_t height)
+Window* WindowManager::ConstructWindow([[maybe_unused]] eWindowType windowType, [[maybe_unused]] std::string_view windowTitle, [[maybe_unused]] size_t width, [[maybe_unused]] size_t height)
 {
-  UNREFERENCED_PARAMETER(windowTitle);
-  UNREFERENCED_PARAMETER(height);
-  UNREFERENCED_PARAMETER(width);
-  UNREFERENCED_PARAMETER(windowType);
-
   // Instantiate new Window 
   std::unique_ptr<Window> pWindow = std::make_unique<Window>(GAME_WINDOW_DEFAULT_WIDTH, GAME_WINDOW_DEFAULT_HEIGHT);
 

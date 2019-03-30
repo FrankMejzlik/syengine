@@ -55,17 +55,14 @@ bool AiManager::Terminate()
   return true;
 }
 
-bool AiManager::InitializeScene(Scene * pScene)
+bool AiManager::InitializeScene([[maybe_unused]] Scene * pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
 
   return true;
 }
 
-void AiManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+void AiManager::ProcessScene([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(deltaTime);
-  UNREFERENCED_PARAMETER(pScene);
 
   //LOG_NOT_IMPLEMENTED;
 }

@@ -41,13 +41,8 @@ InputManager::~InputManager() noexcept
   DLog(eLogType::cSuccess, "InputManager instance destroyed.");
 }
 
-void InputManager::ProcessKeys(GLFWwindow* window, int key, int code, int action, int mode)
+void InputManager::ProcessKeys(GLFWwindow* window, int key, [[maybe_unused]] int code, int action, [[maybe_unused]] int mode)
 {
-  UNREFERENCED_PARAMETER(window);
-  UNREFERENCED_PARAMETER(mode);
-  UNREFERENCED_PARAMETER(code);
-
-
   Window* pWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 
 
@@ -87,13 +82,8 @@ void InputManager::ProcessKeys(GLFWwindow* window, int key, int code, int action
   }
 }
 
-void InputManager::ProcessMouseKeys(GLFWwindow* window, int button, int action, int mode)
+void InputManager::ProcessMouseKeys(GLFWwindow* window, int button, [[maybe_unused]] int action, [[maybe_unused]]  int mode)
 {
-  UNREFERENCED_PARAMETER(window);
-  UNREFERENCED_PARAMETER(mode);
-  UNREFERENCED_PARAMETER(action);
-
-
   Window* pWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
   pWindow;
 
@@ -117,9 +107,8 @@ void InputManager::ProcessMouseKeys(GLFWwindow* window, int button, int action, 
   }
 }
 
-void InputManager::ProcessMouse(GLFWwindow* window, double xPos, double yPos)
+void InputManager::ProcessMouse([[maybe_unused]] GLFWwindow* window, double xPos, double yPos)
 {
-  UNREFERENCED_PARAMETER(window);
 
   // If this is first mouse movement
   if (!_mouseFirstMoved)
@@ -172,19 +161,14 @@ bool InputManager::Terminate()
   return true;
 }
 
-bool InputManager::InitializeScene(Scene* pScene)
+bool InputManager::InitializeScene([[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
-
 
   return true;
 }
 
-void InputManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+void InputManager::ProcessScene([[maybe_unused]] dfloat deltaTime, [[maybe_unused]]  Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(deltaTime);
-  UNREFERENCED_PARAMETER(pScene);
-
   _deltaX = 0ULL;
   _deltaY = 0ULL;
 

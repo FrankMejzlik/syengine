@@ -109,31 +109,6 @@ public:
   }
   bool RemoveComponent(Component* pComponentToDelete);
 
-  template <typename EntityType>
-  EntityType* AddEntity()
-  {
-    // Spawn new Entity
-    EntityType* pNewEntity = GetEntityManagerPtr()->CreateEntity<EntityType>(_pOwnerScene, this);
-
-    // Try to attach it to self
-    if (!AttachEntity(pNewEntity))
-    {
-      PUSH_EDITOR_ERROR(
-        eEngineError::AddingEntityToEntityFailed,
-        "Adding Entity '" + pNewEntity->GetGuid() + "' to Entity '" + GetGuid() + "' failed.",
-        ""
-      );
-
-      // Detroy this Entity
-      GetEntityManagerPtr()->DestroyEntity(pNewEntity);
-
-      return nullptr;
-    }
-
-    return pNewEntity;
-  }
-  bool RemoveEntity(Entity* pEntityToDelete);
-
   template <typename ComponentType>
   ComponentType* AttachComponent(ComponentType* pNewComponent)
   {
@@ -188,7 +163,7 @@ public:
     return static_cast<ComponentType*>(pNewComponent);
   }
   bool DetachComponent(Component* pComponent);
-
+  bool RemoveEntity(Entity* pEntityToDelete);
 
 protected:
   void EntityRefreshQuickRefs();

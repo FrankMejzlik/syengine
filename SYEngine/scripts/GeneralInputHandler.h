@@ -51,11 +51,8 @@ public:
     ProcessMouseKeyInput(deltaTime, pScene);
   }
 
-  void ProcessKeyboardInput(dfloat deltaTime, Scene* pScene)
+  void ProcessKeyboardInput([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
   {
-    UNREFERENCED_PARAMETER(deltaTime);
-    UNREFERENCED_PARAMETER(pScene);
-
 
     InputManager* pInputManager = pScene->GetInputManagerPtr();
 
@@ -173,10 +170,8 @@ public:
 
   }
 
-  void ProcessMouseKeyInput(dfloat deltaTime, Scene* pScene)
+  void ProcessMouseKeyInput([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
   {
-    UNREFERENCED_PARAMETER(deltaTime);
-    UNREFERENCED_PARAMETER(pScene);
 
 
     if (pScene->GetInputManagerPtr()->IsMouseKeyDown(INPUT_MOUSE_BUTTON_RIGHT))

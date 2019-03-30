@@ -53,18 +53,13 @@ public:
    *
    * Called once per frame.
    */
-  virtual void OnProcessFrame(dfloat deltaTime, Scene* pScene)
+  virtual void OnProcessFrame([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
   {
-    UNREFERENCED_PARAMETER(deltaTime);
-    UNREFERENCED_PARAMETER(pScene);
-
     TransformCamera(deltaTime, pScene);
   }
 
-  void TransformCamera(dfloat deltaTime, Scene* pScene)
+  void TransformCamera([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
   {
-    UNREFERENCED_PARAMETER(deltaTime);
-    UNREFERENCED_PARAMETER(pScene);
 
     Vector3f camPosition = _pMainCameraPtr->GetTransformPtr()->GetPosition();
     Vector3f camDirectionn = _pMainCameraPtr->GetTransformPtr()->GetZDir();

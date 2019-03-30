@@ -85,17 +85,17 @@ PhysicsDebugRenderer* PhysicsManager::GetDebugRendererPtr() const
   return static_cast<RenderingManager*>(pRenderingManager)->GetPhysicsDebugRendererPtr();
 }
 
-void PhysicsManager::TerminateScene(Scene* pScene)
+void PhysicsManager::TerminateScene([[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
+
 
   // Free this PhysicsScene
   _pPhysicsScene.reset(nullptr);
 }
 
-void PhysicsManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+void PhysicsManager::ProcessScene(dfloat deltaTime, [[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
+
 
   _pPhysicsScene->ProcessScene(deltaTime);
 }

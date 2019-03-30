@@ -18,8 +18,8 @@ Script::Script(
 Script::~Script() noexcept
 {}
 
-void Script::OnCollision(const PhysicsBody::Collision& collision)
+void Script::OnCollision([[maybe_unused]] const PhysicsBody::Collision& collision)
 {
-  UNREFERENCED_PARAMETER(collision);
+
 }
   

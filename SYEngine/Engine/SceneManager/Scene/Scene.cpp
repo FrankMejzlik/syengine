@@ -233,10 +233,9 @@ Entity* Scene::AddTerrain(
 Entity* Scene::AddQuad(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   dfloat width, dfloat height,
-  bool isStatic
+  [[maybe_unused]] bool isStatic
 )
 { 
-  UNREFERENCED_PARAMETER(isStatic);
 
   // Add new Entity to Scene instance
   Entity* pNewEntity = AddEntity<Entity>();
@@ -317,15 +316,13 @@ Entity* Scene::AddBlock(
 
 Entity* Scene::AddPrism(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
-  Vector3f origin,
+  [[maybe_unused]] Vector3f origin,
   const Vector3f& p1, const Vector3f& p2, const Vector3f& p3, const Vector3f& p4,
   const Vector3f& p5, const Vector3f& p6, const Vector3f& p7, const Vector3f& p8,
   bool isStatic,
-  dfloat mass
+  [[maybe_unused]] dfloat mass
 )
 {
-  UNREFERENCED_PARAMETER(origin);
-  UNREFERENCED_PARAMETER(mass);
 
   // Add new Entity to Scene instance
   Entity* pNewEntity = AddEntity<Entity>();
@@ -426,10 +423,9 @@ Entity* Scene::AddDirectionalLight(
   Vector3f positionVector, Vector3f rotationVector, Vector3f scaleVector,
   Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
   Vector3f direction,
-  bool isStatic
+  [[maybe_unused]] bool isStatic
 )
 {
-  UNREFERENCED_PARAMETER(isStatic);
 
   // Add new Entity to Scene instance
   Entity* pNewEntity = AddEntity<Entity>();
@@ -456,11 +452,9 @@ Entity* Scene::AddPointLight(
   Vector3f colour, Vector3f intensities, Vector3u shadowDimensions,
   dfloat nearPlane, dfloat farPlane,
   Vector3f coefficients,
-  bool isStatic
+  [[maybe_unused]] bool isStatic
 )
 {
-  UNREFERENCED_PARAMETER(isStatic);
-
   // Add new Entity to Scene instance
   Entity* pNewEntity = AddEntity<Entity>();
 
@@ -492,7 +486,6 @@ Entity* Scene::AddSpotLight(
   bool isStatic
 )
 {
-  UNREFERENCED_PARAMETER(isStatic);
 
   // Add new Entity to Scene instance
   Entity* pNewEntity = AddEntity<Entity>();

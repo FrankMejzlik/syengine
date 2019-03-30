@@ -75,10 +75,8 @@ bool LogicManager::InitializeScene(Scene* pScene)
   return result;
 }
 
-void LogicManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+void LogicManager::ProcessScene([[maybe_unused]][[maybe_unused]] dfloat deltaTime, Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(deltaTime);
-  UNREFERENCED_PARAMETER(pScene);
 
   // Call submodules
   SCRIPT_MANAGER->ProcessScene(deltaTime, pScene);

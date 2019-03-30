@@ -225,9 +225,9 @@ PhysicsEntity* PhysicsScene::AddRigidBody(Rigidbody* pBody)
   return nullptr;
 }
 
-PhysicsEntity* PhysicsScene::AddSoftBody(Softbody* body)
+PhysicsEntity* PhysicsScene::AddSoftBody([[maybe_unused]] Softbody* body)
 {
-  UNREFERENCED_PARAMETER(body);
+
 
   LOG_NOT_IMPLEMENTED;
 

@@ -123,11 +123,8 @@ bool RenderingManager::InitializeGraphicsApi()
   return true;
 }
 
-bool RenderingManager::InitializeScene(Scene* pScene)
+bool RenderingManager::InitializeScene([[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
-  
-
 
   // Initialze submodules scene
   SHADER_MANAGER->InitializeScene(pScene);

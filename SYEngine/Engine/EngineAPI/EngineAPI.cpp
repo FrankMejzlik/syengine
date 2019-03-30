@@ -61,15 +61,9 @@ bool EngineApi::Terminate()
   return true;
 }
 
-uint64_t EngineApi::CreateBlock(glm::vec3 positionVector, glm::vec3 rotationVector, glm::vec3 scaleVector, dfloat width, dfloat height, dfloat length)
+uint64_t EngineApi::CreateBlock([[maybe_unused]] glm::vec3 positionVector, [[maybe_unused]] glm::vec3 rotationVector, [[maybe_unused]] glm::vec3 scaleVector, [[maybe_unused]] dfloat width, [[maybe_unused]] dfloat height, [[maybe_unused]] dfloat length)
 {
 
-  UNREFERENCED_PARAMETER(positionVector);
-  UNREFERENCED_PARAMETER(rotationVector);
-  UNREFERENCED_PARAMETER(scaleVector);
-  UNREFERENCED_PARAMETER(width);
-  UNREFERENCED_PARAMETER(height);
-  UNREFERENCED_PARAMETER(length);
 
   return uint64_t();
 }

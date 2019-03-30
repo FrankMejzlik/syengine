@@ -275,17 +275,14 @@ void SceneManager::TerminateGame()
   _scenes.clear();
 }
 
-bool SceneManager::InitializeScene(Scene* pScene)
+bool SceneManager::InitializeScene([[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
 
   return true;
 }
 
-void SceneManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+void SceneManager::ProcessScene([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(deltaTime);
-  UNREFERENCED_PARAMETER(pScene);
 
   HandleInput(pScene);
 

@@ -9,9 +9,9 @@ using namespace SYE;
 //  _type = eType::MODEL;
 //}
 
-void Model::LoadModelFromFile(std::string_view fileName)
+void Model::LoadModelFromFile([[maybe_unused]] std::string_view fileName)
 {
-  UNREFERENCED_PARAMETER(fileName);
+
   /*Assimp::Importer importer;
   const aiScene* pScene = importer.ReadFile(fileName.data(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
   if (!pScene)
@@ -24,10 +24,8 @@ void Model::LoadModelFromFile(std::string_view fileName)
   LoadMaterials(pScene);*/
 }
 
-void Model::RenderModel(GLuint ul_modelToWorldMatrix, Entity* pOwner)
+void Model::RenderModel([[maybe_unused]] GLuint ul_modelToWorldMatrix, [[maybe_unused]] Entity* pOwner)
 {
-  UNREFERENCED_PARAMETER(ul_modelToWorldMatrix);
-  UNREFERENCED_PARAMETER(pOwner);
 
   /*glm::mat4 modelToWorldMatrix;
   modelToWorldMatrix = std::move(glm::mat4(1.0f));
@@ -122,11 +120,8 @@ void Model::LoadNode(aiNode * node, const aiScene * scene)
   }
 }
 
-void Model::LoadMesh(aiMesh* mesh, const aiScene* scene)
+void Model::LoadMesh([[maybe_unused]] aiMesh* mesh, [[maybe_unused]] const aiScene* scene)
 {
-  UNREFERENCED_PARAMETER(mesh);
-  UNREFERENCED_PARAMETER(scene);
-
 
   /*std::vector<GLfloat> vertices;
   std::vector<unsigned int> indices;
@@ -168,10 +163,8 @@ void Model::LoadMesh(aiMesh* mesh, const aiScene* scene)
   _meshToTexture.push_back(mesh->mMaterialIndex);*/
 }
 
-void Model::LoadMaterials(const aiScene * scene)
+void Model::LoadMaterials([[maybe_unused]] const aiScene * scene)
 {
-  UNREFERENCED_PARAMETER(scene);
-
   //_textureList.resize(scene->mNumMaterials);
 
   //for (size_t i = 0; i < scene->mNumMaterials; ++i)

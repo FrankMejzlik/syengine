@@ -98,9 +98,8 @@ NewShader* ShaderManager::CreateShader(
   return result.first->second.get();
 }
 
-bool ShaderManager::InitializeScene(Scene* pScene)
+bool ShaderManager::InitializeScene([[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
 
   bool result = true;
 

@@ -53,15 +53,13 @@ bool NetworkManager::Terminate()
   return true;
 }
 
-bool NetworkManager::InitializeScene(Scene* pScene)
+bool NetworkManager::InitializeScene([[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
 
   return true;
 }
 
-void NetworkManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+void NetworkManager::ProcessScene([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(deltaTime);
-  UNREFERENCED_PARAMETER(pScene);
+
 }

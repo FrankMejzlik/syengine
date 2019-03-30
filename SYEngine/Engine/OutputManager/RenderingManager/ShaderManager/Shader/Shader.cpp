@@ -637,8 +637,8 @@ void NewShader::SetShininessIntentisty(size_t value) const
 ///////////////////////////////
 
 Shader::Shader(
-  Entity* pOwnerEntity, Component* pOwnerComponent,
-  Component::eSlotIndex slotIndex, Component::eType type
+  [[maybe_unused]] Entity* pOwnerEntity, [[maybe_unused]]  Component* pOwnerComponent,
+  [[maybe_unused]]  Component::eSlotIndex slotIndex, [[maybe_unused]] Component::eType type
 ):
   //Component(pOwnerEntity, pOwnerComponent, primaryComponentSlots, true),
   _ul_bIsSkeletonAnimated(0),
@@ -649,10 +649,6 @@ Shader::Shader(
   pointLightCount(0),
   spotLightCount(0)
 {
-  UNREFERENCED_PARAMETER(pOwnerComponent);
-  UNREFERENCED_PARAMETER(pOwnerEntity);
-  UNREFERENCED_PARAMETER(slotIndex);
-  UNREFERENCED_PARAMETER(type);
 
 }
 

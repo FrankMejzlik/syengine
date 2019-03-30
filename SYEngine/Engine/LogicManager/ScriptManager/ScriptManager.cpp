@@ -67,17 +67,14 @@ void ScriptManager::TriggerOnInitializeScene(Scene* pScene)
   }
 }
 
-bool ScriptManager::InitializeScene(Scene* pScene)
+bool ScriptManager::InitializeScene([[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
 
   return true;
 }
 
-void ScriptManager::ProcessScene(dfloat deltaTime, Scene* pScene)
+void ScriptManager::ProcessScene([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(deltaTime);
-  UNREFERENCED_PARAMETER(pScene);
 
   std::array< std::map<size_t, Component*>, COMPONENTS_NUM_SLOTS> components = pScene->GetActivePrimaryComponentSlotsRef();
 

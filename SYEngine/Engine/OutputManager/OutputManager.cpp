@@ -55,19 +55,17 @@ bool OutputManager::Terminate()
 }
 
 
-bool OutputManager::InitializeScene(Scene* pScene)
+bool OutputManager::InitializeScene([[maybe_unused]] Scene* pScene)
 {
-  UNREFERENCED_PARAMETER(pScene);
+
 
   RENDERING_MANAGER->InitializeScene(pScene);
 
   return true;
 }
 
-void OutputManager::ProcessScene(dfloat deltaTime, Scene* pScene, Window* pTargetWindow)
+void OutputManager::ProcessScene([[maybe_unused]] dfloat deltaTime, Scene* pScene, Window* pTargetWindow)
 {
-  UNREFERENCED_PARAMETER(deltaTime);
-
   RENDERING_MANAGER->RenderScene(pScene, pTargetWindow);
 }
 
