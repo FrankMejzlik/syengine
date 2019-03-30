@@ -16,7 +16,7 @@
 #include "IGuidCounted.h"
 #include "SceneContext.h"
 #include "MathLibrary.h"
-
+#include "EntityManager.h"
 
 namespace SYE
 {

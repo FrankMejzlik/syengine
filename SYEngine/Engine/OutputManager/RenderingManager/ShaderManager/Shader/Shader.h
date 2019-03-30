@@ -15,8 +15,8 @@
 #include <GL/glew.h>
 
 #pragma warning(push, 1)
-#include <glm\glm.hpp>
-#include <glm\gtc\type_ptr.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #pragma warning(pop)
 
 #include "Component.h"
@@ -24,7 +24,7 @@
 
 //////////////////
 
-#include "IerrorLogging.h"
+#include "IErrorLogging.h"
 #include "IGuidCounted.h"
 
 using namespace SYE;
