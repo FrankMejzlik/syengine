@@ -28,7 +28,7 @@ class Engine;
  * Ancestor to modules like InputManager, SceneManager etc.
  */
 class BaseModule:
-  public IModule, public IModuleState, public IErrorLogging, public IUsesEngineAPI
+  public IModule, public IModuleState, public IErrorLogging, public IUsesEngineApi
 {
   // Structs
 public:

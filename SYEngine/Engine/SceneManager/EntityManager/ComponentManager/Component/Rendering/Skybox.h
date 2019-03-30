@@ -3,12 +3,12 @@
 #include <vector>
 #include <string>
 
-#include <GL\glew.h>
+#include <GL/glew.h>
 
 #pragma warning(push, 1)
-#include <glm\glm.hpp>
-#include <glm\gtc\type_ptr.hpp>
-#include <glm\gtc\matrix_transform.hpp>
+#include <GLM/glm.hpp>
+#include <GLM/gtc/type_ptr.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
 #include "stb_image.h"
 #pragma warning(pop)
 

@@ -13,12 +13,12 @@ class EngineApi;
 /**
  * Interface for classes that needs to communicate with EngineAPI.
  */
-class IUsesEngineAPI
+class IUsesEngineApi
 {
 public:
-  IUsesEngineAPI();
-  IUsesEngineAPI(std::shared_ptr<EngineApi> pEngineAPI);
-  virtual ~IUsesEngineAPI();
+  IUsesEngineApi();
+  IUsesEngineApi(std::shared_ptr<EngineApi> pEngineAPI);
+  virtual ~IUsesEngineApi();
 
 protected:
   std::shared_ptr<EngineApi> _pEngineAPI;

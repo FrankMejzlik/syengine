@@ -9,8 +9,6 @@
   #define LOG_NOT_IMPLEMENTED
 #endif
 
-#define CONCATENATE_LITERALS(A, B) A ## B
-#define CONCATENATE_DEFINES(A, B) CONCATENATE_LITERALS(A, B)
 
 /**
  * Macros for accesing main modules from map container

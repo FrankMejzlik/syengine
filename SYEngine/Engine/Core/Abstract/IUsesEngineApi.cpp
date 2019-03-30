@@ -2,14 +2,14 @@
 #include "IUsesEngineApi.h"
 #include "EngineApi.h"
 
-IUsesEngineAPI::~IUsesEngineAPI()
+IUsesEngineApi::~IUsesEngineApi()
 {}
 
 
-IUsesEngineAPI::IUsesEngineAPI() :
+IUsesEngineApi::IUsesEngineApi() :
   _pEngineAPI(nullptr)
 {}
 
-IUsesEngineAPI::IUsesEngineAPI(std::shared_ptr<EngineApi> pEngineAPI) :
+IUsesEngineApi::IUsesEngineApi(std::shared_ptr<EngineApi> pEngineAPI) :
   _pEngineAPI(pEngineAPI)
 {}

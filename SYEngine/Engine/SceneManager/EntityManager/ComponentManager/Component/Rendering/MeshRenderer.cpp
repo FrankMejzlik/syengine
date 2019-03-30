@@ -2,8 +2,8 @@
 
 #pragma warning(push, 1)
 #include <GLM/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
+#include <GLM/gtc/type_ptr.hpp>
 #pragma warning(pop)
 
 #include "Entity.h"

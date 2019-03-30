@@ -56,10 +56,7 @@ bool TextureManager::Terminate()
 
 std::unique_ptr<Texture> TextureManager::CreateDefaultTexture()
 {
-  /*std::unique_ptr<Texture> _defaultTexture = std::make_unique<Texture>(nullptr, _subModules, _fake, CONCATENATE_DEFINES(PATH_TEXTURES, FILENAME_DEFAULT_TEXTURE));
-  _defaultTexture->LoadTexture();
 
-  return _defaultTexture;*/
 
   return nullptr;
 }
