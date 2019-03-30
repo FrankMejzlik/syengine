@@ -81,7 +81,7 @@ Scene* Engine::AddScene(Window* pTargetWindow, size_t sceneId)
   return SCENE_MANAGER->CreateScene(_pEngineContext, this, pTargetWindow, sceneId);
 }
 
-Window* Engine::AddWindow()
+SYE::Window* Engine::AddWindow()
 {
   // Instantiate new Window
   Window* pNewWindow = OUTPUT_MANAGER->ConstructWindow(

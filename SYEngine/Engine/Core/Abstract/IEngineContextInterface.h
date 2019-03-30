@@ -27,7 +27,6 @@ class TextureManager;
 class WindowManager;
 class ModelManager;
 class UiManager;
-class AiManager;
 class ScriptManager;
 
 
@@ -66,7 +65,6 @@ public:
   WindowManager* GetWindowManagerPtr() const;
   ModelManager* GetModelManagerPtr() const;
   UiManager* GetUiManagerPtr() const;
-  AiManager* GetAiManagerPtr() const;
   ScriptManager* GetScriptManagerPtr() const;
 
 private:

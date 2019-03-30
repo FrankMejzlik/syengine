@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 
 #pragma warning(push, 1)
-#include <glm/gtc/matrix_transform.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
 #pragma warning(pop)
 
 #include "common.h"

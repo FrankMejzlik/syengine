@@ -13,9 +13,9 @@
 
 #define GLM_ENABLE_EXPERIMENTAL
 
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
-#include <glm/gtx/string_cast.hpp>
+#include <GLM/glm.hpp>
+#include <GLM/ext.hpp>
+#include <GLM/gtx/string_cast.hpp>
 #pragma warning(pop)
 
 namespace SYE

@@ -7,6 +7,10 @@ using namespace SYE;
 
 #if unix
 
+#include <cstdarg>
+#include <cstring>
+#include <unistd.h>
+#include <sys/types.h>
 
 std::unique_ptr<Logger> Logger::_pInstance = std::unique_ptr<Logger>(nullptr);
 
@@ -16,7 +20,7 @@ Logger* Logger::GetInstance()
 	{
 		try
 		{
-			Logger::_pInstance = std::make_unique<Logger>(GetCurrentProcessId());
+			Logger::_pInstance = std::make_unique<Logger>(static_cast<size_t>(getppid()));
 		}
 		catch (std::exception &e)
 		{		
@@ -37,22 +41,22 @@ void Logger::Log(bool showTimestamp, eLogType logType, std::string_view filename
 	{
   case eLogType::cError:
 		Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::Red);
-    strcpy_s(prefix, sizeof(prefix), "E: ");
+    strcpy(prefix, "E: ");
 		break;
 		
 	case eLogType::cWarning:
 		Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::Yellow);
-    strcpy_s(prefix, sizeof(prefix), "W: ");
+    strcpy(prefix, "W: ");
 		break;
 
 	case eLogType::cSuccess:
 		Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::Green);
-    strcpy_s(prefix, sizeof(prefix), "S: ");
+    strcpy(prefix, "S: ");
 		break;
 
   default:
     Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::White);
-    strcpy_s(prefix, sizeof(prefix), "I: ");
+    strcpy(prefix, "I: ");
     break;
 	}
 
@@ -83,10 +87,6 @@ void Logger::Log(bool showTimestamp, eLogType logType, std::string_view filename
 Logger::Logger(unsigned long PID):
   _PID(PID)
 {
-  if (!_hStdOut)
-  {
-    printf("Error getting STDOUT handle!");
-  }
 
   // Set default conosle colour to white
   SetConsoleTextColour(eConsoleTextColour::White);

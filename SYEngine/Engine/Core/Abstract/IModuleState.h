@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <queue>
 
+#include "common.h"
 #include "config_engine.h"
 
 namespace SYE 

@@ -4,7 +4,7 @@
 #include <memory>
 
 #pragma warning(push, 1)
-#include <glm/glm.hpp>
+#include <GLM/glm.hpp>
 #pragma warning(pop)
 
 #include "common.h"

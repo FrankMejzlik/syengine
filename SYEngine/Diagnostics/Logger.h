@@ -19,7 +19,8 @@
 #include "config_engine.h"
 
 #if LOG_DEV
-  #define DLog(type, format, ...)  Logger::GetInstance()->Log(true, type, __FILE__, __LINE__, format, __VA_ARGS__); 
+ // #define DLog(type, format, ...)  Logger::GetInstance()->Log(true, type, __FILE__, __LINE__, format, __VA_ARGS__); 
+#define DLog(type, format, ...)
 #else 
   #define DLog(type, format, ...)
 #endif

@@ -47,7 +47,6 @@
 #define SIMULATION_MANAGER static_cast<SimulationManager*>(_subModules[ID_SIMULATION_MANAGER].get())
 
 
-#define AI_MANAGER static_cast<AiManager*>(_subModules[ID_AI_MANAGER].get())
 #define LOGIC_MANAGER static_cast<LogicManager*>(_subModules[ID_LOGIC_MANAGER].get())
 #define SCRIPT_MANAGER static_cast<ScriptManager*>(_subModules[ID_SCRIPT_MANAGER].get())
 #define PHYSICS_MANAGER static_cast<PhysicsManager*>(_subModules[ID_PHYSICS_MANAGER].get())

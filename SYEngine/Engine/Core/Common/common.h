@@ -6,6 +6,10 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
+#include <memory>
+#include <stddef.h>
+#include <string>
+
 #include "macros.h"
 #include "Logger.h"
 #include "typedefs.h"

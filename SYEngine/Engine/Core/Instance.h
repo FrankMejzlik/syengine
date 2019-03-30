@@ -4,7 +4,15 @@
 // If on UNIX-like system
 #if unix 
 
+namespace X11
+{
+
 #include <X11/Xlib.h>
+
+}
+
+
+using namespace X11;
 
 #include "common.h"
 #include "IUncopyable.h"
@@ -20,12 +28,13 @@ namespace SYE
 class InstanceContext
 {
 public:
-  InstanceContext():
-		_pDisplay(XOpenDisplay(NULL));
-		_pScreen(DefaultScreenOfDisplay(_pDisplay));
+  InstanceContext()
   {
+		_pDisplay = X11::XOpenDisplay(NULL);
+		_pScreen = DefaultScreenOfDisplay(_pDisplay);
+
     // Extract screen width and height
-    _screenWidth = static_cast<size_t>(_pSceen->width);
+    _screenWidth = static_cast<size_t>(_pScreen->width);
     _screenHeight = static_cast<size_t>(_pScreen->height);
   }
   ~InstanceContext() {}
@@ -41,8 +50,8 @@ public:
 
 private:
   //! Holding info about hardware and general info
-  Display* _pDisplay;
-  Screen* _pSceen;
+	X11::Display* _pDisplay;
+	X11::Screen* _pScreen;
 
   //! Hardware active screen width
   size_t _screenWidth;

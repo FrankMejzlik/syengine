@@ -23,7 +23,6 @@
 #include "WindowManager.h"
 #include "ModelManager.h"
 #include "UiManager.h"
-#include "AiManager.h"
 #include "ScriptManager.h"
 
 
@@ -140,11 +139,6 @@ ModelManager*  IEngineContextInterface::GetModelManagerPtr() const
 UiManager*  IEngineContextInterface::GetUiManagerPtr() const 
  { 
   return static_cast<UiManager*>(_pEngineContext->GetModule(ID_UI_MANAGER));
-} 
-
-AiManager*  IEngineContextInterface::GetAiManagerPtr() const 
- { 
-  return static_cast<AiManager*>(_pEngineContext->GetModule(ID_AI_MANAGER));
 } 
 
 ScriptManager*  IEngineContextInterface::GetScriptManagerPtr() const 

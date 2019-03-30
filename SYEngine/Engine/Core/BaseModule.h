@@ -10,7 +10,7 @@
 #include "config_components.h"
 #include "IModuleState.h"
 #include "IErrorLogging.h"
-#include "IUsesEngineAPI.h"
+#include "IUsesEngineApi.h"
 #include "IModule.h"
 
 namespace SYE

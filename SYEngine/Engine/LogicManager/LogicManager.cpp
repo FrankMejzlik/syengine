@@ -1,6 +1,5 @@
 #include "LogicManager.h"
 
-#include "AiManager.h"
 #include "ScriptManager.h"
 
 using namespace SYE;
@@ -9,7 +8,7 @@ LogicManager::LogicManager(BaseModule& parentModule, EngineContext* pEngineConte
   BaseModule(parentModule, pEngineContext)
 {
   _subModules.insert(std::make_pair(ID_SCRIPT_MANAGER, std::make_unique<ScriptManager>(*this, _pEngineContext)));
-  _subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AiManager>(*this, _pEngineContext)));
+  //_subModules.insert(std::make_pair(ID_AI_MANAGER, std::make_unique<AiManager>(*this, _pEngineContext)));
 
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
@@ -70,7 +69,7 @@ bool LogicManager::InitializeScene(Scene* pScene)
 
   // Initialize in submodules
   result = result && SCRIPT_MANAGER->InitializeScene(pScene);
-  result = result && AI_MANAGER->InitializeScene(pScene);
+  //result = result && AI_MANAGER->InitializeScene(pScene);
 
   return result;
 }
@@ -80,6 +79,6 @@ void LogicManager::ProcessScene([[maybe_unused]][[maybe_unused]] dfloat deltaTim
 
   // Call submodules
   SCRIPT_MANAGER->ProcessScene(deltaTime, pScene);
-  AI_MANAGER->ProcessScene(deltaTime, pScene);
+  //AI_MANAGER->ProcessScene(deltaTime, pScene);
 
 }
