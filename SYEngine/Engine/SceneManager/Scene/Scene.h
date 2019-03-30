@@ -17,6 +17,8 @@
 #include "SceneContext.h"
 #include "MathLibrary.h"
 #include "EntityManager.h"
+#include "Entity.h"
+
 
 namespace SYE
 {

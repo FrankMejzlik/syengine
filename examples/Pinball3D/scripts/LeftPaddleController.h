@@ -1,6 +1,8 @@
 #pragma once
 
 
+#include <algorithm>
+
 #include "common.h"
 #include "Script.h"
 #include "MathLibrary.h"
@@ -12,8 +14,8 @@
 #include "ScriptHandler.h"
 
 #pragma warning(push, 1)
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <GLM/glm.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
 #pragma warning(pop)
 
 namespace SYE 
@@ -52,11 +54,8 @@ public:
    *
    * Called once per frame.
    */
-  virtual void OnProcessFrame(dfloat deltaTime, Scene* pScene)
+  virtual void OnProcessFrame([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
   {
-    UNREFERENCED_PARAMETER(deltaTime);
-    UNREFERENCED_PARAMETER(pScene);
-
     ProcessKeyControl(deltaTime, pScene);
   }
 

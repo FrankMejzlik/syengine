@@ -5,6 +5,6 @@
 /*/*.xpm
 /*/Resource/
 /build/
-
+**/*.swp
 /SYEngine/Game/
 *.dat

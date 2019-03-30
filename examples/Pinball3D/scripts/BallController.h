@@ -78,12 +78,9 @@ public:
    *
    * Called once per frame.
    */
-  virtual void OnProcessFrame(dfloat deltaTime, Scene* pScene)
+  virtual void OnProcessFrame([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
   {
     _pScene = pScene;
-
-    UNREFERENCED_PARAMETER(deltaTime);
-    UNREFERENCED_PARAMETER(pScene);
 
     // If ball was fired
     if (_closingRoom)

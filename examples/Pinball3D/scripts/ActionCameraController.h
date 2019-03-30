@@ -7,10 +7,10 @@
 
 #pragma warning(push, 1)
 #include <GLM/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
+#include <GLM/gtc/type_ptr.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/matrix_decompose.hpp>
+#include <GLM/gtx/matrix_decompose.hpp>
 #pragma warning(pop)
 
 #include "common.h"
@@ -25,8 +25,8 @@
 #include "ScriptHandler.h"
 
 #pragma warning(push, 1)
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <GLM/glm.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
 #pragma warning(pop)
 
 namespace SYE 
@@ -80,11 +80,8 @@ public:
    *
    * Called once per frame.
    */
-  virtual void OnProcessFrame(dfloat deltaTime, Scene* pScene)
+  virtual void OnProcessFrame([[maybe_unused]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
   {
-    UNREFERENCED_PARAMETER(deltaTime);
-    UNREFERENCED_PARAMETER(pScene);
-
     // Process switching key
     if (pScene->GetInputManagerPtr()->IsOnKeyboardKeyDown(INPUT_KEY_F))
     {
@@ -112,10 +109,8 @@ public:
            
   }
 
-  void ProcessActionCamera(dfloat deltaTime, Scene* pScene)
+  void ProcessActionCamera([[maybe_unuse]] dfloat deltaTime, [[maybe_unused]] Scene* pScene)
   {
-    UNREFERENCED_PARAMETER(deltaTime);
-    UNREFERENCED_PARAMETER(pScene);
 
     dfloat _actionCamRotateCoef = 0.30f; _actionCamRotateCoef;
 

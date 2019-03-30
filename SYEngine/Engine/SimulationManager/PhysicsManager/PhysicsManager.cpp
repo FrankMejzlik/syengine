@@ -1,5 +1,6 @@
 #include "PhysicsManager.h"
 
+#include "PhysicsEntity.h"
 #include "PhysicsScene.h"
 #include "Scene.h"
 #include "RenderingManager.h"
@@ -8,7 +9,7 @@ using namespace SYE;
 
 PhysicsManager::PhysicsManager(BaseModule& parentModule, EngineContext* pEngineContext):
   BaseModule(parentModule, pEngineContext),
-  _pPhysicsScene(nullptr)
+  _pPhysicsScene()
 {
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();

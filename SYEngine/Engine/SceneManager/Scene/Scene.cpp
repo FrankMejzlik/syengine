@@ -26,7 +26,7 @@
 
 using namespace SYE;
 
-Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWindow, size_t sceneId) :
+Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, SYE::Window* pTargetWindow, size_t sceneId) :
   IEngineContextInterface(pEngineContext),
   _pSceneContext(std::make_unique<SceneContext>(sceneId)),
   _pEngine(pEngine),
@@ -105,12 +105,12 @@ std::pair<PhysicsBody*, Vector3f> Scene::Raycast(Vector3f from, Vector3f directi
   return _pPhysicsScene->Raycast(from, direction);
 }
 
-void Scene::SetMainWindowPtr(Window* pMainWindow) 
+void Scene::SetMainWindowPtr(SYE::Window* pMainWindow) 
 { 
   _pMainWindow = pMainWindow; 
 }
 
-Window* Scene::GetMainWindowPtr() const 
+SYE::Window* Scene::GetMainWindowPtr() const 
 { 
   return _pMainWindow; 
 };

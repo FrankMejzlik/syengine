@@ -3,6 +3,7 @@
 #include "ComponentManager.h"
 #include "Entity.h"
 #include "PhysicsManager.h"
+#include "Scene.h"
 
 using namespace SYE;
 
@@ -38,6 +39,8 @@ Component::~Component() noexcept
 
   //! \todo Pot Component specific Subcomponents into container to allow their generic destruction
 }
+
+
 
 void Component::ResetOwnerPointers()
 {

@@ -54,6 +54,13 @@ Entity::~Entity() noexcept
   
 }
 
+
+bool Entity::RegisterComponentToScene(Component* pComponent)
+{
+  return _pOwnerScene->RegisterComponent(pComponent);
+}
+
+
 void Entity::ResetComponents()
 {
   for (auto&& slot : _primaryComponentSlots)

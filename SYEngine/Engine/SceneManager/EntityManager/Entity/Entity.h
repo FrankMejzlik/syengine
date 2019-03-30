@@ -15,13 +15,12 @@
 #include "ISceneContextInterface.h"
 #include "IComponentsInterface.h"
 #include "PhysicsManager.h"
-#include "Scene.h"
 #include "ComponentManager.h"
 
 namespace SYE 
 {
 class Collider;
-
+class Scene;
 class Component;
 class Model;
 class Scene;
@@ -108,6 +107,7 @@ public:
     return pNewComponent;
   }
   bool RemoveComponent(Component* pComponentToDelete);
+	bool RegisterComponentToScene(Component* pComponent);
 
   template <typename ComponentType>
   ComponentType* AttachComponent(ComponentType* pNewComponent)
@@ -143,7 +143,7 @@ public:
     _primaryComponentSlots[slotIndex].insert(std::make_pair(pNewComponent->GetGuid(), pNewComponent));
 
     // Try to register this Component to Scene
-    bool result = _pOwnerScene->RegisterComponent(pNewComponent);
+    bool result = RegisterComponentToScene(pNewComponent);
 
     // If this component is already registered
     if (!result)
@@ -162,6 +162,7 @@ public:
 
     return static_cast<ComponentType*>(pNewComponent);
   }
+
   bool DetachComponent(Component* pComponent);
   bool RemoveEntity(Entity* pEntityToDelete);
 
