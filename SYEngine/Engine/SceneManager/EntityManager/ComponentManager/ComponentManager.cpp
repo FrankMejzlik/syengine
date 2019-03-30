@@ -30,12 +30,12 @@ ComponentManager::ComponentManager(BaseModule& parentModule, EngineContext* pEng
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\tComponentManager instance created.");
+  DLog(eLogType::cSuccess, "\t\tComponentManager instance created.");
 }
 
 ComponentManager::~ComponentManager()
 {
-  DLog(eLogType::Success, "\t\tComponentManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\tComponentManager instance destroyed.");
 }
 
 bool ComponentManager::Initialize()
@@ -56,7 +56,7 @@ bool ComponentManager::Initialize()
   }
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "ComponentManager instance initialized.");
+  DLog(eLogType::cSuccess, "ComponentManager instance initialized.");
   return true;
 }
 
@@ -65,7 +65,7 @@ bool ComponentManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "ComponentManager instance terminated.");
+  DLog(eLogType::cSuccess, "ComponentManager instance terminated.");
   return true;
 }
 

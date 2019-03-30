@@ -8,7 +8,7 @@ ControllerManager::ControllerManager(BaseModule& parentModule, EngineContext* pE
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\t\t ControllerManager instance created.");
+  DLog(eLogType::cSuccess, "\t\t\t ControllerManager instance created.");
 }
 
 ControllerManager::~ControllerManager()
@@ -19,7 +19,7 @@ ControllerManager::~ControllerManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t\t ControllerManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t\t ControllerManager instance destroyed.");
 }
 
 bool ControllerManager::Initialize()
@@ -40,7 +40,7 @@ bool ControllerManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t\t ControllerManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t\t ControllerManager instance initialized.");
   return true;
 }
 
@@ -49,6 +49,6 @@ bool ControllerManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t\t ControllerManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t\t ControllerManager instance terminated.");
   return true;
 }

@@ -91,7 +91,7 @@ struct CommonRigidBodyBase : public CommonExampleInterface
       Collider* obAPtr = static_cast<Collider*>(obA->getUserPointer());
       Collider* obBPtr = static_cast<Collider*>(obB->getUserPointer());
 
-      DLog(eLogType::Info, "Collision between objects with Bullet3 IDs: %d, %d -> Engine IDs: (%d, %d)", obA->getUserIndex(), obB->getUserIndex(), obAPtr->GetGuid(), obAPtr->GetGuid() );
+      DLog(eLogType::cInfo, "Collision between objects with Bullet3 IDs: %d, %d -> Engine IDs: (%d, %d)", obA->getUserIndex(), obB->getUserIndex(), obAPtr->GetGuid(), obAPtr->GetGuid() );
       
       int numContacts = contactManifold->getNumContacts();
       for (int j = 0; j<numContacts; j++)
@@ -106,10 +106,10 @@ struct CommonRigidBodyBase : public CommonExampleInterface
           const btVector3& ptB = pt.getPositionWorldOnB();
           const btVector3& normalOnB = pt.m_normalWorldOnB;
 
-          DLog(eLogType::Info, "contact %d:", j);
-          DLog(eLogType::Info, "A pos: (%f, %f, %f)", ptA.getX(), ptA.getY(), ptA.getX());
-          DLog(eLogType::Info, "B pos: (%f, %f, %f)", ptB.getX(), ptB.getY(), ptB.getZ());
-          DLog(eLogType::Info, "B normal: (%f, %f, %f)", normalOnB.getX(), normalOnB.getY(), normalOnB.getZ());
+          DLog(eLogType::cInfo, "contact %d:", j);
+          DLog(eLogType::cInfo, "A pos: (%f, %f, %f)", ptA.getX(), ptA.getY(), ptA.getX());
+          DLog(eLogType::cInfo, "B pos: (%f, %f, %f)", ptB.getX(), ptB.getY(), ptB.getZ());
+          DLog(eLogType::cInfo, "B normal: (%f, %f, %f)", normalOnB.getX(), normalOnB.getY(), normalOnB.getZ());
 
         }
       }

@@ -27,7 +27,7 @@ InputManager::InputManager(BaseModule& parentModule, EngineContext* pEngineConte
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "InputManager instance created.");
+  DLog(eLogType::cSuccess, "InputManager instance created.");
 }
 
 InputManager::~InputManager() noexcept
@@ -38,7 +38,7 @@ InputManager::~InputManager() noexcept
     Terminate();
   }
 
-  DLog(eLogType::Success, "InputManager instance destroyed.");
+  DLog(eLogType::cSuccess, "InputManager instance destroyed.");
 }
 
 void InputManager::ProcessKeys(GLFWwindow* window, int key, int code, int action, int mode)
@@ -159,7 +159,7 @@ bool InputManager::Initialize()
   }
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "InputManager instance initialized.");
+  DLog(eLogType::cSuccess, "InputManager instance initialized.");
   return true;
 }
 
@@ -168,7 +168,7 @@ bool InputManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "InputManager instance terminated.");
+  DLog(eLogType::cSuccess, "InputManager instance terminated.");
   return true;
 }
 

@@ -11,7 +11,7 @@ AiManager::AiManager(BaseModule& parentModule, EngineContext* pEngineContext):
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t AiManager instance created.");
+  DLog(eLogType::cSuccess, "\t AiManager instance created.");
 }
 
 AiManager::~AiManager()
@@ -22,7 +22,7 @@ AiManager::~AiManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t AiManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t AiManager instance destroyed.");
 }
 
 bool AiManager::Initialize()
@@ -42,7 +42,7 @@ bool AiManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t AiManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t AiManager instance initialized.");
   return true;
 }
 
@@ -51,7 +51,7 @@ bool AiManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t AiManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t AiManager instance terminated.");
   return true;
 }
 

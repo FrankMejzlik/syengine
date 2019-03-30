@@ -7,7 +7,7 @@ AudioManager::AudioManager(BaseModule& parentModule, EngineContext* pEngineConte
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t AudioManager instance created.");
+  DLog(eLogType::cSuccess, "\t AudioManager instance created.");
 }
 
 AudioManager::~AudioManager()
@@ -18,14 +18,14 @@ AudioManager::~AudioManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t AudioManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t AudioManager instance destroyed.");
 }
 
 bool AudioManager::Initialize()
 {
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t AudioManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t AudioManager instance initialized.");
   return true;
 }
 
@@ -35,6 +35,6 @@ bool AudioManager::Terminate()
 
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t AudioManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t AudioManager instance terminated.");
   return true;
 }

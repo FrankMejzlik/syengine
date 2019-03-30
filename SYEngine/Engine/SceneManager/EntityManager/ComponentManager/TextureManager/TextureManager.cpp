@@ -8,7 +8,7 @@ TextureManager::TextureManager(BaseModule& parentModule, EngineContext* pEngineC
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\t\tTextureManager instance created.");
+  DLog(eLogType::cSuccess, "\t\t\tTextureManager instance created.");
 }
 
 TextureManager::~TextureManager()
@@ -19,7 +19,7 @@ TextureManager::~TextureManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t\tTextureManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t\tTextureManager instance destroyed.");
 }
 
 bool TextureManager::Initialize()
@@ -41,7 +41,7 @@ bool TextureManager::Initialize()
 
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t\tTextureManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t\tTextureManager instance initialized.");
   return true;
 }
 
@@ -50,7 +50,7 @@ bool TextureManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t\tTextureManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t\tTextureManager instance terminated.");
   return true;
 }
 

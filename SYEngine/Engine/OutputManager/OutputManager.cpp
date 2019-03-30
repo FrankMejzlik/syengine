@@ -9,7 +9,7 @@ OutputManager::OutputManager(BaseModule &parentModule, EngineContext* pEngineCon
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "OutputManager instance created.");
+  DLog(eLogType::cSuccess, "OutputManager instance created.");
 }
 
 OutputManager::~OutputManager()
@@ -20,7 +20,7 @@ OutputManager::~OutputManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "OutputManager instance destroyed.");
+  DLog(eLogType::cSuccess, "OutputManager instance destroyed.");
 }
 
 bool OutputManager::Initialize()
@@ -41,7 +41,7 @@ bool OutputManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "OutputManager instance initialized.");
+  DLog(eLogType::cSuccess, "OutputManager instance initialized.");
   return true;
 }
 
@@ -50,7 +50,7 @@ bool OutputManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "OutputManager instance terminated.");
+  DLog(eLogType::cSuccess, "OutputManager instance terminated.");
   return true;
 }
 

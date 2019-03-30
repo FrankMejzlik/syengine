@@ -22,7 +22,7 @@ int Window::Initialize()
   mainWindow = glfwCreateWindow(bufferWidth, bufferHeight, GAME_WINDOW_TITLE, NULL, NULL);
   if (!mainWindow)
   {
-    DLog(eLogType::Error, "GLFW window creation failed!");
+    DLog(eLogType::cError, "GLFW window creation failed!");
     glfwTerminate();
     return 2;
   }
@@ -39,7 +39,7 @@ int Window::Initialize()
   auto glewInitResult = glewInit();
   if (glewInitResult != GLEW_OK)
   {
-    DLog(eLogType::Error, "GLEW init failed!");
+    DLog(eLogType::cError, "GLEW init failed!");
     glfwTerminate();
     return 3;
   }
@@ -71,7 +71,7 @@ int Window::Initialize()
   // Set instance that belongs to winwow
   glfwSetWindowUserPointer(mainWindow, this);
 
-  DLog(eLogType::Success, "Engine initialzied...");
+  DLog(eLogType::cSuccess, "Engine initialzied...");
 
   return 0;
 }
@@ -88,7 +88,7 @@ void Window::SetAsRenderTarget(Scene* pScene)
 
   if (pCamera == nullptr)
   {
-    DLog(eLogType::Error, "Main camera not attached. Call somehting like pScene->SetMainCamera(pEntity->GetCameraPtr()); in _SceneBuilder.h");
+    DLog(eLogType::cError, "Main camera not attached. Call somehting like pScene->SetMainCamera(pEntity->GetCameraPtr()); in _SceneBuilder.h");
   }
 
   pCamera->SetTargetWindow(this);

@@ -12,7 +12,7 @@ MeshManager::MeshManager(BaseModule& parentModule, EngineContext* pEngineContext
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\t\t MeshManager instance created.");
+  DLog(eLogType::cSuccess, "\t\t\t MeshManager instance created.");
 }
 
 MeshManager::~MeshManager()
@@ -23,7 +23,7 @@ MeshManager::~MeshManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t\t MeshManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t\t MeshManager instance destroyed.");
 }
 
 bool MeshManager::Initialize()
@@ -44,7 +44,7 @@ bool MeshManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t\t MeshManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t\t MeshManager instance initialized.");
   return true;
 }
 
@@ -53,7 +53,7 @@ bool MeshManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t\t MeshManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t\t MeshManager instance terminated.");
   return true;
 }
 

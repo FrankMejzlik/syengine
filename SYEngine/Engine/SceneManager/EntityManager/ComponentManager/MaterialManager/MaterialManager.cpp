@@ -8,7 +8,7 @@ MaterialManager::MaterialManager(BaseModule& parentModule, EngineContext* pEngin
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\t\t MaterialManager instance created.");
+  DLog(eLogType::cSuccess, "\t\t\t MaterialManager instance created.");
 }
 
 MaterialManager::~MaterialManager()
@@ -19,7 +19,7 @@ MaterialManager::~MaterialManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t\t MaterialManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t\t MaterialManager instance destroyed.");
 }
 
 bool MaterialManager::Initialize()
@@ -40,7 +40,7 @@ bool MaterialManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t\t MaterialManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t\t MaterialManager instance initialized.");
   return true;
 }
 
@@ -49,6 +49,6 @@ bool MaterialManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t\t MaterialManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t\t MaterialManager instance terminated.");
   return true;
 }

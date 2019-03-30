@@ -38,7 +38,7 @@ Scene::Scene(EngineContext* pEngineContext, Engine* pEngine, Window* pTargetWind
   // Attach this engine to Engine
   _pEngine->AttachScene(this);
 
-  DLog(eLogType::Success, "Scene %d instantiated.", _pSceneContext->GetSceneId());
+  DLog(eLogType::cSuccess, "Scene %d instantiated.", _pSceneContext->GetSceneId());
 }
 
 Scene::~Scene() noexcept
@@ -66,7 +66,7 @@ Scene::~Scene() noexcept
   // Destroy Physics Scene
   GetPhysicsManagerPtr()->TerminateScene(this);
 
-  DLog(eLogType::Success, "Scene %d destroyed.", _pSceneContext->GetSceneId());
+  DLog(eLogType::cSuccess, "Scene %d destroyed.", _pSceneContext->GetSceneId());
 }
 
 

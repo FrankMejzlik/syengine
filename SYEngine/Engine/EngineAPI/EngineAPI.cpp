@@ -16,7 +16,7 @@ EngineApi::EngineApi(BaseModule &parentModule, EngineContext* pEngineContext):
 
   _pEngineApistatic = this;
 
-  DLog(eLogType::Success, "EngineAPI instance created.");
+  DLog(eLogType::cSuccess, "EngineAPI instance created.");
 }
 
 EngineApi::~EngineApi()
@@ -27,7 +27,7 @@ EngineApi::~EngineApi()
     Terminate();
   }
 
-  DLog(eLogType::Success, "EngineAPI instance destroyed.");
+  DLog(eLogType::cSuccess, "EngineAPI instance destroyed.");
 }
 
 bool EngineApi::Initialize()
@@ -48,7 +48,7 @@ bool EngineApi::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "EngineAPI instance initialized.");
+  DLog(eLogType::cSuccess, "EngineAPI instance initialized.");
   return true;
 }
 
@@ -57,7 +57,7 @@ bool EngineApi::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "EngineAPI instance terminated.");
+  DLog(eLogType::cSuccess, "EngineAPI instance terminated.");
   return true;
 }
 

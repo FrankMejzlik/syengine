@@ -10,7 +10,7 @@ ShaderManager::ShaderManager(BaseModule& parentModule, EngineContext* pEngineCon
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\t ShaderManager instance created.");
+  DLog(eLogType::cSuccess, "\t\t ShaderManager instance created.");
 }
 
 ShaderManager::~ShaderManager()
@@ -21,7 +21,7 @@ ShaderManager::~ShaderManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t ShaderManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t ShaderManager instance destroyed.");
 }
 
 bool ShaderManager::Initialize()
@@ -41,7 +41,7 @@ bool ShaderManager::Initialize()
 
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t ShaderManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t ShaderManager instance initialized.");
   return true;
 }
 
@@ -50,7 +50,7 @@ bool ShaderManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t ShaderManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t ShaderManager instance terminated.");
   return true;
 }
 

@@ -11,7 +11,7 @@ ScriptManager::ScriptManager(BaseModule& parentModule, EngineContext* pEngineCon
   // Enlist all submodules into EngineContext ptr table
 
   EnlistSubmodulesToEngineContext();
-  DLog(eLogType::Success, "\t ScriptManager instance created.");
+  DLog(eLogType::cSuccess, "\t ScriptManager instance created.");
 }
 
 ScriptManager::~ScriptManager()
@@ -22,7 +22,7 @@ ScriptManager::~ScriptManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t ScriptManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t ScriptManager instance destroyed.");
 }
 
 bool ScriptManager::Initialize()
@@ -42,7 +42,7 @@ bool ScriptManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t ScriptManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t ScriptManager instance initialized.");
   return true;
 }
 
@@ -51,7 +51,7 @@ bool ScriptManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t ScriptManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t ScriptManager instance terminated.");
   return true;
 }
 

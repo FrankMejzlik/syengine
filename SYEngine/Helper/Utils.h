@@ -18,7 +18,7 @@ namespace Utils
     // If opening file failed
     if (!file.is_open())
     {
-      DLog(eLogType::Error, "Failed to open file %s.", filepath);
+      DLog(eLogType::cError, "Failed to open file %s.", filepath);
       return std::string();
     }
 

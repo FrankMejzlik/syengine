@@ -7,7 +7,7 @@ WindowManager::WindowManager(BaseModule& parentModule, EngineContext* pEngineCon
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\t WindowManager instance created.");
+  DLog(eLogType::cSuccess, "\t\t WindowManager instance created.");
 }
 
 WindowManager::~WindowManager()
@@ -18,7 +18,7 @@ WindowManager::~WindowManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t WindowManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t WindowManager instance destroyed.");
 }
 
 bool WindowManager::Initialize()
@@ -39,7 +39,7 @@ bool WindowManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t WindowManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t WindowManager instance initialized.");
   return true;
 }
 
@@ -48,7 +48,7 @@ bool WindowManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t WindowManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t WindowManager instance terminated.");
   return true;
 }
 

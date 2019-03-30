@@ -35,17 +35,17 @@ void Logger::Log(bool showTimestamp, eLogType logType, std::string_view filename
 
 	switch (logType)
 	{
-  case eLogType::Error:
+  case eLogType::cError:
 		Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::Red);
     strcpy_s(prefix, sizeof(prefix), "E: ");
 		break;
 		
-	case eLogType::Warning:
+	case eLogType::cWarning:
 		Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::Yellow);
     strcpy_s(prefix, sizeof(prefix), "W: ");
 		break;
 
-	case eLogType::Success:
+	case eLogType::cSuccess:
 		Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::Green);
     strcpy_s(prefix, sizeof(prefix), "S: ");
 		break;
@@ -139,17 +139,17 @@ void Logger::Log(bool showTimestamp, eLogType logType, std::string_view filename
 
 	switch (logType)
 	{
-  case eLogType::Error:
+  case eLogType::cError:
 		Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::Red);
     strcpy_s(prefix, sizeof(prefix), "E: ");
 		break;
 		
-	case eLogType::Warning:
+	case eLogType::cWarning:
 		Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::Yellow);
     strcpy_s(prefix, sizeof(prefix), "W: ");
 		break;
 
-	case eLogType::Success:
+	case eLogType::cSuccess:
 		Logger::GetInstance()->SetConsoleTextColour(eConsoleTextColour::Green);
     strcpy_s(prefix, sizeof(prefix), "S: ");
 		break;

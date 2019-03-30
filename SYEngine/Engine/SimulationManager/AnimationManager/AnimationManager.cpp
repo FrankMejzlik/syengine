@@ -10,7 +10,7 @@ AnimationManager::AnimationManager(BaseModule &parentModule, EngineContext* pEng
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t AnimationManager instance created.");
+  DLog(eLogType::cSuccess, "\t AnimationManager instance created.");
 }
 
 AnimationManager::~AnimationManager()
@@ -21,7 +21,7 @@ AnimationManager::~AnimationManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t AnimationManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t AnimationManager instance destroyed.");
 }
 
 bool AnimationManager::Initialize()
@@ -42,7 +42,7 @@ bool AnimationManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t AnimationManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t AnimationManager instance initialized.");
   return true;
 }
 
@@ -51,6 +51,6 @@ bool AnimationManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t AnimationManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t AnimationManager instance terminated.");
   return true;
 }

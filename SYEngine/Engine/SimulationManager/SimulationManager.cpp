@@ -10,7 +10,7 @@ SimulationManager::SimulationManager(BaseModule& parentModule, EngineContext* pE
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "SimulationManager instance created.");
+  DLog(eLogType::cSuccess, "SimulationManager instance created.");
 }
 
 SimulationManager::~SimulationManager()
@@ -21,7 +21,7 @@ SimulationManager::~SimulationManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "SimulationManager instance destroyed.");
+  DLog(eLogType::cSuccess, "SimulationManager instance destroyed.");
 }
 
 bool SimulationManager::Initialize()
@@ -40,7 +40,7 @@ bool SimulationManager::Initialize()
   }
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "SimulationManager instance initialized.");
+  DLog(eLogType::cSuccess, "SimulationManager instance initialized.");
   return true;
 }
 
@@ -49,7 +49,7 @@ bool SimulationManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "SimulationManager instance terminated.");
+  DLog(eLogType::cSuccess, "SimulationManager instance terminated.");
   return true;
 }
 

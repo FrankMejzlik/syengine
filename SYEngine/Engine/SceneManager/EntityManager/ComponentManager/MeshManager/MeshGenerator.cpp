@@ -5,7 +5,7 @@ using namespace SYE;
 MeshGenerator::MeshGenerator(BaseModule& parentModule, EngineContext* pEngineContext):
   BaseModule(parentModule, pEngineContext)
 {
-  DLog(eLogType::Success, "\t\t\t MeshGenerator instance created.");
+  DLog(eLogType::cSuccess, "\t\t\t MeshGenerator instance created.");
 }
 
 MeshGenerator::~MeshGenerator() noexcept
@@ -16,7 +16,7 @@ MeshGenerator::~MeshGenerator() noexcept
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t\t MeshGenerator instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t\t MeshGenerator instance destroyed.");
 }
 
 bool MeshGenerator::Initialize()
@@ -37,7 +37,7 @@ bool MeshGenerator::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t\t MeshGenerator instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t\t MeshGenerator instance initialized.");
   return true;
 }
 
@@ -46,7 +46,7 @@ bool MeshGenerator::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t\t MeshGenerator instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t\t MeshGenerator instance terminated.");
   return true;
 }
 

@@ -7,7 +7,7 @@ NetworkManager::NetworkManager(BaseModule& parentModule, EngineContext* pEngineC
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "NetworkManager instance created.");
+  DLog(eLogType::cSuccess, "NetworkManager instance created.");
 }
 
 NetworkManager::~NetworkManager()
@@ -18,7 +18,7 @@ NetworkManager::~NetworkManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "NetworkManager instance destroyed.");
+  DLog(eLogType::cSuccess, "NetworkManager instance destroyed.");
 }
 
 bool NetworkManager::Initialize()
@@ -39,7 +39,7 @@ bool NetworkManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "NetworkManager instance initialized.");
+  DLog(eLogType::cSuccess, "NetworkManager instance initialized.");
   return true;
 }
 
@@ -49,7 +49,7 @@ bool NetworkManager::Terminate()
 
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "NetworkManager instance terminated.");
+  DLog(eLogType::cSuccess, "NetworkManager instance terminated.");
   return true;
 }
 

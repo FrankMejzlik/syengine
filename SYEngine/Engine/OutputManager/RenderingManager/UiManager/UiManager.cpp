@@ -7,7 +7,7 @@ UiManager::UiManager(BaseModule &parentModule, EngineContext* pEngineContext):
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\t UiManager instance created.");
+  DLog(eLogType::cSuccess, "\t\t UiManager instance created.");
 }
 
 UiManager::~UiManager()
@@ -18,7 +18,7 @@ UiManager::~UiManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t UiManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t UiManager instance destroyed.");
 }
 
 bool UiManager::Initialize()
@@ -39,7 +39,7 @@ bool UiManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t UiManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t UiManager instance initialized.");
   return true;
 }
 
@@ -49,7 +49,7 @@ bool UiManager::Terminate()
   TerminateImGui();
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t UiManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t UiManager instance terminated.");
   return true;
 }
 

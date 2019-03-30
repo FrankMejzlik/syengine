@@ -27,7 +27,7 @@ SceneManager::SceneManager(BaseModule& parentModule, EngineContext* pEngineConte
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "SceneManager instance created.");
+  DLog(eLogType::cSuccess, "SceneManager instance created.");
 }
 
 SceneManager::~SceneManager()
@@ -38,7 +38,7 @@ SceneManager::~SceneManager()
     Terminate();
   }
   
-  DLog(eLogType::Success, "SceneManager instance destroyed.");
+  DLog(eLogType::cSuccess, "SceneManager instance destroyed.");
 }
 
 bool SceneManager::Initialize()
@@ -62,7 +62,7 @@ bool SceneManager::Initialize()
 
   SetModuleState(eModuleState::OK);
 
-  DLog(eLogType::Success, "SceneManager instance initialized.");
+  DLog(eLogType::cSuccess, "SceneManager instance initialized.");
   return true;
 }
 
@@ -71,7 +71,7 @@ bool SceneManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "SceneManager instance terminated.");
+  DLog(eLogType::cSuccess, "SceneManager instance terminated.");
   return true;  
 }
 
@@ -93,21 +93,21 @@ Scene* SceneManager::CreateScene(EngineContext* pEngineContext, Engine* pOwnerEn
   // If instantiation failed.
   if (!pScene)
   {
-    DLog(eLogType::Info, "Failed creating scene.");
+    DLog(eLogType::cInfo, "Failed creating scene.");
     return nullptr;
   }
 
   // Attach to Window instance
   pScene->SetMainWindowPtr(pWindow);
 
-  DLog(eLogType::Success, "Created scene.");
+  DLog(eLogType::cSuccess, "Created scene.");
 
   return InsertScene(std::move(pScene));
 }
 
 Scene* SceneManager::LoadInitialScene(Scene* pScene)
 {
-  DLog(eLogType::Info, "Loading initial test scene.");
+  DLog(eLogType::cInfo, "Loading initial test scene.");
 
 
   // Call special SceneBuilder script
@@ -134,7 +134,7 @@ Scene* SceneManager::LoadInitialScene(Scene* pScene)
 
   _pActiveScene = pScene;
 
-  DLog(eLogType::Success, "Initial test scene loaded.");
+  DLog(eLogType::cSuccess, "Initial test scene loaded.");
 
   return pScene;
 }
@@ -226,7 +226,7 @@ Scene* SceneManager::InsertScene(std::unique_ptr<Scene>&& sceneToInsert)
     SetModuleState(eModuleState::Warning);
     PushWarning(eModuleWarning::kDuplicateEntries, "Tried to insert already present Scene instance.");
 
-    DLog(eLogType::Warning, "Tried to insert already present Scene instance.");
+    DLog(eLogType::cWarning, "Tried to insert already present Scene instance.");
     assert(result.second == true);
   }
 

@@ -40,10 +40,10 @@ enum class eConsoleTextColour
 
 enum class eLogType
 {
-	Error,
-	Warning,
-	Info,
-	Success
+	cError,
+	cWarning,
+	cInfo,
+	cSuccess
 };
 
 class Logger
@@ -111,10 +111,10 @@ enum class eConsoleTextColour
 
 enum class eLogType
 {
-	Error,
-	Warning,
-	Info,
-	Success
+	cError,
+	cWarning,
+	cInfo,
+	cSuccess
 };
 
 class Logger

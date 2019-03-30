@@ -8,7 +8,7 @@ MouseManager::MouseManager(BaseModule& parentModule, EngineContext* pEngineConte
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t MouseManager instance created.");
+  DLog(eLogType::cSuccess, "\t MouseManager instance created.");
 }
 
 MouseManager::~MouseManager()
@@ -19,7 +19,7 @@ MouseManager::~MouseManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t MouseManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t MouseManager instance destroyed.");
 }
 
 bool MouseManager::Initialize()
@@ -40,7 +40,7 @@ bool MouseManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t MouseManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t MouseManager instance initialized.");
   return true;
 }
 
@@ -49,6 +49,6 @@ bool MouseManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t MouseManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t MouseManager instance terminated.");
   return true;
 }

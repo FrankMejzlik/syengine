@@ -13,7 +13,7 @@ PhysicsManager::PhysicsManager(BaseModule& parentModule, EngineContext* pEngineC
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t PhysicsManager instance created.");
+  DLog(eLogType::cSuccess, "\t PhysicsManager instance created.");
 }
 
 PhysicsManager::~PhysicsManager() noexcept
@@ -24,7 +24,7 @@ PhysicsManager::~PhysicsManager() noexcept
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t PhysicsManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t PhysicsManager instance destroyed.");
 }
 
 bool PhysicsManager::Initialize()
@@ -45,14 +45,14 @@ bool PhysicsManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t PhysicsManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t PhysicsManager instance initialized.");
   return true;
 }
 
 bool PhysicsManager::Terminate()
 {
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t PhysicsManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t PhysicsManager instance terminated.");
   return true;
 }
 

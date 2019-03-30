@@ -10,7 +10,7 @@ EntityManager::EntityManager(BaseModule& parentModule, EngineContext* pEngineCon
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t EntityManager instance created.");
+  DLog(eLogType::cSuccess, "\t EntityManager instance created.");
 }
 
 EntityManager::~EntityManager()
@@ -21,7 +21,7 @@ EntityManager::~EntityManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t EntityManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t EntityManager instance destroyed.");
 }
 
 bool EntityManager::Initialize()
@@ -43,7 +43,7 @@ bool EntityManager::Initialize()
   }
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t EntityManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t EntityManager instance initialized.");
   return true;
 }
 
@@ -61,7 +61,7 @@ bool EntityManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t EntityManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t EntityManager instance terminated.");
   return true;
 }
 

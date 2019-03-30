@@ -9,7 +9,7 @@ KeyboardManager::KeyboardManager(BaseModule& parentModule, EngineContext* pEngin
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t KeyboardManager instance created.");
+  DLog(eLogType::cSuccess, "\t KeyboardManager instance created.");
 }
 
 KeyboardManager::~KeyboardManager()
@@ -20,7 +20,7 @@ KeyboardManager::~KeyboardManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t KeyboardManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t KeyboardManager instance destroyed.");
 }
 
 bool KeyboardManager::Initialize()
@@ -41,7 +41,7 @@ bool KeyboardManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t KeyboardManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t KeyboardManager instance initialized.");
   return true;
 }
 
@@ -51,6 +51,6 @@ bool KeyboardManager::Terminate()
 
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t KeyboardManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t KeyboardManager instance terminated.");
   return true;
 }

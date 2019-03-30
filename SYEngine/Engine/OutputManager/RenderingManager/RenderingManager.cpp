@@ -23,7 +23,7 @@ using namespace SYE;
 
 void RenderingManager::OpenGlErrorCallack(int error, const char* description)
 {
-  DLog(eLogType::Error, "Error %d: %s", error, description);
+  DLog(eLogType::cError, "Error %d: %s", error, description);
 }
 
 RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEngineContext):
@@ -41,7 +41,7 @@ RenderingManager::RenderingManager(BaseModule& parentModule, EngineContext* pEng
   // Set debug renderer level
   _pPhysicsDebugRenderer->setDebugMode(0);
 
-  DLog(eLogType::Success, "\t RenderingManager instance created.");
+  DLog(eLogType::cSuccess, "\t RenderingManager instance created.");
 }
 
 RenderingManager::~RenderingManager()
@@ -52,7 +52,7 @@ RenderingManager::~RenderingManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t RenderingManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t RenderingManager instance destroyed.");
 }
 
 bool RenderingManager::Initialize()
@@ -83,7 +83,7 @@ bool RenderingManager::Initialize()
   }
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t RenderingManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t RenderingManager instance initialized.");
   return true;
 }
 
@@ -92,7 +92,7 @@ bool RenderingManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t RenderingManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t RenderingManager instance terminated.");
   return true;
 }
 

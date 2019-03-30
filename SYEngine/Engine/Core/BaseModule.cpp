@@ -13,7 +13,7 @@ BaseModule::BaseModule(int magicNumber) :
   // Test if magic number matches
   if (magicNumber != MAGIC_BASE_MODULE_NUMBER)
   {
-    DLog(eLogType::Error, "Default BaseModule constructor called from non-root module!");
+    DLog(eLogType::cError, "Default BaseModule constructor called from non-root module!");
     assert(magicNumber == MAGIC_BASE_MODULE_NUMBER);
   }
 }

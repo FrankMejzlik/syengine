@@ -37,7 +37,7 @@ Engine::Engine(ProcessInstance* pInstance) noexcept :
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "Engine instance created.");
+  DLog(eLogType::cSuccess, "Engine instance created.");
 }
 
 Engine::~Engine() noexcept
@@ -51,7 +51,7 @@ Engine::~Engine() noexcept
     Terminate();
   }
 
-  DLog(eLogType::Success, "Engine instance destroyed.");
+  DLog(eLogType::cSuccess, "Engine instance destroyed.");
 }
 
 bool Engine::Initialize()
@@ -291,7 +291,7 @@ bool Engine::Terminate()
     if (!(*it).second->Terminate())
     {
       SetModuleState(eModuleState::Error);
-      DLog(eLogType::Error, "Terminating main modules failed.");
+      DLog(eLogType::cError, "Terminating main modules failed.");
       return false;
     }
   }
@@ -299,7 +299,7 @@ bool Engine::Terminate()
   // Terminate self
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "Engine instance terminated.");
+  DLog(eLogType::cSuccess, "Engine instance terminated.");
   return true;
 }
 

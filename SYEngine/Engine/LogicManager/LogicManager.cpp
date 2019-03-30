@@ -14,7 +14,7 @@ LogicManager::LogicManager(BaseModule& parentModule, EngineContext* pEngineConte
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t LogicManager instance created.");
+  DLog(eLogType::cSuccess, "\t LogicManager instance created.");
 }
 
 LogicManager::~LogicManager()
@@ -25,7 +25,7 @@ LogicManager::~LogicManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t LogicManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t LogicManager instance destroyed.");
 }
 
 bool LogicManager::Initialize()
@@ -46,7 +46,7 @@ bool LogicManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t LogicManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t LogicManager instance initialized.");
   return true;
 }
 
@@ -55,7 +55,7 @@ bool LogicManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t LogicManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t LogicManager instance terminated.");
   return true;
 }
 

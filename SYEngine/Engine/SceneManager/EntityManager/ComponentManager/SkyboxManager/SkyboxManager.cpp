@@ -8,7 +8,7 @@ SkyboxManager::SkyboxManager(BaseModule& parentModule, EngineContext* pEngineCon
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\t\tSkyboxManager instance created.");
+  DLog(eLogType::cSuccess, "\t\t\tSkyboxManager instance created.");
 }
 
 SkyboxManager::~SkyboxManager()
@@ -19,7 +19,7 @@ SkyboxManager::~SkyboxManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t\tSkyboxManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t\tSkyboxManager instance destroyed.");
 }
 
 bool SkyboxManager::Initialize()
@@ -40,7 +40,7 @@ bool SkyboxManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t\t\t SkyboxManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t\t\t SkyboxManager instance initialized.");
   return true;
 }
 
@@ -49,6 +49,6 @@ bool SkyboxManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t\t SkyboxManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t\t SkyboxManager instance terminated.");
   return true;
 }

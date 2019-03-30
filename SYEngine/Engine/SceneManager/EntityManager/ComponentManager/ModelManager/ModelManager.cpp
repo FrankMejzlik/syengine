@@ -9,7 +9,7 @@ ModelManager::ModelManager(BaseModule& parentModule, EngineContext* pEngineConte
   // Enlist all submodules into EngineContext ptr table
   EnlistSubmodulesToEngineContext();
 
-  DLog(eLogType::Success, "\t\t\t ModelManager instance created.");
+  DLog(eLogType::cSuccess, "\t\t\t ModelManager instance created.");
 }
 
 ModelManager::~ModelManager()
@@ -20,7 +20,7 @@ ModelManager::~ModelManager()
     Terminate();
   }
 
-  DLog(eLogType::Success, "\t\t\t ModelManager instance destroyed.");
+  DLog(eLogType::cSuccess, "\t\t\t ModelManager instance destroyed.");
 }
 
 bool ModelManager::Initialize()
@@ -41,7 +41,7 @@ bool ModelManager::Initialize()
   // Class specific initialization
 
   SetModuleState(eModuleState::OK);
-  DLog(eLogType::Success, "\t\t\t ModelManager instance initialized.");
+  DLog(eLogType::cSuccess, "\t\t\t ModelManager instance initialized.");
   return true;
 }
 
@@ -50,7 +50,7 @@ bool ModelManager::Terminate()
   // Class specific terminate
 
   SetModuleState(eModuleState::Null);
-  DLog(eLogType::Success, "\t\t\t ModelManager instance terminated.");
+  DLog(eLogType::cSuccess, "\t\t\t ModelManager instance terminated.");
   return true;
 }
 //
