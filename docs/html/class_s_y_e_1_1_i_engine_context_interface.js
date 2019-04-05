@@ -2,7 +2,6 @@ var class_s_y_e_1_1_i_engine_context_interface =
 [
     [ "IEngineContextInterface", "class_s_y_e_1_1_i_engine_context_interface.html#aa37df8374327e60f3baaf14308517884", null ],
     [ "IEngineContextInterface", "class_s_y_e_1_1_i_engine_context_interface.html#acbb68f336544adba606fe24499ec747d", null ],
-    [ "GetAiManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#a880971e45293ea117a10d18d6ee51744", null ],
     [ "GetAudioManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#aeffcb0c3bc52509add61547b15bd46c7", null ],
     [ "GetComponentManagerPtr", "class_s_y_e_1_1_i_engine_context_interface.html#a17d681eecafbbf1dcb10e24597a2120a", null ],
     [ "GetEngineApiPtr", "class_s_y_e_1_1_i_engine_context_interface.html#a92f43be0b7d81998a732adf2fd02079f", null ],

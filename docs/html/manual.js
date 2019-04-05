@@ -5,7 +5,8 @@ var manual =
       [ "Future efforts", "roadmap.html#future_efforts", null ]
     ] ],
     [ "Building SYEngine", "building_syengine.html", [
-      [ "MSVC", "building_syengine.html#msvc", null ]
+      [ "MSVC", "building_syengine.html#msvc", null ],
+      [ "Make build system", "building_syengine.html#make", null ]
     ] ],
     [ "Engine concepts", "engine_concepts.html", [
       [ "Basic Scene composition", "engine_concepts.html#basic_scene_composition", [

@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['physicsscene',['PhysicsScene',['../class_s_y_e_1_1_physics_scene.html#a4e0efc9a6f7f170217266a417a77cf3b',1,'SYE::PhysicsScene']]],
-  ['processscene',['ProcessScene',['../class_s_y_e_1_1_physics_scene.html#ab5eca5793b5f2a61a5f419b8d6592b54',1,'SYE::PhysicsScene']]],
-  ['pushenginecommand',['PushEngineCommand',['../class_s_y_e_1_1_engine_api.html#a0e9fc124ef2f11f9e27b3fc0978ee945',1,'SYE::EngineApi']]]
+  ['raycast',['Raycast',['../class_s_y_e_1_1_scene.html#a8caec9cd851a122a2da8c15f280828c3',1,'SYE::Scene::Raycast()'],['../class_s_y_e_1_1_physics_scene.html#aeace0a74f34c30e6464de09a5de47266',1,'SYE::PhysicsScene::Raycast()']]],
+  ['registercomponent',['RegisterComponent',['../class_s_y_e_1_1_scene.html#a7749a40638a38f6f6d540766009deb05',1,'SYE::Scene']]],
+  ['removefromphysicsscene',['RemoveFromPhysicsScene',['../class_s_y_e_1_1_physics_scene.html#a7f8f699f9aeca223f9d6c890221978d9',1,'SYE::PhysicsScene']]],
+  ['removephysicsentity',['RemovePhysicsEntity',['../class_s_y_e_1_1_physics_scene.html#a44eeac151ee23d9c963a3c795d07047f',1,'SYE::PhysicsScene']]],
+  ['renderforshadowmap',['RenderForShadowMap',['../class_s_y_e_1_1_mesh_renderer.html#acfbc8ee52bfcd1ee553d9df3441fd7e9',1,'SYE::MeshRenderer']]]
 ];

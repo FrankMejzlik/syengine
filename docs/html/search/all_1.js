@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['actioncameracontroller',['ActionCameraController',['../class_s_y_e_1_1_action_camera_controller.html',1,'SYE']]],
   ['addblock',['AddBlock',['../class_s_y_e_1_1_scene.html#a653aaca85f7fe0657f8cab5cfc67be03',1,'SYE::Scene']]],
   ['addcamera',['AddCamera',['../class_s_y_e_1_1_scene.html#a3a59dac663718774394aca2a863367d9',1,'SYE::Scene']]],
   ['addmaterial',['AddMaterial',['../class_s_y_e_1_1_mesh_renderer.html#a935fed2766a0b66d883d22ec8f77166d',1,'SYE::MeshRenderer::AddMaterial()'],['../class_s_y_e_1_1_mesh_renderer.html#af1932f5e417c8a9b71ed0518617522cd',1,'SYE::MeshRenderer::AddMaterial(std::string_view textureFilePath, dfloat specularIntensity, dfloat shininessIntensity)'],['../class_s_y_e_1_1_mesh_renderer.html#a6a3557495f8624edde19c8698016c318',1,'SYE::MeshRenderer::AddMaterial(Vector3f colour, dfloat specularIntensity, dfloat shininessIntensity)']]],

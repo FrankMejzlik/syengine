@@ -94,23 +94,33 @@ $(document).ready(function(){initNavTree('building_syengine.html','');});
 <h1><a class="anchor" id="msvc"></a>
 MSVC</h1>
 <ol type="1">
-<li>Checkout <a href="https://gitlab.com/devWeSp/syengine">SYEngine repository</a> to your computer.</li>
-<li>Download <a href="http://devwesp.com/download/external.zip">externals</a><ol type="a">
-<li>Extract <code>external</code> directory into 'SYEngine' directory inside repository directory (e.g. <code>C:/SYEngine/SYEngine/</code>) so <code>external</code> directory lies next to 'SYEngine.vcxproj' file.</li>
-</ol>
-</li>
-<li>Download <a href="http://devwesp.com/download/resource.zip">resources</a><ol type="a">
-<li>Extract 'resource' directory into 'SYEngine' directory inside repository directory (e.g. <code>C:/SYEngine/SYEngine/</code>) so <code>resource</code> directory lies next to 'SYEngine.vcxproj' file.</li>
-</ol>
-</li>
+<li>Checkout <a href="https://gitlab.com/sye-tech/SYEngine">SYEngine repository</a> RECURSIVELY (with &ndash;recurse-submodules option) to your computer.</li>
 <li>Inside <code>{repo_root}/SYEngine/</code> create 'Game' directory and place there some game logic.<ol type="a">
 <li>Good starting point are our examples (<code>{repo_root}/examples/{exmaple_name}</code>) - just choose example open it's directory and <b>copy all contents of example directory</b> into <code>{repo_root}/SYEngine/Game/</code>.</li>
 </ol>
 </li>
-<li>Build and run. <dl class="section note"><dt>Note</dt><dd>Inside <code>{repo_root}/SYEngine/Game/</code> there must be <code>scripts</code> directory with <code><a class="el" href="___scene_builder_8h.html">_SceneBuilder.h</a></code> file, which contains implementation of _SceneBuilder class that inherits from <a class="el" href="class_s_y_e_1_1___scene_builder_base.html" title="Class responsible for building initial Scene instance before launch.">SYE::_SceneBuilderBase</a>. Inside <code>{repo_root}/SYEngine/Game/</code> there also should be file <code><a class="el" href="game__script__includes_8h_source.html">game_script_includes.h</a></code> that includes Scripts you want to use (both yours and those we provided with engine).</dd></dl>
-Project folder structure should look something like: <div class="fragment"><div class="line">SYEngine/ </div><div class="line">├── Diagnostics/ </div><div class="line">│   └── ...  </div><div class="line">├── Engine/  </div><div class="line">│   └── ...  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── Game/  </div><div class="line">│   ├── scripts/  </div><div class="line">│   │   ├── _SceneBuilder.h  </div><div class="line">│   │   ├── game_script_includes.h  </div><div class="line">│   │   ├── ... (your other scripts)  </div><div class="line">│   │  </div><div class="line">│   └── (arbitrary your file structure)  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── resource/  </div><div class="line">│   └── ...  </div><div class="line">├── shaders/  </div><div class="line">│   └── ...  </div><div class="line">├── imgui.ini  </div><div class="line">├── main.cpp  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── SYEngine.vcxproj.filters  </div><div class="line">└── SYEngine.vcxproj.user  </div></div><!-- fragment --></li>
+<li>Run CMake to create build for VS to desired directory</li>
+<li>Build</li>
+<li>Engine will be build to 'dist' directory in your build directory</li>
+<li>Download <a href="http://devwesp.com/download/resource.zip">resources</a> and extract contents to 'dist' direcoty (next to executable)</li>
+<li>Run</li>
 </ol>
-<p>It should compile without any errors or warnings and game whose logic you copied inside 'Game' directory should be running.</p>
+<h1><a class="anchor" id="make"></a>
+Make build system</h1>
+<ol type="1">
+<li>Checkout <a href="https://gitlab.com/sye-tech/SYEngine">SYEngine repository</a> RECURSIVELY (with &ndash;recurse-submodules option) to your computer</li>
+<li>Inside <code>{repo_root}/SYEngine/</code> create 'Game' directory and place there some game logic.<ol type="a">
+<li>Good starting point are our examples (<code>{repo_root}/examples/{exmaple_name}</code>) - just choose example open it's directory and <b>copy all contents of example directory</b> into <code>{repo_root}/SYEngine/Game/</code>.</li>
+</ol>
+</li>
+<li>Run CMake to create build to desired directory</li>
+<li>CD to build directory and run 'make' and then 'make install' commands</li>
+<li>Engine will be build to 'dist' directory in your build directory</li>
+<li>Download <a href="http://devwesp.com/download/resource.zip">resources</a> and extract contents to 'dist' direcoty (next to executable)</li>
+<li>Run</li>
+</ol>
+<dl class="section note"><dt>Note</dt><dd>Inside <code>{repo_root}/SYEngine/Game/</code> there must be <code>scripts</code> directory with <code><a class="el" href="___scene_builder_8h.html">_SceneBuilder.h</a></code> file, which contains implementation of _SceneBuilder class that inherits from <a class="el" href="class_s_y_e_1_1___scene_builder_base.html" title="Class responsible for building initial Scene instance before launch.">SYE::_SceneBuilderBase</a>. Inside <code>{repo_root}/SYEngine/Game/</code> there also should be file <code><a class="el" href="game__script__includes_8h_source.html">game_script_includes.h</a></code> that includes Scripts you want to use (both yours and those we provided with engine).</dd></dl>
+<p>Project folder structure should look something like: </p><div class="fragment"><div class="line">SYEngine/ </div><div class="line">├── Diagnostics/ </div><div class="line">│   └── ...  </div><div class="line">├── Engine/  </div><div class="line">│   └── ...  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── Game/  </div><div class="line">│   ├── scripts/  </div><div class="line">│   │   ├── _SceneBuilder.h  </div><div class="line">│   │   ├── game_script_includes.h  </div><div class="line">│   │   ├── ... (your other scripts)  </div><div class="line">│   │  </div><div class="line">│   └── (arbitrary your file structure)  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── resource/  </div><div class="line">│   └── ...  </div><div class="line">├── shaders/  </div><div class="line">│   └── ...  </div><div class="line">├── imgui.ini  </div><div class="line">├── main.cpp  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── .  </div><div class="line">├── SYEngine.vcxproj.filters  </div><div class="line">└── SYEngine.vcxproj.user  </div></div><!-- fragment --><p>It should compile without any errors or warnings and game whose logic you copied inside 'Game' directory should be running.</p>
 <dl class="section note"><dt>Note</dt><dd>Sometimes it is necessary to manually recompile 'SceneManager.cpp' source, because VS won't see any changes in files.</dd></dl>
 <h2>Now you have two choices:</h2>
 <ol type="1">

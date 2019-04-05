@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unregistercomponent',['UnregisterComponent',['../class_s_y_e_1_1_scene.html#a61984d7996c17dadbf29e68f2b614d37',1,'SYE::Scene']]]
+  ['_7ecomponent',['~Component',['../class_s_y_e_1_1_component.html#ac33581ec798d8575a5ac4c89fab42270',1,'SYE::Component']]]
 ];

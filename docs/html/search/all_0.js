@@ -16,6 +16,7 @@ var searchData=
   ['_5fmode',['_mode',['../class_s_y_e_1_1_camera.html#a89fc00dc8f9e351cc163d1d11f204058',1,'SYE::Camera']]],
   ['_5fnearplane',['_nearPlane',['../class_s_y_e_1_1_camera.html#aa126ccbe77dddec05e6fe7fd6f951405',1,'SYE::Camera']]],
   ['_5forigin',['_origin',['../class_s_y_e_1_1_transform.html#a61526251e9cbc1c6ac7feda1b24ae223',1,'SYE::Transform']]],
+  ['_5fpballentity',['_pBallEntity',['../class_s_y_e_1_1___scene_builder.html#ab1a2c1e7ef74fbda660be9898854251b',1,'SYE::_SceneBuilder']]],
   ['_5fpcollider',['_pCollider',['../class_s_y_e_1_1_physics_body.html#afa4afd61f8743ad406485471cb74e994',1,'SYE::PhysicsBody']]],
   ['_5fpmeshrenderer',['_pMeshRenderer',['../class_s_y_e_1_1_material.html#abec852a67cfa78ce81889876dda7f082',1,'SYE::Material']]],
   ['_5fposition',['_position',['../class_s_y_e_1_1_transform.html#a0c288f46da9e7aeb44f1a504f3d11c2a',1,'SYE::Transform']]],

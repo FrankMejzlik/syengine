@@ -7,7 +7,6 @@ var hierarchy =
     [ "SYE::BaseEngine", "class_s_y_e_1_1_base_engine.html", [
       [ "SYE::Engine", "class_s_y_e_1_1_engine.html", null ]
     ] ],
-    [ "SYE::BoneInfo", "struct_s_y_e_1_1_bone_info.html", null ],
     [ "btDefaultMotionState", null, [
       [ "SYE::MotionState", "class_s_y_e_1_1_motion_state.html", null ]
     ] ],
@@ -61,18 +60,20 @@ var hierarchy =
         [ "SYE::Material", "class_s_y_e_1_1_material.html", null ],
         [ "SYE::Mesh", "class_s_y_e_1_1_mesh.html", null ],
         [ "SYE::MeshRenderer", "class_s_y_e_1_1_mesh_renderer.html", null ],
-        [ "SYE::Model", "class_s_y_e_1_1_model.html", [
-          [ "SYE::SkeletalModel", "class_s_y_e_1_1_skeletal_model.html", null ]
-        ] ],
+        [ "SYE::Model", "class_s_y_e_1_1_model.html", null ],
         [ "SYE::PhysicsBody", "class_s_y_e_1_1_physics_body.html", [
           [ "SYE::Rigidbody", "class_s_y_e_1_1_rigidbody.html", null ],
           [ "SYE::Softbody", "class_s_y_e_1_1_softbody.html", null ]
         ] ],
         [ "SYE::PhysicsMaterial", "class_s_y_e_1_1_physics_material.html", null ],
         [ "SYE::Script", "class_s_y_e_1_1_script.html", [
+          [ "SYE::ActionCameraController", "class_s_y_e_1_1_action_camera_controller.html", null ],
+          [ "SYE::BallController", "class_s_y_e_1_1_ball_controller.html", null ],
           [ "SYE::FirstPersonCameraController", "class_s_y_e_1_1_first_person_camera_controller.html", null ],
           [ "SYE::GeneralInputHandler", "class_s_y_e_1_1_general_input_handler.html", null ],
-          [ "SYE::LookAtQuad", "class_s_y_e_1_1_look_at_quad.html", null ]
+          [ "SYE::LeftPaddleController", "class_s_y_e_1_1_left_paddle_controller.html", null ],
+          [ "SYE::LookAtQuad", "class_s_y_e_1_1_look_at_quad.html", null ],
+          [ "SYE::RightPaddleController", "class_s_y_e_1_1_right_paddle_controller.html", null ]
         ] ],
         [ "SYE::ScriptHandler", "class_s_y_e_1_1_script_handler.html", null ],
         [ "SYE::Shininess", "class_s_y_e_1_1_shininess.html", null ],
@@ -138,21 +139,16 @@ var hierarchy =
     [ "SYE::IModuleState", "class_s_y_e_1_1_i_module_state.html", [
       [ "SYE::BaseModule", "class_s_y_e_1_1_base_module.html", null ]
     ] ],
-    [ "SYE::InstanceContext", "class_s_y_e_1_1_instance_context.html", null ],
     [ "SYE::ISceneContextInterface", "class_s_y_e_1_1_i_scene_context_interface.html", [
       [ "SYE::Component", "class_s_y_e_1_1_component.html", null ],
       [ "SYE::Entity", "class_s_y_e_1_1_entity.html", null ]
     ] ],
-    [ "SYE::IUncopyable", "class_s_y_e_1_1_i_uncopyable.html", [
-      [ "SYE::ProcessInstance", "class_s_y_e_1_1_process_instance.html", null ]
-    ] ],
-    [ "SYE::IUsesEngineAPI", "class_s_y_e_1_1_i_uses_engine_a_p_i.html", [
+    [ "SYE::IUncopyable", "class_s_y_e_1_1_i_uncopyable.html", null ],
+    [ "SYE::IUsesEngineApi", "class_s_y_e_1_1_i_uses_engine_api.html", [
       [ "SYE::BaseModule", "class_s_y_e_1_1_base_module.html", null ]
     ] ],
-    [ "SYE::Logger", "class_s_y_e_1_1_logger.html", null ],
     [ "SYE::Matrix4< MatrixType, ElementType >", "class_s_y_e_1_1_matrix4.html", null ],
     [ "SYE::Matrix4< glm::mat4, float >", "class_s_y_e_1_1_matrix4.html", null ],
-    [ "SYE::MeshEntry", "struct_s_y_e_1_1_mesh_entry.html", null ],
     [ "SYE::SceneContext", "class_s_y_e_1_1_scene_context.html", null ],
     [ "SYE::Shader", "class_s_y_e_1_1_shader.html", null ],
     [ "SYE::Shadow", "class_s_y_e_1_1_shadow.html", [
@@ -168,6 +164,5 @@ var hierarchy =
     [ "SYE::Ui", "class_s_y_e_1_1_ui.html", null ],
     [ "SYE::Vector3< VectorType, ElementType >", "class_s_y_e_1_1_vector3.html", null ],
     [ "SYE::Vector3< glm::vec3, float >", "class_s_y_e_1_1_vector3.html", null ],
-    [ "SYE::Vector4< VectorType, ElementType >", "class_s_y_e_1_1_vector4.html", null ],
-    [ "SYE::VertexBoneData", "struct_s_y_e_1_1_vertex_bone_data.html", null ]
+    [ "SYE::Vector4< VectorType, ElementType >", "class_s_y_e_1_1_vector4.html", null ]
 ];

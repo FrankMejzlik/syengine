@@ -20,6 +20,9 @@ else()
 endif(MSVC) 
 
 
+set(CMAKE_INSTALL_PREFIX "./dist")
+
+
 # Set version
 set(CMAKE_PROJECT_VERSION_MAJOR 0)
 set(CMAKE_PROJECT_VERSION_MINOR 0)

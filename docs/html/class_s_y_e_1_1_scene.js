@@ -18,7 +18,7 @@ var class_s_y_e_1_1_scene =
     [ "GetActivePrimaryComponentSlotsRef", "class_s_y_e_1_1_scene.html#adbf686253de70ea07b21d41fea319d45", null ],
     [ "GetCameraPtr", "class_s_y_e_1_1_scene.html#ac6dd55dc753174c30c93a0b4cc16879a", null ],
     [ "GetMainCamera", "class_s_y_e_1_1_scene.html#a52388b6a0d3a3385ecc619098d4854d9", null ],
-    [ "GetMainWindowPtr", "class_s_y_e_1_1_scene.html#a3db78753cf6ea44f6201d4d39b47c36f", null ],
+    [ "GetMainWindowPtr", "class_s_y_e_1_1_scene.html#a0a3244774a3f3a42ac87c6807f2655b4", null ],
     [ "GetPhysicsScenePtr", "class_s_y_e_1_1_scene.html#aadb02775f46bde4c8782662515a2723e", null ],
     [ "GetRenderTargetTexturePtr", "class_s_y_e_1_1_scene.html#aa59ad57cd30cfaf813a75133ea669e66", null ],
     [ "GetRootEntity", "class_s_y_e_1_1_scene.html#a1160032eec26ae73c5b4fe918ede88de", null ],

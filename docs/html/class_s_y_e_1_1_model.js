@@ -1,7 +1,6 @@
 var class_s_y_e_1_1_model =
 [
     [ "Model", "class_s_y_e_1_1_model.html#ae53e30c0b4326606736fc604978b5955", null ],
-    [ "Model", "class_s_y_e_1_1_model.html#a6ff611a6cb5a8a6b93181f39e70d5a49", null ],
     [ "~Model", "class_s_y_e_1_1_model.html#aab82eed8830186d5d6bce3352d4cf5ab", null ],
     [ "AddMesh", "class_s_y_e_1_1_model.html#a724c7550c376891cac167ec8b8de166f", null ],
     [ "AddTexture", "class_s_y_e_1_1_model.html#a46798a44b47c2cfceb0bc91d22920e4b", null ],

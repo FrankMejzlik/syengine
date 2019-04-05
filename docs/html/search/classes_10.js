@@ -13,7 +13,6 @@ var searchData=
   ['shadowmap',['ShadowMap',['../class_s_y_e_1_1_shadow_map.html',1,'SYE']]],
   ['shininess',['Shininess',['../class_s_y_e_1_1_shininess.html',1,'SYE']]],
   ['simulationmanager',['SimulationManager',['../class_s_y_e_1_1_simulation_manager.html',1,'SYE']]],
-  ['skeletalmodel',['SkeletalModel',['../class_s_y_e_1_1_skeletal_model.html',1,'SYE']]],
   ['skybox',['Skybox',['../class_s_y_e_1_1_skybox.html',1,'SYE']]],
   ['skyboxmanager',['SkyboxManager',['../class_s_y_e_1_1_skybox_manager.html',1,'SYE']]],
   ['sliderparams',['SliderParams',['../struct_slider_params.html',1,'']]],

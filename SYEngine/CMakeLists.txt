@@ -195,3 +195,6 @@ target_include_directories(${MAIN_EXE_NAME} PUBLIC "${GLM_0_9_9_0_INCLUDE_DIRS}"
 #####################
 # Add include directories
 target_include_directories(${MAIN_EXE_NAME} PUBLIC "${STB_2_22_INCLUDE_DIRS}")
+
+
+INSTALL_TARGETS(${CMAKE_INSTALL_PREFIX} ${MAIN_EXE_NAME})

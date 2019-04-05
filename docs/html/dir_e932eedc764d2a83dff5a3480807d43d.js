@@ -8,5 +8,5 @@ var dir_e932eedc764d2a83dff5a3480807d43d =
     [ "IModuleState.h", "_i_module_state_8h_source.html", null ],
     [ "ISceneContextInterface.h", "_i_scene_context_interface_8h_source.html", null ],
     [ "IUncopyable.h", "_i_uncopyable_8h_source.html", null ],
-    [ "IUsesEngineAPI.h", "_i_uses_engine_a_p_i_8h_source.html", null ]
+    [ "IUsesEngineApi.h", "_i_uses_engine_api_8h_source.html", null ]
 ];
