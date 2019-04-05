@@ -106,7 +106,7 @@ add_executable(
   ${MAIN_EXE_NAME} 
   ${SYENGINE_SOURCE_MAIN} ${SYENGINE_SOURCE_FILEPATHS}
 )
-
+INSTALL_TARGETS(T ${MAIN_EXE_NAME})
 
 # Add compiler definitions
 target_compile_definitions(${MAIN_EXE_NAME} PRIVATE _DISABLE_EXTENDED_ALIGNED_STORAGE)
@@ -130,7 +130,7 @@ endif()
 
 
 # Add external dependencies
-add_subdirectory(external)
+add_subdirectory(external EXCLUDE_FROM_ALL)
 
 #####################
 # Bullet3
@@ -197,4 +197,3 @@ target_include_directories(${MAIN_EXE_NAME} PUBLIC "${GLM_0_9_9_0_INCLUDE_DIRS}"
 target_include_directories(${MAIN_EXE_NAME} PUBLIC "${STB_2_22_INCLUDE_DIRS}")
 
 
-INSTALL_TARGETS(${CMAKE_INSTALL_PREFIX} ${MAIN_EXE_NAME})
